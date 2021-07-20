@@ -1,0 +1,117 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{post.title_tag}}{% endblock title%}
+{% block body %}
+
+<main id="main">
+   <section class="breadcrumbs">
+      <div class="container">
+         <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li>Blog Single</li>
+         </ol>
+         <h2>Blog Single</h2>
+      </div>
+   </section>
+   <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+         <div class="row">
+            <div class="col-lg-8 entries">
+               <article class="entry entry-single">
+                  <div class="entry-img">
+                     <img src="{{post.entry_img}}" alt="" class="img-fluid">
+                  </div>
+                  <h2 class="entry-title">
+                     <strong><a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a></strong>
+                  </h2>
+                  <div class="entry-meta">
+                     <ul>
+                        <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
+                        <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published}}</li>
+                        <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
+                     </ul>
+                  </div>
+                  <div class="entry-content">
+                     {{post.body|safe}}
+                  </div>
+                  <div class="entry-footer">
+                     <i class="bi bi-folder"></i>
+                     <ul class="cats">
+                        <li><a href="#">Business</a></li>
+                     </ul>
+                     <i class="bi bi-tags"></i>
+                     <ul class="tags">
+                        {% for tag in post.tags.all %}
+                        <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
+                        {% endfor %}
+                     </ul>
+                  </div>
+               </article>
+               <!-- End blog entry -->
+               <div class="blog-author d-flex align-items-center">
+                  <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
+                  <div>
+                     <h4>Jane Smith</h4>
+                     <div class="social-links">
+                        <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+                        <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+                     </div>
+                     <p>
+                        Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
+                     </p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-4">
+               <div class="sidebar">
+                  <h3 class="sidebar-title">Search</h3>
+                  <div class="sidebar-item search-form">
+                     <form action="">
+                        <input type="text">
+                        <button type="submit"><i class="bi bi-search"></i></button>
+                     </form>
+                  </div>
+                  <!-- End sidebar search formn-->
+                  <h3 class="sidebar-title">Categories</h3>
+                  <div class="sidebar-item categories">
+                     <ul>
+                        <li><a href="#">General <span>(25)</span></a></li>
+                        <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                        <li><a href="#">Travel <span>(5)</span></a></li>
+                        <li><a href="#">Design <span>(22)</span></a></li>
+                        <li><a href="#">Creative <span>(8)</span></a></li>
+                        <li><a href="#">Educaion <span>(14)</span></a></li>
+                     </ul>
+                  </div>
+                  <!-- End sidebar categories-->
+                  <h3 class="sidebar-title">Posts You May Like</h3>
+                  <div class="sidebar-item recent-posts">
+                     {% for item in similar_post %}
+                     <div class="post-item clearfix">
+                        <img src="assets/img/blog/blog-recent-1.jpg" alt="">
+                        <strong><h4><a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a></h4></strong>
+                        <time>{{item.date_published}}</time>
+                     </div>
+                     {% endfor %}
+                  </div>
+                  <!-- End sidebar recent posts-->
+                  <h3 class="sidebar-title">Tags</h3>
+                  <div class="sidebar-item tags">
+                     <ul>
+                        {% for tag in post.tags.all %}
+                        <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
+                        {% endfor %}
+                     </ul>
+                  </div>
+                  <!-- End sidebar tags-->
+               </div>
+               <!-- End sidebar -->
+            </div>
+            <!-- End blog sidebar -->
+         </div>
+      </div>
+   </section>
+   <!-- End Blog Single Section -->
+</main>
+{% endblock body %}
