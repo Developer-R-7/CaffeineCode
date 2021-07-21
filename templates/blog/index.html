@@ -1,18 +1,13 @@
 {% extends 'blog/base.html' %}
-{% block title %} Blog-CaffeineCode {% endblock title %}
+{% block title %}CaffeineBlog - Your Coffee,Our Blogs {% endblock title %}
 {% block body %}
+{% load hitcount_tags %}
 <main id="main">
-   <!-- ======= Breadcrumbs ======= -->
-   <section class="breadcrumbs">
-      <div class="container">
-         <ol>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li>Blog Single</li>
-         </ol>
-         <h2>Blog Single</h2>
-      </div>
-   </section>
+   <div class="container" data-aos="fade-up" style="padding-top: 30px;text-align:center;font-family:'Roboto Slab', serif;">
+      <strong><h2  style="font-size:40px;">CaffeineBlog - <span style="color:rgb(247, 73, 10);">Your Coffee, Our Blogs</span> </h2></strong>
+      
+   </div>
+   <br>
    <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
          <div class="row">
@@ -30,8 +25,8 @@
                      <ul>
                         <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
                         <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published}}</li>
-                        <!--get all post of that date-->
-                        <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
+                        <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
+                        <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
                      </ul>
                   </div>
                   <div class="entry-content">
@@ -68,7 +63,7 @@
                   <h3 class="sidebar-title">Search</h3>
                   <div class="sidebar-item search-form">
                      <form action="{% url 'blog:search_qu' %}" method="GET">
-                        <input type="text" name="search_query">
+                        <input type="text" name="search_query" required autocomplete="off">
                         <button type="submit"><i class="bi bi-search"></i></button>
                      </form>
                   </div>
@@ -84,42 +79,30 @@
                         <li><a href="#">Educaion <span>(14)</span></a></li>
                      </ul>
                   </div>
+               </div>
+               <div class="sidebar">
                   <!-- End sidebar categories-->
-                  <h3 class="sidebar-title">Recent Posts</h3>
+                  <h3 class="sidebar-title">Most Viewed</h3>
                   <div class="sidebar-item recent-posts">
-                     <div class="post-item clearfix">
-                        <img src="assets/img/blog/blog-recent-1.jpg" alt="">
-                        <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                     </div>
-                     <div class="post-item clearfix">
-                        <img src="assets/img/blog/blog-recent-2.jpg" alt="">
-                        <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
-                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                     </div>
-                     <div class="post-item clearfix">
-                        <img src="assets/img/blog/blog-recent-3.jpg" alt="">
-                        <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                     </div>
-                     <div class="post-item clearfix">
-                        <img src="assets/img/blog/blog-recent-4.jpg" alt="">
-                        <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
-                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                     </div>
-                     <div class="post-item clearfix">
-                        <img src="assets/img/blog/blog-recent-5.jpg" alt="">
-                        <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                     </div>
+                     {% for most_view in trending_post %}
+                        <div class="post-item clearfix">
+                           <img src="{{most_view.entry_img}}" alt="">
+                           <h4><a href="{% url 'blog:blog_details' most_view.pk %}">{{most_view.title}}</a></h4>
+                           <time>{{most_view.date_published}} &#183; {{most_view.readtime_min}} min read</time>
+                        </div>
+                        <hr>
+                     {% endfor %}
                   </div>
-                  <!-- End sidebar recent posts-->
-                  <h3 class="sidebar-title">Search By Tags</h3>
+               </div>
+               <div class="sidebar">
+                  <h3 class="sidebar-title">Search By Popular Tags</h3>
                   <div class="sidebar-item tags">
                      <ul>
+                        {% for used_tag in most_used_tag %}
+                        <li><a href="{% url 'blog:post_list_by_tags' used_tag.slug %}">{{used_tag}}</a></li>
+                        {%endfor%}
                      </ul>
                   </div>
-                  <!-- End sidebar tags-->
                </div>
                <!-- End sidebar -->
             </div>

@@ -1,21 +1,15 @@
 {% extends 'blog/base.html' %}
-{% block title %} Blog-CaffeineCode {% endblock title %}
+{% block title %} CaffeineBlog {% endblock title %}
 {% block body %}
+{% load hitcount_tags %}
   <main id="main">
-    <!-- ======= Breadcrumbs ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
-
-        <ol>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li>Blog Single</li>
-        </ol>
-        <h2>All blogs with tag -{{tag}}</h2>
-
-      </div>
-    </section>
     <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <h2>
+          Blogs tagged with "{{tag}}"
+        </h2>
+     </div>
+     <br>
       <div class="container" data-aos="fade-up">
 
         <div class="row">
@@ -35,13 +29,14 @@
                 <ul>
                   <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
                   <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published}}</li><!--get all post of that date-->
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
+                  <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
                 </ul>
               </div>
 
               <div class="entry-content">
                 <p>
-                  {{post.body|safe| slice:":200"}}
+                  {{post.blog_snipet| slice:":200"}}
                 </p>
                 <div class="read-more">
                   <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
@@ -56,7 +51,7 @@
                       <div class="pagination">
                           <span class="page-links">
                               <span class="page-current">
-                                  Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                                  Page {{ posts.number }} of {{ posts.paginator.num_pages }}
                               </span>
                               {% if  posts.has_previous %}
                                  <li><a href="/blog/tag/{{ tag }}?page={{ posts.previous_page_number }}">Previous</a></li>
@@ -69,7 +64,7 @@
               </ul>
             </div>
 
-          </div><!-- End blog entries list -->
+          </div>
 
           <div class="col-lg-4">
 
@@ -77,11 +72,11 @@
 
               <h3 class="sidebar-title">Search</h3>
               <div class="sidebar-item search-form">
-                <form action="">
-                  <input type="text">
+                <form action="{% url 'blog:search_qu' %}" method="GET">
+                  <input type="text" name="search_query" required autocomplete="off">
                   <button type="submit"><i class="bi bi-search"></i></button>
                 </form>
-              </div><!-- End sidebar search formn-->
+              </div>
 
               <h3 class="sidebar-title">Categories</h3>
               <div class="sidebar-item categories">
@@ -94,51 +89,35 @@
                   <li><a href="#">Educaion <span>(14)</span></a></li>
                 </ul>
               </div><!-- End sidebar categories-->
-
+            </div>
+            {% if most_view %}
+            <div class="sidebar">
               <h3 class="sidebar-title">Recent Posts</h3>
               <div class="sidebar-item recent-posts">
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-1.jpg" alt="">
-                  <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-2.jpg" alt="">
-                  <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-3.jpg" alt="">
-                  <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-4.jpg" alt="">
-                  <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-5.jpg" alt="">
-                  <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
+                {% for item in most_view %}
+                  <div class="post-item clearfix">
+                    <img src="{{item.entry_img}}" alt="">
+                    <h4><a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a></h4>
+                    <time>{{item.date_published}}</time>
+                  </div>
+                  <hr>
+                {% endfor %}
               </div><!-- End sidebar recent posts-->
-
-              <h3 class="sidebar-title">Search By Tags</h3>
+              {% endif %}
+              </div>
+              <div class="sidebar">
+              <h3 class="sidebar-title">Popular Tags</h3>
               <div class="sidebar-item tags">
                 <ul>
-                  
+                  {% for used_tag in most_tags %}
+                      <li><a href="{% url 'blog:post_list_by_tags' used_tag.slug %}">{{used_tag}}</a></li>
+                  {%endfor%}
                 </ul>
-              </div><!-- End sidebar tags-->
+              </div>
 
-            </div><!-- End sidebar -->
+            </div>
 
-          </div><!-- End blog sidebar -->
+          </div>
 
         </div>
 
