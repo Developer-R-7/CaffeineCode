@@ -949,9 +949,6 @@
                {% if request.session.client_side_error_signin is True %}
                <ul class="messages" style="padding: 5px; margin-bottom:0em;">
                   <div class="alert alert-danger alert-with-icon">
-                     <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-                     <i class="tim-icons icon-simple-remove"></i>
-                     </button>
                      <span data-notify="icon" class="tim-icons icon-alert-circle-exc"></span>
                      <span><b>{{request.session.error_text}}</b></span>
                   </div>
