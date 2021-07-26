@@ -1,6 +1,6 @@
 from django.core import paginator
-from .models import Post
-from django.shortcuts import render,get_object_or_404
+from .models import Post,Newsletter
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
 from taggit.models import Tag
 from django.db.models import Count
@@ -28,6 +28,19 @@ def search_sys(request):
         posts = posts.order_by('-modified')
         return render(request,'blog/search.html',{'query':query,'result':posts})
 
+def newsletter(request):
+    if request.method == "POST":
+        mail = request.POST.get("newsletter")
+        if Newsletter.objects.filter(email = mail).first():
+            pass
+        else:
+            add_mail = Newsletter.objects.create(email=mail)
+            add_mail.save()
+        return redirect('/blog/')
+    else:
+        return redirect('')
+
+
 def post_by_tags(request,tag_slug):
     most_used_tags = Post.tags.most_common()[:6]
     tag = get_object_or_404(Tag, slug=tag_slug)
@@ -48,5 +61,6 @@ class ArticleDetailView(HitCountDetailView):
         similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-tags')[:5]
         context['similar_post'] = similar_posts
         return context
+
 
     

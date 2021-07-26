@@ -2,17 +2,28 @@
 <html lang="en">
 
 <head>
+   {% load static %}
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>{% block title %}{% endblock title %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
   <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+    width: 100%;
+    height: 100%;
+  }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
@@ -27,7 +38,6 @@
   <link href="{% static 'IndexHome/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
   <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
   <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-
   <!-- Template Main CSS File -->
   <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet">
 
@@ -70,8 +80,37 @@
             font-size: 26px;
          }
       }
+      .loader{
+         height: 100vh;
+         width: 100vw;
+         overflow: hidden;
+         background-color: #ffffff;
+         position: absolute;
+     }
+     .loader>div{
+         height: 80px;
+         width: 80px;
+         border: 8px solid #fafafa;
+         border-top-color:rgb(241, 168, 71);
+         position: absolute;
+         margin: auto;
+         top: 0;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         border-radius: 50%;
+         animation: spin 1.5s infinite linear;
+     }
+     @keyframes spin{
+         100%{
+             transform: rotate(360deg);
+         }
+     }
    </style>
-    <header id="header" class="header">
+   <div class="loader">
+      <div></div>
+   </div>
+    <header id="header" class="header" data-aos="fade-in">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
            <a href="index.html" class="logo d-flex align-items-center">
             <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" height="130px" width="130px" alt="">
@@ -81,7 +120,7 @@
                  <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
                  <li><a class="nav-link scrollto" href="#about">About Us</a></li>
                  <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                 <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
+                 <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
                  <li><a class="nav-link scrollto" href="#team">Team</a></li>
                  <li><a href="{% url 'blog:index'  %}" class="nav-link scrollto active">Blog</a></li>
                  <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
@@ -90,12 +129,45 @@
            </nav>
         </div>
      </header>
+    
       <main id="main">
          <section id="blog" class="blog">
             {% block search_block %}
             {% endblock search_block %}
             <div class="container" data-aos="fade-up">
                <div class="row">
+                  <div class="container-sm" data-aos="fade-up" style="padding-bottom: 30px;">
+                     <div id="demo" class="carousel slide" data-ride="carousel">
+         
+                        <!-- Indicators -->
+                        <ul class="carousel-indicators">
+                          <li data-target="#demo" data-slide-to="0" class="active"></li>
+                          <li data-target="#demo" data-slide-to="1"></li>
+                          <li data-target="#demo" data-slide-to="2"></li>
+                        </ul>
+                        
+                        <!-- The slideshow -->
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="https://images.unsplash.com/photo-1617870952348-7524edfb61b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Los Angeles" width="1100" height="500">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1623479322729-28b25c16b011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Chicago" width="1100" height="500">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="New York" width="1100" height="500">
+                          </div>
+                        </div>
+                        
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                          <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                          <span class="carousel-control-next-icon"></span>
+                        </a>
+                     </div>
+                     </div>
                   <div class="col-lg-8 entries">
                      {% block article %}
                      {% endblock article %}
@@ -146,8 +218,9 @@
                   <p>Receive regular updates and announcement by subscibing to our Newsletter</p>
                </div>
                <div class="col-lg-6">
-                  <form action="" method="post">
-                     <input type="email" name="email"><input type="submit" value="Subscribe">
+                  <form action="{% url 'blog:newsletter' %}" method="post">
+                     {% csrf_token %}
+                     <input type="email" name="newsletter" required><input type="submit" value="Subscribe">
                   </form>
                </div>
             </div>
@@ -215,6 +288,12 @@
          </div>
       </div>
    </footer>
+   <script>
+      $(window).on('load',function(){
+          $(".loader").fadeOut(1100);
+          $(".content").fadeIn(1100);
+      });
+  </script>
    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
