@@ -1,306 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>{% block title %}{% endblock title %}</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            /* Make the image fully responsive */
+            .carousel-inner img {
+            width: 100%;
+            height: 100%;
+            }
+        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        <!-- Vendor CSS Files -->
+        {% load static %}
+        {% block styling %}
+        {% endblock styling %}
+      
 
-<head>
-   {% load static %}
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>{% block title %}{% endblock title %}</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <!-- Google Fonts -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <style>
-  /* Make the image fully responsive */
-  .carousel-inner img {
-    width: 100%;
-    height: 100%;
-  }
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-  <!-- Vendor CSS Files -->
-  {% load static %}
-  <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet">
-  <link href="{% static 'IndexHome/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
-  <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-  <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-  <!-- Template Main CSS File -->
-  <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet">
-
-</head>
-<body>
-   <style>
-      body {
-         font-family: 'JosefinSans', monospace;
-      }
-      .entry-content p{
-         color:#6c757d;
-      }
-      .entry-title{
-         font-family: 'JosefinSans', monospace;
-      }
-      .blog .entry .entry-content p {
-         line-height: 1.9;
-         display: block;
-         margin-block-start: 1em;
-         margin-block-end: 1em;
-         margin-inline-start: 0px;
-         margin-inline-end: 0px;
-         font-weight: 300;
-     }
-     .entry-title{
-      font-family: 'JosefinSans', monospace;
-      }
-      .header .logo img {
-         max-height: 150px;
-         margin-right: 6px;
-      }
-      .blog .sidebar {
-         margin: 0 0 60px 15px;
-     }
-      .entry-title{
-         font-size: 45px;
-      }
-      @media screen and (max-width: 414) {
-         .entry-title{
-            font-size: 26px;
-         }
-      }
-      .loader{
-         height: 100vh;
-         width: 100vw;
-         overflow: hidden;
-         background-color: #ffffff;
-         position: absolute;
-     }
-     .loader>div{
-         height: 80px;
-         width: 80px;
-         border: 8px solid #fafafa;
-         border-top-color:rgb(241, 168, 71);
-         position: absolute;
-         margin: auto;
-         top: 0;
-         bottom: 0;
-         left: 0;
-         right: 0;
-         border-radius: 50%;
-         animation: spin 1.5s infinite linear;
-     }
-     @keyframes spin{
-         100%{
-             transform: rotate(360deg);
-         }
-     }
-   </style>
-   <div class="loader">
-      <div></div>
-   </div>
-    <header id="header" class="header" data-aos="fade-in">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
-           <a href="index.html" class="logo d-flex align-items-center">
-            <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" height="130px" width="130px" alt="">
-           </a>
-           <nav id="navbar" class="navbar">
-              <ul>
-                 <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
-                 <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                 <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                 <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
-                 <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                 <li><a href="{% url 'blog:index'  %}" class="nav-link scrollto active">Blog</a></li>
-                 <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
-              </ul>
-              <i class="bi bi-list mobile-nav-toggle"></i>
-           </nav>
+        <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <style>
+            body {
+            font-family: 'JosefinSans', monospace;
+            }
+            .entry-content p{
+            color:#6c757d;
+            }
+            .entry-title{
+            font-family: 'JosefinSans', monospace;
+            }
+            .blog .entry .entry-content p {
+            line-height: 1.9;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-weight: 300;
+            }
+            .entry-title{
+            font-family: 'JosefinSans', monospace;
+            }
+            .header .logo img {
+            max-height: 150px;
+            margin-right: 6px;
+            }
+            .blog .sidebar {
+            margin: 0 0 60px 15px;
+            }
+            .entry-title{
+            font-size: 45px;
+            }
+            
+            .loader{
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-color: #ffffff;
+            position: absolute;
+            }
+            .loader>div{
+            height: 80px;
+            width: 80px;
+            border: 8px solid #fafafa;
+            border-top-color:rgb(241, 168, 71);
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 50%;
+            animation: spin 1.5s infinite linear;
+            }
+            @keyframes spin{
+            100%{
+            transform: rotate(360deg);
+            }
+            }
+        </style>
+        <div class="loader">
+            <div></div>
         </div>
-     </header>
-    
-      <main id="main">
-         <section id="blog" class="blog">
-            {% block search_block %}
-            {% endblock search_block %}
-            <div class="container" data-aos="fade-up">
-               <div class="row">
-                  <div class="container-sm" data-aos="fade-up" style="padding-bottom: 30px;">
-                     <div id="demo" class="carousel slide" data-ride="carousel">
-         
-                        <!-- Indicators -->
-                        <ul class="carousel-indicators">
-                          <li data-target="#demo" data-slide-to="0" class="active"></li>
-                          <li data-target="#demo" data-slide-to="1"></li>
-                          <li data-target="#demo" data-slide-to="2"></li>
-                        </ul>
-                        
-                        <!-- The slideshow -->
-                        <div class="carousel-inner">
-                          <div class="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1617870952348-7524edfb61b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Los Angeles" width="1100" height="500">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1623479322729-28b25c16b011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Chicago" width="1100" height="500">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="New York" width="1100" height="500">
-                          </div>
-                        </div>
-                        
-                        <!-- Left and right controls -->
-                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                          <span class="carousel-control-prev-icon"></span>
-                        </a>
-                        <a class="carousel-control-next" href="#demo" data-slide="next">
-                          <span class="carousel-control-next-icon"></span>
-                        </a>
-                     </div>
-                     </div>
-                  <div class="col-lg-8 entries">
-                     {% block article %}
-                     {% endblock article %}
-                     <div class="blog-pagination">
-                        <ul class="justify-content-center">
-                           {% block pagination %}
-                           {% endblock pagination %}
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="col-lg-4">
-                     {% block profile %}
-                     {% endblock profile %}
-                     <div class="sidebar">
-                        <h3 class="sidebar-title mb-4" style="font-size: 23px;">Search</h3>
-                        <div class="sidebar-item search-form">
-                           <form action="{% url 'blog:search_qu' %}" method="GET">
-                              <input type="text" name="search_query" required autocomplete="off">
-                              <button type="submit"><i class="bi bi-search"></i></button>
-                           </form>
-                        </div>
-                        <h3 class="sidebar-title mb-4" style="font-size:23px;">Categories</h3>
-                        <div class="sidebar-item categories">
-                           <ul>
-                              <li><a href="#">General <span>(25)</span></a></li>
-                              <li><a href="#">Lifestyle <span>(12)</span></a></li>
-                              <li><a href="#">Travel <span>(5)</span></a></li>
-                              <li><a href="#">Design <span>(22)</span></a></li>
-                              <li><a href="#">Creative <span>(8)</span></a></li>
-                              <li><a href="#">Educaion <span>(14)</span></a></li>
-                           </ul>
-                        </div>
-                     </div>
-                     {% block sidebar %}
-                     {% endblock sidebar %}
-                  </div>
-               </div>
+        <header id="header" class="header" data-aos="fade-in">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+                <a href="index.html" class="logo d-flex align-items-center">
+                <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" height="130px" width="130px" alt="">
+                </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li><a href="{% url 'blog:index'  %}" class="nav-link scrollto active">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
             </div>
-         </div>
-      </section>
-   </main>
-   <footer id="footer" class="footer">
-      <div class="footer-newsletter">
-         <div class="container">
-            <div class="row justify-content-center">
-               <div class="col-lg-12 text-center">
-                  <h4>Our Newsletter</h4>
-                  <p>Receive regular updates and announcement by subscibing to our Newsletter</p>
-               </div>
-               <div class="col-lg-6">
-                  <form action="{% url 'blog:newsletter' %}" method="post">
-                     {% csrf_token %}
-                     <input type="email" name="newsletter" required><input type="submit" value="Subscribe">
-                  </form>
-               </div>
+        </header>
+        <main id="main">
+            <section id="blog" class="blog">
+                {% block search_block %}
+                {% endblock search_block %}
+                {% block owl %}
+                {% endblock owl %}
+                <div class="container" data-aos="fade-up">
+                    <div class="row">
+                        <div class="col-lg-8 entries">
+                            {% block article %}
+                            {% endblock article %}
+                            <div class="blog-pagination">
+                                <ul class="justify-content-center">
+                                    {% block pagination %}
+                                    {% endblock pagination %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            {% block profile %}
+                            {% endblock profile %}
+                            <div class="sidebar">
+                                <h3 class="sidebar-title mb-4" style="font-size: 23px;">Search</h3>
+                                <div class="sidebar-item search-form">
+                                    <form action="{% url 'blog:search_qu' %}" method="GET">
+                                        <input type="text" name="search_query" required autocomplete="off">
+                                        <button type="submit"><i class="bi bi-search"></i></button>
+                                    </form>
+                                </div>
+                                <h3 class="sidebar-title mb-4" style="font-size:23px;">Categories</h3>
+                                <div class="sidebar-item categories">
+                                    <ul>
+                                        <li><a href="#">General <span>(25)</span></a></li>
+                                        <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                                        <li><a href="#">Travel <span>(5)</span></a></li>
+                                        <li><a href="#">Design <span>(22)</span></a></li>
+                                        <li><a href="#">Creative <span>(8)</span></a></li>
+                                        <li><a href="#">Educaion <span>(14)</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% block sidebar %}
+                            {% endblock sidebar %}
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+        <footer id="footer" class="footer">
+            <div class="footer-newsletter">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 text-center">
+                            <h4>Our Newsletter</h4>
+                            <p>Receive regular updates and announcement by subscibing to our Newsletter</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="{% url 'blog:newsletter' %}" method="post">
+                                {% csrf_token %}
+                                <input type="email" name="newsletter" required><input type="submit" value="Subscribe">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <div class="footer-top">
-         <div class="container">
-            <div class="row gy-4">
-               <div class="col-lg-5 col-md-12 footer-info">
-                  <a href="index.html" class="logo d-flex align-items-center">
-                  <img src="assets/img/logo.png" alt="">
-                  <span>FlexStart</span>
-                  </a>
-                  <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-                  <div class="social-links mt-3">
-                     <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                     <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                     <a href="#" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
-                     <a href="#" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
-                  </div>
-               </div>
-               <div class="col-lg-2 col-6 footer-links">
-                  <h4>Useful Links</h4>
-                  <ul>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                  </ul>
-               </div>
-               <div class="col-lg-2 col-6 footer-links">
-                  <h4>Our Services</h4>
-                  <ul>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-                     <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                  </ul>
-               </div>
-               <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                  <h4>Contact Us</h4>
-                  <p>
-                     A108 Adam Street <br>
-                     New York, NY 535022<br>
-                     United States <br><br>
-                     <strong>Phone:</strong> +1 5589 55488 55<br>
-                     <strong>Email:</strong> info@example.com<br>
-                  </p>
-               </div>
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row gy-4">
+                        <div class="col-lg-5 col-md-12 footer-info">
+                            <a href="index.html" class="logo d-flex align-items-center">
+                            <img src="assets/img/logo.png" alt="">
+                            <span>FlexStart</span>
+                            </a>
+                            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-6 footer-links">
+                            <h4>Useful Links</h4>
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 col-6 footer-links">
+                            <h4>Our Services</h4>
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                            <h4>Contact Us</h4>
+                            <p>
+                                A108 Adam Street <br>
+                                New York, NY 535022<br>
+                                United States <br><br>
+                                <strong>Phone:</strong> +1 5589 55488 55<br>
+                                <strong>Email:</strong> info@example.com<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <div class="container">
-         <div class="copyright">
-            &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved
-         </div>
-         <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-         </div>
-      </div>
-   </footer>
-   <script>
-      $(window).on('load',function(){
-          $(".loader").fadeOut(1100);
-          $(".content").fadeIn(1100);
-      });
-  </script>
-   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
-    <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
-    <script src="{% static 'IndexHome/assets/vendor/php-email-form/validate.js' %}"></script>
-    <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-    <script src="{% static 'IndexHome/assets/vendor/purecounter/purecounter.js' %}"></script>
-    <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-    <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-    <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+            <div class="container">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+        </footer>
+        <script>
+            $(window).on('load',function(){
+                $(".loader").fadeOut(1100);
+                $(".content").fadeIn(1100);
+            });
+        </script>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+        {% block script %}
+        {% endblock script %}
+
 </body>

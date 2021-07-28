@@ -19,10 +19,15 @@ class Post(models.Model):
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',related_query_name='hit_count_generic_relation')
     author_conculsion = models.CharField(max_length=300,default="No Author Review")
     readtime_min = models.IntegerField(default=0) 
+    skills = models.CharField(max_length=70,default="html,css")
+    editor_choice = models.BooleanField(default=False)
+    designation = models.CharField(max_length=60,default="freelancer")
     def __str__(self):
         return self.title + ' | ' + str(self.author)
+
 
 class Newsletter(models.Model):
     email = models.EmailField()
     def __str__(self):
         return self.email
+

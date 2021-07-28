@@ -1,73 +1,84 @@
 {% extends 'blog/base.html' %}
 {% block title %} Blog-CaffeineCode {% endblock title %}
 {% load hitcount_tags %}
-
 {% block search_block %}
+{% load static %}
 <div class="container" data-aos="fade-up">
-   <h2>
-      {% with result.count as total_result %}
-         Found {{total_result}} result with "{{query}}"      
-      {% endwith %}
-   </h2>
+    <h2>
+        {% with result.count as total_result %}
+        Found {{total_result}} result with "{{query}}"      
+        {% endwith %}
+    </h2>
 </div>
 <br>
 {% endblock search_block %}
 {% block article %}
-{% for post in result %}
-      <article class="entry">
-         <div class="entry-img">
+{% if result %}
+    {% for post in result %}
+    <article class="entry">
+        <div class="entry-img">
             <img src="{{post.entry_img}}" alt="" class="img-fluid">
-         </div>
-         <h2 class="entry-title">
+        </div>
+        <h2 class="entry-title">
             <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
-         </h2>
-         <div class="entry-meta">
+        </h2>
+        <div class="entry-meta">
             <ul>
-               <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
-               <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
-               <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
-               <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
+                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
+                <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
+                <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
+                <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
             </ul>
-         </div>
-         <div class="entry-content">
+        </div>
+        <div class="entry-content">
             <p>
-               {{post.blog_snipet|slice:":200"}}
+                {{post.blog_snipet|slice:":200"}}
             </p>
             <div class="read-more">
-               <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
+                <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
             </div>
-         </div>
-      </article>
-{% endfor %}
+        </div>
+    </article>
+    {% endfor %}
+{% else %}
+    <article class="entry">
+        <div class="entry-img">
+            <img src="{% static 'IndexHome/assets/img/empty.png' %}" height="300px" class="img-fluid">
+        </div>
+        <div class="entry-title" style="text-align: center;color:rgb(240, 75, 75);">
+            No results Found!
+        </div>
+    </article>
+{% endif %}
 {% endblock article %}
 
 {% block pagination %}
 <ul>
-   {% if page_obj.has_previous %}
-      <li><a href="/search?page={{ page_obj.previous_page_number }}">Previous</a></li>
-   {% endif %}
-   {% if page_obj.has_next %}
-      <li><a href="/search?page={{ page_obj.next_page_number }}">Next</a></li>
-   {% endif %}
-   </ul>
+    {% if page_obj.has_previous %}
+    <li><a href="/search?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li><a href="/search?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% endif %}
+</ul>
 {% endblock pagination %}
 
 {% block sidebar %}
 <div class="sidebar">
-   <h3 class="sidebar-title  mb-4">Most Liked Posts</h3>
-   <div class="sidebar-item recent-posts">
-      <div class="post-item clearfix">
-         <img src="assets/img/blog/blog-recent-1.jpg" alt="">
-         <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-         <time datetime="2020-01-01">Jan 1, 2020</time>
-      </div>
-   </div>
+    <h3 class="sidebar-title  mb-4">Most Liked Posts</h3>
+    <div class="sidebar-item recent-posts">
+        <div class="post-item clearfix">
+            <img src="assets/img/blog/blog-recent-1.jpg" alt="">
+            <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
+            <time datetime="2020-01-01">Jan 1, 2020</time>
+        </div>
+    </div>
 </div>
 <div class="sidebar">
-   <h3 class="sidebar-title mb-4">Search By Tags</h3>
-   <div class="sidebar-item tags">
-      <ul>
-      </ul>
-   </div>
+    <h3 class="sidebar-title mb-4">Search By Tags</h3>
+    <div class="sidebar-item tags">
+        <ul>
+        </ul>
+    </div>
 </div>
 {% endblock sidebar %}

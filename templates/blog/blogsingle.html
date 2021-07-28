@@ -1,204 +1,187 @@
 {% extends 'blog/base.html' %}
 {% block title %}{{post.title_tag}}{% endblock title%}
 {% load hitcount_tags %}
-
-{% block search_block %}
-
-{% endblock search_block %}
-
+{% load static %}
 {% block article %}
 <style>
-
-* {
-  box-sizing: border-box;
-}
-
-
-
-h3 {
-  margin: 10px 0;
-}
-
-h6 {
-  margin: 5px 0;
-  text-transform: uppercase;
-}
-
-p {
-  font-size: 14px;
-  line-height: 21px;
-}
-
-.card-container {
-  background-color: #231E39;
-  border-radius: 5px;
-  box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
-  color: #B3B8CD;
-  padding-top: 30px;
-  position: relative;
-  width: 350px;
-  max-width: 100%;
-  text-align: center;
-}
-
-.card-container .pro {
-  color: #231E39;
-  background-color: #FEBB0B;
-  border-radius: 3px;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 3px 7px;
-  position: absolute;
-  top: 30px;
-  left: 30px;
-}
-
-.card-container .round {
-  border: 1px solid #03BFCB;
-  border-radius: 50%;
-  padding: 7px;
-}
-
-button.primary {
-  background-color: #03BFCB;
-  border: 1px solid #03BFCB;
-  border-radius: 3px;
-  color: #231E39;
-  font-family: Montserrat, sans-serif;
-  font-weight: 500;
-  padding: 10px 25px;
-}
-
-button.primary.ghost {
-  background-color: transparent;
-  color: #02899C;
-}
-
-.skills {
-  background-color: #1F1A36;
-  text-align: left;
-  padding: 15px;
-  margin-top: 30px;
-}
-
-.skills ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.skills ul li {
-  border: 1px solid #2D2747;
-  border-radius: 2px;
-  display: inline-block;
-  font-size: 12px;
-  margin: 0 7px 7px 0;
-  padding: 7px;
-}
-
+    * {
+    box-sizing: border-box;
+    }
+    h3 {
+    margin: 10px 0;
+    }
+    h6 {
+    margin: 5px 0;
+    text-transform: uppercase;
+    }
+    p {
+    font-size: 14px;
+    line-height: 21px;
+    }
+    .card-container {
+    background-color: #231E39;
+    border-radius: 5px;
+    box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+    color: #B3B8CD;
+    padding-top: 30px;
+    position: relative;
+    width: 350px;
+    max-width: 100%;
+    text-align: center;
+    }
+    .card-container .pro {
+    color: #231E39;
+    background-color: #FEBB0B;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 3px 7px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    }
+    .card-container .round {
+    border: 1px solid #03BFCB;
+    border-radius: 50%;
+    padding: 7px;
+    }
+    button.primary {
+    background-color: #03BFCB;
+    border: 1px solid #03BFCB;
+    border-radius: 3px;
+    color: #231E39;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    padding: 10px 25px;
+    }
+    button.primary.ghost {
+    background-color: transparent;
+    color: #02899C;
+    }
+    .skills {
+    background-color: #1F1A36;
+    text-align: left;
+    padding: 15px;
+    margin-top: 30px;
+    }
+    .skills ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    }
+    .skills ul li {
+    border: 1px solid #2D2747;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 7px 7px 0;
+    padding: 7px;
+    }
 </style>
 <article class="entry entry-single">
-   <div class="entry-img">
-      <img src="{{post.entry_img}}" alt="blog_img" class="img-fluid">
-   </div>
-   <div class="entry-title">
-      <h2>{{post.title}}</h2>
-      <ul style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
-         <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified}}</li>
-      </ul>
-   </div>
-   <div class="entry-content">
-      {{post.body|safe}}
-   </div>
-   <div class="entry-footer">
-      <i class="bi bi-folder"></i>
-      <ul class="cats">
-         <li><a href="#">Business</a></li>
-      </ul>
-      <i class="bi bi-tags"></i>
-      <ul class="tags">
-         {% for tag in post.tags.all %}
-         <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
-         {% endfor %}
-      </ul>
-   </div>
+    <div class="entry-img">
+        <img src="{{post.entry_img}}" alt="blog_img" class="img-fluid">
+    </div>
+    <div class="entry-title">
+        <h2>{{post.title}}</h2>
+        <ul style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
+            <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified}}</li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        {{post.body|safe}}
+    </div>
+    <div class="entry-footer">
+        <i class="bi bi-folder"></i>
+        <ul class="cats">
+            <li><a href="#">Business</a></li>
+        </ul>
+        <i class="bi bi-tags"></i>
+        <ul class="tags">
+            {% for tag in post.tags.all %}
+            <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </article>
 <div class="blog-author d-flex align-items-center">
-   <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
-   <div>
-      <h4>{{post.author}}</h4>
-      <div class="social-links">
-         <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
-         <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
-         <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
-      </div>
-      <p>
-         {{post.author_conculsion}}
-      </p>
-   </div>
+    <img src="{% static 'IndexHome/assets/img/blog/blog-author.jpg' %}" class="rounded-circle float-left" alt="">
+    <div>
+        <h4>{{post.author}}</h4>
+        <div class="social-links">
+            <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+            <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+            <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+        </div>
+        <p>
+            {{post.author_conculsion}}
+        </p>
+    </div>
 </div>
 {% endblock article %}
-
-
 {% block profile %}
-<div class="sidebar" style="background:#28223F">
-    <div class="card-container">
+<div class="sidebar" style="background:#ffffff">
+    <h3 class="sidebar-title mb-4">
+        Author's Bio
+    </h3>
+    <div class="card-container" style="background-color: #ffffff;box-shadow:none;">
         <span class="pro">PRO</span>
         <img class="round" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
         <h3>{{post.author}}</h3>
-        <p>User interface designer and <br/> front-end developer</p>
+        <p>{{post.designation}}</p>
         <div class="buttons">
-          <button class="primary">
+            <button class="primary">
             Message
-          </button>
-          <button class="primary ghost">
+            </button>
+            <button class="primary ghost">
             Following
-          </button>
+            </button>
         </div>
-        <div class="skills">
-          <h6>Skills</h6>
-          <ul>
-            <li>UI / UX</li>
-            <li>Front End Development</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>React</li>
-            <li>Node</li>
-          </ul>
+        <style>
+            .skills li:hover{
+                background: #03BFCB;
+                color: #ffffff;
+            }
+        </style>
+        <div class="skills" style="background-color: #ffffff;">
+            <h6>Skills</h6>
+            <ul>
+                {% for sk in skill %}
+                    <li>{{sk}}</li>
+                {% endfor %}
+            </ul>
         </div>
-      </div>
-      
+    </div>
 </div>
 {% endblock profile %}
-
-
 {% block sidebar %}
 <!-- Adding author profile -->
 {% if similar_post%}
-   <div class="sidebar">
-      <h3 class="sidebar-title  mb-4">Posts You May Like</h3>
-      <div class="sidebar-item recent-posts">
-         {% for item in similar_post %}
-         <div class="post-item clearfix">
+<div class="sidebar">
+    <h3 class="sidebar-title  mb-4">Posts You May Like</h3>
+    <div class="sidebar-item recent-posts">
+        {% for item in similar_post %}
+        <div class="post-item clearfix">
             <img src="{{item.entry_img}}" alt="">
-            <strong><h4><a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a></h4></strong>
+            <strong>
+                <h4><a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a></h4>
+            </strong>
             <time>{{item.date_published|date:"F d"}}</time>
-         </div>
-         {% endfor %}
-      </div>
-   </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endif %}
 <div class="sidebar">
-   <!-- End sidebar recent posts-->
-   <h3 class="sidebar-title  mb-4">Tags in blog</h3>
-   <div class="sidebar-item tags">
-      <ul>
-         {% for tag in post.tags.all %}
-         <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
-         {% endfor %}
-      </ul>
-   </div>
-   <!-- End sidebar tags-->
+    <!-- End sidebar recent posts-->
+    <h3 class="sidebar-title  mb-4">Tags in blog</h3>
+    <div class="sidebar-item tags">
+        <ul>
+            {% for tag in post.tags.all %}
+            <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- End sidebar tags-->
 </div>
 {% endblock sidebar %}
