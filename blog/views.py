@@ -5,6 +5,7 @@ from django.views.generic import ListView,DetailView
 from taggit.models import Tag
 from django.db.models import Count
 from django.core.paginator import Paginator
+import datetime
 from django.db.models import Q
 from hitcount.views import HitCountDetailView
 # Create your views here.
@@ -19,14 +20,15 @@ class HomeView(ListView):
         context = super(HomeView,self).get_context_data(**kwargs)
         context['editor'] = Post.objects.filter(editor_choice=True).order_by('-hit_count_generic__hits')[:5]
         context['most_used_tag'] = most_used_tags
+        get_month = datetime.date.today().month
         context['trending_post'] = Post.objects.order_by('-hit_count_generic__hits')[:5]
+        context['trend_month'] = Post.objects.filter(date_published__month=get_month).order_by('-hit_count_generic__hits')[:10]
         return context
 
 def search_sys(request):
     if request.method == "GET":
         query = request.GET.get('search_query')
-        posts = Post.objects.filter(Q(title__icontains=query) | Q(body__icontains=query))
-        posts = posts.order_by('-modified')
+        posts = Post.objects.filter(Q(title__icontains=query) | Q(body__icontains=query) | Q(blog_snipet__icontains=query)).order_by('-modified')
         return render(request,'blog/search.html',{'query':query,'result':posts})
 
 def newsletter(request):
