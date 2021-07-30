@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
 				smartSpeed: 500,
 				nav: true,
 				dots: true,
-				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
+				navText: ['<span class="bi bi-arrow-left">', '<span class="bi bi-arrow-right">'],
 				responsive:{
 					600:{
 						items: 2
@@ -62,7 +62,7 @@ jQuery(document).ready(function($) {
 		    margin: 30,
 		    autoplay: true,
 		    nav: true,
-				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
+				navText: ['<span class="bi bi-arrow-left">', '<span class="bi bi-arrow-right">'],
 		    responsive:{
 	        600:{
 	        	
@@ -95,7 +95,7 @@ jQuery(document).ready(function($) {
 		    margin: 0,
 		    autoplay: true,
 		    nav: true,
-				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
+				navText: ['<span class="bi bi-arrow-left">', '<span class="bi bi-arrow-right">'],
 		    responsive:{
 	        600:{
 	        	margin: 20,
@@ -127,7 +127,7 @@ jQuery(document).ready(function($) {
 			autoplay: true,
 			pauseOnHover: false,
 			nav: true,
-			navText: ['<span class="icon-keyboard_arrow_left">', '<span class="icon-keyboard_arrow_right">']
+			navText: ['<span class="bi bi-arrow-left">', '<span class="bi bi-arrow-right">']
 		});
 	};
 	siteCarousel();

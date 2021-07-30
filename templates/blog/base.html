@@ -20,6 +20,12 @@
             width: 100%;
             height: 100%;
             }
+            .col-lg-8{
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0;
+            }
+            
         </style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,26 +111,32 @@
         <div class="loader">
             <div></div>
         </div>
-        <header id="header" class="header" data-aos="fade-in">
-            <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
-                <a href="index.html" class="logo d-flex align-items-center">
-                <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" height="130px" width="130px" alt="">
-                </a>
-                <nav id="navbar" class="navbar">
-                    <ul>
-                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
-                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
-                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                        <li><a href="{% url 'blog:index'  %}" class="nav-link scrollto active">Blog</a></li>
-                        <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
-                    </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                </nav>
+        <header id="header" class="header fixed-top" data-aos="fade-in">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+               <a href="index.html" class="logo d-flex align-items-center">
+               <span>CaffeineCode</span>
+               </a>
+               <nav id="navbar" class="navbar">
+                  <ul>
+                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                     <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                     <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                     <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                     <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                     <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
+                     {% if user.is_authenticated and user.is_active %}
+                     <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
+                     <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
+                     {% else %}
+                     <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
+                     {% endif %}
+                  </ul>
+                  <i class="bi bi-list mobile-nav-toggle"></i>
+               </nav>
             </div>
         </header>
-        <main id="main">
+        <main id="main" style="margin-top: 68px;">
             <section id="blog" class="blog">
                 {% block search_block %}
                 {% endblock search_block %}
