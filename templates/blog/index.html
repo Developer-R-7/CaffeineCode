@@ -6,9 +6,12 @@
 {% endblock search_block %}
 {% block owl %}
 {% if page_obj.number == 1 %}
+    <style>
+        .owl-nav { visibility: hidden; }
+        .owl-carousel:hover .owl-nav { visibility: visible; }
+    </style>
     <div class="container" data-aos="fade-in">
         <div class="site-section py-0" style="margin-bottom:3em;">
-            <strong><h2 style="font-weight:400;padding-top:1.2em;color:#012970;padding-left:15px;">Editor's Pick</h2></strong>
             <div class="owl-carousel hero-slide owl-style" style="padding-top: 0px;">
                 {% for ed_post in editor %}
                     <div class="site-section">
@@ -16,14 +19,16 @@
                     <div class="half-post-entry d-block d-lg-flex bg-light">
                         <div class="img-bg" style="background-image: url('{{ed_post.entry_img}}')"></div>
                         <div class="contents">
-                        <h2><a href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
-                        <p class="mb-3">{{ed_post.blog_snipet}}</p>
-                        
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">{{ed_post.author}}</a>
-                            <span  class="date-read" style="color: #c2c2c2;"><i class="bi bi-eye"></i> {% get_hit_count for ed_post %} | <i class="bi bi-tags"></i></span>
-                            <span class="date-read"> {{ed_post.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{ed_post.readtime_min}} min read <span class="icon-star2"></span></span>
-                        </div>
+                            <h2 class="entry-title"><a href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
+                            <p class="mb-3">{{ed_post.blog_snipet}}</p>
+                            <div class="post-meta">
+                                <span class="d-block"><a href="#">{{ed_post.author}}</a>
+                                <span  class="date-read" style="color: #c2c2c2;"><i class="bi bi-eye"></i> {% get_hit_count for ed_post %} | <i class="bi bi-tags"></i></span>
+                                <span class="date-read"> {{ed_post.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{ed_post.readtime_min}} min read <span class="icon-star2"></span></span>
+                            </div>
+                            <div class="read-more" style="align-content: right;padding-top:10px;">
+                                <a class="btn btn-primary" href="{% url 'blog:blog_details' ed_post.pk %}">Read More</a>
+                            </div>
 
                         </div>
                     </div>
@@ -144,7 +149,8 @@
     <p>
       <a href="#" class="more">See All Popular <span class="bi bi-arrow-right"></span></a>
     </p>
-  </div>
+</div>
+
 {% endblock sidebar %}
 
 {% block styling %}
