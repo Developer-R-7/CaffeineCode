@@ -947,7 +947,7 @@
                {% if request.session.client_side_error_signin is True %}
                <ul class="messages" style="padding: 5px; margin-bottom:0em;">
                   <div class="alert alert-danger alert-with-icon">
-                     <span data-notify="icon" class="tim-icons icon-alert-circle-exc"></span>
+                     <span data-notify="icon" class="bi bi-exclamation-circle"></span>
                      <span><b>{{request.session.error_text}}</b></span>
                   </div>
                </ul>
@@ -969,7 +969,7 @@
                      <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                            <span class="input-group-text">
-                           <i class="tim-icons icon-email-85"></i>
+                           <i class="bi bi-envelope"></i>
                            </span>
                         </div>
                         <input class="form-control1" placeholder="Email" name="sign_in_email" autocomplete="off" type="email" required>
@@ -979,7 +979,7 @@
                      <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                            <span class="input-group-text">
-                           <i class="tim-icons icon-key-25"></i>
+                           <i class="bi bi-lock"></i>
                            </span>
                         </div>
                         <input class="form-control1" placeholder="Password" name="sign_in_password" autocomplete="off" type="password" required>
@@ -1012,7 +1012,7 @@
                {% if request.session.client_side_error_signup is True %}
                <ul class="messages" style="padding: 5px; margin-bottom:0em;">
                   <div class="alert alert-danger alert-with-icon">
-                     <span data-notify="icon" class="tim-icons icon-alert-circle-exc"></span>
+                     <span data-notify="icon" class="bi bi-exclamation-circle"></span>
                      <span><b>{{request.session.error_text}}</b></span>
                   </div>
                </ul>
@@ -1026,17 +1026,17 @@
                      <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                            <span class="input-group-text">
-                           <i class="tim-icons icon-single-02"></i>
+                           <i class="bi bi-person"></i>
                            </span>
                         </div>
-                        <input class="form-control1" autocomplete="off" spellcheck="false" id="username" pattern="^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$" title="Your username must consist of alphanumeric characters underscore(_),and period(.) underscore and period can't be first or last charcter and next to each other." name="username" placeholder="Username" type="text" required>
+                        <input  class="form-control1" autocomplete="off" spellcheck="false" id="username" pattern="^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$" title="Your username must consist of alphanumeric characters underscore(_),and period(.) underscore and period can't be first or last charcter and next to each other." name="username" placeholder="Username" type="text" required>
                      </div>
                   </div>
                   <div class="form-group mb-3">
                      <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                            <span class="input-group-text">
-                           <i class="tim-icons icon-email-85"></i>
+                           <i class="bi bi-envelope"></i>
                            </span>
                         </div>
                         <input class="form-control1" autocomplete="off" name="email" placeholder="Email" type="email" required>
@@ -1046,7 +1046,7 @@
                      <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                            <span class="input-group-text">
-                           <i class="tim-icons icon-key-25"></i>
+                           <i class="bi bi-lock"></i>
                            </span>
                         </div>
                         <input class="form-control1" autocomplete="off" name="password" placeholder=" Create Password" type="password" required>
@@ -1075,9 +1075,19 @@
       }
    </style>
    <script>
+      function delay(callback, ms) {
+         var timer = 0;
+         return function() {
+           var context = this, args = arguments;
+           clearTimeout(timer);
+           timer = setTimeout(function () {
+             callback.apply(context, args);
+           }, ms || 0);
+         };
+       }
       $(document).ready(function () {
           // catch the form's submit event
-          $('#username').keyup(function () {
+          $('#username').keyup(delay(function (e) {
               // create an AJAX call
               $.ajax({
                   data: $(this).serialize(),// get the form data
@@ -1103,9 +1113,8 @@
                       console.log(response.responseJSON.errors)
                   }
               });
-      
               return false;
-          });
+          },500));
       })
    </script>
    <div class="container">
