@@ -39,7 +39,7 @@
     <div class="container" data-aos="fade-in">
         <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;">Editor's Choice</h4>
         <div class="site-section py-0" style="margin-bottom:3em;">
-            <div class="owl-carousel hero-slide owl-style" style="padding-top: 0px;">
+            <div class="owl-carousel hero-slide owl-style" style="padding-top:0px;">
                 {% for ed_post in editor %}
                     <div class="site-section">
                     <div class="container">
@@ -66,7 +66,7 @@
         </div>
     </div>
 {% else %}
-    <div class="container mb-4" data-aos="fade-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
+    <div class="container mb-5" data-aos="fade-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
         <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
     </div>
 {% endif %}
@@ -161,29 +161,33 @@
         </ul>
     </div>
 </div>
-<div class="sidebar" style="box-shadow: none;">
-    <div class="sidebar-title mb-5" style="font-size: 23px;">
-      <h3>Trending this month</h3>
-    </div>
-    {% for month_trend in this_month %}
-        <div class="trend-entry d-flex">
-        <div class="number align-self-start">{{ forloop.counter }}</div>
-        <div class="trend-contents">
-            <h2><a href="blog-single.html">{{month_trend.title}}</a></h2>
-            <div class="post-meta">
-            <span class="d-block"><a href="#">{{month_trend.author}}</a></span>
-            <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read <span class="bi bi-star-fill"></span></span>
+{% if this_month.count > 5 %}
+    <div class="sidebar" style="box-shadow: none;">
+        <div class="sidebar-title mb-5" style="font-size: 23px;">
+        <h3>Trending this month</h3>
+        </div>
+        {% for month_trend in this_month %}
+            <div class="trend-entry d-flex">
+            <div class="number align-self-start">{{ forloop.counter }}</div>
+            <div class="trend-contents">
+                <h2><a href="blog-single.html">{{month_trend.title}}</a></h2>
+                <div class="post-meta">
+                <span class="d-block"><a href="#">{{month_trend.author}}</a></span>
+                <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read <span class="bi bi-star-fill"></span></span>
+                </div>
             </div>
-        </div>
-        </div>
-    {% empty %}
-        Ads to be shown here
-    {% endfor %}
+            </div>
+        {% endfor %}
 
-    <p>
-      <a href="#" class="more">See All Popular <span class="bi bi-arrow-right"></span></a>
-    </p>
-</div>
+        <p>
+        <a href="#" class="more">See All Popular <span class="bi bi-arrow-right"></span></a>
+        </p>
+    </div>
+{% else %}
+    <div class="sidebar">
+        Ads to be shown HERE
+    </div>
+{% endif %}
 {% endblock sidebar %}
 
 {% block styling %}

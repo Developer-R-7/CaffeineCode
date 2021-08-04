@@ -20,12 +20,6 @@
             width: 100%;
             height: 100%;
             }
-            .col-lg-8{
-                position: -webkit-sticky;
-                position: sticky;
-                top: 0;
-            }
-            
         </style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +28,7 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
         <!-- Vendor CSS Files -->
         {% load static %}
+
         {% block styling %}
         {% endblock styling %}
       
@@ -108,11 +103,6 @@
             }
             }
         </style>
-        <script>
-            window.onbeforeunload = function () {
-                window.scrollTo(0, 0);
-              }
-        </script>
         <!--<div class="loader">
             <div></div>
         </div>-->

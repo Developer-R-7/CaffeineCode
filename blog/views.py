@@ -16,7 +16,7 @@ class HomeView(ListView):
     ordering = ['-date_published','-hit_count_generic__hits']
     paginate_by = 5
     def get_context_data(self,**kwargs):
-        most_used_tags = Post.tags.most_common()[:9]
+        most_used_tags = Post.tags.most_common()[:10]
         context = super(HomeView,self).get_context_data(**kwargs)
         context['editor'] = Post.objects.filter(editor_choice=True).order_by('-hit_count_generic__hits')[:5]
         context['most_used_tag'] = most_used_tags
