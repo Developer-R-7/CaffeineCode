@@ -20,9 +20,9 @@ class HomeView(ListView):
         context = super(HomeView,self).get_context_data(**kwargs)
         context['editor'] = Post.objects.filter(editor_choice=True).order_by('-hit_count_generic__hits')[:5]
         context['most_used_tag'] = most_used_tags
-        get_month = datetime.date.today().month
+        get_date = datetime.date.today()
         context['trending_post'] = Post.objects.order_by('-hit_count_generic__hits')[:5]
-        context['trend_month'] = Post.objects.filter(date_published__month=get_month).order_by('-hit_count_generic__hits')[:10]
+        context['this_month'] = Post.objects.filter(date_published__year=get_date.year,date_published__month= get_date.month).order_by('-hit_count_generic__hits')[:10]
         return context
 
 def search_sys(request):

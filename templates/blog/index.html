@@ -1,30 +1,35 @@
 {% extends 'blog/base.html' %}
-{% block title %}CaffeineBlog - Your Coffee,Our Blogs {% endblock title %}
+{% block title %}CaffeineCode - Blogs{% endblock title %}
 {% load hitcount_tags %}
 {% load static %}
+
 {% block hero %}
-<section id="hero" class="hero d-flex align-items-center">
-    <div class="container">
-       <div class="row">
-          <div class="col-lg-6 d-flex flex-column justify-content-center">
-             <h1 data-aos="fade-up">Your's Coffee Our Blogs</h1>
-             <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
-             <div data-aos="fade-up" data-aos-delay="600">
-                <div class="text-center text-lg-start">
-                   <a style="cursor: pointer; color:white;"  data-toggle="modal"  data-target="#myModal3" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                   <span>Create Account</span>
-                   <i class="bi bi-arrow-right"></i>
-                   </a>
+{% if page_obj.number == 1 %}
+    <section id="hero" class="hero d-flex align-items-center">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Your's Coffee Our Blogs</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center text-lg-start">
+                    <a style="cursor: pointer; color:white;"  data-toggle="modal"  data-target="#myModal3" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                    <span>Create Account</span>
+                    <i class="bi bi-arrow-right"></i>
+                    </a>
+                    </div>
                 </div>
-             </div>
-          </div>
-          <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-             <img src="{% static 'IndexHome/assets/img/blogging.svg' %}" class="img-fluid" alt="">
-          </div>
-       </div>
-    </div>
- </section>
+            </div>
+            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img src="{% static 'IndexHome/assets/img/blogging.svg' %}" class="img-fluid" alt="">
+            </div>
+        </div>
+        </div>
+    </section>
+{% endif %}
 {% endblock hero %}
+
+
 {% block owl %}
 {% if page_obj.number == 1 %}
     <style>
@@ -32,7 +37,7 @@
         .owl-carousel:hover .owl-nav { visibility: visible; }
     </style>
     <div class="container" data-aos="fade-in">
-        <h3 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;">Editor's Choice</h3>
+        <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;">Editor's Choice</h4>
         <div class="site-section py-0" style="margin-bottom:3em;">
             <div class="owl-carousel hero-slide owl-style" style="padding-top: 0px;">
                 {% for ed_post in editor %}
@@ -40,7 +45,7 @@
                     <div class="container">
                     <div class="half-post-entry d-block d-lg-flex bg-light">
                         <div class="img-bg" style="background-image: url('{{ed_post.entry_img}}')"></div>
-                        <div class="contents">
+                        <div class="contents" style="background: white;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
                             <h2 class="entry-title"><a href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
                             <p class="mb-3">{{ed_post.blog_snipet}}</p>
                             <div class="post-meta">
@@ -60,8 +65,14 @@
             </div>
         </div>
     </div>
+{% else %}
+    <div class="container mb-4" data-aos="fade-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
+        <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
+    </div>
 {% endif %}
 {% endblock owl %}
+
+
 {% block article %}
 {% for post in object_list %}
 <article class="entry">
@@ -154,7 +165,7 @@
     <div class="sidebar-title mb-5" style="font-size: 23px;">
       <h3>Trending this month</h3>
     </div>
-    {% for month_trend in trend_month %}
+    {% for month_trend in this_month %}
         <div class="trend-entry d-flex">
         <div class="number align-self-start">{{ forloop.counter }}</div>
         <div class="trend-contents">
@@ -165,14 +176,14 @@
             </div>
         </div>
         </div>
+    {% empty %}
+        Ads to be shown here
     {% endfor %}
 
-    
     <p>
       <a href="#" class="more">See All Popular <span class="bi bi-arrow-right"></span></a>
     </p>
 </div>
-
 {% endblock sidebar %}
 
 {% block styling %}
