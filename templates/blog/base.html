@@ -28,11 +28,8 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
         <!-- Vendor CSS Files -->
         {% load static %}
-
         {% block styling %}
         {% endblock styling %}
-      
-
         <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
         <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet">
@@ -75,7 +72,6 @@
             .entry-title{
             font-size: 45px;
             }
-            
             .loader{
             height: 100vh;
             width: 100vw;
@@ -105,30 +101,30 @@
         </style>
         <!--<div class="loader">
             <div></div>
-        </div>-->
+            </div>-->
         <header id="header" class="header fixed-top" data-aos="fade-in">
             <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-               <a href="index.html" class="logo d-flex align-items-center">
-               <span>CaffeineCode</span>
-               </a>
-               <nav id="navbar" class="navbar">
-                  <ul>
-                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                     <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                     <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                     <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
-                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                     <li><a href="{% url 'blog:index' %}">Blog</a></li>
-                     <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
-                     {% if user.is_authenticated and user.is_active %}
-                     <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
-                     <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
-                     {% else %}
-                     <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
-                     {% endif %}
-                  </ul>
-                  <i class="bi bi-list mobile-nav-toggle"></i>
-               </nav>
+                <a href="index.html" class="logo d-flex align-items-center">
+                <span>CaffeineCode</span>
+                </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
+                        {% if user.is_authenticated and user.is_active %}
+                        <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
+                        <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
+                        {% else %}
+                        <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
+                        {% endif %}
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
             </div>
         </header>
         {% block hero %}
@@ -179,7 +175,6 @@
                         </div>
                     </div>
                 </div>
-
             </section>
         </main>
         <footer id="footer" class="footer">
@@ -193,8 +188,51 @@
                         <div class="col-lg-6">
                             <form action="{% url 'blog:newsletter' %}" method="post">
                                 {% csrf_token %}
-                                <input type="email" name="newsletter" required><input type="submit" value="Subscribe">
+                                <input type="email" id="newsletter" autocomplete="off"  name="newsletter" required><input  id="submit" type="submit" value="Subscribe">
                             </form>
+                            <script>
+                                function delay(callback, ms) {
+                                   var timer = 0;
+                                   return function() {
+                                     var context = this, args = arguments;
+                                     clearTimeout(timer);
+                                     timer = setTimeout(function () {
+                                       callback.apply(context, args);
+                                     }, ms || 0);
+                                   };
+                                 }
+                                $(document).ready(function () {
+                                    // catch the form's submit event
+                                    $('#newsletter').keyup(delay(function (e) {
+                                        // create an AJAX call
+                                        $.ajax({
+                                            data: $(this).serialize(),// get the form data
+                                            url: "{% url 'blog:newsletter' %}",
+                                            // on success
+                                            success: function (response) {
+                                                if (response.is_subcribed == true) {
+                                                    $('#username').removeClass('is-valid').addClass('is-invalid');
+                                                    $('#username').after('<div class="invalid-feedback d-block" id="usernameError"><strong><p class="text-danger">This is already subscribed</strong></div>')
+                                                    $('.submit').prop('disabled', true);
+                                                }
+                                                else {
+                                                    $('#username').removeClass('is-invalid').addClass('is-valid');
+                                                    $('#submit').prop('disabled', false);
+                                                    $('#usernameError').remove();
+                                
+                                                }
+                                
+                                            },
+                                            // on error
+                                            error: function (response) {
+                                                // alert the error if any error occured
+                                                console.log(response.responseJSON.errors)
+                                            }
+                                        });
+                                        return false;
+                                    },500));
+                                })
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -276,5 +314,4 @@
         <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
         {% block script %}
         {% endblock script %}
-
-</body>
+    </body>

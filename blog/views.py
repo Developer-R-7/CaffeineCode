@@ -1,4 +1,5 @@
 from django.core import paginator
+from django.http.response import HttpResponse
 from .models import Post,Newsletter
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
@@ -8,6 +9,7 @@ from django.core.paginator import Paginator
 import datetime
 from django.db.models import Q
 from hitcount.views import HitCountDetailView
+from django.http import JsonResponse
 # Create your views here.
 
 class HomeView(ListView):
@@ -34,14 +36,8 @@ def search_sys(request):
 def newsletter(request):
     if request.method == "POST":
         mail = request.POST.get("newsletter")
-        if Newsletter.objects.filter(email = mail).first():
-            pass
-        else:
-            add_mail = Newsletter.objects.create(email=mail)
-            add_mail.save()
-        return redirect('/blog/')
     else:
-        return redirect('')
+        return redirect('/blog/')
 
 
 def post_by_tags(request,tag_slug):
@@ -68,7 +64,6 @@ class ArticleDetailView(HitCountDetailView):
         get_skill = Post.objects.filter(pk=self.object.pk).values_list('skills', flat=True)[0]
         get_skill = get_skill.split(',')[:5]
         context['skill'] = get_skill
-        
         return context
 
     

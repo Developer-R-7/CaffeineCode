@@ -7,9 +7,7 @@
             --width: 280px;
             --height: 180px;
             }
-
             body{ background: #6BA1CA; }
-
             .error-500{
             position: absolute;
             top: 50%; left: 50%;
@@ -18,7 +16,6 @@
             color: #1E4B6D;
             text-shadow: 1px 1px 1px rgba(255, 255, 255, .3);
             }
-
             .error-500:after{
             content: attr(data-text);
             display: block;
@@ -26,7 +23,6 @@
             font-size: 28pt;
             text-align: center;
             }
-
             spaguetti{
             width: var(--width);
             height: var(--height);
@@ -35,7 +31,6 @@
             margin: 0 auto;
             position: relative;
             }
-
             plate{
             width: 100%;
             height: calc(var(--height) / 2.5);
@@ -45,7 +40,6 @@
             border-radius: 0 0 50px 50px;
             z-index: 4;
             }
-
             plate:before{
             content: '500 Spaghetti Error';
             position: absolute;
@@ -56,7 +50,6 @@
             color: rgba(0, 0, 0, .2);
             text-align: center;
             }
-
             plate:after{
             content: '';
             width: calc(var(--width) / 2);
@@ -66,7 +59,6 @@
             top: 100%; left: 50%;
             transform: translateX(-50%);
             }
-
             pasta{
             width: calc(var(--width) / 4);
             height: calc(var(--width) / 4);
@@ -78,7 +70,6 @@
             box-shadow: calc(-1 * calc(var(--width) / 4) - 60px) 10px 1px 10px #EED269, calc(-1 * calc(var(--width) / 4) - 60px) 10px 0 15px #DEA631;
             z-index: 2;
             }
-
             pasta:before{
             content: '';
             width: calc(var(--width) / 4);
@@ -90,7 +81,6 @@
             bottom: -5px; right: 60px;
             box-shadow: calc(-1 * calc(var(--width) / 4) - 30px) 10px 1px 1px #EED269, calc(-1 * calc(var(--width) / 4) - 30px) 10px 0 5px #DEA631;
             }
-
             pasta:after{
             content: '';
             width: calc(var(--width) / 3);
@@ -102,7 +92,6 @@
             bottom: -15px; right: 100px;
             box-shadow: calc(var(--width) / 4) 10px 1px 1px #EED269, calc(var(--width) / 4) 10px 0 5px #DEA631;
             }
-
             meat{
             width: 24px;
             height: 24px;
@@ -113,7 +102,6 @@
             box-shadow: -150px -2px 0 0 #B64C19, -50px -7px 0 0 #B64C19, -100px 8px 0 0 #B64C19;
             z-index: 3;
             }
-
             fork{
             width: 20px;
             height: calc(var(--height) - 30px);
@@ -125,21 +113,21 @@
             transform: translate(-75%, 0%) rotate(25deg);
             }
         </style>
-        
-        <title>500 Error!</title></head>
+        <title>500 Error!</title>
+    </head>
     <body>
         <div class="error-500" data-text="Oh no! Our spaghetti code is not working properly. We will be back soon!">
             <spaguetti>
-            <fork></fork>
-            <meat></meat>
-            <pasta></pasta>
-            <plate></plate>
+                <fork></fork>
+                <meat></meat>
+                <pasta></pasta>
+                <plate></plate>
             </spaguetti>
         </div>
         <script>
             const error = document.querySelector(".error-500");
             let i = 0, data = "", text = error.getAttribute("data-text");
-
+            
             let typing = setInterval(() => {
             if(i == text.length){
                 clearInterval(typing);

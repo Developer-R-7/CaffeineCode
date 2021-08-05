@@ -1,68 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
-      <title>CaffeineCode</title>
-      <meta content="" name="description">
-      <meta content="" name="keywords">
-      <!-- Favicons -->
-      {% load static %}
-      <link href="{% static 'IndexHome/assets/img/faviicon.png' %}" rel="icon">
-      <link href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-      <!-- Google Fonts -->
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-      <!-- Vendor CSS Files -->
-      <link href="{% static 'IndexHome/assets/css/blk-design-system.css' %}" rel="stylesheet" />
-      <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-      <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-      <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet">
-      <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-      <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-      <!-- Template Main CSS File -->
-      <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet">
-   </head>
-   <body>
-      <header id="header" class="header fixed-top">
-         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-            <span>CaffeineCode</span>
-            </a>
-            <nav id="navbar" class="navbar">
-               <ul>
-                  <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                  <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                  <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                  <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
-                  <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                  <li><a href="{% url 'blog:index' %}">Blog</a></li>
-                  <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
-                  {% if user.is_authenticated and user.is_active %}
-                  <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
-                  <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
-                  {% else %}
-                  <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
-                  {% endif %}
-               </ul>
-               <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
-         </div>
-      </header>
-      {% block body %} {% endblock body %}
-      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-      <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/vendor/purecounter/purecounter.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}" type="text/javascript"></script>
-      <script src="{% static 'IndexHome/assets/js/core/popper.min.js' %}" type="text/javascript"></script>
-      <script src="{% static 'IndexHome/assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
-      <script src="{% static 'IndexHome/assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
-      <script src="{% static 'IndexHome/assets/js/plugins/bootstrap-switch.js' %}"></script>
-      <script src="{% static 'IndexHome/assets/js/blk-design-system.min.js' %}" type="text/javascript"></script>
-   </body>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>CaffeineCode</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <!-- Favicons -->
+        {% load static %}
+        <link href="{% static 'IndexHome/assets/img/faviicon.png' %}" rel="icon">
+        <link href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        <!-- Vendor CSS Files -->
+        <link href="{% static 'IndexHome/assets/css/blk-design-system.css' %}" rel="stylesheet" />
+        <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+        <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="index.html" class="logo d-flex align-items-center">
+                <span>CaffeineCode</span>
+                </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
+                        {% if user.is_authenticated and user.is_active %}
+                        <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
+                        <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
+                        {% else %}
+                        <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
+                        {% endif %}
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+            </div>
+        </header>
+        {% block body %} {% endblock body %}
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/purecounter/purecounter.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'IndexHome/assets/js/core/popper.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'IndexHome/assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'IndexHome/assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'IndexHome/assets/js/plugins/bootstrap-switch.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/blk-design-system.min.js' %}" type="text/javascript"></script>
+    </body>
 </html>
