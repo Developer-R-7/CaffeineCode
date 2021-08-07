@@ -57,7 +57,10 @@
                                         {% if resend_request is not True%}
                                         <a href="{% url 'IndexHome:verify_resend' mail_hash=mail request_otp=True %}">Resend Verfication Code?</a>
                                         {% else %}
-                                        <div id="show_ag" style="visibility:hidden;"><a href="{% url 'IndexHome:verify_resend' mail_hash=mail request_otp=True %}">Resend Verfication Code?</a></div>
+                                        <style>
+                                            .show_ag{ visibility: hidden;}
+                                        </style>
+                                        <div id="show_ag"><a href="{% url 'IndexHome:verify_resend' mail_hash=mail request_otp=True %}">Resend Verfication Code?</a></div>
                                         <div id="countdown" style="color: royalblue;text-align:right;"></div>
                                         <script>
                                             var timeleft = 20;
