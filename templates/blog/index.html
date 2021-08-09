@@ -150,7 +150,7 @@
         </ul>
     </div>
 </div>
-{% if this_month.count < 5 %}
+{% if this_month.count > 5 %}
 <div class="sidebar" style="box-shadow: none;">
     <div class="sidebar-title mb-5" style="font-size: 23px;">
         <h3>Trending this month</h3>
@@ -172,8 +172,10 @@
     </p>
 </div>
 {% else %}
-<div class="sidebar">
-    Ads to be shown HERE
+<div class="sidebar" style="height: 100vh;">
+    <div class="sticky-ads">
+        <h4>ads to be shown here</h4>
+    </div>
 </div>
 {% endif %}
 {% endblock sidebar %}
