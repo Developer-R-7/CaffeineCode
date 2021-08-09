@@ -34,7 +34,7 @@
     .owl-carousel:hover .owl-nav { visibility: visible; }
 </style>
 <div class="container" data-aos="fade-in">
-    <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;">Editor's Choice</h4>
+    <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;font-size: 23px;">Editor's Choice</h4>
     <div class="site-section py-0" style="margin-bottom:3em;">
         <div class="owl-carousel hero-slide owl-style" style="padding-top:0px;">
             {% for ed_post in editor %}
@@ -100,7 +100,7 @@
 {% endblock article %}
 {% block pagination %}
 <nav aria-label="Page navigation">
-    <ul class="pagination mb-4">
+    <ul class="pagination mb-5">
         {% if page_obj.has_previous %}
         <li class="page-item">
             <a class="page-link" href="?page=1" aria-label="Previous">
@@ -150,10 +150,9 @@
         </ul>
     </div>
 </div>
-{% if this_month.count > 5 %}
 <div class="sidebar" style="box-shadow: none;">
     <div class="sidebar-title mb-5" style="font-size: 23px;">
-        <h3>Trending this month</h3>
+        <h3 class="entry-title" style="font-weight: bold;font-size:24px;">Trending this month</h3>
     </div>
     {% for month_trend in this_month %}
     <div class="trend-entry d-flex">
@@ -166,18 +165,15 @@
             </div>
         </div>
     </div>
+    {% empty %}
+        <h2>No trending post this month</h2>
     {% endfor %}
-    <p>
-        <a href="#" class="more">See All Popular <span class="bi bi-arrow-right"></span></a>
-    </p>
 </div>
-{% else %}
 <div class="sidebar" style="height: 100vh;">
     <div class="sticky-ads">
         <h4>ads to be shown here</h4>
     </div>
 </div>
-{% endif %}
 {% endblock sidebar %}
 {% block styling %}
 <link rel="stylesheet" href="{% static 'blog/css/owl.carousel.min.css' %}">
@@ -194,5 +190,5 @@
 {% endblock script %}
 
 {% block title_post %}
-<h4 style="padding-left: 4px;margin-bottom:2em;color:#012970;font-weight:bold;">Latest Posts</h4>
+<h4 style="padding-left: 4px;margin-bottom:2em;color:#012970;font-weight:bold;font-size: 23px;">Latest Posts</h4>
 {% endblock title_post %}

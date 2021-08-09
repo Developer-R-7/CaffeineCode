@@ -3,11 +3,11 @@
 {% load hitcount_tags %}
 {% load static %}
 {% block search_block %}
-<div class="container mb-5" data-aos-duration="600" data-aos="zoom-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
+<div class="container mb-5" data-aos-duration="600" data-aos="fade-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
     <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
 </div>
 {% if result %}
-<div class="container" data-aos="fade-up">
+<div class="container mb-4" data-aos="fade-up">
     <h2 style="margin-top:2em;">
         Blogs tagged with <span style="background:#0257ee;color:white;padding:8px;border-radius:5px;">"{{tag}}"</span>
     </h2>
@@ -59,7 +59,7 @@
 {% block pagination %}
 {% if result %}
 <nav aria-label="Page navigation">
-    <ul class="paginationm mb-4">
+    <ul class="paginationm mb-5">
         {% if posts.has_previous %}
         <li class="page-item">
             <a class="page-link" href="?page=1" aria-label="Previous">
