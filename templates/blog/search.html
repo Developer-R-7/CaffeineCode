@@ -2,6 +2,9 @@
 {% block title %} Blog-CaffeineCode {% endblock title %}
 {% load hitcount_tags %}
 {% block search_block %}
+<div class="container mb-5" data-aos-duration="600" data-aos="zoom-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
+    <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
+</div>
 {% load static %}
 <div class="container" data-aos="fade-up">
     <h2>
@@ -13,6 +16,9 @@
 <br>
 {% endblock search_block %}
 {% block article %}
+{% if forloop.counter == 4 %}
+    <article class="entry" style="height: 120px;width:100%;"><center>ADS TO BE SHOWN HERE</center></article>
+{% endif %}
 {% if result %}
 {% for post in result %}
 <article class="entry">

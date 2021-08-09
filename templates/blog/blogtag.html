@@ -8,14 +8,17 @@
 </div>
 {% if result %}
 <div class="container" data-aos="fade-up">
-    <h2>
-        Blogs tagged with "{{tag}}"
+    <h2 style="margin-top:2em;">
+        Blogs tagged with <span style="background:#0257ee;color:white;padding:8px;border-radius:5px;">"{{tag}}"</span>
     </h2>
 </div>
 <br>
 {% endif %}
 {% endblock search_block %}
 {% block article %}
+{% if forloop.counter == 4 %}
+    <article class="entry" style="height: 120px;width:100%;"><center>ADS TO BE SHOWN HERE</center></article>
+{% endif %}
 {% for post in posts %}
 <article class="entry">
     <div class="entry-img">
@@ -56,19 +59,19 @@
 {% block pagination %}
 {% if result %}
 <nav aria-label="Page navigation">
-    <ul class="pagination">
+    <ul class="paginationm mb-4">
         {% if posts.has_previous %}
         <li class="page-item">
             <a class="page-link" href="?page=1" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">begin</span>
+            
             </a>
         </li>
         {% endif %}
         {% for n in posts.paginator.page_range %}
         {% if posts.number == n %}
         <li class="page-item active">
-            <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+            <span class="page-link">{{ n }}<span class="sr-only"></span></span>
         </li>
         {% elif n > posts.number|add:'-3' and n < posts.number|add:'3' %}
         <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
@@ -78,7 +81,6 @@
         <li class="page-item">
             <a class="page-link" href="?page={{ posts.paginator.num_pages }}" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">end</span>
             </a>
         </li>
         {% endif %}   

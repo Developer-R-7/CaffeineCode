@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>CaffeineCode - Blogs</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+        <style>
+            /* Make the image fully responsive */
+            .carousel-inner img {
+            width: 100%;
+            height: 100%;
+            }
+        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        <!-- Vendor CSS Files -->
+        
+        
+<link rel="stylesheet" href="/static/blog/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/static/blog/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/static/blog/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/static/blog/css/style.css">
+
+        <link href="/static/IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="/static/IndexHome/assets/css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <style>
+            body {
+            font-family: 'JosefinSans', monospace;
+            }
+            .card-container {
+                background-color: #231E39;
+                border-radius: 5px;
+                color: #B3B8CD;
+                padding-top: 30px;
+                position: relative;
+                width: 350px;
+                max-width: 100%;
+                text-align: center;
+                }
+            .card-container .pro {
+                color: #231E39;
+                background-color: #FEBB0B;
+                border-radius: 3px;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 3px 7px;
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                }
+            .card-container .round {
+                border: 1px solid #03BFCB;
+                border-radius: 50%;
+                padding: 7px;
+                }
+            button.primary {
+                background-color: #03BFCB;
+                border: 1px solid #03BFCB;
+                border-radius: 3px;
+                color: #231E39;
+                font-family: Montserrat, sans-serif;
+                font-weight: 500;
+                padding: 10px 25px;
+                }
+            button.primary.ghost {
+                background-color: transparent;
+                color: #02899C;
+                }
+            .skills {
+                background-color: #1F1A36;
+                text-align: left;
+                padding: 15px;
+                margin-top: 30px;
+                }
+            .skills ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                }
+            .skills ul li {
+                border: 1px solid #2D2747;
+                border-radius: 2px;
+                display: inline-block;
+                font-size: 12px;
+                margin: 0 7px 7px 0;
+                padding: 7px;
+            }
+            .entry-content p{
+            color:#6c757d;
+            }
+            .entry-title{
+            font-family: 'JosefinSans', monospace;
+            }
+            .blog .entry .entry-content p {
+            line-height: 1.9;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-weight: 300;
+            }
+            .entry-title{
+            font-family: 'JosefinSans', monospace;
+            }
+            .header .logo img {
+            max-height: 150px;
+            margin-right: 6px;
+            }
+            .blog .sidebar {
+            margin: 0 0 60px 15px;
+            position: f;
+            }
+            .entry-title{
+            font-size: 45px;
+            }
+            .loader{
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-color: #ffffff;
+            position: absolute;
+            }
+            .loader>div{
+            height: 80px;
+            width: 80px;
+            border: 8px solid #fafafa;
+            border-top-color:rgb(241, 168, 71);
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 50%;
+            animation: spin 1.5s infinite linear;
+            }
+            @keyframes spin{
+            100%{
+            transform: rotate(360deg);
+            }
+            }
+        </style>
+        <!--<div class="loader">
+            <div></div>
+            </div>-->
+        <header id="header" class="header fixed-top" data-aos="fade-in">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="index.html" class="logo d-flex align-items-center">
+                <span>CaffeineCode</span>
+                </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto" href="/">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li><a class= "nav-link scrollto active" href="/blog/">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact </a></li>
+                        
+                        <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
+                        
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+            </div>
+        </header>
+        
+
+<section id="hero" class="hero d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Your's Coffee Our Blogs</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center text-lg-start">
+                        <a style="cursor: pointer; color:white;"  data-toggle="modal"  data-target="#myModal3" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                        <span>Create Account</span>
+                        <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img src="/static/IndexHome/assets/img/blogging.svg" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <main id="main" style="margin-top: 80px;">
+            <section id="blog" class="blog">
+                
+                
+                
+
+<style>
+    .owl-nav { visibility: hidden; }
+    .owl-carousel:hover .owl-nav { visibility: visible; }
+</style>
+<div class="container" data-aos="fade-in">
+    <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;">Editor's Choice</h4>
+    <div class="site-section py-0" style="margin-bottom:3em;">
+        <div class="owl-carousel hero-slide owl-style" style="padding-top:0px;">
+            
+            <div class="site-section">
+                <div class="container">
+                    <div class="half-post-entry d-block d-lg-flex bg-light">
+                        <div class="img-bg" style="background-image: url('https://images.unsplash.com/photo-1574689049340-bedc8373daa3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80')"></div>
+                        <div class="contents">
+                            <h2 class="entry-title"><a href="/blog/article/1">First Blog</a></h2>
+                            <p class="mb-3">Colors bounced around in her head. They mixed and threaded themselves together. Even colors that had no business being together. They were all one, yet distinctly separate at the same time</p>
+                            <div class="post-meta">
+                                <span class="d-block"><a href="#">rushi</a>
+                                <span  class="date-read" style="color: #c2c2c2;"><i class="bi bi-eye"></i> 13 | <i class="bi bi-tags"></i></span>
+                                <span class="date-read"> July 20 <span class="mx-1">&bullet;</span> 0 min read <span class="icon-star2"></span></span>
+                            </div>
+                            <div class="read-more" style="align-content: right;padding-top:10px;">
+                                <a class="btn btn-primary" href="/blog/article/1">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="site-section">
+                <div class="container">
+                    <div class="half-post-entry d-block d-lg-flex bg-light">
+                        <div class="img-bg" style="background-image: url('https://images.unsplash.com/photo-1624377632657-3902bfd35958?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80')"></div>
+                        <div class="contents">
+                            <h2 class="entry-title"><a href="/blog/article/6">Sixth Blog</a></h2>
+                            <p class="mb-3">Colors bounced around in her head. They mixed and threaded themselves together. Even colors that had no business being together. They were all one, yet distinctly separate at the same time</p>
+                            <div class="post-meta">
+                                <span class="d-block"><a href="#">rushi</a>
+                                <span  class="date-read" style="color: #c2c2c2;"><i class="bi bi-eye"></i> 1 | <i class="bi bi-tags"></i></span>
+                                <span class="date-read"> July 20 <span class="mx-1">&bullet;</span> 0 min read <span class="icon-star2"></span></span>
+                            </div>
+                            <div class="read-more" style="align-content: right;padding-top:10px;">
+                                <a class="btn btn-primary" href="/blog/article/6">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="site-section">
+                <div class="container">
+                    <div class="half-post-entry d-block d-lg-flex bg-light">
+                        <div class="img-bg" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=702&amp;q=80')"></div>
+                        <div class="contents">
+                            <h2 class="entry-title"><a href="/blog/article/17">Valorant a future game changer ?</a></h2>
+                            <p class="mb-3">Space Exploration Technologies Corp. (SpaceX) is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.</p>
+                            <div class="post-meta">
+                                <span class="d-block"><a href="#">rushi_patel20</a>
+                                <span  class="date-read" style="color: #c2c2c2;"><i class="bi bi-eye"></i> 1 | <i class="bi bi-tags"></i></span>
+                                <span class="date-read"> August 04 <span class="mx-1">&bullet;</span> 10 min read <span class="icon-star2"></span></span>
+                            </div>
+                            <div class="read-more" style="align-content: right;padding-top:10px;">
+                                <a class="btn btn-primary" href="/blog/article/17">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+                <div class="container" data-aos="fade-up">
+                    
+<h4 style="padding-left: 4px;margin-bottom:2em;color:#012970;font-weight:bold;">Latest Posts</h4>
+
+                    <div class="row">
+                        <div class="col-lg-8 entries">
+                            
+
+
+<article class="entry">
+    <div class="entry-img">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=702&amp;q=80" alt="post_img" class="img-fluid">
+    </div>
+    <h2 class="entry-title">
+        <a href="/blog/article/17">Valorant a future game changer ?</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">rushi_patel20</a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>August 04</li>
+            <li class="d-flex align-items-center"><i class="bi bi-eye"></i>1</li>
+            <li class="d-flex align-items-center">&#183; 10 min read</li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        <p>
+            Space Exploration Technologies Corp. (SpaceX) is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.
+        </p>
+        <div class="read-more">
+            <a href="/blog/article/17">Read More</a>
+        </div>
+    </div>
+</article>
+
+
+<article class="entry">
+    <div class="entry-img">
+        <img src="https://images.unsplash.com/photo-1571715268998-d6e79bed5fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="post_img" class="img-fluid">
+    </div>
+    <h2 class="entry-title">
+        <a href="/blog/article/16">Boostap was orginally made y Developer-R and i am proud of it ?</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">rushi</a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>July 27</li>
+            <li class="d-flex align-items-center"><i class="bi bi-eye"></i>3</li>
+            <li class="d-flex align-items-center">&#183; 5 min read</li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        <p>
+            Space Exploration Technologies Corp. (SpaceX) is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.
+        </p>
+        <div class="read-more">
+            <a href="/blog/article/16">Read More</a>
+        </div>
+    </div>
+</article>
+
+
+<article class="entry">
+    <div class="entry-img">
+        <img src="https://images.unsplash.com/photo-1571715268998-d6e79bed5fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="post_img" class="img-fluid">
+    </div>
+    <h2 class="entry-title">
+        <a href="/blog/article/15">Bootstrap, originally named Twitter Blueprint, was developed by Mark Otto</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">rushi_patel</a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>July 25</li>
+            <li class="d-flex align-items-center"><i class="bi bi-eye"></i>10</li>
+            <li class="d-flex align-items-center">&#183; 10 min read</li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        <p>
+            pip is a package-management system written in Python used to install and manage software packages.[5] It connects to an online repository of public packages, called the Python Package Index.
+        </p>
+        <div class="read-more">
+            <a href="/blog/article/15">Read More</a>
+        </div>
+    </div>
+</article>
+
+
+    <article class="entry" style="height: 120px;width:100%;"><center>ADS TO BE SHOWN HERE</center></article>
+
+<article class="entry">
+    <div class="entry-img">
+        <img src="https://images.unsplash.com/photo-1587612049655-c1030366a74a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="post_img" class="img-fluid">
+    </div>
+    <h2 class="entry-title">
+        <a href="/blog/article/13">Is bubble sort can be used in complex algorithms to search a key and pair ?</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">rushi</a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>July 21</li>
+            <li class="d-flex align-items-center"><i class="bi bi-eye"></i>13</li>
+            <li class="d-flex align-items-center">&#183; 0 min read</li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        <p>
+            Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.
+        </p>
+        <div class="read-more">
+            <a href="/blog/article/13">Read More</a>
+        </div>
+    </div>
+</article>
+
+
+<article class="entry">
+    <div class="entry-img">
+        <img src="https://images.unsplash.com/photo-1574689049340-bedc8373daa3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="post_img" class="img-fluid">
+    </div>
+    <h2 class="entry-title">
+        <a href="/blog/article/1">First Blog</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">rushi</a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>July 20</li>
+            <li class="d-flex align-items-center"><i class="bi bi-eye"></i>13</li>
+            <li class="d-flex align-items-center">&#183; 0 min read</li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        <p>
+            Colors bounced around in her head. They mixed and threaded themselves together. Even colors that had no business being together. They were all one, yet distinctly separate at the same time
+        </p>
+        <div class="read-more">
+            <a href="/blog/article/1">Read More</a>
+        </div>
+    </div>
+</article>
+
+
+                            <div class="blog-pagination">
+                                <ul class="justify-content-center">
+                                    
+<nav aria-label="Page navigation">
+    <ul class="pagination mb-4">
+        
+        
+        
+        <li class="page-item active">
+            <span class="page-link">1<span class="sr-only"></span></span>
+        </li>
+        
+        
+        
+        <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+        
+        
+        
+        <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+        
+        
+        
+        <li class="page-item">
+            <a class="page-link" href="?page=3" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+           
+    </ul>
+</nav>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            
+                            
+                            <div class="sidebar">
+                                <h3 class="sidebar-title mb-4" style="font-size: 23px;">Search</h3>
+                                <div class="sidebar-item search-form">
+                                    <form action="/blog/search/" method="GET">
+                                        <input type="text" name="search_query" required autocomplete="off">
+                                        <button type="submit"><i class="bi bi-search"></i></button>
+                                    </form>
+                                </div>
+                                <h3 class="sidebar-title mb-4" style="font-size:23px;">Categories</h3>
+                                <div class="sidebar-item categories">
+                                    <ul>
+                                        <li><a href="#">General <span>(25)</span></a></li>
+                                        <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                                        <li><a href="#">Travel <span>(5)</span></a></li>
+                                        <li><a href="#">Design <span>(22)</span></a></li>
+                                        <li><a href="#">Creative <span>(8)</span></a></li>
+                                        <li><a href="#">Educaion <span>(14)</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+<div class="sidebar">
+    <h3 class="sidebar-title mb-5" style="font-size: 23px;">Most Viewed</h3>
+    <div class="sidebar-item recent-posts">
+        
+        <div class="post-item clearfix mb-4 mt-4">
+            <img src="https://images.unsplash.com/photo-1574689049340-bedc8373daa3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="">
+            <h4><a href="/blog/article/1">First Blog</a></h4>
+            <time>July 20 &bullet; 0 min</time>
+        </div>
+        
+        <div class="post-item clearfix mb-4 mt-4">
+            <img src="https://images.unsplash.com/photo-1587612049655-c1030366a74a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="">
+            <h4><a href="/blog/article/13">Is bubble sort can be used in complex algorithms to search a key and pair ?</a></h4>
+            <time>July 21 &bullet; 0 min</time>
+        </div>
+        
+        <div class="post-item clearfix mb-4 mt-4">
+            <img src="https://images.unsplash.com/photo-1571715268998-d6e79bed5fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="">
+            <h4><a href="/blog/article/15">Bootstrap, originally named Twitter Blueprint, was developed by Mark Otto</a></h4>
+            <time>July 25 &bullet; 10 min</time>
+        </div>
+        
+        <div class="post-item clearfix mb-4 mt-4">
+            <img src="https://images.unsplash.com/photo-1445905595283-21f8ae8a33d2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="">
+            <h4><a href="/blog/article/12">Race to the SpaceX</a></h4>
+            <time>July 20 &bullet; 0 min</time>
+        </div>
+        
+        <div class="post-item clearfix mb-4 mt-4">
+            <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="">
+            <h4><a href="/blog/article/3">Third Blog</a></h4>
+            <time>July 20 &bullet; 0 min</time>
+        </div>
+        
+    </div>
+</div>
+<div class="sidebar">
+    <h3 class="sidebar-title mb-5" style="font-size: 23px;" >Search By Popular Tags</h3>
+    <div class="sidebar-item tags">
+        <ul>
+            
+            <li><a href="/blog/tag/python">python</a></li>
+            
+            <li><a href="/blog/tag/django">django</a></li>
+            
+            <li><a href="/blog/tag/css">css</a></li>
+            
+            <li><a href="/blog/tag/javascript">javascript</a></li>
+            
+            <li><a href="/blog/tag/web-development">web-development</a></li>
+            
+            <li><a href="/blog/tag/html">HTML</a></li>
+            
+            <li><a href="/blog/tag/generic-text">generic-text</a></li>
+            
+            <li><a href="/blog/tag/java">java</a></li>
+            
+            <li><a href="/blog/tag/nodejs">Nodejs</a></li>
+            
+            <li><a href="/blog/tag/elon-musk">Elon Musk</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="sidebar" style="box-shadow: none;">
+    <div class="sidebar-title mb-5" style="font-size: 23px;">
+        <h3>Trending this month</h3>
+    </div>
+    
+    <div class="trend-entry d-flex">
+        <div class="number align-self-start">1</div>
+        <div class="trend-contents">
+            <h2><a href="blog-single.html">Valorant a future game changer ?</a></h2>
+            <div class="post-meta">
+                <span class="d-block"><a href="#">rushi_patel20</a></span>
+                <span class="date-read">August 04 <span class="mx-1">&bullet;</span> 10 min read <span class="bi bi-star-fill"></span></span>
+            </div>
+        </div>
+    </div>
+    
+    <p>
+        <a href="#" class="more">See All Popular <span class="bi bi-arrow-right"></span></a>
+    </p>
+</div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer id="footer" class="footer">
+            <div class="footer-newsletter">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 text-center">
+                            <h4>Our Newsletter</h4>
+                            <p>Receive regular updates and announcement by subscibing to our Newsletter</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="/blog/subcribe-newsletter/" method="post">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="S8ASupg1ubgFsnYpMDFO5OH1RG2jNqGfB2DkfIfuyArFvfDfbYEwEnRQV1HFybqt">
+                                <input type="email" id="newsletter" autocomplete="off"  name="newsletter" required><input  id="submit" type="submit" value="Subscribe">
+                            </form>
+                            <script>
+                                function delay(callback, ms) {
+                                   var timer = 0;
+                                   return function() {
+                                     var context = this, args = arguments;
+                                     clearTimeout(timer);
+                                     timer = setTimeout(function () {
+                                       callback.apply(context, args);
+                                     }, ms || 0);
+                                   };
+                                 }
+                                $(document).ready(function () {
+                                    // catch the form's submit event
+                                    $('#newsletter').keyup(delay(function (e) {
+                                        // create an AJAX call
+                                        $.ajax({
+                                            data: $(this).serialize(),// get the form data
+                                            url: "/blog/subcribe-newsletter/",
+                                            // on success
+                                            success: function (response) {
+                                                if (response.is_subcribed == true) {
+                                                    $('#username').removeClass('is-valid').addClass('is-invalid');
+                                                    $('#username').after('<div class="invalid-feedback d-block" id="usernameError"><strong><p class="text-danger">This is already subscribed</strong></div>')
+                                                    $('.submit').prop('disabled', true);
+                                                }
+                                                else {
+                                                    $('#username').removeClass('is-invalid').addClass('is-valid');
+                                                    $('#submit').prop('disabled', false);
+                                                    $('#usernameError').remove();
+                                
+                                                }
+                                
+                                            },
+                                            // on error
+                                            error: function (response) {
+                                                // alert the error if any error occured
+                                                console.log(response.responseJSON.errors)
+                                            }
+                                        });
+                                        return false;
+                                    },500));
+                                })
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row gy-4">
+                        <div class="col-lg-5 col-md-12 footer-info">
+                            <a href="index.html" class="logo d-flex align-items-center">
+                            <img src="/static/IndexHome/assets/img/logo_org.png" alt="">
+                            <span>CaffeineCode</span>
+                            </a>
+                            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-6 footer-links">
+                            <h4>Useful Links</h4>
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 col-6 footer-links">
+                            <h4>Our Services</h4>
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                            <h4>Contact Us</h4>
+                            <p>
+                                A108 Adam Street <br>
+                                New York, NY 535022<br>
+                                United States <br><br>
+                                <strong>Phone:</strong> +1 5589 55488 55<br>
+                                <strong>Email:</strong> info@example.com<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+        </footer>
+        <script>
+            $(window).on('load',function(){
+                $(".loader").fadeOut(1100);
+                $(".content").fadeIn(1100);
+            });
+        </script>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <script src="/static/IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="/static/IndexHome/assets/vendor/aos/aos.js"></script>
+        <script src="/static/IndexHome/assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="/static/IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="/static/IndexHome/assets/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="/static/IndexHome/assets/js/main.js"></script>
+        
+<script src="/static/blog/js/jquery-3.3.1.min.js"></script>
+<script src="/static/blog/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/static/blog/js/owl.carousel.min.js"></script>
+<script src="/static/blog/js/jquery.stellar.min.js"></script>
+<script src="/static/blog/js/main.js"></script>
+
+    </body>

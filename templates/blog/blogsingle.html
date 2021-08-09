@@ -12,12 +12,11 @@
     <div class="entry-img">
         <img src="{{post.entry_img}}" alt="blog_img" class="img-fluid">
     </div>
-    <div class="entry-title">
-        <h2>{{post.title}}</h2>
-        <ul class="entry-meta" style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
-            <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified}}</li>
-        </ul>
-    </div>
+    <h2 class="entry-title">{{post.title}}</h2>
+    <ul class="entry-meta" style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
+        <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified}}</li>
+    </ul>
+    
     <div class="entry-content">
         {{post.body|safe}}
     </div>
@@ -88,7 +87,7 @@
 <!-- Adding author profile -->
 {% if similar_post%}
 <div class="sidebar">
-    <h3 class="sidebar-title  mb-4">Posts You May Like</h3>
+    <h3 class="sidebar-title  mb-4" style="font-size: 24px;">Posts You May Like</h3>
     <div class="sidebar-item recent-posts">
         {% for item in similar_post %}
         <div class="post-item clearfix">
@@ -96,7 +95,7 @@
             <strong>
                 <h4><a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a></h4>
             </strong>
-            <time>{{item.date_published|date:"F d"}}</time>
+            <time>{{item.date_published|date:"F d"}} &bullet; {{item.readtime_min}} min</time>
         </div>
         {% endfor %}
     </div>
@@ -104,7 +103,7 @@
 {% endif %}
 <div class="sidebar">
     <!-- End sidebar recent posts-->
-    <h3 class="sidebar-title  mb-4">Tags in blog</h3>
+    <h3 class="sidebar-title  mb-4" style="font-size: 24px;">Tags in blog</h3>
     <div class="sidebar-item tags">
         <ul>
             {% for tag in post.tags.all %}
