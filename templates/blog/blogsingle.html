@@ -14,8 +14,30 @@
     </div>
     <h2 class="entry-title">{{post.title}}</h2>
     <ul class="entry-meta" style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
-        <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified}}</li>
+        <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified}} | <i class="bi bi-heart-fill"><span id="like_count">&nbsp;{{post.likes_count}}</span></i></li>
     </ul>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '.like-button', function (e) {
+            e.preventDefault();
+            $.ajax({
+              type: 'POST',
+              url: '{% url "blog:like" %}',
+              data: {
+                postid: $('.like-button').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+              },
+              success: function (json) {
+                document.getElementById("like_count").innerHTML = json['result']
+                $(".like-icon").addClass("-fill");
+              },
+              error: function (xhr, errmsg, err) {
+
+              }
+            });
+          })
+    </script>
     
     <div class="entry-content">
         {{post.body|safe}}
@@ -117,3 +139,23 @@
     Ads To Be shown here
 </div>
 {% endblock sidebar %}
+
+
+{% block social-btn %}
+<div class="social-box" style="height:fit-content;">
+    <div class="sticky-container">
+        <div class="container" style="justify-content: center;padding:5px;">
+            <button class="like-button" value="{{post.pk}}"><h5><i id="like-icon" class="bi bi-heart"></i></h5></button>
+        </div>
+    </div>
+    <div class="sticky-container" style="margin-top:40px;background:#3b5999;">
+        <div class="container" style="justify-content: center;padding:5px;">
+        <h5><i class="bi bi-bookmarks"></i></h5>
+        </div>
+    </div>
+</div>
+{% endblock social-btn %}
+
+{% block pagination %}
+<button class="like-button" value="{{post.pk}}"> Like Post</button>
+{% endblock pagination %}

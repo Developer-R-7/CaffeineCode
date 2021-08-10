@@ -185,11 +185,39 @@
         {% block hero %}
         {% endblock hero  %}
         <main id="main" style="margin-top: 80px;">
+            <style>
+                .sticky-container {
+                    background-color:tomato;
+                    padding:5px;
+                    position: fixed;
+                    top: 50%;
+                    left: 0px;
+                    width: 50px;
+                    color:white;
+                    height: 40px;
+                    z-index: 9999;
+                    margin-top: 0px;
+                    text-align: center;
+                  }
+                  .sticky-container:hover{
+                    width: 100px;
+                    border-top-right-radius: 3px;
+                    border-bottom-right-radius: 3px;
+                  }
+                  .sticky-container button{
+                      border: none;
+                      background: none;
+                      color:white;
+                      width:100%;
+                  }
+            </style>
             <section id="blog" class="blog">
                 {% block search_block %}
                 {% endblock search_block %}
                 {% block owl %}
                 {% endblock owl %}
+                {% block social-btn %}
+                {% endblock social-btn %}
                 <div class="container" data-aos="fade-up">
                     {% block title_post %}
                     {% endblock title_post %}
@@ -327,6 +355,7 @@
         <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
         <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
         <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+        <script src="{%static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
         {% block script %}
         {% endblock script %}
     </body>

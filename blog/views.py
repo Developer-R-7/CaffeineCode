@@ -4,11 +4,15 @@ from .models import Post,Newsletter
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
 from taggit.models import Tag
+from django.contrib.auth import login
 from django.db.models import Count
 from django.core.paginator import Paginator
 import datetime
 from django.db.models import Q
 from hitcount.views import HitCountDetailView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
 from django.http import JsonResponse
 # Create your views here.
 
@@ -38,6 +42,26 @@ def newsletter(request):
         mail = request.POST.get("newsletter")
     else:
         return redirect('/blog/')
+
+def like_sys(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            result =''
+            pk_value = int(request.POST.get("postid"))
+            post  = get_object_or_404(Post,id=pk_value)
+            if post.likes.filter(id=request.user.id).exists():
+                post.likes.remove(request.user)
+                post.likes_count -= 1
+                result = post.likes_count
+                post.save()
+            else:
+                post.likes.add(request.user)
+                post.likes_count +=1
+                result = post.likes_count
+                post.save()
+            return JsonResponse({"result":result,})
+    else:
+        return HttpResponse("<h1>User login required</h1>")
 
 
 def post_by_tags(request,tag_slug):

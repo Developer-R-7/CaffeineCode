@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Is Bubble sort ?</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+        <style>
+            /* Make the image fully responsive */
+            .carousel-inner img {
+            width: 100%;
+            height: 100%;
+            }
+        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        <!-- Vendor CSS Files -->
+        
+        
+        <link href="/static/IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <link href="/static/IndexHome/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="/static/IndexHome/assets/css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <style>
+            body {
+            font-family: 'JosefinSans', monospace;
+            }
+            .card-container {
+                background-color: #231E39;
+                border-radius: 5px;
+                color: #B3B8CD;
+                padding-top: 30px;
+                position: relative;
+                width: 350px;
+                max-width: 100%;
+                text-align: center;
+                }
+            .card-container .pro {
+                color: #231E39;
+                background-color: #FEBB0B;
+                border-radius: 3px;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 3px 7px;
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                }
+            .card-container .round {
+                border: 1px solid #03BFCB;
+                border-radius: 50%;
+                padding: 7px;
+                }
+            button.primary {
+                background-color: #03BFCB;
+                border: 1px solid #03BFCB;
+                border-radius: 3px;
+                color: #231E39;
+                font-family: Montserrat, sans-serif;
+                font-weight: 500;
+                padding: 10px 25px;
+                }
+            button.primary.ghost {
+                background-color: transparent;
+                color: #02899C;
+                }
+            .skills {
+                background-color: #1F1A36;
+                text-align: left;
+                padding: 15px;
+                margin-top: 30px;
+                }
+            .skills ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                }
+            .skills ul li {
+                border: 1px solid #2D2747;
+                border-radius: 2px;
+                display: inline-block;
+                font-size: 12px;
+                margin: 0 7px 7px 0;
+                padding: 7px;
+            }
+            .entry-content p{
+            color:#6c757d;
+            }
+            .entry-title{
+            font-family: 'JosefinSans', monospace;
+            }
+            .blog .entry .entry-content p {
+            line-height: 1.9;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-weight: 300;
+            }
+            .entry-title{
+            font-family: 'JosefinSans', monospace;
+            }
+            .header .logo img {
+            max-height: 150px;
+            margin-right: 6px;
+            }
+            .blog .sidebar {
+            margin: 0 0 60px 15px;
+            }
+            .entry-title{
+            font-size: 45px;
+            }
+            .loader{
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-color: #ffffff;
+            position: absolute;
+            }
+            .loader>div{
+            height: 80px;
+            width: 80px;
+            border: 8px solid #fafafa;
+            border-top-color:rgb(241, 168, 71);
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 50%;
+            animation: spin 1.5s infinite linear;
+            }
+            @keyframes spin{
+            100%{
+            transform: rotate(360deg);
+            }
+            }
+        </style>
+        <!--<div class="loader">
+            <div></div>
+            </div>-->
+        <header id="header" class="header fixed-top" data-aos="fade-in">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="index.html" class="logo d-flex align-items-center">
+                <span>CaffeineCode</span>
+                </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto" href="/">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li><a class= "nav-link scrollto active" href="/blog/">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact </a></li>
+                        
+                        <li><a href="/logout/" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
+                        <li><a class="getstarted scrollto" role="button">rushi</a></li>
+                        
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+            </div>
+        </header>
+        
+        
+        <main id="main" style="margin-top: 80px;">
+            <style>
+                .sticky-container {
+                    background-color:tomato;
+                    padding:5px;
+                    position: fixed;
+                    top: 50%;
+                    left: 0px;
+                    width: 50px;
+                    color:white;
+                    height: 40px;
+                    z-index: 9999;
+                    margin-top: 0px;
+                    text-align: center;
+                    z-index: 9999;
+                    margin-top: -24px;
+                    text-align: center;
+                    text-align: center;
+                  }
+                  .sticky-container:hover {
+                    width: 24px;
+                  }
+                  .sticky-container a {
+                    padding: 0 !important;
+                    display: block;
+                    text-align: left;
+                    height: 24px;
+                    width: 24px;
+                    padding: 8px 16px;
+                    color: #fff;
+                    font-family: Arial, sans-serif;
+                    font-size: 17px;
+                    font-weight: bold;
+                    text-decoration: none;
+                  }
+                  .sticky-container a img {
+                    max-height: 100%;
+                  }
+            </style>
+            <section id="blog" class="blog">
+                
+<div class="container mb-5" data-aos-duration="600" data-aos="fade-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
+    <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
+</div>
+
+                
+                
+                
+<div class="sticky-container">
+    <div class="button-container">
+      <a class="btn btn-primary">Hello</a>
+    </div>
+  </div>
+
+                <div class="container" data-aos="fade-up">
+                    
+                    
+                    <div class="row">
+                        <div class="col-lg-8 entries">
+                            
+<article class="entry entry-single">
+    <div class="entry-img">
+        <img src="https://images.unsplash.com/photo-1587612049655-c1030366a74a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="blog_img" class="img-fluid">
+    </div>
+    <h2 class="entry-title">Is bubble sort can be used in complex algorithms to search a key and pair ?</h2>
+    <ul class="entry-meta" style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
+        <li><i class="bi bi-eye"></i> 16 | <i class="bi bi-calendar2-check"></i> Last updated Aug. 10, 2021, 12:48 p.m.</li>
+        <li><i class="bi bi-heart-fill"></i> <span id="like_count">0</span></li>
+        <button class="btn btn-primary" id="like-button" value="13"></button>
+    </ul>
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+    <script>
+        $(document).on('click', '#like-button', function (e) {
+            e.preventDefault();
+            $.ajax({
+              type: 'POST',
+              url: '/blog/like/',
+              data: {
+                postid: $('#like-button').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+              },
+              success: function (json) {
+                document.getElementById("like_count").innerHTML = json['result']
+              },
+              error: function (xhr, errmsg, err) {
+        
+              }
+            });
+          })
+    </script>
+    
+    <div class="entry-content">
+        <h1>Bubble Sort</h1>
+
+<p>Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.<br />
+<strong>Example:</strong>&nbsp;<br />
+<strong>First Pass:</strong>&nbsp;<br />
+(&nbsp;<strong>5</strong>&nbsp;<strong>1</strong>&nbsp;4 2 8 ) &ndash;&gt; (&nbsp;<strong>1</strong>&nbsp;<strong>5</strong>&nbsp;4 2 8 ), Here, algorithm compares the first two elements, and swaps since 5 &gt; 1.&nbsp;<br />
+( 1&nbsp;<strong>5</strong>&nbsp;<strong>4</strong>&nbsp;2 8 ) &ndash;&gt;&nbsp; ( 1&nbsp;<strong>4</strong>&nbsp;<strong>5</strong>&nbsp;2 8 ), Swap since 5 &gt; 4&nbsp;<br />
+( 1 4&nbsp;<strong>5</strong>&nbsp;<strong>2</strong>&nbsp;8 ) &ndash;&gt;&nbsp; ( 1 4&nbsp;<strong>2</strong>&nbsp;<strong>5</strong>&nbsp;8 ), Swap since 5 &gt; 2&nbsp;<br />
+( 1 4 2&nbsp;<strong>5</strong>&nbsp;<strong>8</strong>&nbsp;) &ndash;&gt; ( 1 4 2&nbsp;<strong>5</strong>&nbsp;<strong>8</strong>&nbsp;), Now, since these elements are already in order (8 &gt; 5), algorithm does not swap them.<br />
+<strong>Second Pass:</strong>&nbsp;<br />
+(&nbsp;<strong>1</strong>&nbsp;<strong>4</strong>&nbsp;2 5 8 ) &ndash;&gt; (&nbsp;<strong>1</strong>&nbsp;<strong>4</strong>&nbsp;2 5 8 )&nbsp;<br />
+( 1&nbsp;<strong>4</strong>&nbsp;<strong>2</strong>&nbsp;5 8 ) &ndash;&gt; ( 1&nbsp;<strong>2</strong>&nbsp;<strong>4</strong>&nbsp;5 8 ), Swap since 4 &gt; 2&nbsp;<br />
+( 1 2&nbsp;<strong>4</strong>&nbsp;<strong>5</strong>&nbsp;8 ) &ndash;&gt; ( 1 2&nbsp;<strong>4</strong>&nbsp;<strong>5</strong>&nbsp;8 )&nbsp;<br />
+( 1 2 4&nbsp;<strong>5</strong>&nbsp;<strong>8</strong>&nbsp;) &ndash;&gt;&nbsp; ( 1 2 4&nbsp;<strong>5</strong>&nbsp;<strong>8</strong>&nbsp;)&nbsp;<br />
+Now, the array is already sorted, but our algorithm does not know if it is completed. The algorithm needs one&nbsp;<strong>whole</strong>&nbsp;pass without&nbsp;<strong>any</strong>&nbsp;swap to know it is sorted.<br />
+<strong>Third Pass:</strong>&nbsp;<br />
+(&nbsp;<strong>1</strong>&nbsp;<strong>2</strong>&nbsp;4 5 8 ) &ndash;&gt; (&nbsp;<strong>1</strong>&nbsp;<strong>2</strong>&nbsp;4 5 8 )&nbsp;<br />
+( 1&nbsp;<strong>2</strong>&nbsp;<strong>4</strong>&nbsp;5 8 ) &ndash;&gt; ( 1&nbsp;<strong>2</strong>&nbsp;<strong>4</strong>&nbsp;5 8 )&nbsp;<br />
+( 1 2&nbsp;<strong>4</strong>&nbsp;<strong>5</strong>&nbsp;8 ) &ndash;&gt; ( 1 2&nbsp;<strong>4</strong>&nbsp;<strong>5</strong>&nbsp;8 )&nbsp;<br />
+( 1 2 4&nbsp;<strong>5</strong>&nbsp;<strong>8</strong>&nbsp;) &ndash;&gt; ( 1 2 4&nbsp;<strong>5</strong>&nbsp;<strong>8</strong>&nbsp;)&nbsp;<br />
+&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="https://practice.geeksforgeeks.org/problems/bubble-sort/1">Recommended: Please solve it on &ldquo;<em><strong><u>PRACTICE</u></strong></em>&nbsp;&rdquo; first, before moving on to the solution.</a>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Following is the implementations of Bubble Sort.&nbsp;</p>
+
+<hr />
+<p><code>// C++ program for implementation of Bubble sort</code></p>
+
+<p><code>#include &lt;bits/stdc++.h&gt;</code></p>
+
+<p><code>using</code> <code>namespace</code> <code>std;</code></p>
+
+<p>&nbsp;</p>
+
+<p><code>void</code> <code>swap(</code><code>int</code> <code>*xp, </code><code>int</code> <code>*yp)</code></p>
+
+<p><code>{</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>int</code> <code>temp = *xp;</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>*xp = *yp;</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>*yp = temp;</code></p>
+
+<p><code>}</code></p>
+
+<p>&nbsp;</p>
+
+<p><code>// A function to implement bubble sort</code></p>
+
+<p><code>void</code> <code>bubbleSort(</code><code>int</code> <code>arr[], </code><code>int</code> <code>n)</code></p>
+
+<p><code>{</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>int</code> <code>i, j;</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>for</code> <code>(i = 0; i &lt; n-1; i++)&nbsp;&nbsp;&nbsp;&nbsp;</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>// Last i elements are already in place</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>for</code> <code>(j = 0; j &lt; n-i-1; j++)</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>if</code> <code>(arr[j] &gt; arr[j+1])</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>swap(&amp;arr[j], &amp;arr[j+1]);</code></p>
+
+<p><code>}</code></p>
+
+<p>&nbsp;</p>
+
+<p><code>/* Function to print an array */</code></p>
+
+<p><code>void</code> <code>printArray(</code><code>int</code> <code>arr[], </code><code>int</code> <code>size)</code></p>
+
+<p><code>{</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>int</code> <code>i;</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>for</code> <code>(i = 0; i &lt; size; i++)</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>cout &lt;&lt; arr[i] &lt;&lt; </code><code>&quot; &quot;</code><code>;</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>cout &lt;&lt; endl;</code></p>
+
+<p><code>}</code></p>
+
+<p>&nbsp;</p>
+
+<p><code>// Driver code</code></p>
+
+<p><code>int</code> <code>main()</code></p>
+
+<p><code>{</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>int</code> <code>arr[] = {64, 34, 25, 12, 22, 11, 90};</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>int</code> <code>n = </code><code>sizeof</code><code>(arr)/</code><code>sizeof</code><code>(arr[0]);</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>bubbleSort(arr, n);</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>cout&lt;&lt;</code><code>&quot;Sorted array: \n&quot;</code><code>;</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>printArray(arr, n);</code></p>
+
+<p><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>return</code> <code>0;</code></p>
+
+<p><code>}</code></p>
+
+<p>&nbsp;</p>
+
+<p><code>// This code is contributed by rathbhupendra</code></p>
+    </div>
+    <div class="entry-footer">
+        <i class="bi bi-folder"></i>
+        <ul class="cats">
+            <li><a href="#">Business</a></li>
+        </ul>
+        <i class="bi bi-tags"></i>
+        <ul class="tags">
+            
+            <li><a href="/blog/tag/django">django</a></li>
+            
+            <li><a href="/blog/tag/python">python</a></li>
+            
+            <li><a href="/blog/tag/algorithms">algorithms</a></li>
+            
+            <li><a href="/blog/tag/bubble-sort">bubble sort</a></li>
+            
+        </ul>
+    </div>
+</article>
+<div class="blog-author d-flex align-items-center">
+    <img src="/static/IndexHome/assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
+    <div>
+        <h4>rushi</h4>
+        <div class="social-links">
+            <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+            <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+            <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+        </div>
+        <p>
+            After reading the above article you will get idea the importance of bubble sort ,it include useful functionality of bubble sort in computer world.
+        </p>
+    </div>
+</div>
+
+                            <div class="blog-pagination">
+                                <ul class="justify-content-center">
+                                    
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="height: fit-content;">
+                            
+<div class="sidebar" style="background:#ffffff">
+    <h3 class="sidebar-title mb-4">
+        Author's Bio
+    </h3>
+    <div class="card-container" style="background-color: #ffffff;margin:0 auto;">
+        <span class="pro">PRO</span>
+        <img class="round" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+        <h3>rushi</h3>
+        <p>freelancer</p>
+        <div class="buttons">
+            <button class="primary">
+            Message
+            </button>
+            <button class="primary ghost">
+            Following
+            </button>
+        </div>
+        <style>
+            .skills li:hover{
+            background: #03BFCB;
+            color: #ffffff;
+            }
+        </style>
+        <div class="skills" style="background-color: #ffffff;">
+            <h6>Skills</h6>
+            <ul>
+                
+                <li>html</li>
+                
+                <li>css</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+                            <div class="sidebar">
+                                <h3 class="sidebar-title mb-4" style="font-size: 23px;">Search</h3>
+                                <div class="sidebar-item search-form">
+                                    <form action="/blog/search/" method="GET">
+                                        <input type="text" name="search_query" required autocomplete="off">
+                                        <button type="submit"><i class="bi bi-search"></i></button>
+                                    </form>
+                                </div>
+                                <h3 class="sidebar-title mb-4" style="font-size:23px;">Categories</h3>
+                                <div class="sidebar-item categories">
+                                    <ul>
+                                        <li><a href="#">General <span>(25)</span></a></li>
+                                        <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                                        <li><a href="#">Travel <span>(5)</span></a></li>
+                                        <li><a href="#">Design <span>(22)</span></a></li>
+                                        <li><a href="#">Creative <span>(8)</span></a></li>
+                                        <li><a href="#">Educaion <span>(14)</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+<!-- Adding author profile -->
+
+<div class="sidebar">
+    <h3 class="sidebar-title  mb-4" style="font-size: 24px;">Posts You May Like</h3>
+    <div class="sidebar-item recent-posts">
+        
+        <div class="post-item clearfix">
+            <img src="https://images.unsplash.com/photo-1574689049340-bedc8373daa3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="">
+            <strong>
+                <h4><a href="/blog/article/1">First Blog</a></h4>
+            </strong>
+            <time>July 20 &bullet; 0 min</time>
+        </div>
+        
+        <div class="post-item clearfix">
+            <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="">
+            <strong>
+                <h4><a href="/blog/article/3">Third Blog</a></h4>
+            </strong>
+            <time>July 20 &bullet; 0 min</time>
+        </div>
+        
+        <div class="post-item clearfix">
+            <img src="https://images.unsplash.com/photo-1553741509-72728db3e6ce?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=889&amp;q=80" alt="">
+            <strong>
+                <h4><a href="/blog/article/8">Eighth Blog</a></h4>
+            </strong>
+            <time>July 20 &bullet; 0 min</time>
+        </div>
+        
+        <div class="post-item clearfix">
+            <img src="{% static &#x27;IndexHome/assets/img/blog-recent-4.jpg&#x27; %}" alt="">
+            <strong>
+                <h4><a href="/blog/article/10">Tenth Blog</a></h4>
+            </strong>
+            <time>July 20 &bullet; 0 min</time>
+        </div>
+        
+        <div class="post-item clearfix">
+            <img src="https://images.unsplash.com/photo-1571715268998-d6e79bed5fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=752&amp;q=80" alt="">
+            <strong>
+                <h4><a href="/blog/article/15">Bootstrap, originally named Twitter Blueprint, was developed by Mark Otto</a></h4>
+            </strong>
+            <time>July 25 &bullet; 10 min</time>
+        </div>
+        
+    </div>
+</div>
+
+<div class="sidebar">
+    <!-- End sidebar recent posts-->
+    <h3 class="sidebar-title  mb-4" style="font-size: 24px;">Tags in blog</h3>
+    <div class="sidebar-item tags">
+        <ul>
+            
+            <li><a href="/blog/tag/django">django</a></li>
+            
+            <li><a href="/blog/tag/python">python</a></li>
+            
+            <li><a href="/blog/tag/algorithms">algorithms</a></li>
+            
+            <li><a href="/blog/tag/bubble-sort">bubble sort</a></li>
+            
+        </ul>
+    </div>
+    <!-- End sidebar tags-->
+</div>
+<div class="sidebar">
+    Ads To Be shown here
+</div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer id="footer" class="footer">
+            <div class="footer-newsletter">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 text-center">
+                            <h4>Our Newsletter</h4>
+                            <p>Receive regular updates and announcement by subscibing to our Newsletter</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="/blog/subcribe-newsletter/" method="post">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="zP6MsHxG7NhZfm24XqBhkJrYZSGydrCOOCzvw258vDqhmsLAeJf9w0y2K6dq9gRI">
+                                <input type="email" id="newsletter" autocomplete="off"  name="newsletter" required><input  id="submit" type="submit" value="Subscribe">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row gy-4">
+                        <div class="col-lg-5 col-md-12 footer-info">
+                            <a href="index.html" class="logo d-flex align-items-center">
+                            <img src="/static/IndexHome/assets/img/logo_org.png" alt="">
+                            <span>CaffeineCode</span>
+                            </a>
+                            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-6 footer-links">
+                            <h4>Useful Links</h4>
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 col-6 footer-links">
+                            <h4>Our Services</h4>
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                            <h4>Contact Us</h4>
+                            <p>
+                                A108 Adam Street <br>
+                                New York, NY 535022<br>
+                                United States <br><br>
+                                <strong>Phone:</strong> +1 5589 55488 55<br>
+                                <strong>Email:</strong> info@example.com<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+        </footer>
+        <!--<script>
+            $(window).on('load',function(){
+                $(".loader").fadeOut(1100);
+                $(".content").fadeIn(1100);
+            });
+        </script>-->
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <script src="/static/IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="/static/IndexHome/assets/vendor/aos/aos.js"></script>
+        <script src="/static/IndexHome/assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="/static/IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="/static/IndexHome/assets/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="/static/IndexHome/assets/js/main.js"></script>
+        <script src="/static/IndexHome/assets/js/core/jquery.min.js"></script>
+        
+        
+    </body>
+</html>

@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import MAXYEAR, datetime,date
+from datetime import datetime,date
 from taggit.managers import TaggableManager
 from ckeditor.fields import RichTextField
-from hitcount.models import HitCountMixin, HitCount
+from hitcount.models import HitCount
+from django.urls import reverse
 from django.contrib.contenttypes.fields import GenericRelation
 # Create your models here.
 class Post(models.Model):
@@ -22,9 +23,13 @@ class Post(models.Model):
     skills = models.CharField(max_length=70,default="html,css")
     editor_choice = models.BooleanField(default=False)
     designation = models.CharField(max_length=60,default="freelancer")
+    likes = models.ManyToManyField(User,default=None,blank=True, related_name='post_likes')
+    likes_count = models.BigIntegerField(default='0')
+    
     def __str__(self):
         return self.title + ' | ' + str(self.author)
-
+    def get_absolute_url(self):
+        return reverse("posts:detail", kwargs={"pk": self.pk})
 
 class Newsletter(models.Model):
     email = models.EmailField()
