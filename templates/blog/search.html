@@ -2,6 +2,9 @@
 {% block title %} Blog-CaffeineCode {% endblock title %}
 {% load hitcount_tags %}
 {% block search_block %}
+<div class="container mb-5" data-aos-duration="600" data-aos="=fade-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
+    <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
+</div>
 {% load static %}
 <div class="container" data-aos="fade-up">
     <h2>
@@ -13,48 +16,49 @@
 <br>
 {% endblock search_block %}
 {% block article %}
+{% if forloop.counter == 4 %}
+    <article class="entry" style="height: 120px;width:100%;"><center>ADS TO BE SHOWN HERE</center></article>
+{% endif %}
 {% if result %}
-    {% for post in result %}
-    <article class="entry">
-        <div class="entry-img">
-            <img src="{{post.entry_img}}" alt="" class="img-fluid">
+{% for post in result %}
+<article class="entry">
+    <div class="entry-img">
+        <img src="{{post.entry_img}}" alt="" class="img-fluid">
+    </div>
+    <h2 class="entry-title">
+        <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
+            <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
+            <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        <p>
+            {{post.blog_snipet|slice:":200"}}
+        </p>
+        <div class="read-more">
+            <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
         </div>
-        <h2 class="entry-title">
-            <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
-        </h2>
-        <div class="entry-meta">
-            <ul>
-                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
-                <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
-                <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
-                <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
-            </ul>
-        </div>
-        <div class="entry-content">
-            <p>
-                {{post.blog_snipet|slice:":200"}}
-            </p>
-            <div class="read-more">
-                <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
-            </div>
-        </div>
-    </article>
-    {% endfor %}
+    </div>
+</article>
+{% endfor %}
 {% else %}
-    <article class="entry">
-        <div class="entry-img">
-            <img src="{% static 'IndexHome/assets/img/empty.png' %}" height="300px" class="img-fluid">
-        </div>
-        <div class="entry-title" style="text-align: center;color:rgb(240, 75, 75);">
-            No results Found!
-        </div>
-    </article>
+<article class="entry">
+    <div class="entry-img">
+        <img src="{% static 'IndexHome/assets/img/empty.png' %}" height="300px" class="img-fluid">
+    </div>
+    <div class="entry-title" style="text-align: center;color:rgb(240, 75, 75);">
+        No results Found!
+    </div>
+</article>
 {% endif %}
 {% endblock article %}
-
 {% block pagination %}
 {% endblock pagination %}
-
 {% block sidebar %}
 <div class="sidebar">
     <h3 class="sidebar-title  mb-4">Most Liked Posts</h3>

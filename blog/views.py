@@ -1,4 +1,5 @@
 from django.core import paginator
+from django.http.response import HttpResponse
 from .models import Post,Newsletter
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
@@ -8,6 +9,7 @@ from django.core.paginator import Paginator
 import datetime
 from django.db.models import Q
 from hitcount.views import HitCountDetailView
+from django.http import JsonResponse
 # Create your views here.
 
 class HomeView(ListView):
@@ -16,13 +18,13 @@ class HomeView(ListView):
     ordering = ['-date_published','-hit_count_generic__hits']
     paginate_by = 5
     def get_context_data(self,**kwargs):
-        most_used_tags = Post.tags.most_common()[:9]
+        most_used_tags = Post.tags.most_common()[:10]
         context = super(HomeView,self).get_context_data(**kwargs)
         context['editor'] = Post.objects.filter(editor_choice=True).order_by('-hit_count_generic__hits')[:5]
         context['most_used_tag'] = most_used_tags
-        get_month = datetime.date.today().month
+        get_date = datetime.date.today()
         context['trending_post'] = Post.objects.order_by('-hit_count_generic__hits')[:5]
-        context['trend_month'] = Post.objects.filter(date_published__month=get_month).order_by('-hit_count_generic__hits')[:10]
+        context['this_month'] = Post.objects.filter(date_published__year=get_date.year,date_published__month= get_date.month-1).order_by('-hit_count_generic__hits')[:10]
         return context
 
 def search_sys(request):
@@ -34,14 +36,8 @@ def search_sys(request):
 def newsletter(request):
     if request.method == "POST":
         mail = request.POST.get("newsletter")
-        if Newsletter.objects.filter(email = mail).first():
-            pass
-        else:
-            add_mail = Newsletter.objects.create(email=mail)
-            add_mail.save()
-        return redirect('/blog/')
     else:
-        return redirect('')
+        return redirect('/blog/')
 
 
 def post_by_tags(request,tag_slug):
@@ -68,7 +64,6 @@ class ArticleDetailView(HitCountDetailView):
         get_skill = Post.objects.filter(pk=self.object.pk).values_list('skills', flat=True)[0]
         get_skill = get_skill.split(',')[:5]
         context['skill'] = get_skill
-        
         return context
 
     

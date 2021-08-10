@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
     <head>
-        {% load static %}
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <title>{% block title %}{% endblock title %}</title>
@@ -12,32 +12,21 @@
         <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <style>
             /* Make the image fully responsive */
             .carousel-inner img {
             width: 100%;
             height: 100%;
             }
-            .col-lg-8{
-                position: -webkit-sticky;
-                position: sticky;
-                top: 0;
-            }
-            
         </style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
         <!-- Vendor CSS Files -->
-        {% load static %}
         {% block styling %}
         {% endblock styling %}
-      
-
         <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
         <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet">
@@ -51,6 +40,64 @@
         <style>
             body {
             font-family: 'JosefinSans', monospace;
+            }
+            .card-container {
+                background-color: #231E39;
+                border-radius: 5px;
+                color: #B3B8CD;
+                padding-top: 30px;
+                position: relative;
+                width: 350px;
+                max-width: 100%;
+                text-align: center;
+                }
+            .card-container .pro {
+                color: #231E39;
+                background-color: #FEBB0B;
+                border-radius: 3px;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 3px 7px;
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                }
+            .card-container .round {
+                border: 1px solid #03BFCB;
+                border-radius: 50%;
+                padding: 7px;
+                }
+            button.primary {
+                background-color: #03BFCB;
+                border: 1px solid #03BFCB;
+                border-radius: 3px;
+                color: #231E39;
+                font-family: Montserrat, sans-serif;
+                font-weight: 500;
+                padding: 10px 25px;
+                }
+            button.primary.ghost {
+                background-color: transparent;
+                color: #02899C;
+                }
+            .skills {
+                background-color: #1F1A36;
+                text-align: left;
+                padding: 15px;
+                margin-top: 30px;
+                }
+            .skills ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                }
+            .skills ul li {
+                border: 1px solid #2D2747;
+                border-radius: 2px;
+                display: inline-block;
+                font-size: 12px;
+                margin: 0 7px 7px 0;
+                padding: 7px;
             }
             .entry-content p{
             color:#6c757d;
@@ -80,7 +127,6 @@
             .entry-title{
             font-size: 45px;
             }
-            
             .loader{
             height: 100vh;
             width: 100vw;
@@ -110,30 +156,30 @@
         </style>
         <!--<div class="loader">
             <div></div>
-        </div>-->
+            </div>-->
         <header id="header" class="header fixed-top" data-aos="fade-in">
             <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-               <a href="index.html" class="logo d-flex align-items-center">
-               <span>CaffeineCode</span>
-               </a>
-               <nav id="navbar" class="navbar">
-                  <ul>
-                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                     <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                     <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                     <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
-                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                     <li><a href="{% url 'blog:index' %}">Blog</a></li>
-                     <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
-                     {% if user.is_authenticated and user.is_active %}
-                     <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
-                     <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
-                     {% else %}
-                     <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
-                     {% endif %}
-                  </ul>
-                  <i class="bi bi-list mobile-nav-toggle"></i>
-               </nav>
+                <a href="index.html" class="logo d-flex align-items-center">
+                <span>CaffeineCode</span>
+                </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li><a class= "nav-link scrollto active" href="{% url 'blog:index' %}">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
+                        {% if user.is_authenticated and user.is_active %}
+                        <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
+                        <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
+                        {% else %}
+                        <li><a class="getstarted scrollto" role="button"  data-toggle="modal"  data-target="#myModal1">Sign In</a></li>
+                        {% endif %}
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
             </div>
         </header>
         {% block hero %}
@@ -145,6 +191,8 @@
                 {% block owl %}
                 {% endblock owl %}
                 <div class="container" data-aos="fade-up">
+                    {% block title_post %}
+                    {% endblock title_post %}
                     <div class="row">
                         <div class="col-lg-8 entries">
                             {% block article %}
@@ -156,7 +204,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" style="height: fit-content;">
                             {% block profile %}
                             {% endblock profile %}
                             <div class="sidebar">
@@ -182,9 +230,9 @@
                             {% block sidebar %}
                             {% endblock sidebar %}
                         </div>
+
                     </div>
                 </div>
-
             </section>
         </main>
         <footer id="footer" class="footer">
@@ -198,7 +246,7 @@
                         <div class="col-lg-6">
                             <form action="{% url 'blog:newsletter' %}" method="post">
                                 {% csrf_token %}
-                                <input type="email" name="newsletter" required><input type="submit" value="Subscribe">
+                                <input type="email" id="newsletter" autocomplete="off"  name="newsletter" required><input  id="submit" type="submit" value="Subscribe">
                             </form>
                         </div>
                     </div>
@@ -209,8 +257,8 @@
                     <div class="row gy-4">
                         <div class="col-lg-5 col-md-12 footer-info">
                             <a href="index.html" class="logo d-flex align-items-center">
-                            <img src="assets/img/logo.png" alt="">
-                            <span>FlexStart</span>
+                            <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" alt="">
+                            <span>CaffeineCode</span>
                             </a>
                             <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
                             <div class="social-links mt-3">
@@ -266,12 +314,12 @@
                 </div>
             </div>
         </footer>
-        <script>
+        <!--<script>
             $(window).on('load',function(){
                 $(".loader").fadeOut(1100);
                 $(".content").fadeIn(1100);
             });
-        </script>
+        </script>-->
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
         <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
@@ -281,5 +329,5 @@
         <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
         {% block script %}
         {% endblock script %}
-
-</body>
+    </body>
+</html>

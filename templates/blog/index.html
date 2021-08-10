@@ -1,43 +1,45 @@
 {% extends 'blog/base.html' %}
-{% block title %}CaffeineBlog - Your Coffee,Our Blogs {% endblock title %}
+{% block title %}CaffeineCode - Blogs{% endblock title %}
 {% load hitcount_tags %}
 {% load static %}
 {% block hero %}
+{% if page_obj.number == 1 %}
 <section id="hero" class="hero d-flex align-items-center">
     <div class="container">
-       <div class="row">
-          <div class="col-lg-6 d-flex flex-column justify-content-center">
-             <h1 data-aos="fade-up">Your's Coffee Our Blogs</h1>
-             <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
-             <div data-aos="fade-up" data-aos-delay="600">
-                <div class="text-center text-lg-start">
-                   <a style="cursor: pointer; color:white;"  data-toggle="modal"  data-target="#myModal3" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                   <span>Create Account</span>
-                   <i class="bi bi-arrow-right"></i>
-                   </a>
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Your's Coffee Our Blogs</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center text-lg-start">
+                        <a style="cursor: pointer; color:white;"  data-toggle="modal"  data-target="#myModal3" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                        <span>Create Account</span>
+                        <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-             </div>
-          </div>
-          <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-             <img src="{% static 'IndexHome/assets/img/blogging.svg' %}" class="img-fluid" alt="">
-          </div>
-       </div>
+            </div>
+            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img src="{% static 'IndexHome/assets/img/blogging.svg' %}" class="img-fluid" alt="">
+            </div>
+        </div>
     </div>
- </section>
+</section>
+{% endif %}
 {% endblock hero %}
 {% block owl %}
 {% if page_obj.number == 1 %}
-    <style>
-        .owl-nav { visibility: hidden; }
-        .owl-carousel:hover .owl-nav { visibility: visible; }
-    </style>
-    <div class="container" data-aos="fade-in">
-        <h3 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;">Editor's Choice</h3>
-        <div class="site-section py-0" style="margin-bottom:3em;">
-            <div class="owl-carousel hero-slide owl-style" style="padding-top: 0px;">
-                {% for ed_post in editor %}
-                    <div class="site-section">
-                    <div class="container">
+<style>
+    .owl-nav { visibility: hidden; }
+    .owl-carousel:hover .owl-nav { visibility: visible; }
+</style>
+<div class="container" data-aos="fade-in">
+    <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;font-size: 23px;">Editor's Choice</h4>
+    <div class="site-section py-0" style="margin-bottom:3em;">
+        <div class="owl-carousel hero-slide owl-style" style="padding-top:0px;">
+            {% for ed_post in editor %}
+            <div class="site-section">
+                <div class="container">
                     <div class="half-post-entry d-block d-lg-flex bg-light">
                         <div class="img-bg" style="background-image: url('{{ed_post.entry_img}}')"></div>
                         <div class="contents">
@@ -51,19 +53,25 @@
                             <div class="read-more" style="align-content: right;padding-top:10px;">
                                 <a class="btn btn-primary" href="{% url 'blog:blog_details' ed_post.pk %}">Read More</a>
                             </div>
-
                         </div>
                     </div>
-                    </div>
-                    </div>
-                {% endfor %}
+                </div>
             </div>
+            {% endfor %}
         </div>
     </div>
+</div>
+{% else %}
+<div class="container mb-5" data-aos-duration="600" data-aos="zoom-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
+    <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
+</div>
 {% endif %}
 {% endblock owl %}
 {% block article %}
 {% for post in object_list %}
+{% if forloop.counter == 4 %}
+    <article class="entry" style="height: 120px;width:100%;"><center>ADS TO BE SHOWN HERE</center></article>
+{% endif %}
 <article class="entry">
     <div class="entry-img">
         <img src="{{post.entry_img}}" alt="post_img" class="img-fluid">
@@ -90,43 +98,35 @@
 </article>
 {% endfor %}
 {% endblock article %}
-
-
 {% block pagination %}
-<nav aria-label="Page navigation">   
-    <ul class="pagination">
-    {% if page_obj.has_previous %}
-    <li class="page-item">
-      <a class="page-link" href="?page=1" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">begin</span>
-      </a>
-    </li>   
-    {% endif %}
-    
-    {% for n in page_obj.paginator.page_range %}
-      {% if page_obj.number == n %}
-        <li class="page-item active">
-          <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+<nav aria-label="Page navigation">
+    <ul class="pagination mb-5">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            </a>
         </li>
-      {% elif n > page_obj.number|add:'-3' and n < page_obj.number|add:'3' %}
+        {% endif %}
+        {% for n in page_obj.paginator.page_range %}
+        {% if page_obj.number == n %}
+        <li class="page-item active">
+            <span class="page-link">{{ n }}<span class="sr-only"></span></span>
+        </li>
+        {% elif n > page_obj.number|add:'-3' and n < page_obj.number|add:'3' %}
         <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
-      {% endif %}
-    {% endfor %}
-    
-    {% if page_obj.has_next %}
-      <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">end</span>
-        </a>
-      </li>
-    {% endif %}   
-</ul> 
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}   
+    </ul>
 </nav>
 {% endblock pagination %}
-
-
 {% block sidebar %}
 <div class="sidebar">
     <h3 class="sidebar-title mb-5" style="font-size: 23px;">Most Viewed</h3>
@@ -135,7 +135,7 @@
         <div class="post-item clearfix mb-4 mt-4">
             <img src="{{most_view.entry_img}}" alt="">
             <h4><a href="{% url 'blog:blog_details' most_view.pk %}">{{most_view.title}}</a></h4>
-            <time>{{most_view.date_published|date:"F d"}}</time>
+            <time>{{most_view.date_published|date:"F d"}} &bullet; {{most_view.readtime_min}} min</time>
         </div>
         {% endfor %}
     </div>
@@ -152,36 +152,35 @@
 </div>
 <div class="sidebar" style="box-shadow: none;">
     <div class="sidebar-title mb-5" style="font-size: 23px;">
-      <h3>Trending this month</h3>
+        <h3 class="entry-title" style="font-weight: bold;font-size:24px;">Trending this month</h3>
     </div>
-    {% for month_trend in trend_month %}
-        <div class="trend-entry d-flex">
+    {% for month_trend in this_month %}
+    <div class="trend-entry d-flex">
         <div class="number align-self-start">{{ forloop.counter }}</div>
         <div class="trend-contents">
             <h2><a href="blog-single.html">{{month_trend.title}}</a></h2>
             <div class="post-meta">
-            <span class="d-block"><a href="#">{{month_trend.author}}</a></span>
-            <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read <span class="bi bi-star-fill"></span></span>
+                <span class="d-block"><a href="#">{{month_trend.author}}</a></span>
+                <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read <span class="bi bi-star-fill"></span></span>
             </div>
         </div>
-        </div>
+    </div>
+    {% empty %}
+        <h2>No trending post this month</h2>
     {% endfor %}
-
-    
-    <p>
-      <a href="#" class="more">See All Popular <span class="bi bi-arrow-right"></span></a>
-    </p>
 </div>
-
+<div class="sidebar" style="height: 100vh;">
+    <div class="sticky-ads">
+        <h4>ads to be shown here</h4>
+    </div>
+</div>
 {% endblock sidebar %}
-
 {% block styling %}
 <link rel="stylesheet" href="{% static 'blog/css/owl.carousel.min.css' %}">
 <link rel="stylesheet" href="{% static 'blog/css/owl.theme.default.min.css' %}">
 <link rel="stylesheet" href="{% static 'blog/css/owl.theme.default.min.css' %}">
 <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
 {% endblock styling %}
-
 {% block script %}
 <script src="{% static 'blog/js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'blog/js/jquery-migrate-3.0.1.min.js' %}"></script>
@@ -189,3 +188,7 @@
 <script src="{% static 'blog/js/jquery.stellar.min.js' %}"></script>
 <script src="{% static 'blog/js/main.js' %}"></script>
 {% endblock script %}
+
+{% block title_post %}
+<h4 style="padding-left: 4px;margin-bottom:2em;color:#012970;font-weight:bold;font-size: 23px;">Latest Posts</h4>
+{% endblock title_post %}
