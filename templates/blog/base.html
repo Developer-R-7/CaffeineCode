@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
     <head>
-        {% load static %}
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <title>{% block title %}{% endblock title %}</title>
@@ -25,7 +25,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
         <!-- Vendor CSS Files -->
-        {% load static %}
         {% block styling %}
         {% endblock styling %}
         <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -249,49 +248,6 @@
                                 {% csrf_token %}
                                 <input type="email" id="newsletter" autocomplete="off"  name="newsletter" required><input  id="submit" type="submit" value="Subscribe">
                             </form>
-                            <script>
-                                function delay(callback, ms) {
-                                   var timer = 0;
-                                   return function() {
-                                     var context = this, args = arguments;
-                                     clearTimeout(timer);
-                                     timer = setTimeout(function () {
-                                       callback.apply(context, args);
-                                     }, ms || 0);
-                                   };
-                                 }
-                                $(document).ready(function () {
-                                    // catch the form's submit event
-                                    $('#newsletter').keyup(delay(function (e) {
-                                        // create an AJAX call
-                                        $.ajax({
-                                            data: $(this).serialize(),// get the form data
-                                            url: "{% url 'blog:newsletter' %}",
-                                            // on success
-                                            success: function (response) {
-                                                if (response.is_subcribed == true) {
-                                                    $('#username').removeClass('is-valid').addClass('is-invalid');
-                                                    $('#username').after('<div class="invalid-feedback d-block" id="usernameError"><strong><p class="text-danger">This is already subscribed</strong></div>')
-                                                    $('.submit').prop('disabled', true);
-                                                }
-                                                else {
-                                                    $('#username').removeClass('is-invalid').addClass('is-valid');
-                                                    $('#submit').prop('disabled', false);
-                                                    $('#usernameError').remove();
-                                
-                                                }
-                                
-                                            },
-                                            // on error
-                                            error: function (response) {
-                                                // alert the error if any error occured
-                                                console.log(response.responseJSON.errors)
-                                            }
-                                        });
-                                        return false;
-                                    },500));
-                                })
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -358,12 +314,12 @@
                 </div>
             </div>
         </footer>
-        <script>
+        <!--<script>
             $(window).on('load',function(){
                 $(".loader").fadeOut(1100);
                 $(".content").fadeIn(1100);
             });
-        </script>
+        </script>-->
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
         <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
@@ -374,3 +330,4 @@
         {% block script %}
         {% endblock script %}
     </body>
+</html>
