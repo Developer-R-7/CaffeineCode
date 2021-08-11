@@ -63,11 +63,13 @@
 <div class="sidebar">
     <h3 class="sidebar-title  mb-4">Most Liked Posts</h3>
     <div class="sidebar-item recent-posts">
+        {% for mostlike in most_liked %}
         <div class="post-item clearfix">
-            <img src="assets/img/blog/blog-recent-1.jpg" alt="">
-            <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-            <time datetime="2020-01-01">Jan 1, 2020</time>
+            <img src="{{mostlike.entry_img}}" alt="">
+            <h4><a href="{% url 'blog:blog_details' mostlike.pk %}">{{mostlike.title}}</a></h4>
+            <time>{{mostlike.date_published|date:"F d"}}</time>
         </div>
+        {% endfor %}
     </div>
 </div>
 <div class="sidebar">

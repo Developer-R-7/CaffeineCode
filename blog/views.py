@@ -36,7 +36,8 @@ def search_sys(request):
     if request.method == "GET":
         query = request.GET.get('search_query')
         posts = Post.objects.filter(Q(title__icontains=query) | Q(body__icontains=query) | Q(blog_snipet__icontains=query)).order_by('-modified')
-        return render(request,'blog/search.html',{'query':query,'result':posts})
+        most_like_post = Post.objects.all().order_by('-likes_count')[:5]
+        return render(request,'blog/search.html',{'query':query,'result':posts,'most_liked':most_like_post})
 
 def newsletter(request):
     if request.method == "POST":

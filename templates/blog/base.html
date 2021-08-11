@@ -201,14 +201,14 @@
                             {% block profile %}
                             {% endblock profile %}
                             <div class="sidebar">
-                                <h3 class="sidebar-title mb-4" style="font-size: 23px;">Search</h3>
+                                <h3 class="sidebar-title mb-4">Search</h3>
                                 <div class="sidebar-item search-form">
                                     <form action="{% url 'blog:search_qu' %}" method="GET">
                                         <input type="text" name="search_query" required autocomplete="off">
                                         <button type="submit"><i class="bi bi-search"></i></button>
                                     </form>
                                 </div>
-                                <h3 class="sidebar-title mb-4" style="font-size:23px;">Categories</h3>
+                                <h3 class="sidebar-title mb-4">Categories</h3>
                                 <div class="sidebar-item categories">
                                     <ul>
                                         <li><a href="#">General <span>(25)</span></a></li>
