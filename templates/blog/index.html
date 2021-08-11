@@ -84,7 +84,7 @@
             <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
             <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
             <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
-            <li class="d-flex align-items-center"><i class="bi bi-heart"></i>{{post.likes_count}}</li>
+            <li class="d-flex align-items-center"><i class="bi bi-heart-fill"></i>{{post.likes_count}}</li>
         </ul>
     </div>
     <div class="entry-content">
@@ -152,7 +152,7 @@
 </div>
 <div class="sidebar" style="box-shadow: none;">
     <div class="sidebar-title mb-5" style="font-size: 23px;">
-        <h3 class="entry-title" style="font-weight: bold;font-size:24px;">Trending this month</h3>
+        <h3 class="entry-title" style="font-weight: bold;font-size:24px;font-family:Nunito,san-serif;">Trending this month</h3>
     </div>
     {% for month_trend in this_month %}
     <div class="trend-entry d-flex">

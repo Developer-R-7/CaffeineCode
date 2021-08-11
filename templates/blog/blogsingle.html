@@ -29,7 +29,7 @@
                     action: 'post'
                 },
                 success: function (json) {
-                    document.getElementById("like_count").innerHTML = json['result']
+                    document.getElementById("like_count").innerHTML = "&nbsp;" + json['result']
                     $("#like-icon").toggleClass("bi bi-heart bi bi-heart-fill");
                 },
                 error: function (xhr, errmsg, err) {
@@ -166,5 +166,5 @@
 {% endblock social-btn %}
 
 {% block pagination %}
-<button class="like-button" value="{{post.pk}}"> Like Post</button>
+<button class="btn btn-primary like-button" style="height:120px;width:120px;" value="{{post.pk}}">{{post.like_count}} <i class=""></i></button>
 {% endblock pagination %}

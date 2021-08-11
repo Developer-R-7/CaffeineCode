@@ -43,6 +43,7 @@ def newsletter(request):
         mail = request.POST.get("newsletter")
     else:
         return redirect('/blog/')
+
 @login_required(login_url='IndexHome:index')
 def like_sys(request):
     if request.user.is_authenticated and request.user.is_active:
