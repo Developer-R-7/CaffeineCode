@@ -1,5 +1,5 @@
 from django.core import paginator
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from .models import Post,Newsletter
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
@@ -13,6 +13,7 @@ from hitcount.views import HitCountDetailView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 # Create your views here.
 
@@ -42,9 +43,9 @@ def newsletter(request):
         mail = request.POST.get("newsletter")
     else:
         return redirect('/blog/')
-
+@login_required(login_url='IndexHome:index')
 def like_sys(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_active:
         if request.method == "POST":
             result =''
             pk_value = int(request.POST.get("postid"))
@@ -61,7 +62,7 @@ def like_sys(request):
                 post.save()
             return JsonResponse({"result":result,})
     else:
-        return HttpResponse("<h1>User login required</h1>")
+        return HttpResponseRedirect("/blog/")
 
 
 def post_by_tags(request,tag_slug):
@@ -79,6 +80,12 @@ class ArticleDetailView(HitCountDetailView):
     model = Post
     template_name = 'blog/blogsingle.html'
     count_hit = True
+    
+    def get_queryset(self):
+        self.is_like = get_object_or_404(Post, id=self.kwargs['pk'])
+        self.is_like = self.is_like.likes.filter(id=self.request.user.id).exists()
+        return Post.objects.filter(pk=self.kwargs['pk'])
+
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
         get_all_tags = context['post'].tags.all()
@@ -88,6 +95,7 @@ class ArticleDetailView(HitCountDetailView):
         get_skill = Post.objects.filter(pk=self.object.pk).values_list('skills', flat=True)[0]
         get_skill = get_skill.split(',')[:5]
         context['skill'] = get_skill
+        context['is_liked'] = self.is_like
         return context
 
     

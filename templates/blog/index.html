@@ -84,7 +84,7 @@
             <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
             <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
             <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
-            <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
+            <li class="d-flex align-items-center"><i class="bi bi-heart"></i>{{post.likes_count}}</li>
         </ul>
     </div>
     <div class="entry-content">
@@ -161,7 +161,7 @@
             <h2><a href="blog-single.html">{{month_trend.title}}</a></h2>
             <div class="post-meta">
                 <span class="d-block"><a href="#">{{month_trend.author}}</a></span>
-                <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read <span class="bi bi-star-fill"></span></span>
+                <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read</span>
             </div>
         </div>
     </div>

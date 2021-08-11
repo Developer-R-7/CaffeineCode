@@ -16,28 +16,35 @@
     <ul class="entry-meta" style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
         <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified}} | <i class="bi bi-heart-fill"><span id="like_count">&nbsp;{{post.likes_count}}</span></i></li>
     </ul>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).on('click', '.like-button', function (e) {
-            e.preventDefault();
-            $.ajax({
-              type: 'POST',
-              url: '{% url "blog:like" %}',
-              data: {
-                postid: $('.like-button').val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                action: 'post'
-              },
-              success: function (json) {
-                document.getElementById("like_count").innerHTML = json['result']
-                $(".like-icon").addClass("-fill");
-              },
-              error: function (xhr, errmsg, err) {
+    {% if request.user.is_authenticated %}
+        <script>
+            $(document).on('click', '.like-button', function (e) {
+                e.preventDefault();
+                $.ajax({
+                type: 'POST',
+                url: '{% url "blog:like" %}',
+                data: {
+                    postid: $('.like-button').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success: function (json) {
+                    document.getElementById("like_count").innerHTML = json['result']
+                    $("#like-icon").toggleClass("bi bi-heart bi bi-heart-fill");
+                },
+                error: function (xhr, errmsg, err) {
 
-              }
-            });
-          })
-    </script>
+                }
+                });
+            })
+        </script>
+    {% else %}
+        <script>
+            $(document).on('click','.like-button',function(e){
+                console.log("User login reqired");
+            })
+        </script>
+    {% endif %}
     
     <div class="entry-content">
         {{post.body|safe}}
@@ -72,21 +79,15 @@
 {% endblock article %}
 {% block profile %}
 <div class="sidebar" style="background:#ffffff">
-    <h3 class="sidebar-title mb-4">
-        Author's Bio
-    </h3>
+    <h3 class="sidebar-title mb-4">Author's Bio</h3>
     <div class="card-container" style="background-color: #ffffff;margin:0 auto;">
         <span class="pro">PRO</span>
         <img class="round" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
         <h3>{{post.author}}</h3>
         <p>{{post.designation}}</p>
         <div class="buttons">
-            <button class="primary">
-            Message
-            </button>
-            <button class="primary ghost">
-            Following
-            </button>
+            <button class="primary">Message</button>
+            <button class="primary ghost">Following</button>
         </div>
         <style>
             .skills li:hover{
@@ -145,7 +146,15 @@
 <div class="social-box" style="height:fit-content;">
     <div class="sticky-container">
         <div class="container" style="justify-content: center;padding:5px;">
+        {% if request.user.is_authenticated %}
+            {% if is_liked %}
+                <button class="like-button" title="Like" value="{{post.pk}}"><h5><i id="like-icon" class="bi bi-heart-fill"></i></h5></button>
+            {% else %}
+                <button class="like-button" value="{{post.pk}}"><h5><i id="like-icon" class="bi bi-heart"></i></h5></button>
+            {% endif %}
+        {% else %}
             <button class="like-button" value="{{post.pk}}"><h5><i id="like-icon" class="bi bi-heart"></i></h5></button>
+        {% endif %}
         </div>
     </div>
     <div class="sticky-container" style="margin-top:40px;background:#3b5999;">
