@@ -8,11 +8,11 @@
         var y_scroll = $('.entry-footer').position().top;
         if ($(this).scrollTop() > y_scroll - 400)
          {
-            $('.social-box').hide(1000);
+            $('.social-box').hide(600);
          }
         else
          {
-          $('.social-box').show(1000);
+          $('.social-box').show(600);
          }
      });
 </script>
@@ -52,11 +52,7 @@
             })
         </script>
     {% else %}
-        <script>
-            $(document).on('click','.like-button',function(e){
-                $('#login').modal('show');
-            })
-        </script>
+        
     {% endif %}
     
     <div class="entry-content">

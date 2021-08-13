@@ -26,7 +26,7 @@
     <body>
         <header id="header" class="header fixed-top">
             <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-                <a href="index.html" class="logo d-flex align-items-center">
+                <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
                 <span>CaffeineCode</span>
                 </a>
                 <nav id="navbar" class="navbar">
@@ -60,9 +60,6 @@
         <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'IndexHome/assets/js/core/popper.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'IndexHome/assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
-        <script src="{% static 'IndexHome/assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
-        <script src="{% static 'IndexHome/assets/js/plugins/bootstrap-switch.js' %}"></script>
         <script src="{% static 'IndexHome/assets/js/blk-design-system.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
     </body>
