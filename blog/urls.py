@@ -10,4 +10,5 @@ urlpatterns = [
     path('tag/<tag_slug>', views.post_by_tags, name='post_list_by_tags'),
     path('search/',views.search_sys,name='search_qu'),
     path('subcribe-newsletter/',views.newsletter,name="newsletter"),
+    path('account-redirect/',views.account_redirect,name="account_redirect"),
 ]

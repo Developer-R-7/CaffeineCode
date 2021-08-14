@@ -52,6 +52,11 @@
             })
         </script>
     {% else %}
+        <script>
+            $(document).on('click', '.like-button', function() {
+                window.location.replace('{% url "IndexHome:index" %}?blog-redirect-id=' + "{{post.pk}}");
+            })
+        </script>
         
     {% endif %}
     

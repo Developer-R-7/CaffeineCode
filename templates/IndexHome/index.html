@@ -30,6 +30,13 @@
     });
 </script>
 {% endif %}
+{% if request.session.is_redirect %}
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#myModal1').modal('show');
+    });
+</script>
+{% endif %}
 <section id="hero" class="hero d-flex align-items-center">
     <div class="container">
         <div class="row">

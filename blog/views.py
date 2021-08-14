@@ -100,4 +100,9 @@ class ArticleDetailView(HitCountDetailView):
         context['is_liked'] = self.is_like
         return context
 
-    
+def account_redirect(request):
+    if request.method == "GET":
+        pk_value = int(request.GET.get("blog-redirect-id"))
+        return HttpResponse("<h1>{}</h1>".format(pk_value))
+    else:
+        return HttpResponse("heloo")

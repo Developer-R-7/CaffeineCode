@@ -173,11 +173,14 @@ def index(request):
                             auth.login(request,user)
                             request.session['email'] = sign_in_email
                             request.session['account_id'] = acc_id[0]
-                            return render(request,'IndexHome/check-session.html',{'id':acc_id[0]})
+                            if request.session['is_redirect'] ==True:
+                                get_pk_id = request.session['pk_to_redirect']
+                                return redirect('/blog/article/{}'.format(get_pk_id))
+                            else:
+                                return render(request,'IndexHome/check-session.html',{'id':acc_id[0]})
                         else:
                             request.session["error_text"] = "Your Account is not verified please click here to verify"
                             request.session["client_side_error_signin"] = True
-                            request.session
                             return render(request,'IndexHome/index.html')
                     else:
                         request.session["error_text"] = "Incorrect email or password"
@@ -186,6 +189,12 @@ def index(request):
                 except:
                     render(request,'IndexHome/error.html',{'error':"Error Signin ,Please contact support."})           
     else:
+        try:
+            pk_value = request.GET.get("blog-redirect-id")
+            request.session['pk_to_redirect'] = int(pk_value)
+            request.session['is_redirect'] = True
+        except:
+            pass       
         return render(request,'IndexHome/index.html')
 
 def logout(request):
