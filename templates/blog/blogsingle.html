@@ -3,6 +3,14 @@
 {% load hitcount_tags %}
 {% load static %}
 {% block search_block %}
+<style>
+    .like-button:hover{
+        border-radius: 5px;
+    }
+    .share:hover{
+        border-radius: 5px;
+    }
+</style>
 <script>
     $(window).scroll(function() {
         var y_scroll = $('.entry-footer').position().top;
@@ -27,7 +35,7 @@
     </div>
     <a style="font-family:'Nunito';" href="{% url 'blog:blog_details' post.pk %}" class="entry-title">{{post.title}}</a>
     <ul class="entry-meta" style="color:#c2c2c2;list-style-type: none;font-size:14px;padding-left:0px;">
-        <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"F d"}} | <i class="bi bi-heart-fill"><span id="like_count">&nbsp;{{post.likes_count}}</span></i></li>
+        <li><i class="bi bi-eye"></i> {% get_hit_count for post %} | <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"F d"}} | <i class="bi bi-heart-fill"><span class="like_count">&nbsp;{{post.likes_count}}</span></i></li>
     </ul>
     {% if request.user.is_authenticated %}
         <script>
@@ -42,7 +50,7 @@
                     action: 'post'
                 },
                 success: function (json) {
-                    document.getElementById("like_count").innerHTML = "&nbsp;" + json['result']
+                    $(".like_count").html("&nbsp;" + json['result']);
                     $("#like-icon").toggleClass("bi bi-heart bi bi-heart-fill");
                 },
                 error: function (xhr, errmsg, err) {
@@ -181,5 +189,6 @@
 {% endblock social-btn %}
 
 {% block pagination %}
-<button class="btn btn-primary like-button" style="height:120px;width:120px;padding:20px;" value="{{post.pk}}"><h3><i class="bi bi-heart-fill"></i></h3></button>
+<li><button class="like-button" style="width:110px;background:#f0333a;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-heart-fill"></i></h4><span class='like_count'>&nbsp;{{post.likes_count}}</span></button></li>
+<li><button class="share" style="width:110px;background:#00308F;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-share"></i></h4><span>&nbsp;Share</span></button></li>
 {% endblock pagination %}

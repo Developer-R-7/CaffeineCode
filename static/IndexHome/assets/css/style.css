@@ -1381,7 +1381,6 @@ section {
   bottom: 0;
   height: 100%;
   width: 100%;
-  background: url(../img/team-shape.svg) no-repeat center bottom;
   background-size: contain;
   z-index: 1;
 }
@@ -2028,7 +2027,7 @@ section {
 
 .blog .sidebar {
   padding: 30px;
-  margin: 0 0 60px 20px;
+  margin: 0 0 60px 0px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 

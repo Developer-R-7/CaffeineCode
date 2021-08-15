@@ -173,7 +173,7 @@ def index(request):
                             auth.login(request,user)
                             request.session['email'] = sign_in_email
                             request.session['account_id'] = acc_id[0]
-                            if request.session['is_redirect'] ==True:
+                            if request.session['is_redirect'] == True:
                                 get_pk_id = request.session['pk_to_redirect']
                                 return redirect('/blog/article/{}'.format(get_pk_id))
                             else:
