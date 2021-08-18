@@ -158,7 +158,7 @@
     <div class="trend-entry d-flex">
         <div class="number align-self-start">{{ forloop.counter }}</div>
         <div class="trend-contents">
-            <h2><a href="blog-single.html">{{month_trend.title}}</a></h2>
+            <h2><a href="{% url 'blog:blog_details' month_trend.pk %}">{{month_trend.title}}</a></h2>
             <div class="post-meta">
                 <span class="d-block"><a href="#">{{month_trend.author}}</a></span>
                 <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read</span>

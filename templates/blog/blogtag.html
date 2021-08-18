@@ -31,9 +31,8 @@
         <ul>
             <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
             <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
-            <!--get all post of that date-->
             <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
-            <li class="d-flex align-items-center">&#183; {{post.readtime_min}} min read</li>
+            <li class="d-flex align-items-center"><i class="bi bi-heart-fill"></i>{{post.likes_count}}</li>
         </ul>
     </div>
     <div class="entry-content">
