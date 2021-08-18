@@ -114,12 +114,6 @@ def check_session(request):
     return render(request,'IndexHome/check-session.html')
 
 def index(request):
-    # ALL SESSION VARIABLE
-    request.session['account_id'] = 0
-    request.session['error_text'] = ""
-    request.session["client_side_error_signup"] = False
-    request.session["client_side_error_signin"]  = False
-    request.session["email"] = ''
 
     if request.method == "POST":
         data_name = request.POST.get('username','default')
@@ -157,44 +151,7 @@ def index(request):
                             return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support"})
             except:
                 return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support."})
-        else:
-            data_get = User.objects.filter(email = sign_in_email)
-            if data_get.first() is None:
-                request.session["error_text"] = "You don't have account linked with this mail"
-                request.session["client_side_error_signin"] = True
-                return render(request,'IndexHome/index.html')
-            else:
-                try:
-                    username = [data for data in data_get]
-                    acc_id = list(Profile.objects.filter(user_email=sign_in_email).values_list('account_id', flat=True))
-                    user = auth.authenticate(username = username[0] , password = sign_in_password)
-                    if user is not None and user.is_active:
-                        if Profile.objects.filter(user_email=sign_in_email).values_list('is_verfied',flat=True)[0] is True:
-                            auth.login(request,user)
-                            request.session['email'] = sign_in_email
-                            request.session['account_id'] = acc_id[0]
-                            if request.session['is_redirect'] == True:
-                                get_pk_id = request.session['pk_to_redirect']
-                                return redirect('/blog/article/{}'.format(get_pk_id))
-                            else:
-                                return render(request,'IndexHome/check-session.html',{'id':acc_id[0]})
-                        else:
-                            request.session["error_text"] = "Your Account is not verified please click here to verify"
-                            request.session["client_side_error_signin"] = True
-                            return render(request,'IndexHome/index.html')
-                    else:
-                        request.session["error_text"] = "Incorrect email or password"
-                        request.session["client_side_error_signin"] = True
-                        return render(request,'IndexHome/index.html') 
-                except:
-                    render(request,'IndexHome/error.html',{'error':"Error Signin ,Please contact support."})           
-    else:
-        try:
-            pk_value = request.GET.get("blog-redirect-id")
-            request.session['pk_to_redirect'] = int(pk_value)
-            request.session['is_redirect'] = True
-        except:
-            pass       
+    else:     
         return render(request,'IndexHome/index.html')
 
 def logout(request):
@@ -202,9 +159,9 @@ def logout(request):
     return HttpResponse("<h1>Logout Successfully!!</h1>")
 
 def test(request):
-    u = User.objects.get(username = 'rushi_footballer')
-    u.delete()
-    return render(request,"IndexHome/error.html",{'error':"User Remove"})
+    #u = User.objects.get(username = 'rushi_footballer')
+    #u.delete()
+    return render(request,"IndexHome/login.html")
 
 def check_acc_id(id):
     query = list(Profile.objects.filter(account_id = id).values_list('account_id', flat=True))
@@ -234,3 +191,44 @@ def resend_otp(request,mail_hash,request_otp):
         settings.MAX_RESEND_CODE = 0
         GEN_KEY()
         return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed "})
+
+def signin(request):
+    if request.user.is_authenticated:
+        return render(request,"IndexHome/error.html",{"error":"User Already Login "})
+    else:
+        if request.method == "POST":
+            try:
+                sign_in_email = request.POST.get('email','default')
+                sign_in_password = request.POST.get('password','default')
+            except:
+                return render('IndexHome/error.html',{"error":'Bypass blocked'})
+            data_get = User.objects.filter(email = sign_in_email)
+            if data_get.first() is None:
+                return render(request,'IndexHome/login.html',{"error":"You don't have account linked with this mail"})
+            else:
+                try:
+                    username = [data for data in data_get]
+                    acc_id = list(Profile.objects.filter(user_email=sign_in_email).values_list('account_id', flat=True))
+                    user = auth.authenticate(username = username[0] , password = sign_in_password)
+                    if user is not None and user.is_active:
+                        if Profile.objects.filter(user_email=sign_in_email).values_list('is_verfied',flat=True)[0] is True:
+                            auth.login(request,user)
+                            if request.session["is_redirect"] == True:
+                                return redirect("/blog/article/{}".format(request.session["pk_to_redirect"]))
+                            else:
+                                return redirect('/')
+                        else:
+                            return render(request,'IndexHome/login.html',{"error":"Your Account is not verified please click here to verify"})
+                    else:
+                        return render(request,'IndexHome/login.html',{"error":"Incorrect email or password"}) 
+                except:
+                    return render(request,'IndexHome/error.html',{'error':"Error Signin ,Please contact support."})           
+        else:
+            try:
+                pk_value = request.GET.get("blog-redirect-id")
+                request.session['pk_to_redirect'] = int(pk_value)
+                request.session['is_redirect'] = True
+            except:
+                request.session['is_redirect'] = False
+                pass       
+            return render(request,'IndexHome/login.html')

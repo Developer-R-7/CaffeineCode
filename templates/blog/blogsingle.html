@@ -62,7 +62,7 @@
     {% else %}
         <script>
             $(document).on('click', '.like-button', function() {
-                window.location.replace('{% url "IndexHome:index" %}?blog-redirect-id=' + "{{post.pk}}");
+                window.location.replace('{% url "IndexHome:signin" %}?blog-redirect-id=' + "{{post.pk}}");
             })
         </script>
         
