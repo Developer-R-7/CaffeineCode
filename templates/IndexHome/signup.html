@@ -28,8 +28,8 @@
                     <div class="grid--50-50">
                         <label for="password">Username</label>
                     </div>
-                    <input  name="username" required spellcheck="false" style="margin-bottom:12px;" type="text" autocomplete="off">
-                    <div style="color: red;font-size:15px;margin-top:4px;"></div>
+                    <input id="username"  name="username" required spellcheck="false" style="margin-bottom:12px;" type="text" autocomplete="off">
+                    <div id="error" style="color: red;font-size:15px;margin-top:4px;"></div>
                   <div class="grid--50-50">
                     <label for="password">Email</label>
                   </div>
@@ -49,11 +49,54 @@
                 </div>
         
                 <div class="field padding-bottom--24">
-                  <input type="submit" name="submit" value="Login">
+                  <input class="enableOnInput" type="submit" name="submit" value="Login">
                 </div>
               </form>
             </div>
           </div>
+          <script>
+            function delay(callback, ms) {
+               var timer = 0;
+               return function() {
+                 var context = this, args = arguments;
+                 clearTimeout(timer);
+                 timer = setTimeout(function () {
+                   callback.apply(context, args);
+                 }, ms || 0);
+               };
+             }
+            $(document).ready(function () {
+                // catch the form's submit event
+                $('#username').keyup(delay(function (e) {
+                    // create an AJAX call
+                    $.ajax({
+                        data: $(this).serialize(),// get the form data
+                        url: "{% url 'IndexHome:check_user' %}",
+                        // on success
+                        success: function (response) {
+                            if (response.is_taken == true) {
+                                $('#username').removeClass('is-valid').addClass('is-invalid');
+                                $('#error').html("Username already taken!")
+                                $('.enableOnInput').prop('disabled', true);
+                            }
+                            else {
+                                $('#username').removeClass('is-invalid').addClass('is-valid');
+                                $('.enableOnInput').prop('disabled', false);
+                                $('#usernameError').remove();
+            
+                            }
+            
+                        },
+                        // on error
+                        error: function (response) {
+                            // alert the error if any error occured
+                            console.log(response.responseJSON.errors)
+                        }
+                    });
+                    return false;
+                },500));
+            })
+          </script>
           <div class="footer-link padding-top--24">
             <div style="text-align:center;color:#c9c9c9;font-family:Arial;font-size:11px;line-height:150%;">
                 <p style="text-align:left;margin:0;margin-top:2px;text-align:center;">CaffeineCode | Surat, Gujarat, 395009 | Copyright © 2021 | All rights reserved</p>
