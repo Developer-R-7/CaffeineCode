@@ -82,12 +82,12 @@ def verify(request,mail_hash):
             if str(USER_OTP_IN) == str(temp):
                 # CORRECT OTP
                 try:
-                    get_verified = Profile.objects.get(user_email=request.session['email'])
+                    get_verified = Profile.objects.get(user_email=decrypt_email)
                     get_verified.is_verfied = True
                     get_verified.save()
                     GEN_KEY()
                     settings.MAX_OTP_REQUEST = 0
-                    return render(request,'IndexHome/check-session.html',{'id':request.session['account_id']})
+                    return redirect("/blog/")
                 except:
                     return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified.Try verifiying again"})
             else:
@@ -116,41 +116,7 @@ def check_session(request):
 def index(request):
 
     if request.method == "POST":
-        data_name = request.POST.get('username','default')
-        data_email = request.POST.get('email','default')
-        data_pass = request.POST.get('password','default')
-        is_sign_up = request.POST.get('sign_up_verified','off')
-        sign_in_email = request.POST.get('sign_in_email','default')
-        sign_in_password = request.POST.get('sign_in_password','default')
-        request.session["email"] = data_email
-        if is_sign_up == 'on':
-            try:
-                if User.objects.filter(email = data_email).first():
-                    request.session["error_text"] = 'You Already Have account'
-                    request.session["client_side_error_signup"] = True
-                    return render(request,'IndexHome/index.html')
-                else:
-                    if User.objects.filter(username = data_name).first():
-                        request.session["error_text"] = 'Username Taken!'
-                        request.session["client_side_error_signup"] = True
-                        return render(request,'IndexHome/index.html')
-                    else:
-                        try:
-                            user_obj = User.objects.create(username = data_name ,email = data_email)
-                            user_obj.set_password(data_pass)
-                            user_obj.save()
-                            id_generated = generate_id()
-                            if check_acc_id(id_generated):
-                                dat = EnCrypt(data_email)
-                                profile_obj = Profile.objects.create(user = user_obj,account_id=id_generated,user_email = data_email)
-                                profile_obj.save()
-                                return redirect('/verify/{}'.format(dat))
-                            else:
-                                return HttpResponse("SERVER ERROR RETRY AGAIN")#chcek for same account id
-                        except:
-                            return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support"})
-            except:
-                return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support."})
+        pass
     else:     
         return render(request,'IndexHome/index.html')
 
@@ -159,9 +125,9 @@ def logout(request):
     return HttpResponse("<h1>Logout Successfully!!</h1>")
 
 def test(request):
-    #u = User.objects.get(username = 'rushi_footballer')
-    #u.delete()
-    return render(request,"IndexHome/login.html")
+    u = User.objects.get(username = 'rushi_footballer')
+    u.delete()
+    return render(request,"IndexHome/signup.html")
 
 def check_acc_id(id):
     query = list(Profile.objects.filter(account_id = id).values_list('account_id', flat=True))
@@ -234,4 +200,35 @@ def signin(request):
             return render(request,'IndexHome/login.html')
     
 def signup(request):
-    return render(request,'IndexHome/signup.html')
+    if request.method == "POST":
+        try:
+            data_email = request.POST.get("email")
+            data_name = request.POST.get("username")
+            data_pass = request.POST.get("password")
+        except:
+            return render(request,"IndexHome/error.html",{"error":"By Pass blocked!"})
+        try:
+            if User.objects.filter(email = data_email).first():
+                return render(request,'IndexHome/signup.html',{"error":"You Already Have account"})
+            else:
+                if User.objects.filter(username = data_name).first():
+                    return render(request,'IndexHome/signup.html')
+                else:
+                    try:
+                        user_obj = User.objects.create(username = data_name ,email = data_email)
+                        user_obj.set_password(data_pass)
+                        user_obj.save()
+                        id_generated = generate_id()
+                        if check_acc_id(id_generated):
+                            dat = EnCrypt(data_email)
+                            profile_obj = Profile.objects.create(user = user_obj,account_id=id_generated,user_email = data_email)
+                            profile_obj.save()
+                            return redirect('/verify/{}'.format(dat))
+                        else:
+                            return HttpResponse("SERVER ERROR RETRY AGAIN")#chcek for same account id
+                    except:
+                        return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support"})
+        except:
+            return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support."})
+    else:
+        return render(request,'IndexHome/signup.html')

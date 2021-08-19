@@ -21,30 +21,27 @@
             <div class="formbg-inner padding-horizontal--48">
               <center><span class="padding-bottom--15" style="color: #c2c2c2;font-size:14px;">Create a new account</span></center>
               <br>
-              <form id="stripe-login" method="POST" action="{% url 'IndexHome:signin' %}">
+              <form role="form" method="POST" action="{% url 'IndexHome:signup' %}" id="stripe-login">
                 {% csrf_token %}
 
                 <div class="field padding-bottom--24">
                     <div class="grid--50-50">
                         <label for="password">Username</label>
                     </div>
-                    <input id="username"  name="username" required spellcheck="false" style="margin-bottom:4px;" type="text" autocomplete="off">
+                    <input id="username"  name="username" required spellcheck="false" style="margin-bottom:4px;" type="text" autocomplete="off" pattern="^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$" title="Your username must consist of alphanumeric characters underscore(_),and period(.) underscore and period can't be first or last charcter and next to each other.">
                     <div id="error" style="color: red;font-size:15px;margin-bottom:12px;"></div>
                   <div class="grid--50-50">
                     <label for="password">Email</label>
                   </div>
-                  <input  name="email" required spellcheck="false" style="margin-bottom:12px;" type="email" autocomplete="off">  
+                  <input  name="email"  spellcheck="false" style="margin-bottom:12px;" type="email" autocomplete="off" required>  
 
 
                   <div class="grid--50-50">
                     <label for="password">Password</label>
-                    <div class="reset-pass">
-                        <a href="">Forgot Password?</a>
-                    </div>
                   </div>
                   <input  name="password" required spellcheck="false" type="password" autocomplete="off">
                   {% if error %}
-                    <div style="color: red;font-size:15px;margin-top:4px;">{{error}}</div>
+                    <div style="color: red;font-size:15px;margin-top:14px;">{{error}}</div>
                   {% endif %}
                 </div>
         
@@ -75,14 +72,12 @@
                         // on success
                         success: function (response) {
                             if (response.is_taken == true) {
-                                $('#username').removeClass('is-valid').addClass('is-invalid');
                                 $('#error').html("Username already taken!")
                                 $('.enableOnInput').prop('disabled', true);
                             }
                             else {
-                                $('#username').removeClass('is-invalid').addClass('is-valid');
                                 $('.enableOnInput').prop('disabled', false);
-                                $('#usernameError').remove();
+                                $('#error').html("");
             
                             }
             
