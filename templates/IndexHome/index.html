@@ -28,15 +28,15 @@
                 <div data-aos="fade-up" data-aos-delay="600">
                     <div class="text-center text-lg-start">
                         {% if request.user.is_authenticated %}
-                        <a style="cursor: pointer; color:white;"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                        <span>Get Started!</span>
-                        <i class="bi bi-arrow-right"></i>
-                        </a>
+                            <a style="cursor: pointer; color:white;" href="#about"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                            <span>Get Started!</span>
+                            <i class="bi bi-arrow-right"></i>
+                            </a>
                         {% else %}
-                        <a style="cursor: pointer; color:white;"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                        <span>Create Account</span>
-                        <i class="bi bi-arrow-right"></i>
-                        </a>
+                            <a style="cursor: pointer; color:white;"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                            <span>Create Account</span>
+                            <i class="bi bi-arrow-right"></i>
+                            </a>
                         {% endif %}
 
                     </div>
@@ -54,7 +54,7 @@
     <section id="about" class="about">
         <div class="container" data-aos="fade-up">
             <div class="row gx-0">
-                <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                <div id="about" class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="content">
                         <h3>Who We Are</h3>
                         <h2>Expedita voluptas omnis cupiditate totam eveniet nobis sint iste. Dolores est repellat corrupti reprehenderit.</h2>

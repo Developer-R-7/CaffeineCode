@@ -232,3 +232,6 @@ def signin(request):
                 request.session['is_redirect'] = False
                 pass       
             return render(request,'IndexHome/login.html')
+    
+def signup(request):
+    return render(request,'IndexHome/signup.html')
