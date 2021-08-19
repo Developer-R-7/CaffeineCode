@@ -933,49 +933,6 @@
             </div>
         </div>
     </div>
-    <script>
-        function delay(callback, ms) {
-           var timer = 0;
-           return function() {
-             var context = this, args = arguments;
-             clearTimeout(timer);
-             timer = setTimeout(function () {
-               callback.apply(context, args);
-             }, ms || 0);
-           };
-         }
-        $(document).ready(function () {
-            // catch the form's submit event
-            $('#username').keyup(delay(function (e) {
-                // create an AJAX call
-                $.ajax({
-                    data: $(this).serialize(),// get the form data
-                    url: "{% url 'IndexHome:check_user' %}",
-                    // on success
-                    success: function (response) {
-                        if (response.is_taken == true) {
-                            $('#username').removeClass('is-valid').addClass('is-invalid');
-                            $('#username').after('<div class="invalid-feedback d-block" id="usernameError"><strong><p class="text-danger">This username is not available!</strong></div>')
-                            $('.enableOnInput').prop('disabled', true);
-                        }
-                        else {
-                            $('#username').removeClass('is-invalid').addClass('is-valid');
-                            $('.enableOnInput').prop('disabled', false);
-                            $('#usernameError').remove();
-        
-                        }
-        
-                    },
-                    // on error
-                    error: function (response) {
-                        // alert the error if any error occured
-                        console.log(response.responseJSON.errors)
-                    }
-                });
-                return false;
-            },500));
-        })
-    </script>
     <div class="container">
         <div class="copyright">
             &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved
