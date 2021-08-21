@@ -114,11 +114,7 @@ def check_session(request):
     return render(request,'IndexHome/check-session.html')
 
 def index(request):
-
-    if request.method == "POST":
-        pass
-    else:     
-        return render(request,'IndexHome/index.html')
+    return render(request,'IndexHome/index.html')
 
 def logout(request):
     auth.logout(request)
