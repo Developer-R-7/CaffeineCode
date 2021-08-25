@@ -116,9 +116,7 @@ def check_session(request):
 def index(request):
     return render(request,'IndexHome/index.html')
 
-def logout(request):
-    auth.logout(request)
-    return HttpResponse("<h1>Logout Successfully!!</h1>")
+
 
 def test(request):
     u = User.objects.get(username = 'rushi_footballer')
@@ -231,3 +229,11 @@ def signup(request):
                 return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support."})
         else:
             return render(request,'IndexHome/signup.html')
+
+
+def logout(request):
+    if request.user.is_authenticated and request.user.is_active:
+        auth.logout(request)
+        return render(request,'IndexHome/error.html',{"error":"Logout Successfully!"})
+    else:
+        return redirect("/")
