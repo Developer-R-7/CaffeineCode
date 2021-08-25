@@ -12,5 +12,5 @@ urlpatterns = [
     path('verify/<str:mail_hash>/',views.verify,name="verify"),
     path('verify/<str:mail_hash>/?request_otp=<str:request_otp>',views.resend_otp,name="verify_resend"),
     path('account/login',views.signin,name="signin"),
-    path('account/create-account/',views.signup,name="signup"),
+    path('account/create/',views.signup,name="signup"),
 ]

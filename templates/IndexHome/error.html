@@ -21,8 +21,13 @@
                         {% load static %}
                         <center><img src="{% static 'IndexHome/assets/img/error.svg' %}" height="160px" width="160px"></center>
                         <br>
+                        {% if login %}
+                        <span style="text-align: center;color:rgb(241, 64, 64);font-size:19px;" class="padding-bottom--15">{{error}}</span>
+                        <span class="padding-bottom--15" style="text-align: center;"><a href="{% url 'IndexHome:sign' %}" style="color: rgb(82, 82, 250);">Sign In</a></span>
+                        {% else %}
                         <span style="text-align: center;color:rgb(241, 64, 64);font-size:19px;" class="padding-bottom--15">{{error}}</span>
                         <span class="padding-bottom--15" style="text-align: center;"><a href="{% url 'IndexHome:index' %}" style="color: rgb(82, 82, 250);">Return To Home</a></span>
+                        {% endif %}
                     </div>
                 </div>
             </div>

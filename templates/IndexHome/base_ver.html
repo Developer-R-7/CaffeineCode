@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
    <head>
       <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
       <title>{% block title %}{% endblock title %}</title>
       {% load static %}
       <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
       <link rel="stylesheet" type="text/css" href="{% static 'IndexHome/assets/css/verify_css.css' %}">
+      <style>
+         @media (max-width:420px) { 
+            .formbg {
+               box-shadow: none;
+            }
+         }
+      </style>
    </head>
    <body>
       {% block body %}

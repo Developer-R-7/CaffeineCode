@@ -1,5 +1,5 @@
 {% extends 'IndexHome/base_ver.html' %}
-{% block title %}{% endblock title %}
+{% block title %}CaffeineCode : SignUp{% endblock title %}
 
 {% block body %}
 <div class="login-root">
@@ -46,7 +46,7 @@
             <div class="formbg-inner padding-horizontal--48">
               <center><span class="padding-bottom--15" style="color: #c2c2c2;font-size:14px;">Create a new account</span></center>
               <br>
-              <form role="form" method="POST" action="{% url 'IndexHome:signup' %}" id="stripe-login">
+              <form role="form" autocomplete="off" method="POST" action="{% url 'IndexHome:signup' %}" id="stripe-login">
                 {% csrf_token %}
 
                 <div class="field padding-bottom--24">
@@ -58,7 +58,7 @@
                   <div class="grid--50-50">
                     <label for="password">Email</label>
                   </div>
-                  <input  name="email"  spellcheck="false" style="margin-bottom:12px;" type="email" autocomplete="off" required>  
+                  <input  name="email"  spellcheck="false" style="margin-bottom:12px;" type="email" title="Your Valid Email addrress" autocomplete="off" required>  
 
 
                   <div class="grid--50-50">

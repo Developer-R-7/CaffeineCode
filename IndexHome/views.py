@@ -196,35 +196,38 @@ def signin(request):
             return render(request,'IndexHome/login.html')
     
 def signup(request):
-    if request.method == "POST":
-        try:
-            data_email = request.POST.get("email")
-            data_name = request.POST.get("username")
-            data_pass = request.POST.get("password")
-        except:
-            return render(request,"IndexHome/error.html",{"error":"By Pass blocked!"})
-        try:
-            if User.objects.filter(email = data_email).first():
-                return render(request,'IndexHome/signup.html',{"error":"You Already Have account"})
-            else:
-                if User.objects.filter(username = data_name).first():
-                    return render(request,'IndexHome/signup.html')
-                else:
-                    try:
-                        user_obj = User.objects.create(username = data_name ,email = data_email)
-                        user_obj.set_password(data_pass)
-                        user_obj.save()
-                        id_generated = generate_id()
-                        if check_acc_id(id_generated):
-                            dat = EnCrypt(data_email)
-                            profile_obj = Profile.objects.create(user = user_obj,account_id=id_generated,user_email = data_email)
-                            profile_obj.save()
-                            return redirect('/verify/{}'.format(dat))
-                        else:
-                            return HttpResponse("SERVER ERROR RETRY AGAIN")#chcek for same account id
-                    except:
-                        return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support"})
-        except:
-            return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support."})
+    if request.user.is_authenticated:
+        return render(request,"IndexHome/error.html",{"error":"User Already Login"})
     else:
-        return render(request,'IndexHome/signup.html')
+        if request.method == "POST":
+            try:
+                data_email = request.POST.get("email")
+                data_name = request.POST.get("username")
+                data_pass = request.POST.get("password")
+            except:
+                return render(request,"IndexHome/error.html",{"error":"By Pass blocked!"})
+            try:
+                if User.objects.filter(email = data_email).first():
+                    return render(request,'IndexHome/signup.html',{"error":"You Already Have account","login":True})
+                else:
+                    if User.objects.filter(username = data_name).first():
+                        return render(request,'IndexHome/signup.html')
+                    else:
+                        try:
+                            user_obj = User.objects.create(username = data_name ,email = data_email)
+                            user_obj.set_password(data_pass)
+                            user_obj.save()
+                            id_generated = generate_id()
+                            if check_acc_id(id_generated):
+                                dat = EnCrypt(data_email)
+                                profile_obj = Profile.objects.create(user = user_obj,account_id=id_generated,user_email = data_email)
+                                profile_obj.save()
+                                return redirect('/verify/{}'.format(dat))
+                            else:
+                                return render(request,'IndexHome/error.html',{"error":"Server Error Please Try again"})#check for same account id
+                        except:
+                            return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support"})
+            except:
+                return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support."})
+        else:
+            return render(request,'IndexHome/signup.html')
