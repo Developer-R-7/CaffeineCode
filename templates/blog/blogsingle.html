@@ -62,7 +62,7 @@
     {% else %}
         <script>
             $(document).on('click', '.like-button', function() {
-                window.location.replace('{% url "IndexHome:index" %}?blog-redirect-id=' + "{{post.pk}}");
+                window.location.replace('{% url "IndexHome:signin" %}?blog-redirect-id=' + "{{post.pk}}");
             })
         </script>
         
@@ -102,31 +102,6 @@
 {% block profile %}
 <div class="sidebar" style="background:#ffffff">
     <h3 class="sidebar-title mb-4">Author's Bio</h3>
-    <!--<div class="card-container" style="background-color: #ffffff;margin:0 auto;">
-        <span class="pro">PRO</span>
-        <img class="round" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
-        <h3>{{post.author}}</h3>
-        <p>{{post.designation}}</p>
-        <div class="buttons">
-            <button class="primary">Message</button>
-            <button class="primary ghost">Following</button>
-        </div>
-        <style>
-            .skills li:hover{
-            background: #03BFCB;
-            color: #ffffff;
-            }
-        </style>
-        <div class="skills" style="background-color: #ffffff;">
-            <h6>Skills</h6>
-            <ul>
-                {% for sk in skill %}
-                <li>{{sk}}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>-->
-    <button class="btn btn-primary btn-lg btn-block">LIKES</button>
 </div>
 {% endblock profile %}
 {% block sidebar %}
@@ -192,3 +167,40 @@
 <li><button class="like-button" style="width:110px;background:#f0333a;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-heart-fill"></i></h4><span class='like_count'>&nbsp;{{post.likes_count}}</span></button></li>
 <li><button class="share" style="width:110px;background:#00308F;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-share"></i></h4><span>&nbsp;Share</span></button></li>
 {% endblock pagination %}
+
+
+{% block recent %}
+<section id="recent-blog-posts" class="recent-blog-posts">
+    <div class="container aos-init aos-animate" data-aos="fade-up">
+        <header class="section-header">
+            <p>Recent posts</p>
+        </header>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="post-box">
+                    <div class="post-img"><img src="/static/IndexHome/assets/img/blog/blog-1.jpg" class="img-fluid" alt=""></div>
+                    <span class="post-date">Tue, September 15</span>
+                    <h3 class="post-title">Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur sit</h3>
+                    <a href="blog-singe.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="post-box">
+                    <div class="post-img"><img src="/static/IndexHome/assets/img/blog/blog-2.jpg" class="img-fluid" alt=""></div>
+                    <span class="post-date">Fri, August 28</span>
+                    <h3 class="post-title">Et repellendus molestiae qui est sed omnis voluptates magnam</h3>
+                    <a href="blog-singe.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="post-box">
+                    <div class="post-img"><img src="/static/IndexHome/assets/img/blog/blog-3.jpg" class="img-fluid" alt=""></div>
+                    <span class="post-date">Mon, July 11</span>
+                    <h3 class="post-title">Quia assumenda est et veritatis aut quae</h3>
+                    <a href="blog-singe.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock recent %}
