@@ -59,12 +59,11 @@ def SendOTP(email,OTP):
     try:
         html_content = render_to_string("IndexHome/email.html",{'otp':OTP,'email':email})
         text_content = strip_tags(html_content)
-        ## hard code sender email must be change
         email_con = EmailMultiAlternatives('Verfication Code - CaffeineCode',text_content,settings.EMAIL_HOST_USER,[email]) 
         email_con.attach_alternative(html_content,"text/html")
         email_con.send()
     except:
-        return render(request,"IndexHome/error.html",{'error':"Verfication Failed OTP sent unsuccessful retry again."})
+        return render(request,"IndexHome/error.html",{'error':"Verfication Failed OTP sent unsuccessful retry again.","status":"high"})
 
 def GEN_KEY():
     key = Fernet.generate_key()
@@ -75,7 +74,7 @@ def verify(request,mail_hash):
         decrypt_email = DeCrypt(mail_hash,settings.KEY)
         chec_ver_user = Profile.objects.filter(user_email=decrypt_email).values_list('is_verfied',flat=True)
     except:
-        return render(request,"IndexHome/error.html",{'error':"Unauthorized Access"})
+        return render(request,"IndexHome/error.html",{'error':"Unauthorized Access","status":"high"})
     if request.method == "POST":
             global temp
             USER_OTP_IN = request.POST.get('Passcode')
@@ -89,7 +88,7 @@ def verify(request,mail_hash):
                     settings.MAX_OTP_REQUEST = 0
                     return redirect("/blog/")
                 except:
-                    return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified.Try verifiying again"})
+                    return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified.Try verifiying again","status":"medium"})
             else:
                 if settings.MAX_OTP_REQUEST <= 3:
                     settings.MAX_OTP_REQUEST +=1
@@ -97,7 +96,7 @@ def verify(request,mail_hash):
                 else:
                     settings.MAX_OTP_REQUEST = 0
                     GEN_KEY()
-                    return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed "})
+                    return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed ","status":"high"})
     else:
         if len(chec_ver_user) != 0:
             if chec_ver_user[0] is False:
@@ -106,9 +105,9 @@ def verify(request,mail_hash):
                 SendOTP(decrypt_email,OTP_GENERATE)
                 return render(request,"IndexHome/verify.html",{'email':decrypt_email,'mail':mail_hash})
             else:
-                return render(request,"IndexHome/error.html",{'error':"User already verified!."})
+                return render(request,"IndexHome/error.html",{'error':"User already verified!.","status":"medium"})
         else:
-            return render(request,"IndexHome/error.html",{'error':"Oops!! Somethings went wrong. Please let us know about ,send feedback."})
+            return render(request,"IndexHome/error.html",{'error':"Oops!! Somethings went wrong. Please let us know about ,send feedback.","status":"medium"})
 
 def check_session(request):
     return render(request,'IndexHome/check-session.html')
@@ -139,7 +138,7 @@ def resend_otp(request,mail_hash,request_otp):
     try:
         email = DeCrypt(mail_hash,settings.KEY)
     except:
-        return render(request,"IndexHome/error.html",{'error':"Unauthorized request send"})
+        return render(request,"IndexHome/error.html",{'error':"Unauthorized request send","status":"high"})
     if settings.MAX_RESEND_CODE <=3:
         #send code
         settings.MAX_OTP_REQUEST +=1
@@ -150,18 +149,18 @@ def resend_otp(request,mail_hash,request_otp):
     else:
         settings.MAX_RESEND_CODE = 0
         GEN_KEY()
-        return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed "})
+        return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed ","status":"medium"})
 
 def signin(request):
     if request.user.is_authenticated:
-        return render(request,"IndexHome/error.html",{"error":"User Already Login "})
+        return render(request,"IndexHome/error.html",{"error":"User Already Login ","status":"low"})
     else:
         if request.method == "POST":
             try:
                 sign_in_email = request.POST.get('email','default')
                 sign_in_password = request.POST.get('password','default')
             except:
-                return render('IndexHome/error.html',{"error":'Bypass blocked'})
+                return render('IndexHome/error.html',{"error":'Bypass blocked',"status":"high"})
             data_get = User.objects.filter(email = sign_in_email)
             if data_get.first() is None:
                 return render(request,'IndexHome/login.html',{"error":"You don't have account linked with this mail"})
@@ -182,7 +181,7 @@ def signin(request):
                     else:
                         return render(request,'IndexHome/login.html',{"error":"Incorrect email or password"}) 
                 except:
-                    return render(request,'IndexHome/error.html',{'error':"Error Signin ,Please contact support."})           
+                    return render(request,'IndexHome/error.html',{'error':"Error Signin ,Please contact support.","status":"medium"})           
         else:
             try:
                 pk_value = request.GET.get("blog-redirect-id")
@@ -195,7 +194,7 @@ def signin(request):
     
 def signup(request):
     if request.user.is_authenticated:
-        return render(request,"IndexHome/error.html",{"error":"User Already Login"})
+        return render(request,"IndexHome/error.html",{"error":"User Already Login","status":"low"})
     else:
         if request.method == "POST":
             try:
@@ -203,10 +202,10 @@ def signup(request):
                 data_name = request.POST.get("username")
                 data_pass = request.POST.get("password")
             except:
-                return render(request,"IndexHome/error.html",{"error":"By Pass blocked!"})
+                return render(request,"IndexHome/error.html",{"error":"By Pass blocked!","status":"high"})
             try:
                 if User.objects.filter(email = data_email).first():
-                    return render(request,'IndexHome/signup.html',{"error":"You Already Have account","login":True})
+                    return render(request,'IndexHome/signup.html',{"error":"You Already Have account linked with this mail"})
                 else:
                     if User.objects.filter(username = data_name).first():
                         return render(request,'IndexHome/signup.html')
@@ -222,11 +221,11 @@ def signup(request):
                                 profile_obj.save()
                                 return redirect('/verify/{}'.format(dat))
                             else:
-                                return render(request,'IndexHome/error.html',{"error":"Server Error Please Try again"})#check for same account id
+                                return render(request,'IndexHome/error.html',{"error":"Server Error Please Try again","status":"medium"})#check for same account id
                         except:
-                            return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support"})
+                            return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support","status":"high"})
             except:
-                return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support."})
+                return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support.","status":"high"})
         else:
             return render(request,'IndexHome/signup.html')
 
@@ -234,6 +233,6 @@ def signup(request):
 def logout(request):
     if request.user.is_authenticated and request.user.is_active:
         auth.logout(request)
-        return render(request,'IndexHome/error.html',{"error":"Logout Successfully!"})
+        return render(request,'IndexHome/error.html',{"error":"Logout Successfully!","status":"low"})
     else:
         return redirect("/")
