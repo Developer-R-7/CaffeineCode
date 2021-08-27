@@ -53,21 +53,17 @@
                         {% if resend_request is not True%}
                           <a href="{% url 'IndexHome:verify_resend' mail_hash=mail request_otp=True %}">Resend Verfication Code?</a>
                         {% else %}
-                        <style>
-                            #show_ag{
-                                display: none;
-                            }
-                        </style>
-                          <div id="show_ag"><a href="{% url 'IndexHome:verify_resend' mail_hash=mail request_otp=True %}">Resend Verfication Code?</a></div>
-                          <div id="countdown" style="color: royalblue;text-align:right;"></div>
+                          <!--<div id="show_ag"><a href="{% url 'IndexHome:verify_resend' mail_hash=mail request_otp=True %}">Resend Verfication Code?</a></div>-->
+                          <div class="resend_func" style="text-align: right;color:rgb(112, 112, 233);"></div>
                           <script>
-                            var timeleft = 20;
+                            var timeleft = 180;
+                            const url = '<a href="{% url "IndexHome:verify_resend" mail_hash=mail request_otp=True %}">Resend Verfication Code?</a>'
                             var downloadTimer = setInterval(function(){
                               if(timeleft <= 0){
                                 clearInterval(downloadTimer);
-                                document.getElementById("show_ag").style.display="intial";
-                              } else {
-                                document.getElementById("countdown").innerHTML = timeleft + " sec";
+                                $(".resend_func").html(url);
+                              }else {
+                                $(".resend_func").html(timeleft + " sec");
                               }
                               timeleft -= 1;
                             }, 1000);

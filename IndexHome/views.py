@@ -88,7 +88,7 @@ def verify(request,mail_hash):
                     settings.MAX_OTP_REQUEST = 0
                     return redirect("/blog/")
                 except:
-                    return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified.Try verifiying again","status":"medium"})
+                    return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified Contact Support!","status":"medium"})
             else:
                 if settings.MAX_OTP_REQUEST <= 3:
                     settings.MAX_OTP_REQUEST +=1
@@ -177,7 +177,8 @@ def signin(request):
                             else:
                                 return redirect('/')
                         else:
-                            return render(request,'IndexHome/login.html',{"error":"Your Account is not verified please click here to verify"})
+                            ver_req = EnCrypt(sign_in_email)
+                            return render(request,'IndexHome/login.html',{"error":"Account not verified","verify_request":True,"mail_en":ver_req})
                     else:
                         return render(request,'IndexHome/login.html',{"error":"Incorrect email or password"}) 
                 except:
@@ -208,7 +209,7 @@ def signup(request):
                     return render(request,'IndexHome/signup.html',{"error":"You Already Have account linked with this mail"})
                 else:
                     if User.objects.filter(username = data_name).first():
-                        return render(request,'IndexHome/signup.html')
+                        return render(request,'IndexHome/error.html',{"error":"Unauthorized access","status":"high"})
                     else:
                         try:
                             user_obj = User.objects.create(username = data_name ,email = data_email)
