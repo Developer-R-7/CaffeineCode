@@ -86,7 +86,7 @@ def verify(request,mail_hash):
                     get_verified.save()
                     GEN_KEY()
                     settings.MAX_OTP_REQUEST = 0
-                    return redirect("/blog/")
+                    return redirect("/account/login")
                 except:
                     return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified Contact Support!","status":"medium"})
             else:
@@ -143,6 +143,7 @@ def resend_otp(request,mail_hash,request_otp):
         #send code
         settings.MAX_OTP_REQUEST +=1
         OTP_GEN = OTPgen()
+        global temp
         temp = OTP_GEN
         SendOTP(email,OTP_GEN)       
         return render(request,"IndexHome/verify.html",{'mail':mail_hash,'email':email,'resend_request':True})

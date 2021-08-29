@@ -10,7 +10,7 @@ urlpatterns = [
     path('checksessiondata/',views.check_user,name="check_user"),
     path('verify/<str:mail_hash>/',views.verify,name="verify"),# merging request_otp url 
     path('verify/<str:mail_hash>/?request_otp=<str:request_otp>',views.resend_otp,name="verify_resend"),
-    path('account/login',views.signin,name="signin"),
+    path('account/login/',views.signin,name="signin"),
     path('account/create/',views.signup,name="signup"),
-    path('account/logout',views.logout,name="logout"),
+    path('account/logout/',views.logout,name="logout"),
 ]
