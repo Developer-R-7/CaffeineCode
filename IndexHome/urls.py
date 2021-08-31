@@ -13,4 +13,6 @@ urlpatterns = [
     path('account/login/',views.signin,name="signin"),
     path('account/create/',views.signup,name="signup"),
     path('account/logout/',views.logout,name="logout"),
+    path('account/forgot/',views.forgot,name="forgot"),
+    path('account/forgot/verify',views.forgot_final,name="forgot_final")
 ]

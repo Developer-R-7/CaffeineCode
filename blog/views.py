@@ -1,6 +1,6 @@
 from django.core import paginator
 from django.http.response import HttpResponse, HttpResponseRedirect
-from .models import Post,Newsletter
+from .models import Post
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
 from taggit.models import Tag

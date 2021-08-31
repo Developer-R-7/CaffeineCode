@@ -238,3 +238,42 @@ def logout(request):
         return render(request,'IndexHome/error.html',{"error":"Logout Successfully!","status":"low"})
     else:
         return redirect("/")
+
+
+
+def forgot(request):
+    if request.method == "POST":
+        global temp
+        try:
+            mail_to_request = request.POST.get("email")
+            if User.objects.get(email=mail_to_request):
+                OTP_GEN_VER = OTPgen()
+                temp = OTP_GEN_VER
+                SendOTP(mail_to_request,OTP_GEN_VER)
+                request.session['email'] = mail_to_request
+                return render(request,"IndexHome/forgot-final.html")
+            else:
+                return render(request,"IndexHome/forgot.html",{"warning":True})       
+        except:
+            return render(request,"IndexHome/error.html",{"error":"Failed to make forgot password request","status":"high"})
+    else:
+        return render(request,"IndexHome/forgot.html")
+
+def forgot_final(request):
+    if request.method == "POST":
+        try:
+            get_code = request.POST.get("code")
+            get_new_pass = request.POST.get("password")
+            global temp
+            if temp == get_code:
+                change_user = User.objects.get(email=request.session['email'])
+                change_user.set_password(get_new_pass)
+                change_user.save()
+                return render(request,'IndexHome/error.html',{"error":"Your Password Changed successfull","status":"low"})
+            else:
+                return render(request,'IndexHome/forgot-final.html',{"error":"Incorrect Verifcation code"})
+        except:
+            return render(request,'IndexHome/error.html',{"error":"Something went wrong Please contact support","status":"high"})
+    else:
+        return render(request,'IndexHome/forgot-final.html')
+            
