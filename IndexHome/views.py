@@ -244,9 +244,15 @@ def logout(request):
 def forgot(request):
     if request.method == "POST":
         global temp
+        user_found = False
         try:
             mail_to_request = request.POST.get("email")
-            if User.objects.get(email=mail_to_request):
+            try:
+                check = User.objects.get(email=mail_to_request)
+                user_found = True
+            except User.DoesNotExist:
+                return render(request,'IndexHome/forgot.html',{"warning":True})
+            if user_found :
                 OTP_GEN_VER = OTPgen()
                 temp = OTP_GEN_VER
                 SendOTP(mail_to_request,OTP_GEN_VER)
@@ -260,16 +266,20 @@ def forgot(request):
         return render(request,"IndexHome/forgot.html")
 
 def forgot_final(request):
+    try:
+        mail = request.session['email']
+    except KeyError:
+        return render(request,'IndexHome/error.html',{"error":"Unauthorized request","status":"high"})
     if request.method == "POST":
         try:
             get_code = request.POST.get("code")
             get_new_pass = request.POST.get("password")
             global temp
             if temp == get_code:
-                change_user = User.objects.get(email=request.session['email'])
+                change_user = User.objects.get(email=mail)
                 change_user.set_password(get_new_pass)
                 change_user.save()
-                return render(request,'IndexHome/error.html',{"error":"Your Password Changed successfull","status":"low"})
+                return render(request,'IndexHome/error.html',{"error":"Your Password Changed successful","status":"low"})
             else:
                 return render(request,'IndexHome/forgot-final.html',{"error":"Incorrect Verifcation code"})
         except:

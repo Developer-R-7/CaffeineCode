@@ -19,7 +19,6 @@ from django.urls import path ,include
 
 urlpatterns = [
     path(r'',include('IndexHome.urls')),
-    path(r'',include('dashboard.urls')),
     path(r'admin/', admin.site.urls),
     path(r'blog/',include('blog.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
