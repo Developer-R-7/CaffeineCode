@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'hitcount',
     'rest_framework',
+    'Dashboard',
 ]
 
 MIDDLEWARE = [

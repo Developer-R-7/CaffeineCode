@@ -207,19 +207,16 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0px 10px 25px;
   font-family: "Nunito", sans-serif;
   font-size: 16px;
   font-weight: 700;
   color: #013289;
-  white-space: nowrap;
   transition: 0.3s;
 }
 
 .navbar a i, .navbar a:focus i {
   font-size: 12px;
   line-height: 0;
-  margin-left: 5px;
 }
 
 .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
