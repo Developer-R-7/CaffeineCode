@@ -1202,6 +1202,7 @@ File: scss
 .card .card-title {
   position: relative;
   font-weight: 500;
+  font-family: NONE;
 }
 
 /*******************

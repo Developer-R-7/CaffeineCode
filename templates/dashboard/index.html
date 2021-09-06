@@ -4,38 +4,14 @@
 {% block body %}
 <div class="row">
     <!-- Column -->
-    <div class="card" style="height:230px;" style="background:transparent;">
-        <div class="card-body" style="background: #273044;border-radius:5px;">
-            <div class="row">
-                <div class="col">
-                    <h2 style="font-family: Nunito;font-size: 30px;margin-top:25px;color:aliceblue;font-weight:bold;">Welcome Back ,Rushi</h2>
-                    <h4>hello there welcome to world of code</h4>
-                    <a class="btn btn-primary" style="margin-top: 15px;">Hello There!</a>
-                </div>
-                <div class="col">
-                    <center><img src="{% static 'dashboard/assets/images/outerspace.svg' %}" style="height: 200px;"  ></center>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex no-block">
-                    <div>
-                        <h5 class="card-title mb-0">Sales Chart</h5>
-                    </div>
-                    <div class="ms-auto">
-                        <ul class="list-inline text-center font-12">
-                            <li><i class="fa fa-circle text-success"></i> SITE A</li>
-                            <li><i class="fa fa-circle text-info"></i> SITE B</li>
-                            <li><i class="fa fa-circle text-primary"></i> SITE C</li>
-                        </ul>
-                    </div>
+                <div class="" id="sales-chart" style="height: 355px;">
+                    <center><img src="{% static 'dashboard/assets/images/add_code.svg' %}" style="height:200px;margin-top:45px;"></center>
+                    <center><button style="margin-top:25px;" class="btn btn-primary">Upload Code</button></center>
                 </div>
-                <div class="" id="sales-chart" style="height: 355px;"></div>
             </div>
         </div>
     </div>
@@ -44,20 +20,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex mb-4 no-block">
-                    <h5 class="card-title mb-0 align-self-center">Our Visitors</h5>
-                    <div class="ms-auto">
-                        <select class="form-select b-0">
-                            <option selected="">Today</option>
-                            <option value="1">Tomorrow</option>
-                        </select>
-                    </div>
+                    <h5 class="card-title mb-0 align-self-center">Next contest in</h5>
                 </div>
-                <div id="visitor" style="height:260px; width:100%;"></div>
-                <ul class="list-inline mt-4 text-center font-12">
-                    <li><i class="fa fa-circle text-purple"></i> Tablet</li>
-                    <li><i class="fa fa-circle text-success"></i> Desktops</li>
-                    <li><i class="fa fa-circle text-info"></i> Mobile</li>
-                </ul>
+                <div id="visitor" style="height:260px; width:100%;">
+                    <center><h2>45 min 59 sec</h2></center>
+                    <hr>
+                    <center><button style="margin-top:15px;" class="btn btn-primary">Checkout Playground</button></center>
+                </div>
             </div>
         </div>
     </div>
@@ -69,7 +38,7 @@
             <div class="card-body">
                 <div class="d-flex">
                     <div>
-                        <h5 class="card-title">Projects of the Month</h5>
+                        <h5 class="card-title">Top-10 question this week</h5>
                     </div>
                     <div class="ms-auto">
                         <select class="form-select b-0">
@@ -141,7 +110,12 @@
     <!-- Column -->
     <div class="col-lg-4 d-flex align-items-stretch">
         <div class="card w-100">
-            <div class="up-img" style="background-image:url(../assets/images/big/img1.jpg)"></div>
+            <style>
+                .up-img{
+                    background-image: url("{% static 'dashboard/assets/images/big/img1.jpg' %}");
+                }
+            </style>
+            <div class="up-img"></div>
             <div class="card-body">
                 <h5 class=" card-title">Business development of rules</h5>
                 <span class="label label-info label-rounded">Technology</span>
@@ -164,7 +138,7 @@
     <!-- Start Notification -->
     <div class="col-lg-6 col-md-12">
         <div class="card card-body mailbox">
-            <h5 class="card-title">Notification</h5>
+            <h5 class="card-title">Leaderboard for last contest</h5>
             <div class="message-center" style="height: 420px !important;">
                 <!-- Message -->
                 <a href="#">
@@ -222,7 +196,7 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Feeds</h5>
+                <h5 class="card-title">Your Popular Code uploads</h5>
                 <ul class="feeds">
                     <li>
                         <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have 4 pending
