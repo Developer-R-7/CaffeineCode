@@ -6,7 +6,15 @@ from ckeditor.fields import RichTextField
 from hitcount.models import HitCount
 from django.urls import reverse
 from django.contrib.contenttypes.fields import GenericRelation
-# Create your models here.
+
+class Category(models.Model):
+    name = models.CharField(max_length=70)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Post(models.Model):
     title = models.CharField(max_length=75)
     blog_snipet = models.CharField(max_length=200)
@@ -25,7 +33,7 @@ class Post(models.Model):
     designation = models.CharField(max_length=60,default="freelancer")
     likes = models.ManyToManyField(User,default=None,blank=True, related_name='post_likes')
     likes_count = models.BigIntegerField(default='0')
-    
+    category = models.ForeignKey(Category,on_delete=models.PROTECT,default=1)
     def __str__(self):
         return self.title + ' | ' + str(self.author)
     def get_absolute_url(self):

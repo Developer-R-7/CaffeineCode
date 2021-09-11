@@ -145,31 +145,30 @@
         <!--<div class="loader">
             <div></div>
             </div>-->
-        <header id="header" class="header fixed-top" data-aos="fade-in">
-            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-                <a href="index.html" class="logo d-flex align-items-center">
-                <span>CaffeineCode</span>
-                </a>
-                <nav id="navbar" class="navbar">
-                    <ul>
-                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
-                        <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                        <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
-                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                        <li><a class= "nav-link scrollto active" href="{% url 'blog:index' %}">Blog</a></li>
-                        <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
-                        {% if user.is_authenticated and user.is_active %}
-                        <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
-                        <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
-                        {% else %}
-                        <li><a class="getstarted scrollto" role="button" data-toggle="modal" data-target="#login">Sign In</a></li>
-                        {% endif %}
-                    </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                </nav>
-            </div>
-        </header>
+            <header id="header" class="header fixed-top">
+                <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                    <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
+                    <span>CaffeineCode</span>
+                    </a>
+                    <nav id="navbar" class="navbar">
+                        <ul>
+                            <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+                            <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+                            <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+                            <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                            <li><a class="nav-link scrollto active" href="{% url 'blog:index' %}">Blog</a></li>
+                            <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
+                            {% if user.is_authenticated and user.is_active %}
+                            <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
+                            <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
+                            {% else %}
+                            <li><a class="getstarted scrollto" role="button" href="{% url 'IndexHome:signin' %}">Sign In</a></li>
+                            {% endif %}
+                        </ul>
+                        <i class="bi bi-list mobile-nav-toggle"></i>
+                    </nav>
+                </div>
+            </header>
         {% block hero %}
         {% endblock hero  %}
         <main id="main" style="margin-top: 80px;">

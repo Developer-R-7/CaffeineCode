@@ -39,7 +39,7 @@ def DeCrypt(text_to_decrypt,key):
     decMessage = base64.urlsafe_b64decode(text_to_decrypt)
     decMessage = fernet_de.decrypt(decMessage).decode()
     return decMessage
-
+    
 def check_user(request):
     username = request.GET.get('username', None)
     response = {
