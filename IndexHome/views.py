@@ -3,7 +3,7 @@ from django import http, template
 from django.db.models.expressions import F
 from django.http import request
 from django.http.request import HttpRequest
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseGone
 from . models import Profile
 from django.urls import reverse
 from django.shortcuts import redirect, render
@@ -19,6 +19,7 @@ import math as m
 import base64
 from cryptography.fernet import Fernet
 import random as r
+from IndexHome.task import SendOTP
 
 
 # GOBAL VAR
@@ -55,16 +56,6 @@ def OTPgen() :
         OTP += string[m.floor(r.random() * varlen)] 
     return OTP
     
-def SendOTP(email,OTP):
-    try:
-        html_content = render_to_string("IndexHome/email.html",{'otp':OTP,'email':email})
-        text_content = strip_tags(html_content)
-        email_con = EmailMultiAlternatives('Verfication Code - CaffeineCode',text_content,settings.EMAIL_HOST_USER,[email]) 
-        email_con.attach_alternative(html_content,"text/html")
-        email_con.send()
-    except:
-        return render(request,"IndexHome/error.html",{'error':"Verfication Failed OTP sent unsuccessful retry again.","status":"high"})
-
 def GEN_KEY():
     key = Fernet.generate_key()
     settings.KEY = key
@@ -102,7 +93,7 @@ def verify(request,mail_hash):
             if chec_ver_user[0] is False:
                 OTP_GENERATE = OTPgen()
                 temp = OTP_GENERATE
-                SendOTP(decrypt_email,OTP_GENERATE)
+                SendOTP.delay(decrypt_email,OTP_GENERATE)
                 return render(request,"IndexHome/verify.html",{'email':decrypt_email,'mail':mail_hash})
             else:
                 return render(request,"IndexHome/error.html",{'error':"User already verified!.","status":"medium"})
@@ -118,9 +109,8 @@ def index(request):
 
 
 def test(request):
-    u = User.objects.get(username = 'rushi_footballer')
-    u.delete()
-    return render(request,"IndexHome/signup.html")
+    #SendOTP.delay('rushinasa06@gmail.com',456733)
+    return HttpResponse('MAIL SENT SUCCEFULLY')
 
 def check_acc_id(id):
     query = list(Profile.objects.filter(account_id = id).values_list('account_id', flat=True))
@@ -145,7 +135,7 @@ def resend_otp(request,mail_hash,request_otp):
         OTP_GEN = OTPgen()
         global temp
         temp = OTP_GEN
-        SendOTP(email,OTP_GEN)       
+        SendOTP.delay(email,OTP_GEN)       
         return render(request,"IndexHome/verify.html",{'mail':mail_hash,'email':email,'resend_request':True})
     else:
         settings.MAX_RESEND_CODE = 0
@@ -255,7 +245,7 @@ def forgot(request):
             if user_found :
                 OTP_GEN_VER = OTPgen()
                 temp = OTP_GEN_VER
-                SendOTP(mail_to_request,OTP_GEN_VER)
+                SendOTP.delay(mail_to_request,OTP_GEN_VER)
                 request.session['email'] = mail_to_request
                 return render(request,"IndexHome/forgot-final.html")
             else:
