@@ -77,7 +77,7 @@ def verify(request,mail_hash):
                     get_verified.save()
                     GEN_KEY()
                     settings.MAX_OTP_REQUEST = 0
-                    return redirect("/account/login")
+                    return redirect("/dashboard/home")
                 except:
                     return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified Contact Support!","status":"medium"})
             else:
@@ -276,4 +276,8 @@ def forgot_final(request):
             return render(request,'IndexHome/error.html',{"error":"Something went wrong Please contact support","status":"high"})
     else:
         return render(request,'IndexHome/forgot-final.html')
+
+
+def playground_timer(request):
+    return render(request,"IndexHome/playground.html")
             

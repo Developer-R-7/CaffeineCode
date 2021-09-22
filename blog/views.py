@@ -1,6 +1,6 @@
 from django.core import paginator
 from django.http.response import HttpResponse, HttpResponseRedirect
-from .models import Post
+from .models import Post,Category
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
 from taggit.models import Tag
@@ -30,14 +30,33 @@ class HomeView(ListView):
         get_date = datetime.date.today()
         context['trending_post'] = Post.objects.order_by('-hit_count_generic__hits')[:5]
         context['this_month'] = Post.objects.filter(date_published__year=get_date.year,date_published__month= get_date.month-1).order_by('-hit_count_generic__hits')[:10]
+        cat = Category.objects.all()[:6]
+        context['category'] = cat
         return context
+
+
+
+
+def CategoryView(request,cat):
+    most_used_tags = Post.tags.most_common()[:6]
+    try:
+        paginator = Paginator(Post.objects.all().filter(category=cat).order_by('-hit_count_generic__hits'), 5)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
+        most_view = Post.objects.order_by('-date_published')[:5]
+        cat = Category.objects.all()[:6]
+        return render(request, 'blog/blogtag.html', {'page': page,'posts': posts,'most_view':most_view,'most_tags':most_used_tags,"result":True,'category':cat})
+    except:
+        return render(request,'blog/blogtag.html',{"result":False,"category":cat})
+
 
 def search_sys(request):
     if request.method == "GET":
         query = request.GET.get('search_query')
         posts = Post.objects.filter(Q(title__icontains=query) | Q(body__icontains=query) | Q(blog_snipet__icontains=query)).order_by('-modified')
         most_like_post = Post.objects.all().order_by('-likes_count')[:5]
-        return render(request,'blog/search.html',{'query':query,'result':posts,'most_liked':most_like_post})
+        cat = Category.objects.all()[:6]
+        return render(request,'blog/search.html',{'query':query,'result':posts,'most_liked':most_like_post,'category':cat})
 
 def newsletter(request):
     if request.method == "POST":
@@ -75,7 +94,8 @@ def post_by_tags(request,tag_slug):
         page = request.GET.get('page')
         posts = paginator.get_page(page)
         most_view = Post.objects.order_by('-date_published')[:5]
-        return render(request, 'blog/blogtag.html', {'page': page,'posts': posts,'tag': tag,'most_view':most_view,'most_tags':most_used_tags,"result":True})
+        cat = Category.objects.all()[:6]
+        return render(request, 'blog/blogtag.html', {'page': page,'posts': posts,'tag': tag,'most_view':most_view,'most_tags':most_used_tags,"result":True,'category':cat})
     except:
         return render(request,'blog/blogtag.html',{"result":False,"tag":tag_slug})
 class ArticleDetailView(HitCountDetailView):
@@ -98,6 +118,8 @@ class ArticleDetailView(HitCountDetailView):
         get_skill = get_skill.split(',')[:5]
         context['skill'] = get_skill
         context['is_liked'] = self.is_like
+        cat = Category.objects.all()[:6]
+        context['category'] = cat
         return context
 
 def account_redirect(request):

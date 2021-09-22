@@ -198,3 +198,9 @@
 {% block title_post %}
 <h4 style="padding-left: 4px;margin-bottom:2em;color:#012970;font-weight:bold;font-size: 23px;">Latest Posts</h4>
 {% endblock title_post %}
+
+{% block category %}
+    {% for name in category %}
+        <li><a href="#">{{name.name}}<span>(25)</span></a></li>
+    {% endfor %}
+{% endblock category %}

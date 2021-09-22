@@ -13,5 +13,6 @@ urlpatterns = [
     path('account/create/',views.signup,name="signup"),
     path('account/logout/',views.logout,name="logout"),
     path('account/forgot/',views.forgot,name="forgot"),
-    path('account/forgot/verify',views.forgot_final,name="forgot_final")
+    path('account/forgot/verify',views.forgot_final,name="forgot_final"),
+    path('playground/',views.playground_timer,name="playground"),
 ]

@@ -80,3 +80,8 @@
     </div>
 </div>
 {% endblock sidebar %}
+{% block category %}
+    {% for name in category %}
+        <li><a href="#">{{name.name}}<span>(25)</span></a></li>
+    {% endfor %}
+{% endblock category %}

@@ -34,7 +34,7 @@
                         <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                         <li><a class="nav-link scrollto" href="#about">About Us</a></li>
                         <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                        <li><a class="nav-link scrollto" href="#portfolio">Playground</a></li>
+                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:playground' %}">Playground</a></li>
                         <li><a href="{% url 'blog:index' %}">Blog</a></li>
                         <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
                         {% if user.is_authenticated and user.is_active %}
