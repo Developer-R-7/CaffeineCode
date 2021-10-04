@@ -29,25 +29,10 @@ class HomeView(ListView):
         context['most_used_tag'] = most_used_tags
         get_date = datetime.date.today()
         context['trending_post'] = Post.objects.order_by('-hit_count_generic__hits')[:5]
-        context['this_month'] = Post.objects.filter(date_published__year=get_date.year,date_published__month= get_date.month-1).order_by('-hit_count_generic__hits')[:10]
+        context['this_month'] = Post.objects.filter(date_published__year=get_date.year,date_published__month= get_date.month-3).order_by('-hit_count_generic__hits')[:10]
         cat = Category.objects.all()[:6]
         context['category'] = cat
         return context
-
-
-
-
-def CategoryView(request,cat):
-    most_used_tags = Post.tags.most_common()[:6]
-    try:
-        paginator = Paginator(Post.objects.all().filter(category=cat).order_by('-hit_count_generic__hits'), 5)
-        page = request.GET.get('page')
-        posts = paginator.get_page(page)
-        most_view = Post.objects.order_by('-date_published')[:5]
-        cat = Category.objects.all()[:6]
-        return render(request, 'blog/blogtag.html', {'page': page,'posts': posts,'most_view':most_view,'most_tags':most_used_tags,"result":True,'category':cat})
-    except:
-        return render(request,'blog/blogtag.html',{"result":False,"category":cat})
 
 
 def search_sys(request):

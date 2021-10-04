@@ -152,7 +152,7 @@
                     </a>
                     <nav id="navbar" class="navbar">
                         <ul>
-                            <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+                            <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
                             <li><a class="nav-link scrollto" href="#about">About Us</a></li>
                             <li><a class="nav-link scrollto" href="#services">Courses</a></li>
                             <li><a class="nav-link scrollto" href="{% url 'IndexHome:playground' %}">Playground</a></li>
@@ -175,6 +175,8 @@
             <section id="blog" class="blog">
                 {% block search_block %}
                 {% endblock search_block %}
+                {% block explore %}
+                {% endblock explore %}
                 {% block owl %}
                 {% endblock owl %}
                 {% block social-btn %}

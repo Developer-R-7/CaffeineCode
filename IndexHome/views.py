@@ -166,7 +166,7 @@ def signin(request):
                             if request.session["is_redirect"] == True:
                                 return redirect("/blog/article/{}".format(request.session["pk_to_redirect"]))
                             else:
-                                return redirect('/')
+                                return redirect('/dashboard/home')
                         else:
                             ver_req = EnCrypt(sign_in_email)
                             return render(request,'IndexHome/login.html',{"error":"Account not verified","verify_request":True,"mail_en":ver_req})

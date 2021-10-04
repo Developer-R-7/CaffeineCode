@@ -204,3 +204,33 @@
         <li><a href="#">{{name.name}}<span>(25)</span></a></li>
     {% endfor %}
 {% endblock category %}
+
+{% block explore %}
+<div class="container" style="margin-bottom:55px;">
+    <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;font-size: 23px;">Explore</h4>
+    <section id="values" class="values">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="box" data-aos="fade-up" data-aos-delay="200">
+                        <img src="{% static 'IndexHome/assets/img/gear.png' %}" class="img-fluid" alt="">
+                        <h3 style="margin-bottom: 20px;">Data structures and Algorithms</h3>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box" data-aos="fade-up" data-aos-delay="400">
+                        <img src="{% static 'IndexHome/assets/img/dynamic.png' %}" class="img-fluid" alt="">
+                        <h3 style="margin-bottom: 20px;">Dynamic Programming</h3>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box" data-aos="fade-up" data-aos-delay="600">
+                        <img src="{% static 'IndexHome/assets/img/Tech (1).png' %}" class="img-fluid" alt="">
+                        <h3 style="margin-bottom: 20px;">Technology</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div> 
+{% endblock explore %}

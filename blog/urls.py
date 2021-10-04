@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeView,ArticleDetailView,like_sys,CategoryView
+from .views import HomeView,ArticleDetailView,like_sys
 from . import views
 app_name = "blog"
 urlpatterns = [
@@ -11,5 +11,4 @@ urlpatterns = [
     path('search/',views.search_sys,name='search_qu'),
     path('subcribe-newsletter/',views.newsletter,name="newsletter"),
     path('account-redirect/',views.account_redirect,name="account_redirect"),
-    path('category/<cat>',CategoryView,name="category"),
 ]
