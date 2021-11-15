@@ -1,22 +1,16 @@
 # ALL IMPORTS
-from django import http, template
 from django.db.models.expressions import F
-from django.http import request
-from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseGone
 from . models import Profile
-from django.urls import reverse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils.crypto import get_random_string
 from django.http import JsonResponse
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
 from django.conf import settings
-from django.utils.html import strip_tags
 import math as m
 import base64
+from main_api_handlers.Profiles.VerifyManager import profile_manager
 from cryptography.fernet import Fernet
 import random as r
 from IndexHome.task import SendOTP
@@ -62,8 +56,9 @@ def GEN_KEY():
 
 def verify(request,mail_hash):
     try:
+        verify_manager = profile_manager()
         decrypt_email = DeCrypt(mail_hash,settings.KEY)
-        chec_ver_user = Profile.objects.filter(user_email=decrypt_email).values_list('is_verfied',flat=True)
+        is_user_verify = verify_manager.is_user_verify(decrypt_email)
     except:
         return render(request,"IndexHome/error.html",{'error':"Unauthorized Access","status":"high"})
     if request.method == "POST":
@@ -72,9 +67,7 @@ def verify(request,mail_hash):
             if str(USER_OTP_IN) == str(temp):
                 # CORRECT OTP
                 try:
-                    get_verified = Profile.objects.get(user_email=decrypt_email)
-                    get_verified.is_verfied = True
-                    get_verified.save()
+                    verify_manager.update_verify(decrypt_email)
                     GEN_KEY()
                     settings.MAX_OTP_REQUEST = 0
                     return redirect("/dashboard/home")
@@ -89,16 +82,14 @@ def verify(request,mail_hash):
                     GEN_KEY()
                     return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed ","status":"high"})
     else:
-        if len(chec_ver_user) != 0:
-            if chec_ver_user[0] is False:
-                OTP_GENERATE = OTPgen()
-                temp = OTP_GENERATE
-                SendOTP.delay(decrypt_email,OTP_GENERATE)
-                return render(request,"IndexHome/verify.html",{'email':decrypt_email,'mail':mail_hash})
-            else:
-                return render(request,"IndexHome/error.html",{'error':"User already verified!.","status":"medium"})
+        if is_user_verify:
+            return render(request,"IndexHome/error.html",{'error':"User already verify!","status":"medium"})
         else:
-            return render(request,"IndexHome/error.html",{'error':"Oops!! Somethings went wrong. Please let us know about ,send feedback.","status":"medium"})
+            OTP_GENERATE = OTPgen()
+            temp = OTP_GENERATE
+            SendOTP.delay(decrypt_email,OTP_GENERATE)
+            return render(request,"IndexHome/verify.html",{'email':decrypt_email,'mail':mail_hash})
+            
 
 def check_session(request):
     return render(request,'IndexHome/check-session.html')
