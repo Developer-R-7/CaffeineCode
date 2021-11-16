@@ -10,6 +10,9 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user_email = models.EmailField()
     subscribe_newsletter = models.BooleanField(default=False)
+    key = models.BinaryField(default=b'')
+    otp = models.TextField(max_length=6,default="xxxxxx")
+
 
     def __str__(self):
         return self.user.username

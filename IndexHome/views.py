@@ -1,6 +1,6 @@
 # ALL IMPORTS
 from django.db.models.expressions import F
-from django.http.response import HttpResponse, HttpResponseGone
+from django.http.response import HttpResponse
 from . models import Profile
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
@@ -25,14 +25,12 @@ temp = str()
 def EnCrypt(email_to_encrypt):
     GEN_KEY() 
     fernet = Fernet(settings.KEY)
-    encMessage = fernet.encrypt(email_to_encrypt.encode())
-    encMessage = base64.urlsafe_b64encode(encMessage).decode()
+    encMessage = fernet.encrypt(email_to_encrypt.encode('utf-8'))
     return encMessage
 
 def DeCrypt(text_to_decrypt,key):
     fernet_de = Fernet(key)
-    decMessage = base64.urlsafe_b64decode(text_to_decrypt)
-    decMessage = fernet_de.decrypt(decMessage).decode()
+    decMessage = fernet_de.decrypt(text_to_decrypt).decode()
     return decMessage
     
 def check_user(request):
@@ -54,13 +52,14 @@ def GEN_KEY():
     key = Fernet.generate_key()
     settings.KEY = key
 
-def verify(request,mail_hash):
+def verify(request,mail_hash,id):
     try:
         verify_manager = profile_manager()
-        decrypt_email = DeCrypt(mail_hash,settings.KEY)
+        get_user = verify_manager.search_user_with_id(id)
+        decrypt_email = DeCrypt(mail_hash,settings.KEY) #get_user.key
         is_user_verify = verify_manager.is_user_verify(decrypt_email)
     except:
-        return render(request,"IndexHome/error.html",{'error':"Unauthorized Access","status":"high"})
+        return render(request,"IndexHome/error.html",{'error':"Unauthorized Access ","status":"high"})
     if request.method == "POST":
             global temp
             USER_OTP_IN = request.POST.get('Passcode')
@@ -186,29 +185,29 @@ def signup(request):
                 data_pass = request.POST.get("password")
             except:
                 return render(request,"IndexHome/error.html",{"error":"By Pass blocked!","status":"high"})
-            try:
-                if User.objects.filter(email = data_email).first():
-                    return render(request,'IndexHome/signup.html',{"error":"You Already Have account linked with this mail"})
+            #try:
+            if User.objects.filter(email = data_email).first():
+                return render(request,'IndexHome/signup.html',{"error":"You Already Have account linked with this mail"})
+            else:
+                if User.objects.filter(username = data_name).first():
+                    return render(request,'IndexHome/error.html',{"error":"Unauthorized access","status":"high"})
                 else:
-                    if User.objects.filter(username = data_name).first():
-                        return render(request,'IndexHome/error.html',{"error":"Unauthorized access","status":"high"})
+                    #try:
+                    user_obj = User.objects.create(username = data_name ,email = data_email)
+                    user_obj.set_password(data_pass)
+                    user_obj.save()
+                    id_generated = generate_id()
+                    if check_acc_id(id_generated):
+                        dat = EnCrypt(data_email)
+                        profile_obj = Profile.objects.create(user = user_obj,account_id=id_generated,user_email = data_email)
+                        profile_obj.save()
+                        return redirect('/verify/{}/{}/'.format(str(dat),id_generated))
                     else:
-                        try:
-                            user_obj = User.objects.create(username = data_name ,email = data_email)
-                            user_obj.set_password(data_pass)
-                            user_obj.save()
-                            id_generated = generate_id()
-                            if check_acc_id(id_generated):
-                                dat = EnCrypt(data_email)
-                                profile_obj = Profile.objects.create(user = user_obj,account_id=id_generated,user_email = data_email)
-                                profile_obj.save()
-                                return redirect('/verify/{}'.format(dat))
-                            else:
-                                return render(request,'IndexHome/error.html',{"error":"Server Error Please Try again","status":"medium"})#check for same account id
-                        except:
-                            return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support","status":"high"})
-            except:
-                return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support.","status":"high"})
+                        return render(request,'IndexHome/error.html',{"error":"Server Error Please Try again","status":"medium"})#check for same account id
+                        #except:
+                            #return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support","status":"high"})
+            #except:
+                #return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support.","status":"high"})
         else:
             return render(request,'IndexHome/signup.html')
 
