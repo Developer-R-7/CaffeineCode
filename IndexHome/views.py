@@ -8,11 +8,8 @@ from django.contrib import auth
 from django.utils.crypto import get_random_string
 from django.http import JsonResponse
 from django.conf import settings
-import math as m
-import base64
 from main_api_handlers.Profiles.VerifyManager import profile_manager
 from cryptography.fernet import Fernet
-import random as r
 from IndexHome.task import SendOTP
 
 
@@ -22,16 +19,12 @@ temp = str()
 
 # ALL VIEWS #
 
-def EnCrypt(email_to_encrypt):
-    GEN_KEY() 
-    fernet = Fernet(settings.KEY)
-    encMessage = fernet.encrypt(email_to_encrypt.encode('utf-8'))
-    return encMessage
+def EnCrypt(message: bytes, key: bytes):
+    return Fernet(key).encrypt(message)
 
-def DeCrypt(text_to_decrypt,key):
-    fernet_de = Fernet(key)
-    decMessage = fernet_de.decrypt(text_to_decrypt).decode()
-    return decMessage
+def DeCrypt(token: bytes, key: bytes):
+    return Fernet(key).decrypt(token)
+    
     
 def check_user(request):
     username = request.GET.get('username', None)
@@ -40,54 +33,39 @@ def check_user(request):
     }
     return JsonResponse(response)
 
-def OTPgen() : 
-    string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    OTP = "" 
-    varlen= len(string) 
-    for i in range(6) : 
-        OTP += string[m.floor(r.random() * varlen)] 
-    return OTP
-    
-def GEN_KEY():
-    key = Fernet.generate_key()
-    settings.KEY = key
 
 def verify(request,mail_hash,id):
     try:
         verify_manager = profile_manager()
         get_user = verify_manager.search_user_with_id(id)
-        decrypt_email = DeCrypt(mail_hash,settings.KEY) #get_user.key
+        decrypt_email = DeCrypt(mail_hash.encode('utf-8'),get_user.key.encode('utf-8')) #this is a bytes
         is_user_verify = verify_manager.is_user_verify(decrypt_email)
     except:
         return render(request,"IndexHome/error.html",{'error':"Unauthorized Access ","status":"high"})
     if request.method == "POST":
-            global temp
             USER_OTP_IN = request.POST.get('Passcode')
-            if str(USER_OTP_IN) == str(temp):
+            if verify_manager.verify_otp(id,USER_OTP_IN):
                 # CORRECT OTP
                 try:
-                    verify_manager.update_verify(decrypt_email)
-                    GEN_KEY()
-                    settings.MAX_OTP_REQUEST = 0
+                    verify_manager.update_verify(id)
+                    #verify_manager.delete_field(id)
+                    #login user here
                     return redirect("/dashboard/home")
                 except:
                     return render(request,"IndexHome/error.html",{'error':"Verification failed user not verified Contact Support!","status":"medium"})
             else:
-                if settings.MAX_OTP_REQUEST <= 3:
-                    settings.MAX_OTP_REQUEST +=1
-                    return render(request,"IndexHome/verify.html",{'otp_FAILED':True,'mail':mail_hash,'email':decrypt_email})
+                if verify_manager.get_fail(id) <= 3:
+                    verify_manager.add_fail_request(id)
+                    return render(request,"IndexHome/verify.html",{'otp_FAILED':True,'mail':mail_hash,'email':decrypt_email,"id":id})
                 else:
-                    settings.MAX_OTP_REQUEST = 0
-                    GEN_KEY()
+                    verify_manager.reset_fail(id)
                     return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed ","status":"high"})
     else:
         if is_user_verify:
             return render(request,"IndexHome/error.html",{'error':"User already verify!","status":"medium"})
         else:
-            OTP_GENERATE = OTPgen()
-            temp = OTP_GENERATE
-            SendOTP.delay(decrypt_email,OTP_GENERATE)
-            return render(request,"IndexHome/verify.html",{'email':decrypt_email,'mail':mail_hash})
+            #sendmail here
+            return render(request,"IndexHome/verify.html",{'email':decrypt_email,'mail':mail_hash,'id':id})
             
 
 def check_session(request):
@@ -114,23 +92,24 @@ def generate_id():
     return account_id_generate
 
 
-def resend_otp(request,mail_hash,request_otp):
-    try:
-        email = DeCrypt(mail_hash,settings.KEY)
-    except:
-        return render(request,"IndexHome/error.html",{'error':"Unauthorized request send","status":"high"})
-    if settings.MAX_RESEND_CODE <=3:
-        #send code
-        settings.MAX_OTP_REQUEST +=1
-        OTP_GEN = OTPgen()
-        global temp
-        temp = OTP_GEN
-        SendOTP.delay(email,OTP_GEN)       
-        return render(request,"IndexHome/verify.html",{'mail':mail_hash,'email':email,'resend_request':True})
+def resend_otp(request,mail_hash,acc_id,request_otp):
+    if request_otp:
+        try:
+            verify_manager = profile_manager()
+            get_user = verify_manager.search_user_with_id(acc_id)
+            email = DeCrypt(mail_hash.encode('utf-8'),get_user.key.encode('utf-8'))
+        except:
+            return render(request,"IndexHome/error.html",{'error':"Unauthorized request send","status":"high"})
+        if get_user.resend_request <=3:
+            verify_manager.generate_only_otp(acc_id)
+            #Sendmail here      
+            return render(request,"IndexHome/verify.html",{'mail':mail_hash,'email':email,'resend_request':True,'id':acc_id})
+        else:
+            verify_manager.reset_resend(acc_id)
+            return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed ","status":"medium"})
     else:
-        settings.MAX_RESEND_CODE = 0
-        GEN_KEY()
-        return render(request,'IndexHome/error.html',{'error':"Max OTP requested. Verification failed ","status":"medium"})
+        raise Exception("false request")
+
 
 def signin(request):
     if request.user.is_authenticated:
@@ -198,14 +177,16 @@ def signup(request):
                     user_obj.save()
                     id_generated = generate_id()
                     if check_acc_id(id_generated):
-                        dat = EnCrypt(data_email)
-                        profile_obj = Profile.objects.create(user = user_obj,account_id=id_generated,user_email = data_email)
-                        profile_obj.save()
-                        return redirect('/verify/{}/{}/'.format(str(dat),id_generated))
+                        verify_handler = profile_manager()
+                        verify_handler.createProfile(user_obj,id_generated,data_email)
+                        verify_handler.add_otp(id_generated)
+                        get_user = verify_handler.search_user_with_id(id_generated)
+                        encrypted = EnCrypt(data_email.encode(),get_user.key.encode('utf-8'))
+                        return redirect('/verify/{}/{}/'.format(encrypted.decode('utf-8'),id_generated))
                     else:
                         return render(request,'IndexHome/error.html',{"error":"Server Error Please Try again","status":"medium"})#check for same account id
-                        #except:
-                            #return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support","status":"high"})
+                    #except:
+                        #return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support","status":"high"})
             #except:
                 #return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support.","status":"high"})
         else:
@@ -235,7 +216,7 @@ def forgot(request):
             if user_found :
                 OTP_GEN_VER = OTPgen()
                 temp = OTP_GEN_VER
-                SendOTP.delay(mail_to_request,OTP_GEN_VER)
+                SendOTP(mail_to_request,OTP_GEN_VER)
                 request.session['email'] = mail_to_request
                 return render(request,"IndexHome/forgot-final.html")
             else:
