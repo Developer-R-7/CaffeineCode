@@ -14,8 +14,6 @@ from IndexHome.task import SendOTP
 
 
 # GOBAL VAR
-temp = str()
-
 
 # ALL VIEWS #
 

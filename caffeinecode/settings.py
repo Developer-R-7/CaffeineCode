@@ -138,9 +138,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-KEY = b''
-MAX_OTP_REQUEST = 0
-MAX_RESEND_CODE = 0
+
 #EMAIL CONFIRGRATION
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST_USER = "helpdeveloper.r@gmail.com"
