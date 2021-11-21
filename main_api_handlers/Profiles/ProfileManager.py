@@ -66,14 +66,6 @@ class profile_manager():
         except:
             raise Exception("OTP add failed!")
 
-    def update_otp(self, mail, new_otp):
-        try:
-            query = self.search_user_with_account_mail(mail)
-            query.otp = new_otp
-            query.save()
-        except:
-            return None
-
     def verify_otp(self,id,user_input):
         try:
             query = self.search_user_with_id(id)
