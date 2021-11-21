@@ -61,7 +61,7 @@
                   </div>
                   <input  name="password" required spellcheck="false" type="password" autocomplete="off">
                   {% if error %}
-                    <div style="color: red;font-size:15px;margin-top:4px;">{{error}} {% if verify_request %}<a class="ver" href="{% url 'IndexHome:verify' mail_hash=mail_en %}" style="color:darkturquoise;">Click Here to verify</a>{% endif %}</div>
+                    <div style="color: red;font-size:15px;margin-top:4px;">{{error}} {% if verify_request %}<a class="ver" href="{% url 'IndexHome:verify' mail_hash=mail_en id=id %}" style="color:darkturquoise;">Click Here to verify</a>{% endif %}</div>
                   {% endif %}
                 </div>
         

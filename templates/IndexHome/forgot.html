@@ -52,7 +52,7 @@
                 </div>
                 <input type="email" name="email" required spellcheck="false"  autofocus title="Enter Register Email" autocomplete="off">
                 {% if warning is True %}
-                    <div style="color: red;font-size:15px;margin-top:4px;">No account linked with this mail</div>
+                    <div style="color: red;font-size:15px;margin-top:4px;">{{message}}</div>
                 {% endif %}
                 </div>
                 <div class="field padding-bottom--24">

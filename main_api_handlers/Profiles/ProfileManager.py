@@ -7,9 +7,7 @@ from IndexHome.task import SendOTP
 
 class profile_manager():
 
-    def __init__(self):
-        self.resend_code_request = 0
-
+   
     def search_user_with_account_mail(self, mail):
         try:
             query = Profile.objects.get(user_email=mail)
@@ -76,7 +74,7 @@ class profile_manager():
         except:
             return None
 
-    def verify_otp(self, id, user_input):
+    def verify_otp(self,id,user_input):
         try:
             query = self.search_user_with_id(id)
             if query.otp == user_input:
@@ -150,4 +148,6 @@ class profile_manager():
             profile_obj.save()
         except:
             raise Exception("Create profile failed")
+    
+    
 
