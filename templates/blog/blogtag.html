@@ -1,5 +1,8 @@
-{% extends 'blog/base.html' %} {% block title %} CaffeineBlog {% endblock title
-%} {% load hitcount_tags %} {% load static %} {% block search_block %}
+{% extends 'blog/base.html' %} 
+{% block title %} CaffeineBlog {% endblock title%} 
+{% load hitcount_tags %} 
+{% load static %} 
+{% block search_block %}
 <div
   class="container mb-5"
   data-aos-duration="600"
@@ -28,12 +31,15 @@
   </h2>
 </div>
 <br />
-{% endif %} {% endblock search_block %} {% block article %} {% if
-forloop.counter == 4 %}
+{% endif %} 
+{% endblock search_block %} 
+{% block article %} 
+{% if forloop.counter == 4 %}
 <article class="entry" style="height: 120px; width: 100%">
   <center>ADS TO BE SHOWN HERE</center>
 </article>
-{% endif %} {% for post in posts %}
+{% endif %} 
+{% for post in posts %}
 <article class="entry">
   <div class="entry-img">
     <img src="{{post.entry_img}}" alt="" class="img-fluid" />
@@ -78,7 +84,8 @@ forloop.counter == 4 %}
     No posts tagged with "{{tag}}"
   </div>
 </article>
-{% endfor %} {% endblock article %} {% block pagination %} {% if result %}
+{% endfor %} {% endblock article %} {% block pagination %} 
+{% if result %}
 <nav aria-label="Page navigation">
   <ul class="paginationm mb-5">
     {% if posts.has_previous %}
@@ -87,8 +94,9 @@ forloop.counter == 4 %}
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    {% endif %} {% for n in posts.paginator.page_range %} {% if posts.number ==
-    n %}
+    {% endif %} 
+    {% for n in posts.paginator.page_range %} 
+    {% if posts.number == n %}
     <li class="page-item active">
       <span class="page-link">{{ n }}<span class="sr-only"></span></span>
     </li>
@@ -96,7 +104,8 @@ forloop.counter == 4 %}
     <li class="page-item">
       <a class="page-link" href="?page={{ n }}">{{ n }}</a>
     </li>
-    {% endif %} {% endfor %} {% if posts.has_next %}
+    {% endif %} {% endfor %} 
+    {% if posts.has_next %}
     <li class="page-item">
       <a
         class="page-link"

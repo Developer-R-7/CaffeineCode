@@ -1,5 +1,6 @@
-{% extends 'blog/base.html' %} {% block title %} Blog-CaffeineCode {% endblock
-title %} {% load hitcount_tags %} {% block search_block %}
+{% extends 'blog/base.html' %} {% block title %} Blog-CaffeineCode {% endblock title %} 
+{% load hitcount_tags %} 
+{% block search_block %}
 <div
   class="container mb-5"
   data-aos-duration="600"
@@ -20,11 +21,14 @@ title %} {% load hitcount_tags %} {% block search_block %}
   </h2>
 </div>
 <br />
-{% endblock search_block %} {% block article %} {% if forloop.counter == 4 %}
+{% endblock search_block %} {% block article %} 
+{% if forloop.counter == 4 %}
 <article class="entry" style="height: 120px; width: 100%">
   <center>ADS TO BE SHOWN HERE</center>
 </article>
-{% endif %} {% if result %} {% for post in result %}
+{% endif %} 
+{% if result %} 
+{% for post in result %}
 <article class="entry">
   <div class="entry-img">
     <img src="{{post.entry_img}}" alt="" class="img-fluid" />
@@ -69,8 +73,8 @@ title %} {% load hitcount_tags %} {% block search_block %}
     No results Found!
   </div>
 </article>
-{% endif %} {% endblock article %} {% block pagination %} {% endblock pagination
-%} {% block sidebar %}
+{% endif %} {% endblock article %} {% block pagination %} {% endblock pagination %} 
+{% block sidebar %}
 <div class="sidebar">
   <h3 class="sidebar-title mb-4">Most Liked Posts</h3>
   <div class="sidebar-item recent-posts">
