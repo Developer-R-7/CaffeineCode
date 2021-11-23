@@ -7,7 +7,6 @@ from IndexHome.task import SendOTP
 
 class profile_manager():
 
-   
     def search_user_with_account_mail(self, mail):
         try:
             query = Profile.objects.get(user_email=mail)
@@ -31,7 +30,7 @@ class profile_manager():
                 return False
         except:
             return None
-    
+
     def update_verify(self, id):
         try:
             query = self.search_user_with_id(id)
@@ -48,7 +47,7 @@ class profile_manager():
             OTP += string[m.floor(r.random() * varlen)]
         return OTP
 
-    def generate_only_otp(self,id):
+    def generate_only_otp(self, id):
         try:
             query = self.search_user_with_id(id)
             query.otp = self.generate_otp()
@@ -66,7 +65,7 @@ class profile_manager():
         except:
             raise Exception("OTP add failed!")
 
-    def verify_otp(self,id,user_input):
+    def verify_otp(self, id, user_input):
         try:
             query = self.search_user_with_id(id)
             if query.otp == user_input:
@@ -76,7 +75,7 @@ class profile_manager():
         except:
             raise Exception("'verify' failed")
 
-    def add_fail_request(self,id):
+    def add_fail_request(self, id):
         try:
             query = self.search_user_with_id(id)
             query.fail_attepmt += 1
@@ -84,23 +83,23 @@ class profile_manager():
             return query.fail_attepmt
         except:
             raise Exception("Failed! 'fail otp request'")
-    
-    def get_fail(self,id):
+
+    def get_fail(self, id):
         try:
             query = self.search_user_with_id(id)
             return query.fail_attepmt
         except:
             raise("'get_fail' failed!")
-    
-    def reset_fail(self,id):
-        #try:
+
+    def reset_fail(self, id):
+        # try:
         query = self.search_user_with_id(id)
         query.fail_attepmt = 0
         query.save()
-        #except:
-            #raise Exception("'reset_fail' failed!!")
-    
-    def reset_resend(self,id):
+        # except:
+        #raise Exception("'reset_fail' failed!!")
+
+    def reset_resend(self, id):
         try:
             query = self.search_user_with_id(id)
             query.resend_request = 0
@@ -109,37 +108,34 @@ class profile_manager():
         except:
             raise Exception("'reset_resend' failed!")
 
-
-    def resend_request(self,id):
+    def resend_request(self, id):
         try:
             query = self.search_user_with_id(id)
-            query.resend_request +=1
-            self.resend_code_request +=1
+            query.resend_request += 1
+            self.resend_code_request += 1
             query.save()
         except:
             raise Exception("Failed! 'resend_request'")
 
-
-    def get_otp(self,mail):
+    def get_otp(self, mail):
         try:
             query = self.search_user_with_account_mail(mail)
             return query.otp
         except:
             return None
-    
-    def delete_field(self,id):
+
+    def delete_field(self, id):
         try:
-            query = Profile.objects.filter(account_id=id).update(otp=None,fail_attepmt=None)
+            query = Profile.objects.filter(account_id=id).update(
+                otp=None, fail_attepmt=None)
             query.save()
         except:
             raise Exception("'delete_field' failed!")
 
-    def createProfile(self,user_obj,id,mail):
+    def createProfile(self, user_obj, id, mail):
         try:
-            profile_obj = Profile.objects.create(user = user_obj,account_id=id,user_email = mail)
+            profile_obj = Profile.objects.create(
+                user=user_obj, account_id=id, user_email=mail)
             profile_obj.save()
         except:
             raise Exception("Create profile failed")
-    
-    
-
