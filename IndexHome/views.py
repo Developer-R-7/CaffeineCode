@@ -8,7 +8,6 @@ from django.utils.crypto import get_random_string
 from django.http import JsonResponse
 from main_api_handlers.Profiles.ProfileManager import profile_manager
 from cryptography.fernet import Fernet
-from IndexHome.task import SendOTP
 
 
 

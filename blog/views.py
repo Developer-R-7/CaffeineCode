@@ -4,15 +4,11 @@ from .models import Post,Category
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView
 from taggit.models import Tag
-from django.contrib.auth import login
 from django.db.models import Count
 from django.core.paginator import Paginator
 import datetime
 from django.db.models import Q
 from hitcount.views import HitCountDetailView
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import authentication, permissions
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 # Create your views here.
@@ -83,6 +79,7 @@ def post_by_tags(request,tag_slug):
         return render(request, 'blog/blogtag.html', {'page': page,'posts': posts,'tag': tag,'most_view':most_view,'most_tags':most_used_tags,"result":True,'category':cat})
     except:
         return render(request,'blog/blogtag.html',{"result":False,"tag":tag_slug})
+        
 class ArticleDetailView(HitCountDetailView):
     model = Post
     template_name = 'blog/blogsingle.html'
