@@ -21,6 +21,98 @@
   .count-box {
     border-radius: 5px;
   }
+  .group 			  { 
+    position:relative; 
+    margin-bottom:45px; 
+  }
+  input 				{
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:300px;
+    border:none;
+    border-bottom:1px solid #757575;
+  }
+  input:focus 		{ outline:none; }
+  
+  /* LABEL ======================================= */
+  label 				 {
+    color:#999; 
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:140px;
+    top:10px;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+  }
+  
+  /* active state */
+  input:focus ~ label, input:valid ~ label 		{
+    top:-20px;
+    font-size:14px;
+    color:#5264AE;
+  }
+  
+  /* BOTTOM BARS ================================= */
+  .bar 	{ position:relative; display:block; width:300px; }
+  .bar:before, .bar:after 	{
+    content:'';
+    height:2px; 
+    width:0;
+    bottom:1px; 
+    position:absolute;
+    background:#5264AE; 
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+  }
+  .bar:before {
+    left:50%;
+  }
+  .bar:after {
+    right:50%; 
+  }
+  
+  /* active state */
+  input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width:50%;
+  }
+  
+  /* HIGHLIGHTER ================================== */
+  .highlight {
+    position:absolute;
+    height:60%; 
+    width:100px; 
+    top:25%; 
+    left:0;
+    pointer-events:none;
+    opacity:0.5;
+  }
+  
+  /* active state */
+  input:focus ~ .highlight {
+    -webkit-animation:inputHighlighter 0.3s ease;
+    -moz-animation:inputHighlighter 0.3s ease;
+    animation:inputHighlighter 0.3s ease;
+  }
+  
+  /* ANIMATIONS ================ */
+  @-webkit-keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to 	{ width:0; background:transparent; }
+  }
+  @-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to 	{ width:0; background:transparent; }
+  }
+  @keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to 	{ width:0; background:transparent; }
+  }
+  
 </style>
 <section id="hero" class="hero d-flex align-items-center">
   <div class="container">
@@ -52,7 +144,6 @@
             {% else %}
             <a
               style="cursor: pointer; color: white"
-              href="{% url 'IndexHome:signup' %}"
               class="
                 btn-get-started
                 scrollto
@@ -62,7 +153,7 @@
                 align-self-center
               "
             >
-              <span>Get Notify!</span>
+              <span role="button" data-toggle="modal" data-target="#form">Get Notify!</button></span>
               <i class="bi bi-arrow-right"></i>
             </a>
             {% endif %}
@@ -79,4 +170,45 @@
     </div>
   </div>
 </section>
+<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <div class="modal-title"></div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border:none">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <center><img src="{% static 'IndexHome/assets/img/notify.svg' %}" style="height:200px;width:200px;"></center>
+          <div class="form-group" style="margin-top: 30px;">
+            <center><div class="group">      
+              <input type="email" required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>Your email to get notify</label>
+            </div></center>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 d-flex justify-content-center">
+          <a
+              style="cursor: pointer;margin-bottom:15px;background:#4154f1;padding:10px 60px;border-radius:5px;color:white;"
+              class="
+                btn-get-started
+                scrollto
+                d-inline-flex
+                align-items-center
+                justify-content-center
+                align-self-center
+              "
+            >
+              <button style="border: none;background:none;color:white" role="button" type="submit" >Subcribe Notify!</button></span>
+            </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock body %}
