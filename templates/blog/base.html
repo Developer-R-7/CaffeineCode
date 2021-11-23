@@ -1,332 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% load static %}
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title>{% block title %}{% endblock title %}</title>
-        <meta content="" name="description">
-        <meta content="" name="keywords">
-        <!-- Favicons
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}{% endblock title %}</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+    <!-- Favicons
         <link href="assets/img/favicon.png" rel="icon">
         <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-        <!-- Vendor CSS Files -->
-        {% block styling %}
-        {% endblock styling %}
-        <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-        <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet">
-        <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-        <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-        <!-- Template Main CSS File -->
-        <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet">
-        <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
-    </head>
-    <body>
-        <style>
-            body {
-            font-family: 'JosefinSans', monospace;
-            }
-            ::-webkit-scrollbar {
-                width: 0.5em;
-                }
-                ::-webkit-scrollbar-track {
-                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-                }
-                ::-webkit-scrollbar-thumb {
-                background-color: darkgrey;
-                border-radius: 10px;
-                }
-            .card-container {
-                background-color: #231E39;
-                border-radius: 5px;
-                color: #B3B8CD;
-                padding-top: 30px;
-                position: relative;
-                width: 350px;
-                max-width: 100%;
-                text-align: center;
-                }
-            .card-container .pro {
-                color: #231E39;
-                background-color: #FEBB0B;
-                border-radius: 3px;
-                font-size: 14px;
-                font-weight: bold;
-                padding: 3px 7px;
-                position: absolute;
-                top: 30px;
-                left: 30px;
-                }
-            .card-container .round {
-                border: 1px solid #03BFCB;
-                border-radius: 50%;
-                padding: 7px;
-                }
-            button.primary {
-                background-color: #03BFCB;
-                border: 1px solid #03BFCB;
-                border-radius: 3px;
-                color: #231E39;
-                font-family: Montserrat, sans-serif;
-                font-weight: 500;
-                padding: 10px 25px;
-                }
-            button.primary.ghost {
-                background-color: transparent;
-                color: #02899C;
-                }
-            .skills {
-                background-color: #1F1A36;
-                text-align: left;
-                padding: 15px;
-                margin-top: 30px;
-                }
-            .skills ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                }
-            .skills ul li {
-                border: 1px solid #2D2747;
-                border-radius: 2px;
-                display: inline-block;
-                font-size: 12px;
-                margin: 0 7px 7px 0;
-                padding: 7px;
-            }
-            .entry-content p{
-            color:#6c757d;
-            }
-            .entry-title{
-            font-family: 'JosefinSans', monospace;
-            }
-            .blog .entry .entry-content p {
-            line-height: 1.9;
-            display: block;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-            font-weight: 300;
-            }
-            .entry-title{
-            font-family: 'JosefinSans', monospace;
-            }
-            .header .logo img {
-            max-height: 150px;
-            margin-right: 6px;
-            }
-            .entry-title{
-            font-size: 45px;
-            }
-            .loader{
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            background-color: #ffffff;
-            position: absolute;
-            }
-            .loader>div{
-            height: 80px;
-            width: 80px;
-            border: 8px solid #fafafa;
-            border-top-color:rgb(241, 168, 71);
-            position: absolute;
-            margin: auto;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-radius: 50%;
-            animation: spin 1.5s infinite linear;
-            }
-            @keyframes spin{
-            100%{
-            transform: rotate(360deg);
-            }
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <!-- Vendor CSS Files -->
+    {% block styling %} {% endblock styling %}
+    <link
+      href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}"
+      rel="stylesheet"
+    />
+    <!-- Template Main CSS File -->
+    <link
+      href="{% static 'IndexHome/assets/css/style.css' %}"
+      rel="stylesheet"
+    />
+    <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: "JosefinSans", monospace;
+      }
+      ::-webkit-scrollbar {
+        width: 0.5em;
+      }
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        border-radius: 10px;
+      }
+      .entry-content p {
+        color: #6c757d;
+      }
+      .entry-title {
+        font-family: "JosefinSans", monospace;
+      }
+      .blog .entry .entry-content p {
+        line-height: 1.9;
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: 300;
+      }
+      .entry-title {
+        font-family: "JosefinSans", monospace;
+      }
+      .header .logo img {
+        max-height: 150px;
+        margin-right: 6px;
+      }
+      .entry-title {
+        font-size: 45px;
+      }
+      .loader {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background-color: #ffffff;
+        position: absolute;
+      }
+      .loader > div {
+        height: 80px;
+        width: 80px;
+        border: 8px solid #fafafa;
+        border-top-color: rgb(241, 168, 71);
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 50%;
+        animation: spin 1.5s infinite linear;
+      }
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
         }
-        </style>
-        <!--<div class="loader">
+      }
+    </style>
+    <!--<div class="loader">
             <div></div>
             </div>-->
-            <header id="header" class="header fixed-top">
-                <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-                    <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
-                    <span>CaffeineCode</span>
-                    </a>
-                    <nav id="navbar" class="navbar">
-                        <ul>
-                            <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
-                            <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                            <li><a class="nav-link scrollto" href="#services">Courses</a></li>
-                            <li><a class="nav-link scrollto" href="{% url 'IndexHome:playground' %}">Playground</a></li>
-                            <li><a class="nav-link scrollto active" href="{% url 'blog:index' %}">Blog</a></li>
-                            <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
-                            {% if user.is_authenticated and user.is_active %}
-                            <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77);">Logout</a></li>
-                            <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
-                            {% else %}
-                            <li><a class="getstarted scrollto" role="button" href="{% url 'IndexHome:signin' %}">Sign In</a></li>
-                            {% endif %}
-                        </ul>
-                        <i class="bi bi-list mobile-nav-toggle"></i>
-                    </nav>
-                </div>
-            </header>
-        {% block hero %}
-        {% endblock hero  %}
-        <main id="main" style="margin-top: 80px;">
-            <section id="blog" class="blog">
-                {% block search_block %}
-                {% endblock search_block %}
-                {% block explore %}
-                {% endblock explore %}
-                {% block owl %}
-                {% endblock owl %}
-                {% block social-btn %}
-                {% endblock social-btn %}
-                <div class="container" data-aos="fade-up">
-                    {% block title_post %}
-                    {% endblock title_post %}
-                    <div class="row">
-                        <div class="col-lg-8 entries">
-                            {% block article %}
-                            {% endblock article %}
-                            <div class="blog-pagination mb-5">
-                                <ul class="justify-content-center">
-                                    {% block pagination %}
-                                    {% endblock pagination %}
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4" style="height: fit-content;">
-                            {% block profile %}
-                            {% endblock profile %}
-                            <div class="sidebar">
-                                <h3 class="sidebar-title mb-4">Search</h3>
-                                <div class="sidebar-item search-form">
-                                    <form action="{% url 'blog:search_qu' %}" method="GET">
-                                        <input type="text" name="search_query" required autocomplete="off">
-                                        <button type="submit"><i class="bi bi-search"></i></button>
-                                    </form>
-                                </div>
-                                <h3 class="sidebar-title mb-4">Categories</h3>
-                                <div class="sidebar-item categories">
-                                    <ul>
-                                        {% block category %}
-                                        {% endblock category %}
-                                    </ul>
-                                </div>
-                            </div>
-                            {% block sidebar %}
-                            {% endblock sidebar %}
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-            {% block recent %}
-            {% endblock recent %}
-        </main>
-        <footer id="footer" class="footer">
-            <div class="footer-newsletter">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12 text-center">
-                            <h4>Our Newsletter</h4>
-                            <p>Receive regular updates and announcement by subscibing to our Newsletter</p>
-                        </div>
-                        <div class="col-lg-6">
-                            <form action="{% url 'blog:newsletter' %}" method="post">
-                                {% csrf_token %}
-                                <input type="email" id="newsletter" autocomplete="off"  name="newsletter" required><input  id="submit" type="submit" value="Subscribe">
-                            </form>
-                        </div>
-                    </div>
-                </div>
+    <header id="header" class="header fixed-top">
+      <div
+        class="
+          container-fluid container-xl
+          d-flex
+          align-items-center
+          justify-content-between
+        "
+      >
+        <a
+          href="{% url 'IndexHome:index' %}"
+          class="logo d-flex align-items-center"
+        >
+          <span>CaffeineCode</span>
+        </a>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+              <a class="nav-link scrollto" href="{% url 'IndexHome:index' %}"
+                >Home</a
+              >
+            </li>
+            <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+            <li><a class="nav-link scrollto" href="#services">Courses</a></li>
+            <li>
+              <a
+                class="nav-link scrollto"
+                href="{% url 'IndexHome:playground' %}"
+                >Playground</a
+              >
+            </li>
+            <li>
+              <a class="nav-link scrollto active" href="{% url 'blog:index' %}"
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a class="nav-link scrollto" href="#contact"
+                >Contact {{is_login}}</a
+              >
+            </li>
+            {% if user.is_authenticated and user.is_active %}
+            <li>
+              <a
+                href="{% url 'IndexHome:logout' %}"
+                role="button"
+                class="getstarted scrollto"
+                style="background: rgb(212, 77, 77)"
+                >Logout</a
+              >
+            </li>
+            <li>
+              <a class="getstarted scrollto" role="button"
+                >{{ user.username }}</a
+              >
+            </li>
+            {% else %}
+            <li>
+              <a
+                class="getstarted scrollto"
+                role="button"
+                href="{% url 'IndexHome:signin' %}"
+                >Sign In</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+      </div>
+    </header>
+    {% block hero %} {% endblock hero %}
+    <main id="main" style="margin-top: 80px">
+      <section id="blog" class="blog">
+        {% block search_block %} {% endblock search_block %} {% block explore %}
+        {% endblock explore %} {% block owl %} {% endblock owl %} {% block
+        social-btn %} {% endblock social-btn %}
+        <div class="container" data-aos="fade-up">
+          {% block title_post %} {% endblock title_post %}
+          <div class="row">
+            <div class="col-lg-8 entries">
+              {% block article %} {% endblock article %}
+              <div class="blog-pagination mb-5">
+                <ul class="justify-content-center">
+                  {% block pagination %} {% endblock pagination %}
+                </ul>
+              </div>
             </div>
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row gy-4">
-                        <div class="col-lg-5 col-md-12 footer-info">
-                            <a href="index.html" class="logo d-flex align-items-center">
-                            <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" alt="">
-                            <span>CaffeineCode</span>
-                            </a>
-                            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-                            <div class="social-links mt-3">
-                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                                <a href="#" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
-                                <a href="#" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-6 footer-links">
-                            <h4>Useful Links</h4>
-                            <ul>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-2 col-6 footer-links">
-                            <h4>Our Services</h4>
-                            <ul>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-                                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                            <h4>Contact Us</h4>
-                            <p>
-                                A108 Adam Street <br>
-                                New York, NY 535022<br>
-                                United States <br><br>
-                                <strong>Phone:</strong> +1 5589 55488 55<br>
-                                <strong>Email:</strong> info@example.com<br>
-                            </p>
-                        </div>
-                    </div>
+            <div class="col-lg-4" style="height: fit-content">
+              {% block profile %} {% endblock profile %}
+              <div class="sidebar">
+                <h3 class="sidebar-title mb-4">Search</h3>
+                <div class="sidebar-item search-form">
+                  <form action="{% url 'blog:search_qu' %}" method="GET">
+                    <input
+                      type="text"
+                      name="search_query"
+                      required
+                      autocomplete="off"
+                    />
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                  </form>
                 </div>
+                <h3 class="sidebar-title mb-4">Categories</h3>
+                <div class="sidebar-item categories">
+                  <ul>
+                    {% block category %} {% endblock category %}
+                  </ul>
+                </div>
+              </div>
+              {% block sidebar %} {% endblock sidebar %}
             </div>
-            <div class="container">
-                <div class="copyright">
-                    &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved
-                </div>
-                <div class="credits">
-                    <!-- All the links in the footer should remain intact. -->
-                    <!-- You can delete the links only if you purchased the pro version. -->
-                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                </div>
+          </div>
+        </div>
+      </section>
+      {% block recent %} {% endblock recent %}
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-newsletter">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+              <h4>Our Newsletter</h4>
+              <p>
+                Receive regular updates and announcement by subscibing to our
+                Newsletter
+              </p>
             </div>
-        </footer>
-        <!--<script>
+            <div class="col-lg-6">
+              <form action="{% url 'blog:newsletter' %}" method="post">
+                {% csrf_token %}
+                <input
+                  type="email"
+                  id="newsletter"
+                  autocomplete="off"
+                  name="newsletter"
+                  required
+                /><input id="submit" type="submit" value="Subscribe" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-top">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-info">
+              <a href="index.html" class="logo d-flex align-items-center">
+                <img
+                  src="{% static 'IndexHome/assets/img/logo_org.png' %}"
+                  alt=""
+                />
+                <span>CaffeineCode</span>
+              </a>
+              <p>
+                Cras fermentum odio eu feugiat lide par naso tierra. Justo eget
+                nada terra videa magna derita valies darta donna mare fermentum
+                iaculis eu non diam phasellus.
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"
+                  ><i class="bi bi-instagram bx bxl-instagram"></i
+                ></a>
+                <a href="#" class="linkedin"
+                  ><i class="bi bi-linkedin bx bxl-linkedin"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li>
+                  <i class="bi bi-chevron-right"></i> <a href="#">Home</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i> <a href="#">About us</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i> <a href="#">Services</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <a href="#">Terms of service</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <a href="#">Privacy policy</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-2 col-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li>
+                  <i class="bi bi-chevron-right"></i> <a href="#">Web Design</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <a href="#">Web Development</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <a href="#">Product Management</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i> <a href="#">Marketing</a>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <a href="#">Graphic Design</a>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="
+                col-lg-3 col-md-12
+                footer-contact
+                text-center text-md-start
+              "
+            >
+              <h4>Contact Us</h4>
+              <p>
+                A108 Adam Street <br />
+                New York, NY 535022<br />
+                United States <br /><br />
+                <strong>Phone:</strong> +1 5589 55488 55<br />
+                <strong>Email:</strong> info@example.com<br />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>FlexStart</span></strong
+          >. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </footer>
+    <!--<script>
             $(window).on('load',function(){
                 $(".loader").fadeOut(1100);
                 $(".content").fadeIn(1100);
             });
         </script>-->
-        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-        <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
-        {% block script %}
-        {% endblock script %}
-    </body>
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+    <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+    {% block script %} {% endblock script %}
+  </body>
 </html>

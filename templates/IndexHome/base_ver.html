@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
-      <title>{% block title %}{% endblock title %}</title>
-      {% load static %}
-      <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
-      <link rel="stylesheet" type="text/css" href="{% static 'IndexHome/assets/css/verify_css.css' %}">
-      <style>
-         @media (max-width:420px) { 
-            .formbg {
-               box-shadow: none;
-            }
-         }
-         ::-webkit-scrollbar {
-            width: 0.5em;
-            }
-            ::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            }
-            ::-webkit-scrollbar-thumb {
-            background-color: darkgrey;
-            border-radius: 10px;
-            }
-      </style>
-   </head>
-   <body>
-      {% block body %}
-      {% endblock body %}
-   </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}{% endblock title %}</title>
+    {% load static %}
+    <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'IndexHome/assets/css/verify_css.css' %}"
+    />
+    <style>
+      @media (max-width: 420px) {
+        .formbg {
+          box-shadow: none;
+        }
+      }
+      ::-webkit-scrollbar {
+        width: 0.5em;
+      }
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    {% block body %} {% endblock body %}
+  </body>
 </html>

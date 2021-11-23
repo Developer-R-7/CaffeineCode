@@ -1,125 +1,148 @@
-{% extends 'blog/base.html' %}
-{% block title %} CaffeineBlog {% endblock title %}
-{% load hitcount_tags %}
-{% load static %}
-{% block search_block %}
-<div class="container mb-5" data-aos-duration="600" data-aos="fade-in" style="height: 120px;width:100vh;box-shadow: 0 4px 16px rgb(0 0 0 / 10%);">
-    <center style="text-align: center;vertical-align: middle;line-height: 120px; ">ADS TO BE SHOWN HERE</center>
+{% extends 'blog/base.html' %} {% block title %} CaffeineBlog {% endblock title
+%} {% load hitcount_tags %} {% load static %} {% block search_block %}
+<div
+  class="container mb-5"
+  data-aos-duration="600"
+  data-aos="fade-in"
+  style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)"
+>
+  <center
+    style="text-align: center; vertical-align: middle; line-height: 120px"
+  >
+    ADS TO BE SHOWN HERE
+  </center>
 </div>
 {% if result %}
 <div class="container mb-4" data-aos="fade-up">
-    <h2 style="margin-top:2em;">
-        Blogs tagged with <span style="background:#0257ee;color:white;padding:8px;border-radius:5px;">"{{tag}}"</span>
-    </h2>
+  <h2 style="margin-top: 2em">
+    Blogs tagged with
+    <span
+      style="
+        background: #0257ee;
+        color: white;
+        padding: 8px;
+        border-radius: 5px;
+      "
+      >"{{tag}}"</span
+    >
+  </h2>
 </div>
-<br>
-{% endif %}
-{% endblock search_block %}
-{% block article %}
-{% if forloop.counter == 4 %}
-    <article class="entry" style="height: 120px;width:100%;"><center>ADS TO BE SHOWN HERE</center></article>
-{% endif %}
-{% for post in posts %}
+<br />
+{% endif %} {% endblock search_block %} {% block article %} {% if
+forloop.counter == 4 %}
+<article class="entry" style="height: 120px; width: 100%">
+  <center>ADS TO BE SHOWN HERE</center>
+</article>
+{% endif %} {% for post in posts %}
 <article class="entry">
-    <div class="entry-img">
-        <img src="{{post.entry_img}}" alt="" class="img-fluid">
+  <div class="entry-img">
+    <img src="{{post.entry_img}}" alt="" class="img-fluid" />
+  </div>
+  <h2 class="entry-title">
+    <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
+  </h2>
+  <div class="entry-meta">
+    <ul>
+      <li class="d-flex align-items-center">
+        <i class="bi bi-person"></i>
+        <a href="blog-single.html">{{post.author}}</a>
+      </li>
+      <li class="d-flex align-items-center">
+        <i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}
+      </li>
+      <li class="d-flex align-items-center">
+        <i class="bi bi-eye"></i>{% get_hit_count for post %}
+      </li>
+      <li class="d-flex align-items-center">
+        <i class="bi bi-heart-fill"></i>{{post.likes_count}}
+      </li>
+    </ul>
+  </div>
+  <div class="entry-content">
+    <p>{{post.blog_snipet| slice:":200"}}</p>
+    <div class="read-more">
+      <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
     </div>
-    <h2 class="entry-title">
-        <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
-    </h2>
-    <div class="entry-meta">
-        <ul>
-            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{post.author}}</a></li>
-            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>{{post.date_published|date:"F d"}}</li>
-            <li class="d-flex align-items-center"><i class="bi bi-eye"></i>{% get_hit_count for post %}</li>
-            <li class="d-flex align-items-center"><i class="bi bi-heart-fill"></i>{{post.likes_count}}</li>
-        </ul>
-    </div>
-    <div class="entry-content">
-        <p>
-            {{post.blog_snipet| slice:":200"}}
-        </p>
-        <div class="read-more">
-            <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
-        </div>
-    </div>
+  </div>
 </article>
 {% empty %}
 <article class="entry">
-    <div class="entry-img">
-        <img src="{% static 'IndexHome/assets/img/empty.png' %}" height="300px" class="img-fluid">
-    </div>
-    <div class="entry-title" style="text-align: center;color:rgb(240, 75, 75);">
-        No posts tagged with "{{tag}}"
-    </div>
+  <div class="entry-img">
+    <img
+      src="{% static 'IndexHome/assets/img/empty.png' %}"
+      height="300px"
+      class="img-fluid"
+    />
+  </div>
+  <div class="entry-title" style="text-align: center; color: rgb(240, 75, 75)">
+    No posts tagged with "{{tag}}"
+  </div>
 </article>
-{% endfor %}
-{% endblock article %}
-{% block pagination %}
-{% if result %}
+{% endfor %} {% endblock article %} {% block pagination %} {% if result %}
 <nav aria-label="Page navigation">
-    <ul class="paginationm mb-5">
-        {% if posts.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?page=1" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            
-            </a>
-        </li>
-        {% endif %}
-        {% for n in posts.paginator.page_range %}
-        {% if posts.number == n %}
-        <li class="page-item active">
-            <span class="page-link">{{ n }}<span class="sr-only"></span></span>
-        </li>
-        {% elif n > posts.number|add:'-3' and n < posts.number|add:'3' %}
-        <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if posts.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ posts.paginator.num_pages }}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        {% endif %}   
-    </ul>
+  <ul class="paginationm mb-5">
+    {% if posts.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% endif %} {% for n in posts.paginator.page_range %} {% if posts.number ==
+    n %}
+    <li class="page-item active">
+      <span class="page-link">{{ n }}<span class="sr-only"></span></span>
+    </li>
+    {% elif n > posts.number|add:'-3' and n < posts.number|add:'3' %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+    </li>
+    {% endif %} {% endfor %} {% if posts.has_next %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="?page={{ posts.paginator.num_pages }}"
+        aria-label="Next"
+      >
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
 </nav>
-{% endif %}
-{% endblock pagination %}
-{% block sidebar %}
-{% if most_view %}
+{% endif %} {% endblock pagination %} {% block sidebar %} {% if most_view %}
 <div class="sidebar">
-    <h3 class="sidebar-title  mb-4">Recent Posts</h3>
-    <div class="sidebar-item recent-posts">
-        {% for item in most_view %}
-        <div class="post-item clearfix">
-            <img src="{{item.entry_img}}" alt="">
-            <h4><a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a></h4>
-            <time>{{item.date_published|date:"F d"}}</time>
-        </div>
-        {% endfor %}
+  <h3 class="sidebar-title mb-4">Recent Posts</h3>
+  <div class="sidebar-item recent-posts">
+    {% for item in most_view %}
+    <div class="post-item clearfix">
+      <img src="{{item.entry_img}}" alt="" />
+      <h4>
+        <a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a>
+      </h4>
+      <time>{{item.date_published|date:"F d"}}</time>
     </div>
-    <!-- End sidebar recent posts-->
-</div>
-{% endif %}
-<div class="sidebar">
-    <h3 class="sidebar-title  mb-4">Popular Tags</h3>
-    <div class="sidebar-item tags">
-        <ul>
-            {% for used_tag in most_tags %}
-            <li><a href="{% url 'blog:post_list_by_tags' used_tag.slug %}">{{used_tag}}</a></li>
-            {%endfor%}
-        </ul>
-    </div>
-</div>
-<div class="sidebar">
-    Ads to be shown here
-</div>
-{% endblock sidebar %}
-
-{% block category %}
-    {% for name in category %}
-        <li><a href="#">{{name.name}}<span>(25)</span></a></li>
     {% endfor %}
-{% endblock category %}
+  </div>
+  <!-- End sidebar recent posts-->
+</div>
+{% endif %}
+<div class="sidebar">
+  <h3 class="sidebar-title mb-4">Popular Tags</h3>
+  <div class="sidebar-item tags">
+    <ul>
+      {% for used_tag in most_tags %}
+      <li>
+        <a href="{% url 'blog:post_list_by_tags' used_tag.slug %}"
+          >{{used_tag}}</a
+        >
+      </li>
+      {%endfor%}
+    </ul>
+  </div>
+</div>
+<div class="sidebar">Ads to be shown here</div>
+{% endblock sidebar %} {% block category %} {% for name in category %}
+<li>
+  <a href="#">{{name.name}}<span>(25)</span></a>
+</li>
+{% endfor %} {% endblock category %}
