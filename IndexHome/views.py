@@ -8,7 +8,7 @@ from django.utils.crypto import get_random_string
 from django.http import JsonResponse
 from main_api_handlers.Profiles.ProfileManager import profile_manager
 from cryptography.fernet import Fernet
-
+from django.views.decorators.cache import never_cache
 
 # CLIENT-SIDE FUNCTIONS
 def check_user(request):
@@ -108,9 +108,10 @@ def generate_id():
 
 
 # USER FORM ACTION
+@never_cache
 def signin(request):
     if request.user.is_authenticated:
-        return render(request, "IndexHome/error.html", {"error": "User Already Login ", "status": "low"})
+        return render(request, "IndexHome/index.html")
     else:
         if request.method == "POST":
             try:
@@ -154,7 +155,7 @@ def signin(request):
                 pass
             return render(request, 'IndexHome/login.html')
 
-
+@never_cache
 def signup(request):
     if request.user.is_authenticated:
         return render(request, "IndexHome/error.html", {"error": "User Already Login", "status": "low"})

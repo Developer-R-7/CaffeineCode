@@ -54,8 +54,7 @@
   >
     <li>
       <i class="bi bi-eye"></i> {% get_hit_count for post %} |
-      <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"F
-      d"}} |
+      <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"Fd"}} |
       <i class="bi bi-heart-fill"
         ><span class="like_count">&nbsp;{{post.likes_count}}</span></i
       >

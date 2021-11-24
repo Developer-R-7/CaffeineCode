@@ -42,7 +42,7 @@
     font-weight:normal;
     position:absolute;
     pointer-events:none;
-    left:140px;
+    left:5px;
     top:10px;
     transition:0.2s ease all; 
     -moz-transition:0.2s ease all; 
@@ -183,18 +183,18 @@
         {% csrf_token %}
         <div class="modal-body">
           <center><img src="{% static 'IndexHome/assets/img/notify.svg' %}" style="height:200px;width:200px;"></center>
-          <div class="form-group" style="margin-top: 30px;">
-            <center><div class="group">      
+          <div class="form-group" style="margin-top: 30px;margin-left:80px">
+            <div class="group">      
               <input type="email" required>
               <span class="highlight"></span>
               <span class="bar"></span>
               <label>Your email to get notify</label>
-            </div></center>
+            </div>
           </div>
         </div>
         <div class="modal-footer border-top-0 d-flex justify-content-center">
           <a
-              style="cursor: pointer;margin-bottom:15px;background:#4154f1;padding:10px 60px;border-radius:5px;color:white;"
+              style="cursor: pointer;background:#4154f1;padding:10px 60px;border-radius:5px;color:white;"
               class="
                 btn-get-started
                 scrollto
