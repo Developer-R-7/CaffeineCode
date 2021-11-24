@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils.crypto import get_random_string
 from django.http import JsonResponse
-from main_api_handlers.Profiles.ProfileManager import profile_manager
+from api.Profiles.ProfileManager import profile_manager
 from cryptography.fernet import Fernet
 from django.views.decorators.cache import never_cache
 
