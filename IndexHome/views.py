@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from api.Profiles.ProfileManager import profile_manager
 from cryptography.fernet import Fernet
 from django.views.decorators.cache import never_cache
-
+from blog.models import Post
 # CLIENT-SIDE FUNCTIONS
 def check_user(request):
     username = request.GET.get('username', None)
@@ -268,4 +268,7 @@ def playground_timer(request):
 
 
 def index(request):
-    return render(request, 'IndexHome/index.html')
+    recent_blog = Post.objects.all()
+    user_count = User.objects.count()
+
+    return render(request, 'IndexHome/index.html',{'post':recent_blog.order_by('-likes_count','-date_published')[:3],'user_count':user_count,'total_blogs':recent_blog.count()})

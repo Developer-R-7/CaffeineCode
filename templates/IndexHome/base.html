@@ -8,11 +8,10 @@
     <meta content="" name="keywords" />
     <!-- Favicons -->
     {% load static %}
-    <link href="{% static 'IndexHome/assets/img/faviicon.png' %}" rel="icon" />
-    <link
-      href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}"
-      rel="apple-touch-icon"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'IndexHome/assets/img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'IndexHome/assets/img/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'IndexHome/assets/img/site.webmanifest' %}">
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -63,7 +62,7 @@
           href="{% url 'IndexHome:index' %}"
           class="logo d-flex align-items-center"
         >
-          <span>CaffeineCode</span>
+        <span>CaffeineCode</span>
         </a>
         <nav id="navbar" class="navbar">
           <ul>

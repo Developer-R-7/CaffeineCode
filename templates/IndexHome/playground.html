@@ -125,23 +125,6 @@
         </h2>
         <div data-aos="fade-up" data-aos-delay="600">
           <div class="text-center text-lg-start">
-            {% if request.user.is_authenticated %}
-            <a
-              style="cursor: pointer; color: white"
-              href="#about"
-              class="
-                btn-get-started
-                scrollto
-                d-inline-flex
-                align-items-center
-                justify-content-center
-                align-self-center
-              "
-            >
-              <span>Get Notify!</span>
-              <i class="bi bi-arrow-right"></i>
-            </a>
-            {% else %}
             <a
               style="cursor: pointer; color: white"
               class="
@@ -156,7 +139,6 @@
               <span role="button" data-toggle="modal" data-target="#form">Get Notify!</button></span>
               <i class="bi bi-arrow-right"></i>
             </a>
-            {% endif %}
           </div>
         </div>
       </div>
@@ -191,9 +173,7 @@
               <label>Your email to get notify</label>
             </div>
           </div>
-        </div>
-        <div class="modal-footer border-top-0 d-flex justify-content-center">
-          <a
+          <center><a
               style="cursor: pointer;background:#4154f1;padding:10px 60px;border-radius:5px;color:white;"
               class="
                 btn-get-started
@@ -204,7 +184,10 @@
                 align-self-center
               "
             >
-              <button style="border: none;background:none;color:white" role="button" type="submit" >Subcribe Notify!</button></span>
+              <button style="border: none;background:none;color:white" role="button" type="submit" >Subcribe Notify!</button></span></a></center>
+        </div>
+        <div class="modal-footer border-top-0 d-flex justify-content-center">
+          
             </a>
         </div>
       </form>
