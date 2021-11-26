@@ -157,8 +157,8 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Dhaka'
 
 
-INTERNAL_IPS = [
+#INTERNAL_IPS = [
     # ...
-    "127.0.0.1",
+    #"127.0.0.1",
     # ...
-]
+#]
