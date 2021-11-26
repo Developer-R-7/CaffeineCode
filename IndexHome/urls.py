@@ -17,4 +17,5 @@ urlpatterns = [
     path('account/forgot/', views.forgot, name="forgot"),
     path('account/forgot/verify', views.forgot_final, name="forgot_final"),
     path('playground/', views.playground_timer, name="playground"),
+    path('subscribe-newsletter/',views.newsletter,name="newsletter")
 ]

@@ -1,6 +1,6 @@
 # ALL IMPORTS
 from django.http.response import HttpResponse
-from . models import Profile
+from . models import Profile , Newsletter
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -270,5 +270,22 @@ def playground_timer(request):
 def index(request):
     recent_blog = Post.objects.all()
     user_count = User.objects.count()
-
     return render(request, 'IndexHome/index.html',{'post':recent_blog.order_by('-likes_count','-date_published')[:3],'user_count':user_count,'total_blogs':recent_blog.count()})
+
+def newsletter(request):
+    if request.method == "POST":
+        mail_to_add = request.POST.get('newsletter', None)
+        if Newsletter.objects.filter(subscribe_mail=mail_to_add).exists():
+            return redirect('/')
+        else:
+            query = Newsletter.objects.create(subscribe_mail=mail_to_add)
+            query.save()
+            dict = {"success":True}
+            return render(request,'IndexHome/index.html',{"newsletter":True})
+    else:
+        mail = request.GET.get('newsletter', None)
+        query = Newsletter.objects.filter(subscribe_mail__exact=mail).exists()
+        response = {
+            'is_subscribe': query 
+        }
+        return JsonResponse(response)

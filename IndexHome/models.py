@@ -18,3 +18,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Newsletter(models.Model):
+    subscribe_mail = models.EmailField()
+
+    def __str__(self):
+        return self.subscribe_mail

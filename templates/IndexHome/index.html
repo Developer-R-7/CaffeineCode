@@ -716,13 +716,166 @@
             magna
           </p>
         </div>
+
         <div class="col-lg-6">
-          <form action="" method="post">
-            <input type="email" name="email" /><input
+          <script>
+            function delay(callback, ms) {
+              var timer = 0;
+              return function () {
+                var context = this,
+                  args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                  callback.apply(context, args);
+                }, ms || 0);
+              };
+            }
+            $(document).ready(function () {
+            // catch the form's submit event
+            $("#letter").keyup(
+              delay(function (e) {
+                // create an AJAX call
+                $.ajax({
+                  data: $(this).serialize(), // get the form data
+                  url: "{% url 'IndexHome:newsletter' %}",
+                  // on success
+                  success: function (response) {
+                    if (response.is_subscribe == true) {
+                      $("#error").html("Email already subscribed!");
+                      $(".enableOnInput").prop("disabled", true);
+                    }else if(response.is_subscribe == "None") {
+                      $("#error").html("Failed Request");
+                    }
+                    else {
+                      $(".enableOnInput").prop("disabled", false);
+                      $("#error").html("");
+                    }
+                  },
+                  // on error
+                  error: function (response) {
+                    // alert the error if any error occured
+                    console.log(response.responseJSON.errors);
+                  },
+                });
+                return false;
+              }, 500)
+            );
+          });
+          </script>
+          <form action="{% url 'IndexHome:newsletter' %}" method="post">
+            {% csrf_token %}
+            <input type="email" id="letter" name="newsletter" /><input
               type="submit"
+              class="enableOnInput"
               value="Subscribe"
             />
           </form>
+          {% if newsletter %}
+            <style>
+              #toast {
+                visibility: hidden;
+                max-width: 50px;
+                height: 50px;
+                /*margin-left: -125px;*/
+                margin: auto;
+                background-color: #5cb85c;
+                color: #fff;
+                text-align: center;
+                border-radius: 2px;
+            
+                position: fixed;
+                z-index: 1;
+                left: 0;right:0;
+                bottom: 30px;
+                font-size: 17px;
+                white-space: nowrap;
+            }
+            #toast i {
+              width: 50px;
+              height: 50px;
+              float: left;
+              font-size: 35px;
+              box-sizing: border-box;
+              background-color: #5cb85c;
+              color: #fff;
+            }
+            #toast #desc{
+              color: #fff;
+              padding: 12px;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+            
+            #toast.show {
+                visibility: visible;
+                -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
+                animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+            }
+            
+            @-webkit-keyframes fadein {
+                from {bottom: 0; opacity: 0;} 
+                to {bottom: 30px; opacity: 1;}
+            }
+            
+            @keyframes fadein {
+                from {bottom: 0; opacity: 0;}
+                to {bottom: 30px; opacity: 1;}
+            }
+            
+            @-webkit-keyframes expand {
+                from {min-width: 50px} 
+                to {min-width: 350px}
+            }
+            
+            @keyframes expand {
+                from {min-width: 50px}
+                to {min-width: 350px}
+            }
+            @-webkit-keyframes stay {
+                from {min-width: 350px} 
+                to {min-width: 350px}
+            }
+            
+            @keyframes stay {
+                from {min-width: 350px}
+                to {min-width: 350px}
+            }
+            @-webkit-keyframes shrink {
+                from {min-width: 350px;} 
+                to {min-width: 50px;}
+            }
+            
+            @keyframes shrink {
+                from {min-width: 350px;} 
+                to {min-width: 50px;}
+            }
+            
+            @-webkit-keyframes fadeout {
+                from {bottom: 30px; opacity: 1;} 
+                to {bottom: 60px; opacity: 0;}
+            }
+            
+            @keyframes fadeout {
+                from {bottom: 30px; opacity: 1;}
+                to {bottom: 60px; opacity: 0;}
+            }
+            </style>
+            <script>
+              function launch_toast() {
+                var x = document.getElementById("toast")
+                x.className = "show";
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+              }
+              $( document ).ready(function() {
+                launch_toast();
+            });
+            </script>
+            <div id="toast" style="border-radius:10px;"><i class="bi bi-check" style="border-radius: 10px;"></i><div id="desc">Newsletter Subscribed!!</div></div>
+          {% endif %}
+          <div
+            id="error"
+            style="color: red; font-size: 15px; margin-top: 12px;"
+          ></div>
         </div>
       </div>
     </div>
