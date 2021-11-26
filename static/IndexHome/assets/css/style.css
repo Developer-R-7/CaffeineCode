@@ -2556,3 +2556,16 @@ white-space: nowrap;
 .team .single-person:hover .speciality {
 	color: #fff;
 }
+
+.social-links a {
+  font-size: 25px;
+  display: inline-block;
+  color: rgba(1, 41, 112, 0.5);
+  line-height: 0;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.social-links a :hover{
+  color:#016cec;
+}
