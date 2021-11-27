@@ -116,6 +116,7 @@
                   type="email"
                   autocomplete="off"
                   autofocus
+                  title="Your register email"
                 />
 
                 <div class="grid--50-50">
@@ -130,14 +131,15 @@
                   spellcheck="false"
                   type="password"
                   autocomplete="off"
+                  title="Your Login Password"
                 />
                 {% if error %}
                 <div style="color: red; font-size: 15px; margin-top: 4px">
-                  {{error}} {% if verify_request %}<a
+                  {{error}}{% if create_account %}<br><a class="ver" href="{% url 'IndexHome:signup' %}"> New to CaffeineCode ? Create Account</a> {% endif %} {% if verify_request %}<a
                     class="ver"
                     href="{% url 'IndexHome:verify' mail_hash=mail_en id=id %}"
                     style="color: darkturquoise"
-                    >Click Here to verify</a
+                    >click here to verify</a
                   >{% endif %}
                 </div>
                 {% endif %}

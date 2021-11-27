@@ -121,7 +121,7 @@ def signin(request):
                 return render('IndexHome/error.html', {"error": 'Bypass blocked', "status": "high"})
             data_get = User.objects.filter(email=sign_in_email)
             if data_get.first() is None:
-                return render(request, 'IndexHome/login.html', {"error": "You don't have account linked with this mail"})
+                return render(request, 'IndexHome/login.html', {"error": "You don't have account linked with this mail","create_account":True})
             else:
                 # try:
                 username = [data for data in data_get]
@@ -204,7 +204,7 @@ def signup(request):
 def logout(request):
     if request.user.is_authenticated and request.user.is_active:
         auth.logout(request)
-        return render(request, 'IndexHome/error.html', {"error": "Logout Successfully!", "status": "low"})
+        return render(request,'IndexHome/index.html',{"toast":True,"toast_mssg":"Logout Successfully!!"})
     else:
         return redirect("/")
 
@@ -281,7 +281,7 @@ def newsletter(request):
             query = Newsletter.objects.create(subscribe_mail=mail_to_add)
             query.save()
             dict = {"success":True}
-            return render(request,'IndexHome/index.html',{"newsletter":True})
+            return render(request,'IndexHome/index.html',{"toast":True,"toast_mssg":"Newsletter Subscribed!!"})
     else:
         mail = request.GET.get('newsletter', None)
         query = Newsletter.objects.filter(subscribe_mail__exact=mail).exists()

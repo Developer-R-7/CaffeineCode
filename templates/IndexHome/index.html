@@ -622,8 +622,7 @@
         <div class="col-lg-12 text-center">
           <h4>Our Newsletter</h4>
           <p>
-            Tamen quem nulla quae legam multos aute sint culpa legam noster
-            magna
+            Receive regular updates and announcement by subscibing to our Newsletter
           </p>
         </div>
 
@@ -680,19 +679,6 @@
               value="Subscribe"
             />
           </form>
-          {% if newsletter %}
-            <script>
-              function launch_toast() {
-                var x = document.getElementById("toast")
-                x.className = "show";
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
-              }
-              $( document ).ready(function() {
-                launch_toast();
-            });
-            </script>
-            <div id="toast" style="border-radius:10px;"><i class="bi bi-check" style="border-radius: 10px;"></i><div id="desc">Newsletter Subscribed!!</div></div>
-          {% endif %}
           <div
             id="error"
             style="color: red; font-size: 15px; margin-top: 12px;"

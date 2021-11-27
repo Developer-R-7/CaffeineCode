@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>CaffeineCode</title>
+    <title>{% block title %}CaffeineCode{% endblock title %}</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
     <!-- Favicons -->
@@ -138,6 +138,19 @@
       </div>
     </header>
     {% block body %} {% endblock body %}
+    {% if toast %}
+      <script>
+        function launch_toast() {
+          var x = document.getElementById("toast")
+          x.className = "show";
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        }
+        $( document ).ready(function() {
+          launch_toast();
+      });
+      </script>
+      <div id="toast" style="border-radius:10px;"><i class="bi bi-check" style="border-radius: 10px;"></i><div id="desc">{{toast_mssg}}</div></div>
+    {% endif %}
     <a
       href="#"
       class="back-to-top d-flex align-items-center justify-content-center"
