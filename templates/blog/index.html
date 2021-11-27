@@ -201,7 +201,7 @@
 
 {% block category %}
     {% for name in category %}
-        <li><a href="#">{{name.name}}<span>(25)</span></a></li>
+        <li><a href="{% url 'blog:category' category_slug=name.name %}">{{name.name}}</a></li>
     {% endfor %}
 {% endblock category %}
 

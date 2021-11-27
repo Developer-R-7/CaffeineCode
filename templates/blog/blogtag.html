@@ -152,6 +152,6 @@
 <div class="sidebar">Ads to be shown here</div>
 {% endblock sidebar %} {% block category %} {% for name in category %}
 <li>
-  <a href="#">{{name.name}}<span>(25)</span></a>
+  <a href="{% url 'blog:category' category_slug=name.name %}">{{name.name}}</a>
 </li>
 {% endfor %} {% endblock category %}
