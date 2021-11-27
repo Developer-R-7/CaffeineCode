@@ -2120,6 +2120,7 @@ section {
 .blog .sidebar .categories ul a {
   color: #012970;
   transition: 0.3s;
+  text-transform: capitalize;
 }
 
 .blog .sidebar .categories ul a:hover {

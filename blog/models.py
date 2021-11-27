@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime, date
 from taggit.managers import TaggableManager
 from ckeditor.fields import RichTextField
 from hitcount.models import HitCount

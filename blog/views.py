@@ -1,3 +1,4 @@
+from typing import ContextManager
 from django.core import paginator
 from django.http.response import HttpResponse, HttpResponseRedirect
 from .models import Post, Category
@@ -125,3 +126,17 @@ def account_redirect(request):
         return HttpResponse("<h1>{}</h1>".format(pk_value))
     else:
         return HttpResponse("heloo")
+
+
+
+def category_sys(request, category_slug):
+    most_used_tags = Post.tags.most_common()[:6]
+    try:
+        paginator = Paginator(Post.objects.filter(category__name=category_slug).order_by('-hit_count_generic__hits','-date_published'), 5)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
+        most_view = Post.objects.order_by('-date_published')[:5]
+        category_name = Category.objects.all()[:6]
+        return render(request, 'blog/category.html', {'page': page, 'posts': posts,'most_view': most_view, 'most_tags': most_used_tags, "result": True,"cat":category_slug,"category_name":category_name})
+    except:
+        return render(request, 'blog/category.html', {"result": False, "cat": category_slug})
