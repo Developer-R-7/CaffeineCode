@@ -163,13 +163,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="" method="post">
+      <form action="{% url 'IndexHome:playground' %}" method="post">
         {% csrf_token %}
         <div class="modal-body">
           <center><img src="{% static 'IndexHome/assets/img/notify.svg' %}" style="height:200px;width:200px;"></center>
           <div class="form-group" style="margin-top: 30px;margin-left:80px">
             <div class="group">      
-              <input type="email" required>
+              <input type="email" name="notify_mail" required>
               <span class="highlight"></span>
               <span class="bar"></span>
               <label>Your email to get notify</label>

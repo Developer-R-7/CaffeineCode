@@ -1,6 +1,6 @@
 # ALL IMPORTS
 from django.http.response import HttpResponse
-from . models import Profile , Newsletter
+from . models import Profile , Newsletter , Notify
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -10,6 +10,7 @@ from api.Profiles.ProfileManager import profile_manager
 from cryptography.fernet import Fernet
 from django.views.decorators.cache import never_cache
 from blog.models import Post
+from .task import SendOTP
 # CLIENT-SIDE FUNCTIONS
 def check_user(request):
     username = request.GET.get('username', None)
@@ -43,7 +44,7 @@ def verify(request, mail_hash, id):
         else:
             if verify_manager.get_fail(id) <= 3:
                 verify_manager.add_fail_request(id)
-                return render(request, "IndexHome/verify.html", {'otp_FAILED': True, 'mail': mail_hash, 'email': decrypt_email, "id": id})
+                return render(request, "IndexHome/verify.html", {'otp_FAILED': True, 'mail': mail_hash, 'email': decrypt_email.decode(), "id": id})
             else:
                 verify_manager.reset_fail(id)
                 return render(request, 'IndexHome/error.html', {'error': "Max OTP requested. Verification failed ", "status": "high"})
@@ -51,8 +52,7 @@ def verify(request, mail_hash, id):
         if is_user_verify:
             return render(request, "IndexHome/error.html", {'error': "User already verify!", "status": "medium"})
         else:
-            # sendmail here
-            return render(request, "IndexHome/verify.html", {'email': decrypt_email, 'mail': mail_hash, 'id': id})
+            return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
 
 
 def resend_otp(request, mail_hash, acc_id, request_otp):
@@ -66,7 +66,6 @@ def resend_otp(request, mail_hash, acc_id, request_otp):
             return render(request, "IndexHome/error.html", {'error': "Unauthorized request send", "status": "high"})
         if get_user.resend_request <= 3:
             verify_manager.generate_only_otp(acc_id)
-            # Sendmail here
             return render(request, "IndexHome/verify.html", {'mail': mail_hash, 'email': email, 'resend_request': True, 'id': acc_id})
         else:
             verify_manager.reset_resend(acc_id)
@@ -89,7 +88,7 @@ def check_session(request):
 
 
 def test(request):
-    # SendOTP.delay('rushinasa06@gmail.com',456733)
+    SendOTP.delay('rushinasa06@gmail.com',456733)
     return HttpResponse('MAIL SENT SUCCEFULLY')
 
 
@@ -184,7 +183,7 @@ def signup(request):
                         verify_handler = profile_manager()
                         verify_handler.createProfile(
                             user_obj, id_generated, data_email)
-                        verify_handler.add_otp(id_generated)
+                        verify_handler.add_otp(id_generated) # sending mail here of signup
                         get_user = verify_handler.search_user_with_id(
                             id_generated)
                         encrypted = EnCrypt(
@@ -264,7 +263,16 @@ def forgot_final(request):
 
 # MAIN FUNCTION
 def playground_timer(request):
-    return render(request, "IndexHome/playground.html")
+    if request.method == "POST":
+        try:
+            get_mail = request.POST.get("notify_mail")
+            obj = Notify.objects.create(notify_mail=get_mail)
+            obj.save()
+            return render(request,'IndexHome/playground.html',{"toast":True,"toast_mssg":"Notify register successful!"})
+        except:
+            return render(request,'IndexHome/error.html',{"error":"Notify Failed!!","status":"high"})
+    else:
+        return render(request, "IndexHome/playground.html")
 
 
 def index(request):

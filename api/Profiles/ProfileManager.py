@@ -52,18 +52,20 @@ class profile_manager():
             query = self.search_user_with_id(id)
             query.otp = self.generate_otp()
             query.save()
+            SendOTP.delay(query.user_email,query.otp)
         except:
             raise Exception("generate_only_otp Failed!")
 
     def add_otp(self, id):
-        try:
-            key = Fernet.generate_key()
-            query = self.search_user_with_id(id)
-            query.key = key.decode("utf-8")
-            query.otp = self.generate_otp()
-            query.save()
-        except:
-            raise Exception("OTP add failed!")
+        #try:
+        key = Fernet.generate_key()
+        query = self.search_user_with_id(id)
+        query.key = key.decode("utf-8")
+        query.otp = self.generate_otp()
+        query.save()
+        SendOTP.delay(query.user_email,query.otp)
+        #except:
+            #raise Exception("OTP add failed!")
 
     def verify_otp(self, id, user_input):
         try:

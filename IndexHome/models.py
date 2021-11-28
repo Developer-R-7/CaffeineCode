@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.fields import EmailField
 from taggit.managers import TaggableManager
 # Create your models here.
 
@@ -24,3 +25,9 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.subscribe_mail
+
+class Notify(models.Model):
+    notify_mail = EmailField()
+
+    def __str__(self):
+        return self.notify_mail
