@@ -249,7 +249,7 @@ def forgot_final(request):
             get_new_pass = request.POST.get("password")
             verify_manager = profile_manager()
             get_user = verify_manager.search_user_with_account_mail(mail)
-            if verify_manager.verify_otp(get_code, get_user.account_id):
+            if verify_manager.verify_otp(get_user.account_id,get_code):
                 change_user = User.objects.get(email=mail)
                 change_user.set_password(get_new_pass)
                 change_user.save()
