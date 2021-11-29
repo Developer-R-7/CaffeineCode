@@ -95,7 +95,7 @@
   <div class="entry-footer">
     <i class="bi bi-folder"></i>
     <ul class="cats">
-      <li><a href="#">Business</a></li>
+      <li><a href="{% url 'blog:category' category_slug=post.category %}">{{post.category}}</a></li>
     </ul>
     <i class="bi bi-tags"></i>
     <ul class="tags">

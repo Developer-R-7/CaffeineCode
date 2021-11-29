@@ -15,8 +15,8 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=75)
-    blog_snipet = models.CharField(max_length=200)
+    title = models.CharField(max_length=100)
+    blog_snipet = models.CharField(max_length=400)
     title_tag = models.CharField(max_length=20)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(null=True, blank=True)
