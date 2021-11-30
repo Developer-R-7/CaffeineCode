@@ -12,6 +12,7 @@ from django.db.models import Q
 from hitcount.views import HitCountDetailView
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from api.Blog.BlogManager import PostAPI
 # Create your views here.
 
 
@@ -20,20 +21,14 @@ class HomeView(ListView):
     template_name = "blog/index.html"
     ordering = ['-date_published', '-hit_count_generic__hits']
     paginate_by = 5
-
     def get_context_data(self, **kwargs):
-        most_used_tags = Post.tags.most_common()[:10]
+        blog_connector = PostAPI()
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['editor'] = Post.objects.filter(
-            editor_choice=True).order_by('-hit_count_generic__hits')[:5]
-        context['most_used_tag'] = most_used_tags
-        get_date = datetime.date.today()
-        context['trending_post'] = Post.objects.order_by(
-            '-hit_count_generic__hits')[:5]
-        context['this_month'] = Post.objects.filter(
-            date_published__year=get_date.year, date_published__month=get_date.month-3).order_by('-hit_count_generic__hits')[:10]
-        cat = Category.objects.all()[:6]
-        context['category'] = cat
+        context['editor'] = blog_connector.get_editor_post()
+        context['most_used_tag'] = blog_connector.get_most_tags_used()
+        context['trending_post'] = blog_connector.get_most_viewed()
+        context['this_month'] = blog_connector.get_this_month()
+        context['category'] = blog_connector.get_category()
         return context
 
 
@@ -84,7 +79,7 @@ def post_by_tags(request, tag_slug):
             tags__in=[tag]).order_by('-hit_count_generic__hits'), 5)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
-        most_view = Post.objects.order_by('-date_published')[:5]
+        most_view = Post.objects.order_by('-hit_count_generic__hits')[:5]
         cat = Category.objects.all()[:6]
         return render(request, 'blog/blogtag.html', {'page': page, 'posts': posts, 'tag': tag, 'most_view': most_view, 'most_tags': most_used_tags, "result": True, 'category': cat})
     except:
@@ -103,20 +98,12 @@ class ArticleDetailView(HitCountDetailView):
         return Post.objects.filter(pk=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
+        blog_connector = PostAPI()
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
         get_all_tags = context['post'].tags.all()
-        similar_posts = Post.objects.filter(
-            tags__in=get_all_tags).exclude(id=self.kwargs.get('pk'))
-        similar_posts = similar_posts.annotate(
-            same_tags=Count('tags')).order_by('-tags')[:5]
-        context['similar_post'] = similar_posts
-        get_skill = Post.objects.filter(
-            pk=self.object.pk).values_list('skills', flat=True)[0]
-        get_skill = get_skill.split(',')[:5]
-        context['skill'] = get_skill
+        context['similar_post'] = blog_connector.get_similar_post(get_all_tags,self.kwargs.get('pk'))
         context['is_liked'] = self.is_like
-        cat = Category.objects.all()[:6]
-        context['category'] = cat
+        context['category'] = blog_connector.get_category()
         return context
 
 

@@ -29,9 +29,7 @@ class Post(models.Model):
     author_conculsion = models.CharField(
         max_length=300, default="No Author Review")
     readtime_min = models.IntegerField(default=0)
-    skills = models.CharField(max_length=70, default="html,css")
     editor_choice = models.BooleanField(default=False)
-    designation = models.CharField(max_length=60, default="freelancer")
     likes = models.ManyToManyField(
         User, default=None, blank=True, related_name='post_likes')
     likes_count = models.BigIntegerField(default='0')
