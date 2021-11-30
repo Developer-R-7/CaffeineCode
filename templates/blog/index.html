@@ -47,11 +47,11 @@
             {% for ed_post in editor %}
             <div class="site-section">
                 <div class="container">
-                    <div class="half-post-entry d-block d-lg-flex bg-light">
+                    <div class="half-post-entry d-block d-lg-flex" style="background:#f6f9ff;">
                         <div class="img-bg" style="background-image: url('{{ed_post.entry_img}}')"></div>
                         <div class="contents">
-                            <h2 class="entry-title"><a href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
-                            <p class="mb-3">{{ed_post.blog_snipet}}</p>
+                            <h2 class="entry-title" style="padding-left: 4px; margin-bottom: 12px; color: rgb(1, 41, 112); font-weight: bold; font-size: 23px;"><a href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
+                            <p class="mb-3">{{ed_post.blog_snipet |slice:":200"}}</p>
                             <div class="post-meta">
                                 <span class="d-block"><a href="#">{{ed_post.author}}</a>
                                 <span  class="date-read" style="color: #c2c2c2;"><i class="bi bi-eye"></i> {% get_hit_count for ed_post %} | <i class="bi bi-tags"></i></span>
