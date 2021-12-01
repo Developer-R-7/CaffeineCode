@@ -1,8 +1,7 @@
 import datetime
 from blog.models import Category,Post
 from django.db.models import Count
-
-
+from django.shortcuts import get_object_or_404
 
 class PostAPI():
 
@@ -50,3 +49,24 @@ class PostAPI():
         except:
             raise Exception("Failed 'get_most_view'")
 
+    def search_blog(self):
+        pass
+
+    def is_post_like(self,post,id,user_id):
+        try:
+            return get_object_or_404(post, id=id).likes.filter(id=user_id).exists()
+        except:
+            return None
+
+    
+    def get_post_tags(self,tag,tag_slug):
+        try:
+            return get_object_or_404(tag,slug=tag_slug)
+        except:
+            return None
+
+    def get_PostByTags_model(self,tag):
+        #try:
+        return self.blog_post.filter(tags__in=[tag]).order_by('-hit_count_generic__hits')
+        #except:
+            #raise Exception(" PostBy TAGS ERROR") 
