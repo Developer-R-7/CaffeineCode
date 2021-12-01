@@ -1,9 +1,7 @@
-from django.http.response import HttpResponse, HttpResponseRedirect
 from .models import Post, Category
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from taggit.models import Tag
-from django.core.paginator import Paginator
 from django.db.models import Q
 from hitcount.views import HitCountDetailView
 from django.contrib.auth.decorators import login_required
@@ -114,10 +112,3 @@ def like_sys(request):
             return JsonResponse({"result": result, })
     else:
         return HttpResponseRedirect("/blog/")
-
-def account_redirect(request):
-    if request.method == "GET":
-        pk_value = int(request.GET.get("blog-redirect-id"))
-        return HttpResponse("<h1>{}</h1>".format(pk_value))
-    else:
-        return HttpResponse("heloo")
