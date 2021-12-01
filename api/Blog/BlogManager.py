@@ -69,4 +69,9 @@ class PostAPI():
         #try:
         return self.blog_post.filter(tags__in=[tag]).order_by('-hit_count_generic__hits')
         #except:
-            #raise Exception(" PostBy TAGS ERROR") 
+            #raise Exception(" PostBy TAGS ERROR")
+    def get_PostByCategory(self,category_slug):
+        try:
+            return self.blog_post.filter(category__name=category_slug).order_by('-hit_count_generic__hits','-likes_count','-date_published')
+        except:
+            raise Exception("Error in postby catgroy")

@@ -34,7 +34,7 @@ class PostByTags(ListView):
         self.template_name = 'blog/blogtag.html'
         self.tag_slug = self.kwargs['tag_slug']
         self.paginate_by = 5
-        self.ordering = ['-hit_count_generic__hits','-date_published','-likes_count']
+        self.ordering = ['-hit_count_generic__hits','-likes_count','-date_published']
         self.tag = get_object_or_404(Tag, slug=self.tag_slug)   
         queryset = self.blog_connector.get_PostByTags_model(self.tag)
         return queryset
@@ -62,7 +62,25 @@ class ArticleDetailView(HitCountDetailView):
         context['category'] = blog_connector.get_category()
         return context
 
+class PostByCategory(ListView):
 
+    def get_queryset(self):
+        self.blog_connector = PostAPI()
+        self.model = Post
+        self.template_name = 'blog/category.html'
+        self.category_slug = self.kwargs['category_slug']
+        self.paginate_by = 5 
+        queryset = self.blog_connector.get_PostByCategory(self.category_slug)
+        return queryset
+
+    def get_context_data(self,**kwargs):
+        context = super(PostByCategory, self).get_context_data(**kwargs)
+        context['most_view'] = self.blog_connector.get_most_viewed()
+        context['most_tags'] = self.blog_connector.get_most_tags_used()
+        context['category'] = self.blog_connector.get_category()
+        context['cat'] = self.category_slug
+        context['result'] = True
+        return context
         
 
     
@@ -103,15 +121,3 @@ def account_redirect(request):
         return HttpResponse("<h1>{}</h1>".format(pk_value))
     else:
         return HttpResponse("heloo")
-
-def category_sys(request, category_slug):
-    most_used_tags = Post.tags.most_common()[:6]
-    try:
-        paginator = Paginator(Post.objects.filter(category__name=category_slug).order_by('-hit_count_generic__hits','-date_published'), 5)
-        page = request.GET.get('page')
-        posts = paginator.get_page(page)
-        most_view = Post.objects.order_by('-date_published')[:5]
-        category_name = Category.objects.all()[:6]
-        return render(request, 'blog/category.html', {'page': page, 'posts': posts,'most_view': most_view, 'most_tags': most_used_tags, "result": True,"cat":category_slug,"category_name":category_name})
-    except:
-        return render(request, 'blog/category.html', {"result": False, "cat": category_slug})
