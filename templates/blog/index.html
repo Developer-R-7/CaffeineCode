@@ -50,11 +50,9 @@
                     <div class="half-post-entry d-block d-lg-flex" style="background:#f6f9ff;">
                         <div class="img-bg" style="background-image: url('{{ed_post.entry_img}}')"></div>
                         <div class="contents">
-                            <h2 class="entry-title" style="padding-left: 4px; margin-bottom: 12px; color: rgb(1, 41, 112); font-weight: bold; font-size: 23px;"><a href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
-                            <p class="mb-3">{{ed_post.blog_snipet |slice:":200"}}</p>
+                            <h2 class="entry-title" style="font-size: 23px;"><a  style="color: rgb(1, 41, 112);font-family:'Nunito';font-weight: bold;" href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
+                            <p class="mb-3 mt-4" style="font-family: 'Nunito';">{{ed_post.blog_snipet |slice:":200"}}</p>
                             <div class="post-meta">
-                                <span class="d-block"><a href="#">{{ed_post.author}}</a>
-                                <span  class="date-read" style="color: #c2c2c2;"><i class="bi bi-eye"></i> {% get_hit_count for ed_post %} | <i class="bi bi-tags"></i></span>
                                 <span class="date-read"> {{ed_post.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{ed_post.readtime_min}} min read <span class="icon-star2"></span></span>
                             </div>
                             <div class="read-more" style="align-content: right;padding-top:10px;">
@@ -148,6 +146,18 @@
     </div>
 </div>
 <div class="sidebar">
+    <h3 class="sidebar-title mb-5" style="font-size: 23px;">Most Liked</h3>
+    <div class="sidebar-item recent-posts">
+        {% for most_like_post in most_like %}
+        <div class="post-item clearfix mb-4 mt-4">
+            <img src="{{most_like_post.entry_img}}" alt="">
+            <h4><a href="{% url 'blog:blog_details' most_like_post.pk %}">{{most_like_post.title}}</a></h4>
+            <time>{{most_like_post.date_published|date:"F d"}} &bullet; {{most_like_post.readtime_min}} min</time>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="sidebar">
     <h3 class="sidebar-title mb-5" style="font-size: 23px;" >Search By Popular Tags</h3>
     <div class="sidebar-item tags">
         <ul>
@@ -157,7 +167,7 @@
         </ul>
     </div>
 </div>
-<div class="sidebar" style="box-shadow: none;">
+<!--<div class="sidebar" style="box-shadow: none;">
     <div class="sidebar-title mb-5" style="font-size: 23px;">
         <h3 class="entry-title" style="font-weight: bold;font-size:24px;font-family:Nunito,san-serif;">Trending this month</h3>
     </div>
@@ -175,7 +185,7 @@
     {% empty %}
         <h2>No trending post this month</h2>
     {% endfor %}
-</div>
+</div>-->
 <div class="sidebar">
     <div class="sticky-ads">
         <h4>ads to be shown here</h4>

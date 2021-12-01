@@ -54,7 +54,7 @@
   >
     <li>
       <i class="bi bi-eye"></i> {% get_hit_count for post %} |
-      <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"Fd"}} |
+      <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"F d"}} |
       <i class="bi bi-heart-fill"
         ><span class="like_count">&nbsp;{{post.likes_count}}</span></i
       >
@@ -188,69 +188,39 @@
 {% endblock social-btn %} {% block pagination %}
 <!--<li><button class="like-button" style="width:110px;background:#f0333a;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-heart-fill"></i><span class='like_count'>&nbsp;{{post.likes_count}}</span></li>
 <li><button class="share" style="width:110px;background:#00308F;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-share"></i><span>&nbsp;Share</span></li>-->
-{% endblock pagination %} {% block recent %}
+{% endblock pagination %} 
+{% block recent %}
+{% if category_post %}
 <section id="recent-blog-posts" class="recent-blog-posts">
   <div class="container aos-init aos-animate" data-aos="fade-up">
     <header class="section-header">
-      <p>Recent posts</p>
+      <p>Posts with same category</p>
     </header>
     <div class="row">
-      <div class="col-lg-4">
-        <div class="post-box">
-          <div class="post-img">
-            <img
-              src="/static/IndexHome/assets/img/blog/blog-1.jpg"
-              class="img-fluid"
-              alt=""
-            />
+      {% for cat_post in category_post %}
+        <div class="col-lg-4">
+          <div class="post-box">
+            <div class="post-img">
+              <img
+                src="{{cat_post.entry_img}}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <span class="post-date">{{cat_post.date_published}}</span>
+            <h3 class="post-title">
+              {{cat_post.title}}
+            </h3>
+            <a href="{% url 'blog:blog_details' cat_post.pk %}" class="readmore stretched-link mt-auto"
+              ><span>Read More</span><i class="bi bi-arrow-right"></i
+            ></a>
           </div>
-          <span class="post-date">Tue, September 15</span>
-          <h3 class="post-title">
-            Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur
-            sit
-          </h3>
-          <a href="blog-singe.html" class="readmore stretched-link mt-auto"
-            ><span>Read More</span><i class="bi bi-arrow-right"></i
-          ></a>
         </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="post-box">
-          <div class="post-img">
-            <img
-              src="/static/IndexHome/assets/img/blog/blog-2.jpg"
-              class="img-fluid"
-              alt=""
-            />
-          </div>
-          <span class="post-date">Fri, August 28</span>
-          <h3 class="post-title">
-            Et repellendus molestiae qui est sed omnis voluptates magnam
-          </h3>
-          <a href="blog-singe.html" class="readmore stretched-link mt-auto"
-            ><span>Read More</span><i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="post-box">
-          <div class="post-img">
-            <img
-              src="/static/IndexHome/assets/img/blog/blog-3.jpg"
-              class="img-fluid"
-              alt=""
-            />
-          </div>
-          <span class="post-date">Mon, July 11</span>
-          <h3 class="post-title">Quia assumenda est et veritatis aut quae</h3>
-          <a href="blog-singe.html" class="readmore stretched-link mt-auto"
-            ><span>Read More</span><i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
+{% endif %}
 {% endblock recent %} {% block category %} {% for name in category %}
 <li>
   <a href="{% url 'blog:category' category_slug=name.name %}">{{name.name}}</a>

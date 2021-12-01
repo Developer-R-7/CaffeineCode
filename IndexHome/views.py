@@ -83,18 +83,13 @@ def DeCrypt(token: bytes, key: bytes):
 
 
 # UTILS FUNCTIONS
-def check_session(request):
-    return render(request, 'IndexHome/check-session.html')
-
-
 def test(request):
     SendOTP.delay('rushinasa06@gmail.com',456733)
     return HttpResponse('MAIL SENT SUCCEFULLY')
 
 
 def check_acc_id(id):
-    query = list(Profile.objects.filter(
-        account_id=id).values_list('account_id', flat=True))
+    query = list(Profile.objects.filter(account_id=id).values_list('account_id', flat=True))
     if len(query) == 0:
         return True
     else:

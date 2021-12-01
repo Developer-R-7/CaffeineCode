@@ -1,5 +1,5 @@
 from .models import Post, Category
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
 from taggit.models import Tag
 from django.db.models import Q
@@ -22,6 +22,7 @@ class HomeView(ListView):
         context['most_used_tag'] = blog_connector.get_most_tags_used()
         context['trending_post'] = blog_connector.get_most_viewed()
         context['this_month'] = blog_connector.get_this_month()
+        context['most_like'] = blog_connector.get_most_liked_post()
         context['category'] = blog_connector.get_category()
         return context
 
@@ -58,6 +59,7 @@ class ArticleDetailView(HitCountDetailView):
         context['similar_post'] = blog_connector.get_similar_post(get_all_tags,self.kwargs.get('pk'))
         context['is_liked'] = blog_connector.is_post_like(Post,self.kwargs['pk'],self.request.user.id)
         context['category'] = blog_connector.get_category()
+        context['category_post'] = blog_connector.get_PostByCategory(context['post'].category).exclude(pk=context['post'].pk)[:3]
         return context
 
 class PostByCategory(ListView):
@@ -111,4 +113,4 @@ def like_sys(request):
                 post.save()
             return JsonResponse({"result": result, })
     else:
-        return HttpResponseRedirect("/blog/")
+        return redirect("/blog/")
