@@ -1739,7 +1739,7 @@ section {
   font-weight: bold;
 }
 .entry-title p {
-  font-family: 'Nunito';
+  font-family: 'Nunito' sans-serif;
 }
 
 .blog .entry .entry-title a:hover {
@@ -2624,7 +2624,7 @@ white-space: nowrap;
 
 .section-title{
   padding-left: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 3em;
   color: #012970;
   font-weight: bold;
   font-size: 23px;

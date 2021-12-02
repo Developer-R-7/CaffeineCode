@@ -6,10 +6,11 @@
 
 .site-section {
   padding: 2em 0;
+  margin-bottom: 3em;
 }
 @media (min-width: 768px) {
   .site-section {
-    padding: 3em 0;
+    padding: 2em 0;
   }
 }
 .site-section.site-section-sm {
@@ -227,6 +228,8 @@
   padding-top: 0px;
   padding-bottom: 30px;
 }
+.owl-nav { visibility: hidden; }
+.owl-carousel:hover .owl-nav { visibility: visible; }
 .owl-slide-3 .owl-nav .owl-prev,
 .owl-slide-3 .owl-nav .owl-next,
 .owl-slide .owl-nav .owl-prev,
@@ -394,7 +397,9 @@
     height: 300px;
   }
 }
-
+.half-post-entry {
+  background:#f6f9ff;;
+}
 .half-post-entry .img-bg {
   background-size: cover;
   background-position: center center;
