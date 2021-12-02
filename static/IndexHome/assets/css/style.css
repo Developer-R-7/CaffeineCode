@@ -2097,12 +2097,18 @@ section {
 }
 
 .blog .sidebar .sidebar-title {
-  font-size: 23px;
+  font-size: 24px;
   font-weight: 700;
   padding: 0 0 0 0;
   margin: 0 0 15px 0;
   color: #012970;
   position: relative;
+}
+.like-button:hover {
+  border-radius: 5px;
+}
+.share:hover {
+  border-radius: 5px;
 }
 
 .blog .sidebar .sidebar-item {

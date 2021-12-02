@@ -2,14 +2,6 @@
 {% load hitcount_tags %} 
 {% load static %} 
 {% block search_block %}
-<style>
-  .like-button:hover {
-    border-radius: 5px;
-  }
-  .share:hover {
-    border-radius: 5px;
-  }
-</style>
 <script>
   $(window).scroll(function () {
     var y_scroll = $(".entry-footer").position().top;
@@ -128,7 +120,7 @@
 <!-- Adding author profile -->
 {% if similar_post%}
 <div class="sidebar">
-  <h3 class="sidebar-title mb-4" style="font-size: 24px">Posts you may like</h3>
+  <h3 class="sidebar-title mb-4">Posts you may like</h3>
   <div class="sidebar-item recent-posts">
     {% for item in similar_post %}
     <div class="post-item clearfix">
@@ -149,7 +141,7 @@
 {% endif %}
 <div class="sidebar">
   <!-- End sidebar recent posts-->
-  <h3 class="sidebar-title mb-4" style="font-size: 24px">Tags in blog</h3>
+  <h3 class="sidebar-title mb-4">Tags in blog</h3>
   <div class="sidebar-item tags">
     <ul>
       {% for tag in post.tags.all %}
