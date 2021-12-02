@@ -13,13 +13,13 @@
                 <div data-aos="fade-up" data-aos-delay="600">
                     <div class="text-center text-lg-start">
                         {% if request.user.is_authenticated %}
-                            <a style="cursor: pointer; color:white;" href="#explore"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                            <a href="#explore"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                             <span>Explore!</span>
                             <i class="bi bi-arrow-right"></i>
                             </a>
                         {% else %}
-                            <a style="cursor: pointer; color:white;" href="{% url 'IndexHome:signup' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                            <span>Create Account</span>
+                            <a href="{% url 'IndexHome:signup' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                            <span>Join our coummunity</span>
                             <i class="bi bi-arrow-right"></i>
                             </a>
                         {% endif %}
@@ -41,7 +41,7 @@
     .owl-carousel:hover .owl-nav { visibility: visible; }
 </style>
 <div class="container" id="explore" data-aos="fade-in">
-    <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;font-size: 23px;">Editor's Choice</h4>
+    <h4 class="section-title">Editor's Choice</h4>
     <div class="site-section py-0" style="margin-bottom:3em;">
         <div class="owl-carousel hero-slide owl-style" style="padding-top:0px;">
             {% for ed_post in editor %}
@@ -50,12 +50,12 @@
                     <div class="half-post-entry d-block d-lg-flex" style="background:#f6f9ff;">
                         <div class="img-bg" style="background-image: url('{{ed_post.entry_img}}')"></div>
                         <div class="contents">
-                            <h2 class="entry-title" style="font-size: 23px;"><a  style="color: rgb(1, 41, 112);font-family:'Nunito';font-weight: bold;" href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
-                            <p class="mb-3 mt-4" style="font-family: 'Nunito';">{{ed_post.blog_snipet |slice:":200" |stringformat:"s ...."}}</p>
+                            <h2 class="entry-title"><a href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
+                            <p class="mb-3 mt-4">{{ed_post.blog_snipet |slice:":200" |stringformat:"s ...."}}</p>
                             <div class="post-meta">
                                 <span class="date-read"> {{ed_post.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{ed_post.readtime_min}} min read <span class="icon-star2"></span></span>
                             </div>
-                            <div class="read-more" style="align-content: right;padding-top:10px;">
+                            <div class="read-more">
                                 <a class="btn btn-primary" href="{% url 'blog:blog_details' ed_post.pk %}">Read More</a>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
 {% endblock script %}
 
 {% block title_post %}
-<h4 style="padding-left: 4px;margin-bottom:2em;color:#012970;font-weight:bold;font-size: 23px;">Latest Posts</h4>
+<h4 class="section-title">Latest Posts</h4>
 {% endblock title_post %}
 
 {% block category %}
@@ -217,7 +217,7 @@
 
 {% block explore %}
 <div class="container" style="margin-bottom:55px;">
-    <h4 style="padding-left: 4px;margin-bottom:12px;color:#012970;font-weight:bold;font-size: 23px;">Explore</h4>
+    <h4 class="section-title">Explore</h4>
     <section id="values" class="values">
         <div class="container" data-aos="fade-up">
             <div class="row">

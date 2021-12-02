@@ -54,74 +54,13 @@
     <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
   </head>
   <body>
-    <style>
-      body {
-        font-family: "Merriweather", serif;
-      }
-      ::-webkit-scrollbar {
-        width: 0.4em;
-      }
-      ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #318CE7;
-        border-radius: 0px;
-      }
-      .entry-content p {
-        color: #6c757d;
-      }
-      .blog .entry .entry-content p {
-        line-height: 1.9;
-        display: block;
-        margin-block-start: 1em;
-        margin-block-end: 1em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        font-weight: 300;
-        font-family: 'Montserrat';
-      }
-      .entry-title {
-        font-family: "Merriweather", serif;
-      }
-      .header .logo img {
-        max-height: 150px;
-        margin-right: 6px;
-      }
-      .entry-title {
-        font-size: 45px;
-      }
-      .loader {
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-        background-color: #ffffff;
-        position: absolute;
-      }
-      .loader > div {
-        height: 80px;
-        width: 80px;
-        border: 8px solid #fafafa;
-        border-top-color: rgb(241, 168, 71);
-        position: absolute;
-        margin: auto;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        border-radius: 50%;
-        animation: spin 1.5s infinite linear;
-      }
-      @keyframes spin {
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
+    <!--body {
+      font-family: "Merriweather", serif;
+    }-->
     
     <!--<div class="loader">
-            <div></div>
-            </div>-->
+          <div></div>
+        </div>-->
     <header id="header" class="header fixed-top">
       <div
         class="
@@ -210,7 +149,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-lg-4" style="height: fit-content">
+            <div class="col-lg-4" class="sidebar-col">
               {% block profile %} {% endblock profile %}
               <div class="sidebar">
                 <h3 class="sidebar-title mb-4">Search</h3>
@@ -314,11 +253,10 @@
                     launch_toast();
                 });
                 </script>
-                <div id="toast" style="border-radius:10px;"><i class="bi bi-check" style="border-radius: 10px;"></i><div id="desc">Newsletter Subscribed!!</div></div>
+                <div id="toast"><i class="bi bi-check"></i><div id="desc">Newsletter Subscribed!!</div></div>
               {% endif %}
               <div
                 id="error"
-                style="color: red; font-size: 15px; margin-top: 12px;"
               ></div>
             </div>
           </div>

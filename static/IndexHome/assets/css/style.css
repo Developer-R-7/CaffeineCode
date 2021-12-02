@@ -6,6 +6,16 @@ body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
 }
+::-webkit-scrollbar {
+  width: 0.4em;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+::-webkit-scrollbar-thumb {
+  background-color: #318CE7;
+  border-radius: 0px;
+}
 
 a {
   color: #4154f1;
@@ -177,7 +187,7 @@ section {
 }
 
 .header .logo img {
-  max-height: 40px;
+  max-height: 150px;
   margin-right: 6px;
 }
 
@@ -446,6 +456,7 @@ section {
   border-radius: 4px;
   transition: 0.5s;
   color: #fff;
+  cursor: pointer;
   background: #4154f1;
   box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4);
 }
@@ -1713,6 +1724,7 @@ section {
 .blog .entry .entry-title {
   font-size: 28px;
   font-weight: bold;
+  font-family: "Merriweather", serif;
   padding: 0;
   margin: 0 0 20px 0;
 }
@@ -1721,11 +1733,21 @@ section {
   color: #012970;
   transition: 0.3s;
 }
+.entry-title a {
+  color: #012970;
+  transition: 0.3s;
+  font-weight: bold;
+}
+.entry-title p {
+  font-family: 'Nunito';
+}
 
 .blog .entry .entry-title a:hover {
   color: #4154f1;
 }
-
+.entry-title a:hover {
+  color: #4154f1;
+}
 .blog .entry .entry-meta {
   margin-bottom: 15px;
   color: #4084fd;
@@ -1758,7 +1780,15 @@ section {
 }
 
 .blog .entry .entry-content p {
-  line-height: 24px;
+  color: #6c757d;
+  line-height: 1.9;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: 300;
+  font-family: 'Montserrat';
 }
 
 .blog .entry .entry-content .read-more {
@@ -1775,11 +1805,21 @@ section {
   font-size: 14px;
   border-radius: 4px;
 }
-
+.read-more a {
+  display: inline-block;
+  background: #4154f1;
+  color: #fff;
+  padding: 6px 20px;
+  transition: 0.3s;
+  font-size: 14px;
+  border-radius: 4px;
+}
 .blog .entry .entry-content .read-more a:hover {
   background: #5969f3;
 }
-
+.read-more a:hover {
+  background: #5969f3;
+}
 .blog .entry .entry-content h3 {
   font-size: 22px;
   margin-top: 30px;
@@ -2407,16 +2447,17 @@ section {
   visibility: hidden;
   max-width: 50px;
   height: 50px;
+  border-radius: 10px;
   /*margin-left: -125px;*/
   margin: auto;
   background-color: #5cb85c;
   color: #fff;
   text-align: center;
-  border-radius: 2px;
 
   position: fixed;
   z-index: 1;
-  left: 0;right:0;
+  left: 0;
+  right:0;
   bottom: 30px;
   font-size: 17px;
   white-space: nowrap;
@@ -2426,6 +2467,7 @@ width: 50px;
 height: 50px;
 float: left;
 font-size: 35px;
+border-radius: 10px;
 box-sizing: border-box;
 background-color: #5cb85c;
 color: #fff;
@@ -2569,4 +2611,25 @@ white-space: nowrap;
 
 .social-links a :hover{
   color:#016cec;
+}
+.sidebar-col {
+    height: fit-content;
+}
+
+#error {
+  color:red;
+  font-size: 15px;
+  margin-top: 12px;
+}
+
+.section-title{
+  padding-left: 4px;
+  margin-bottom: 12px;
+  color: #012970;
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.low-font{
+  font-size: 23px;
 }
