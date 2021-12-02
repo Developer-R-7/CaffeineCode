@@ -207,7 +207,29 @@
 
 
 {% block explore %}
-<div class="container" style="margin-bottom:55px;">
+<div class="container">
+<h4 class="section-title" style="margin-bottom: 0em;">Explore Category</h4>
+<section id="testimonials" class="testimonials">
+    <div class="container" data-aos="fade-up">
+      <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
+        <div class="swiper-wrapper">
+            {% for cat_name in category %}
+            <div class="swiper-slide">
+                <div class="testimonial-item">
+                <center><img src="{% static 'IndexHome/assets/img/gear.png' %}" style="width:80%;" class="img-fluid" alt=""></center>
+                <h3 class="cat_explore">{{cat_name.name}}</h3>
+                </div>
+            </div><!-- End testimonial item -->
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+
+</section>
+</div>
+<!--<div class="container" style="margin-bottom:55px;">
     <h4 class="section-title">Explore</h4>
     <section id="values" class="values">
         <div class="container" data-aos="fade-up">
@@ -233,5 +255,5 @@
             </div>
         </div>
     </section>
-</div> 
+</div>-->
 {% endblock explore %}

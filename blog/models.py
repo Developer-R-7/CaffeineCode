@@ -9,6 +9,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 class Category(models.Model):
     name = models.CharField(max_length=70)
+    cat_img = models.URLField(default="url")
 
     def __str__(self):
         return self.name
