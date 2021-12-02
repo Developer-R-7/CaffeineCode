@@ -51,7 +51,7 @@
                         <div class="img-bg" style="background-image: url('{{ed_post.entry_img}}')"></div>
                         <div class="contents">
                             <h2 class="entry-title" style="font-size: 23px;"><a  style="color: rgb(1, 41, 112);font-family:'Nunito';font-weight: bold;" href="{% url 'blog:blog_details' ed_post.pk %}">{{ed_post.title}}</a></h2>
-                            <p class="mb-3 mt-4" style="font-family: 'Nunito';">{{ed_post.blog_snipet |slice:":200"}}</p>
+                            <p class="mb-3 mt-4" style="font-family: 'Nunito';">{{ed_post.blog_snipet |slice:":200" |stringformat:"s ...."}}</p>
                             <div class="post-meta">
                                 <span class="date-read"> {{ed_post.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{ed_post.readtime_min}} min read <span class="icon-star2"></span></span>
                             </div>
@@ -94,7 +94,7 @@
     </div>
     <div class="entry-content">
         <p>
-            {{post.blog_snipet|slice:":200"}}
+            {{post.blog_snipet|slice:":200" |stringformat:"s ...."}}
         </p>
         <div class="read-more">
             <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
