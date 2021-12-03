@@ -1,117 +1,116 @@
-{% extends 'blog/base.html' %} {% block title %}{{post.title_tag}}{% endblock title%} 
+{% extends 'blog/base.html' %} '
+{% block title %}{{post.title_tag}}{% endblock title%} 
 {% load hitcount_tags %} 
 {% load static %} 
 {% block search_block %}
 <script>
-  $(window).scroll(function () {
-    var y_scroll = $(".entry-footer").position().top;
-    if ($(this).scrollTop() > y_scroll - 400) {
-      $(".social-box").hide(600);
-    } else {
-      $(".social-box").show(600);
-    }
-  });
+    $(window).scroll(function () {
+      var y_scroll = $(".entry-footer").position().top;
+      if ($(this).scrollTop() > y_scroll - 400) {
+        $(".social-box").hide(600);
+      } else {
+        $(".social-box").show(600);
+      }
+    });
 </script>
 <div
-  class="container mb-5"
-  data-aos-duration="600"
-  data-aos="fade-in"
-  style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)"
->
-  <center
-    style="text-align: center; vertical-align: middle; line-height: 120px"
-  >
-    ADS TO BE SHOWN HERE
-  </center>
+    class="container mb-5"
+    data-aos-duration="600"
+    data-aos="fade-in"
+    style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)"
+    >
+    <center
+        style="text-align: center; vertical-align: middle; line-height: 120px"
+        >
+        ADS TO BE SHOWN HERE
+    </center>
 </div>
 {% endblock search_block %} {% block article %}
 <article class="entry entry-single">
-  <div class="entry-img">
-    <img src="{{post.entry_img}}" alt="blog_img" class="img-fluid" />
-  </div>
-  <a
-    style="font-family: 'Nunito'"
-    href="{% url 'blog:blog_details' post.pk %}"
-    class="entry-title"
-    >{{post.title}}</a
-  >
-  <ul
-    class="entry-meta"
-    style="
-      color: #c2c2c2;
-      list-style-type: none;
-      font-size: 14px;
-      padding-left: 0px;
-    "
-  >
-    <li>
-      <i class="bi bi-eye"></i> {% get_hit_count for post %} |
-      <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"F d"}} |
-      <i class="bi bi-heart-fill"
-        ><span class="like_count">&nbsp;{{post.likes_count}}</span></i
-      >
-    </li>
-  </ul>
-  {% if request.user.is_authenticated %}
-  <script>
-    $(document).on("click", ".like-button", function (e) {
-      e.preventDefault();
-      $.ajax({
-        type: "POST",
-        url: '{% url "blog:like" %}',
-        data: {
-          postid: $(".like-button").val(),
-          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-          action: "post",
-        },
-        success: function (json) {
-          $(".like_count").html("&nbsp;" + json["result"]);
-          $("#like-icon").toggleClass("bi bi-heart bi bi-heart-fill");
-        },
-        error: function (xhr, errmsg, err) {},
-      });
-    });
-  </script>
-  {% else %}
-  <script>
-    $(document).on("click", ".like-button", function () {
-      window.location.replace(
-        '{% url "IndexHome:signin" %}?blog-redirect-id=' + "{{post.pk}}"
-      );
-    });
-  </script>
-
-  {% endif %}
-
-  <div class="entry-content">{{post.body|safe}}</div>
-  <div class="entry-footer">
-    <i class="bi bi-folder"></i>
-    <ul class="cats">
-      <li><a href="{% url 'blog:category' category_slug=post.category %}">{{post.category}}</a></li>
+    <div class="entry-img">
+        <img src="{{post.entry_img}}" alt="blog_img" class="img-fluid" />
+    </div>
+    <a
+        style="font-family: 'Nunito'"
+        href="{% url 'blog:blog_details' post.pk %}"
+        class="entry-title"
+        >{{post.title}}</a
+        >
+    <ul
+        class="entry-meta"
+        style="
+        color: #c2c2c2;
+        list-style-type: none;
+        font-size: 14px;
+        padding-left: 0px;
+        "
+        >
+        <li>
+            <i class="bi bi-eye"></i> {% get_hit_count for post %} |
+            <i class="bi bi-calendar2-check"></i> Last updated {{post.modified|date:"F d"}} |
+            <i class="bi bi-heart-fill"
+                ><span class="like_count">&nbsp;{{post.likes_count}}</span></i
+                >
+        </li>
     </ul>
-    <i class="bi bi-tags"></i>
-    <ul class="tags">
-      {% for tag in post.tags.all %}
-      <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+    {% if request.user.is_authenticated %}
+    <script>
+        $(document).on("click", ".like-button", function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: '{% url "blog:like" %}',
+            data: {
+              postid: $(".like-button").val(),
+              csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+              action: "post",
+            },
+            success: function (json) {
+              $(".like_count").html("&nbsp;" + json["result"]);
+              $("#like-icon").toggleClass("bi bi-heart bi bi-heart-fill");
+            },
+            error: function (xhr, errmsg, err) {},
+          });
+        });
+    </script>
+    {% else %}
+    <script>
+        $(document).on("click", ".like-button", function () {
+          window.location.replace(
+            '{% url "IndexHome:signin" %}?blog-redirect-id=' + "{{post.pk}}"
+          );
+        });
+    </script>
+    {% endif %}
+    <div class="entry-content">{{post.body|safe}}</div>
+    <div class="entry-footer">
+        <i class="bi bi-folder"></i>
+        <ul class="cats">
+            <li><a href="{% url 'blog:category' category_slug=post.category %}">{{post.category}}</a></li>
+        </ul>
+        <i class="bi bi-tags"></i>
+        <ul class="tags">
+            {% for tag in post.tags.all %}
+            <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </article>
 <div class="blog-author d-flex align-items-center">
-  <img
-    src="{% static 'IndexHome/assets/img/blog/blog-author.jpg' %}"
-    class="rounded-circle float-left"
-    alt=""
-  />
-  <div>
-    <h4>{{post.author}}</h4>
-    <div class="social-links">
-      <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
-      <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
-      <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+    <img
+        src="{% static 'IndexHome/assets/img/blog/blog-author.jpg' %}"
+        class="rounded-circle float-left"
+        alt=""
+        />
+    <div>
+        <h4>{{post.author}}</h4>
+        <div class="social-links">
+            <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+            <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+            <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+        </div>
+        <p>{{post.author_conculsion}}</p>
     </div>
-    <p>{{post.author_conculsion}}</p>
-  </div>
 </div>
 {% endblock article %} 
 {% block profile %}
@@ -120,101 +119,101 @@
 <!-- Adding author profile -->
 {% if similar_post%}
 <div class="sidebar">
-  <h3 class="sidebar-title mb-4">Posts you may like</h3>
-  <div class="sidebar-item recent-posts">
-    {% for item in similar_post %}
-    <div class="post-item clearfix">
-      <img src="{{item.entry_img}}" alt="" />
-      <strong>
-        <h4>
-          <a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a>
-        </h4>
-      </strong>
-      <time
-        >{{item.date_published|date:"F d"}} &bullet; {{item.readtime_min}}
-        min</time
-      >
+    <h3 class="sidebar-title mb-4">Posts you may like</h3>
+    <div class="sidebar-item recent-posts">
+        {% for item in similar_post %}
+        <div class="post-item clearfix">
+            <img src="{{item.entry_img}}" alt="" />
+            <strong>
+                <h4>
+                    <a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a>
+                </h4>
+            </strong>
+            <time
+                >{{item.date_published|date:"F d"}} &bullet; {{item.readtime_min}}
+            min</time
+                >
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-  </div>
 </div>
 {% endif %}
 <div class="sidebar">
-  <!-- End sidebar recent posts-->
-  <h3 class="sidebar-title mb-4">Tags in blog</h3>
-  <div class="sidebar-item tags">
-    <ul>
-      {% for tag in post.tags.all %}
-      <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
-  <!-- End sidebar tags-->
+    <!-- End sidebar recent posts-->
+    <h3 class="sidebar-title mb-4">Tags in blog</h3>
+    <div class="sidebar-item tags">
+        <ul>
+            {% for tag in post.tags.all %}
+            <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- End sidebar tags-->
 </div>
 <div class="sidebar">Ads To Be shown here</div>
 {% endblock sidebar %} {% block social-btn %}
 <div class="social-box" style="height: fit-content">
-  <div class="sticky-container">
-    <div class="container" style="justify-content: center; padding: 5px">
-      {% if request.user.is_authenticated %} {% if is_liked %}
-      <button class="like-button" title="Like" value="{{post.pk}}">
-        <h5><i id="like-icon" class="bi bi-heart-fill"></i></h5>
-      </button>
-      {% else %}
-      <button class="like-button" value="{{post.pk}}">
-        <h5><i id="like-icon" class="bi bi-heart"></i></h5>
-      </button>
-      {% endif %} {% else %}
-      <button class="like-button" value="{{post.pk}}">
-        <h5><i id="like-icon" class="bi bi-heart"></i></h5>
-      </button>
-      {% endif %}
+    <div class="sticky-container">
+        <div class="container" style="justify-content: center; padding: 5px">
+            {% if request.user.is_authenticated %} {% if is_liked %}
+            <button class="like-button" title="Like" value="{{post.pk}}">
+                <h5><i id="like-icon" class="bi bi-heart-fill"></i></h5>
+            </button>
+            {% else %}
+            <button class="like-button" value="{{post.pk}}">
+                <h5><i id="like-icon" class="bi bi-heart"></i></h5>
+            </button>
+            {% endif %} {% else %}
+            <button class="like-button" value="{{post.pk}}">
+                <h5><i id="like-icon" class="bi bi-heart"></i></h5>
+            </button>
+            {% endif %}
+        </div>
     </div>
-  </div>
-  <div class="sticky-container" style="margin-top: 40px; background: #3b5999">
-    <div class="container" style="justify-content: center; padding: 5px">
-      <h5><i class="bi bi-bookmarks"></i></h5>
+    <div class="sticky-container" style="margin-top: 40px; background: #3b5999">
+        <div class="container" style="justify-content: center; padding: 5px">
+            <h5><i class="bi bi-bookmarks"></i></h5>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock social-btn %} {% block pagination %}
 <!--<li><button class="like-button" style="width:110px;background:#f0333a;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-heart-fill"></i><span class='like_count'>&nbsp;{{post.likes_count}}</span></li>
-<li><button class="share" style="width:110px;background:#00308F;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-share"></i><span>&nbsp;Share</span></li>-->
+    <li><button class="share" style="width:110px;background:#00308F;color:white;border:none;border-radius:5px;padding:8px;background-image:none;"><span style="font-size: 17px;"><i class="bi bi-share"></i><span>&nbsp;Share</span></li>-->
 {% endblock pagination %} 
 {% block recent %}
 {% if category_post %}
 <section id="recent-blog-posts" class="recent-blog-posts">
-  <div class="container aos-init aos-animate" data-aos="fade-up">
-    <header class="section-header">
-      <p>Posts with same category</p>
-    </header>
-    <div class="row">
-      {% for cat_post in category_post %}
-        <div class="col-lg-4">
-          <div class="post-box">
-            <div class="post-img">
-              <img
-                src="{{cat_post.entry_img}}"
-                class="img-fluid"
-                alt=""
-              />
+    <div class="container aos-init aos-animate" data-aos="fade-up">
+        <header class="section-header">
+            <p>Posts with same category</p>
+        </header>
+        <div class="row">
+            {% for cat_post in category_post %}
+            <div class="col-lg-4">
+                <div class="post-box">
+                    <div class="post-img">
+                        <img
+                            src="{{cat_post.entry_img}}"
+                            class="img-fluid"
+                            alt=""
+                            />
+                    </div>
+                    <span class="post-date">{{cat_post.date_published}}</span>
+                    <h3 class="post-title">
+                        {{cat_post.title}}
+                    </h3>
+                    <a href="{% url 'blog:blog_details' cat_post.pk %}" class="readmore stretched-link mt-auto"
+                        ><span>Read More</span><i class="bi bi-arrow-right"></i
+                        ></a>
+                </div>
             </div>
-            <span class="post-date">{{cat_post.date_published}}</span>
-            <h3 class="post-title">
-              {{cat_post.title}}
-            </h3>
-            <a href="{% url 'blog:blog_details' cat_post.pk %}" class="readmore stretched-link mt-auto"
-              ><span>Read More</span><i class="bi bi-arrow-right"></i
-            ></a>
-          </div>
+            {% endfor %}
         </div>
-      {% endfor %}
     </div>
-  </div>
 </section>
 {% endif %}
 {% endblock recent %} {% block category %} {% for name in category %}
 <li>
-  <a href="{% url 'blog:category' category_slug=name.name %}">{{name.name}}</a>
+    <a href="{% url 'blog:category' category_slug=name.name %}">{{name.name}}</a>
 </li>
 {% endfor %} {% endblock category %}
