@@ -52,7 +52,16 @@ def verify(request, mail_hash, id):
         if is_user_verify:
             return render(request, "IndexHome/error.html", {'error': "User already verify!", "status": "medium"})
         else:
-            return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
+            try:
+                get_request_from_main = request.session['main_verify']
+                if get_request_from_main:
+                    verify_manager.generate_only_otp(id)
+                    return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
+                else:
+                    return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
+
+            except:
+                return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
 
 
 def resend_otp(request, mail_hash, acc_id, request_otp):
@@ -130,10 +139,9 @@ def signin(request):
                         else:
                             return redirect('/dashboard/home')
                     else:
-                        get_user = verify_manager.search_user_with_account_mail(
-                            sign_in_email)
-                        ver_req = EnCrypt(
-                            sign_in_email.encode(), get_user.key.encode('utf-8'))
+                        get_user = verify_manager.search_user_with_account_mail(sign_in_email)
+                        ver_req = EnCrypt(sign_in_email.encode(), get_user.key.encode('utf-8'))
+                        request.session['main_verify'] = True
                         return render(request, 'IndexHome/login.html', {"error": "Account not verified", "verify_request": True, "mail_en": ver_req.decode('utf-8'), "id": get_user.account_id})
                 else:
                     return render(request, 'IndexHome/login.html', {"error": "Incorrect email or password"})
