@@ -224,6 +224,29 @@
       </div>
     </div>
   </section>
+  <section id="testimonials" class="testimonials">
+    <div class="container" data-aos="fade-up">
+      <header class="section-header">
+        <h2>CATEGORY</h2>
+        <p>Explore our blogs category</p>
+      </header>
+      <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
+        <div class="swiper-wrapper">
+            {% for cat_name in category %}
+            <div class="swiper-slide">
+                <div class="testimonial-item">
+                <a href="{% url 'blog:category' category_slug=cat_name.name %}"><center><img src="{% static 'IndexHome/assets/img/gear.png' %}" style="width:80%;" class="img-fluid" alt=""></center></a>
+                <h3 class="cat_explore">{{cat_name.name}}</h3>
+                </div>
+            </div><!-- End testimonial item -->
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+
+</section>
   <!-- End Counts Section -->
   <!-- ======= Pricing Section ======= -->
   <!--<section id="pricing" class="pricing">
@@ -490,7 +513,7 @@
     <div class="container" data-aos="fade-up">
       <header class="section-header">
         <h2>Blog</h2>
-        <p>Recent posts form our Blog</p>
+        <p>Recent posts from our Blog</p>
       </header>
       <div class="row">
         {% for blog in post %}
@@ -744,3 +767,6 @@
   </div>
 </footer>
 {% endblock body %}
+{% block explore %}
+
+{% endblock explore %}
