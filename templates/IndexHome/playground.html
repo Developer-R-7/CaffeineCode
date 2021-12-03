@@ -3,41 +3,40 @@
 {% block body %} 
 {% load static %}
 <style>
-  .form-check-label:hover {
+    .form-check-label:hover {
     color: rgb(243, 105, 105);
-  }
-  ::-webkit-scrollbar {
+    }
+    ::-webkit-scrollbar {
     width: 0.5em;
-  }
-  ::-webkit-scrollbar-track {
+    }
+    ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
-  ::-webkit-scrollbar-thumb {
+    }
+    ::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     border-radius: 10px;
-  }
-  .text-warning {
+    }
+    .text-warning {
     font-size: 13px;
-  }
-  .count-box {
+    }
+    .count-box {
     border-radius: 5px;
-  }
-  .group 			  { 
+    }
+    .group 			  { 
     position:relative; 
     margin-bottom:45px; 
-  }
-  input 				{
+    }
+    input 				{
     font-size:18px;
     padding:10px 10px 10px 5px;
     display:block;
     width:300px;
     border:none;
     border-bottom:1px solid #757575;
-  }
-  input:focus 		{ outline:none; }
-  
-  /* LABEL ======================================= */
-  label 				 {
+    }
+    input:focus 		{ outline:none; }
+    /* LABEL ======================================= */
+    label 				 {
     color:#999; 
     font-size:18px;
     font-weight:normal;
@@ -48,18 +47,16 @@
     transition:0.2s ease all; 
     -moz-transition:0.2s ease all; 
     -webkit-transition:0.2s ease all;
-  }
-  
-  /* active state */
-  input:focus ~ label, input:valid ~ label 		{
+    }
+    /* active state */
+    input:focus ~ label, input:valid ~ label 		{
     top:-20px;
     font-size:14px;
     color:#5264AE;
-  }
-  
-  /* BOTTOM BARS ================================= */
-  .bar 	{ position:relative; display:block; width:300px; }
-  .bar:before, .bar:after 	{
+    }
+    /* BOTTOM BARS ================================= */
+    .bar 	{ position:relative; display:block; width:300px; }
+    .bar:before, .bar:after 	{
     content:'';
     height:2px; 
     width:0;
@@ -69,21 +66,19 @@
     transition:0.2s ease all; 
     -moz-transition:0.2s ease all; 
     -webkit-transition:0.2s ease all;
-  }
-  .bar:before {
+    }
+    .bar:before {
     left:50%;
-  }
-  .bar:after {
+    }
+    .bar:after {
     right:50%; 
-  }
-  
-  /* active state */
-  input:focus ~ .bar:before, input:focus ~ .bar:after {
+    }
+    /* active state */
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
     width:50%;
-  }
-  
-  /* HIGHLIGHTER ================================== */
-  .highlight {
+    }
+    /* HIGHLIGHTER ================================== */
+    .highlight {
     position:absolute;
     height:60%; 
     width:100px; 
@@ -91,109 +86,105 @@
     left:0;
     pointer-events:none;
     opacity:0.5;
-  }
-  
-  /* active state */
-  input:focus ~ .highlight {
+    }
+    /* active state */
+    input:focus ~ .highlight {
     -webkit-animation:inputHighlighter 0.3s ease;
     -moz-animation:inputHighlighter 0.3s ease;
     animation:inputHighlighter 0.3s ease;
-  }
-  
-  /* ANIMATIONS ================ */
-  @-webkit-keyframes inputHighlighter {
+    }
+    /* ANIMATIONS ================ */
+    @-webkit-keyframes inputHighlighter {
     from { background:#5264AE; }
     to 	{ width:0; background:transparent; }
-  }
-  @-moz-keyframes inputHighlighter {
+    }
+    @-moz-keyframes inputHighlighter {
     from { background:#5264AE; }
     to 	{ width:0; background:transparent; }
-  }
-  @keyframes inputHighlighter {
+    }
+    @keyframes inputHighlighter {
     from { background:#5264AE; }
     to 	{ width:0; background:transparent; }
-  }
-  
+    }
 </style>
-
 <section id="hero" class="hero d-flex align-items-center">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 d-flex flex-column justify-content-center">
-        <h1 data-aos="fade-up">Coming Soon!</h1>
-        <h2 data-aos="fade-up" data-aos-delay="400">
-          Playground will enable you to write ,download and upload codes. Codes will
-          get ranked according to popularity
-        </h2>
-        <div data-aos="fade-up" data-aos-delay="600">
-          <div class="text-center text-lg-start">
-            <a
-              style="cursor: pointer; color: white"
-              class="
-                btn-get-started
-                scrollto
-                d-inline-flex
-                align-items-center
-                justify-content-center
-                align-self-center
-              "
-            >
-              <span role="button" data-toggle="modal" data-target="#form">Get Notify!</button></span>
-              <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Coming Soon!</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">
+                    Playground will enable you to write ,download and upload codes. Codes will
+                    get ranked according to popularity
+                </h2>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center text-lg-start">
+                        <a
+                            style="cursor: pointer; color: white"
+                            class="
+                            btn-get-started
+                            scrollto
+                            d-inline-flex
+                            align-items-center
+                            justify-content-center
+                            align-self-center
+                            "
+                            >
+                        <span role="button" data-toggle="modal" data-target="#form">Get Notify!</button></span>
+                        <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img
+                    src="{% static 'IndexHome/assets/img/Timer.svg' %}"
+                    class="img-fluid"
+                    alt=""
+                    />
+            </div>
         </div>
-      </div>
-      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-        <img
-          src="{% static 'IndexHome/assets/img/Timer.svg' %}"
-          class="img-fluid"
-          alt=""
-        />
-      </div>
     </div>
-  </div>
 </section>
 <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <div class="modal-title"></div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border:none">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="{% url 'IndexHome:playground' %}" method="post">
-        {% csrf_token %}
-        <div class="modal-body">
-          <center><img src="{% static 'IndexHome/assets/img/notify.svg' %}" style="height:200px;width:200px;"></center>
-          <div class="form-group" style="margin-top: 30px;margin-left:80px">
-            <div class="group">      
-              <input type="email" name="notify_mail" required>
-              <span class="highlight"></span>
-              <span class="bar"></span>
-              <label>Your email to get notify</label>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <div class="modal-title"></div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border:none">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-          </div>
-          <center><a
-              style="cursor: pointer;background:#4154f1;padding:10px 60px;border-radius:5px;color:white;"
-              class="
-                btn-get-started
-                scrollto
-                d-inline-flex
-                align-items-center
-                justify-content-center
-                align-self-center
-              "
-            >
-              <button style="border: none;background:none;color:white" role="button" type="submit" >Subcribe Notify!</button></span></a></center>
+            <form action="{% url 'IndexHome:playground' %}" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <center><img src="{% static 'IndexHome/assets/img/notify.svg' %}" style="height:200px;width:200px;"></center>
+                    <div class="form-group" style="margin-top: 30px;margin-left:80px">
+                        <div class="group">      
+                            <input type="email" name="notify_mail" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Your email to get notify</label>
+                        </div>
+                    </div>
+                    <center><a
+                        style="cursor: pointer;background:#4154f1;padding:10px 60px;border-radius:5px;color:white;"
+                        class="
+                        btn-get-started
+                        scrollto
+                        d-inline-flex
+                        align-items-center
+                        justify-content-center
+                        align-self-center
+                        "
+                        >
+                        <button style="border: none;background:none;color:white" role="button" type="submit" >Subcribe Notify!</button></span></a>
+                    </center>
+                </div>
+                <div class="modal-footer border-top-0 d-flex justify-content-center">
+                    </a>
+                </div>
+            </form>
         </div>
-        <div class="modal-footer border-top-0 d-flex justify-content-center">
-          
-            </a>
-        </div>
-      </form>
     </div>
-  </div>
 </div>
 {% endblock body %}

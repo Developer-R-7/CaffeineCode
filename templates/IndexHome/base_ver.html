@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% load static %}
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'IndexHome/assets/img/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'IndexHome/assets/img/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'IndexHome/assets/img/site.webmanifest' %}">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>{% block title %}{% endblock title %}</title>
-    {% load static %}
-    <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'IndexHome/assets/css/verify_css.css' %}"
-    />
-    <style>
-      @media (max-width: 420px) {
-        .formbg {
-          box-shadow: none;
-        }
-      }
-      ::-webkit-scrollbar {
-        width: 0.5em;
-      }
-      ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: darkgrey;
-        border-radius: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    {% block body %} {% endblock body %}
-  </body>
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'IndexHome/assets/img/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'IndexHome/assets/img/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'IndexHome/assets/img/site.webmanifest' %}">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>{% block title %}{% endblock title %}</title>
+        {% load static %}
+        <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'IndexHome/assets/css/verify_css.css' %}"
+            />
+        <style>
+            @media (max-width: 420px) {
+            .formbg {
+            box-shadow: none;
+            }
+            }
+            ::-webkit-scrollbar {
+            width: 0.5em;
+            }
+            ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            }
+            ::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            border-radius: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        {% block body %} {% endblock body %}
+    </body>
 </html>

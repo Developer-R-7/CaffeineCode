@@ -2,771 +2,767 @@
 {% block body %} 
 {% load static %}
 <section id="hero" class="hero d-flex align-items-center">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 d-flex flex-column justify-content-center">
-        <h1 data-aos="fade-up">Make your Code and Coffee with us</h1>
-        <h2 data-aos="fade-up" data-aos-delay="400">
-          We are a community of coders and Tech blog writers
-        </h2>
-        <div data-aos="fade-up" data-aos-delay="600">
-          <div class="text-center text-lg-start">
-            {% if request.user.is_authenticated %}
-            <a
-              style="cursor: pointer; color: white"
-              href="#about"
-              class="
-                btn-get-started
-                scrollto
-                d-inline-flex
-                align-items-center
-                justify-content-center
-                align-self-center
-              "
-            >
-              <span>Get Started!</span>
-              <i class="bi bi-arrow-right"></i>
-            </a>
-            {% else %}
-            <a
-              style="cursor: pointer; color: white"
-              href="{% url 'IndexHome:signup' %}"
-              class="
-                btn-get-started
-                scrollto
-                d-inline-flex
-                align-items-center
-                justify-content-center
-                align-self-center
-              "
-            >
-              <span>Join our coummunity</span>
-              <i class="bi bi-arrow-right"></i>
-            </a>
-            {% endif %}
-          </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Make your Code and Coffee with us</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">
+                    We are a community of coders and Tech blog writers
+                </h2>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center text-lg-start">
+                        {% if request.user.is_authenticated %}
+                        <a
+                            style="cursor: pointer; color: white"
+                            href="#about"
+                            class="
+                            btn-get-started
+                            scrollto
+                            d-inline-flex
+                            align-items-center
+                            justify-content-center
+                            align-self-center
+                            "
+                            >
+                        <span>Get Started!</span>
+                        <i class="bi bi-arrow-right"></i>
+                        </a>
+                        {% else %}
+                        <a
+                            style="cursor: pointer; color: white"
+                            href="{% url 'IndexHome:signup' %}"
+                            class="
+                            btn-get-started
+                            scrollto
+                            d-inline-flex
+                            align-items-center
+                            justify-content-center
+                            align-self-center
+                            "
+                            >
+                        <span>Join our coummunity</span>
+                        <i class="bi bi-arrow-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img
+                    src="{% static 'IndexHome/assets/img/Team.svg' %}"
+                    class="img-fluid"
+                    alt=""
+                    />
+            </div>
         </div>
-      </div>
-      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-        <img
-          src="{% static 'IndexHome/assets/img/Team.svg' %}"
-          class="img-fluid"
-          alt=""
-        />
-      </div>
     </div>
-  </div>
 </section>
 <!-- End Hero -->
 <main id="main">
-  <!-- ======= About Section ======= -->
-  <section id="about" class="about">
-    <div class="container" data-aos="fade-up">
-      <div class="row gx-0">
-        <div
-          id="about"
-          class="col-lg-6 d-flex flex-column justify-content-center"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <div class="content">
-            <h3>Who We Are</h3>
-            <h2>
-              We are Programmers, driven with the passion to provide newbies with the basic knowledge of programming
-            </h2>
-            <p>
-              Back in time when we found it hard to start our programming journey . Hope this does not happen with you . So we decided to provide you with our knowledge gained in the past few years.
-            </p>
-            <div class="text-center text-lg-start">
-              <a
-                href="#"
-                class="
-                  btn-read-more
-                  d-inline-flex
-                  align-items-center
-                  justify-content-center
-                  align-self-center
-                "
-              >
-                <span>Read More</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div
-          class="col-lg-6 d-flex align-items-center"
-          data-aos="zoom-out"
-          data-aos-delay="200"
-        >
-          <img
-            src="{% static 'IndexHome/assets/img/about.svg' %}"
-            class="img-fluid"
-            alt=""
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End About Section -->
-  <!-- ======= Values Section ======= -->
-  <section id="values" class="values">
-    <div class="container" data-aos="fade-up">
-      <header class="section-header">
-        <h2>OUR SERVICES</h2>
-        <p>We served you with ☕ and</p>
-  
-      </header>
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="box" data-aos="fade-up" data-aos-delay="200">
-            <img
-              src="{% static 'IndexHome/assets/img/values-1.png' %}"
-              class="img-fluid"
-              alt=""
-            />
-            <h3><a href="{% url 'blog:index' %}">Blogs</a></h3>
-            <p>
-               All range of blogs from beginner to advanced concept blogs
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-4 mt-4 mt-lg-0">
-          <div class="box" data-aos="fade-up" data-aos-delay="400">
-            <img
-              src="{% static 'IndexHome/assets/img/values-2.png' %}"
-              class="img-fluid"
-              alt=""
-            />
-            <h3>Projects and Source codes</h3>
-            <p>
-              Well documented and optimize codes Which only cost you a free account on this website
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-4 mt-4 mt-lg-0">
-          <div class="box" data-aos="fade-up" data-aos-delay="600">
-            <img
-              src="{% static 'IndexHome/assets/img/values-3.png' %}"
-              class="img-fluid"
-              alt=""
-            />
-            <h3><a href="{% url 'IndexHome:playground' %}">Playground</a></h3>
-            <p>
-              Organized Weekly competition and huge database of problems sets with solution
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Values Section -->
-  <!-- ======= Counts Section ======= -->
-  <section id="counts" class="counts">
-    <div class="container" data-aos="fade-up">
-      <div class="row gy-4">
-        <div class="col-lg-3 col-md-6" style="border-radius: 5px">
-          <div class="count-box">
-            <i class="bi bi-emoji-smile"></i>
-            <div>
-              <span
-                data-purecounter-start="0"
-                data-purecounter-end="{{user_count}}"
-                data-purecounter-duration="1"
-                class="purecounter"
-              ></span>
-              <p>Our Coummunity</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="border-radius: 5px">
-          <div class="count-box">
-            <i class="bi bi-code-slash" style="color: #ee6c20"></i>
-            <div>
-              <span
-                data-purecounter-start="0"
-                data-purecounter-end="521"
-                data-purecounter-duration="1"
-                class="purecounter"
-              ></span>
-              <p>Source Codes</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="border-radius: 5px">
-          <div class="count-box">
-            <i class="bi bi-vector-pen" style="color: #15be56"></i>
-            <div>
-              <span
-                data-purecounter-start="0"
-                data-purecounter-end="{{total_blogs}}"
-                data-purecounter-duration="1"
-                class="purecounter"
-              ></span>
-              <p>Blogs</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="border-radius: 5px">
-          <div class="count-box">
-            <i class="bi bi-people" style="color: #bb0852"></i>
-            <div>
-              <span
-                data-purecounter-start="0"
-                data-purecounter-end="15"
-                data-purecounter-duration="1"
-                class="purecounter"
-              ></span>
-              <p>Supporters</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- End Counts Section -->
-  <!-- ======= Pricing Section ======= -->
-  <!--<section id="pricing" class="pricing">
-    <div class="container" data-aos="fade-up">
-      <header class="section-header">
-        <p>It's free</p>
-      </header>
-      <div class="row gy-4 justify-content-md-center" data-aos="fade-left">
-        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-          <div class="box">
-            <h3 style="color: #07d5c0">Free Plan</h3>
-            <div class="price"><sup>$</sup>0<span> / mo</span></div>
-            <img
-              src="{% static 'IndexHome/assets/img/pricing-free.png' %}"
-              class="img-fluid"
-              alt=""
-            />
-            <a href="#" class="btn-buy">Create Account</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  End Pricing Section --><!-- ======= F.A.Q Section ======= -->
-  <section id="faq" class="faq">
-    <div class="container" data-aos="fade-up">
-      <header class="section-header">
-        <h2>F.A.Q</h2>
-        <p>Frequently Asked Questions</p>
-      </header>
-      <div class="row">
-        <div class="col-lg-6">
-          <!-- F.A.Q List 1-->
-          <div class="accordion accordion-flush" id="faqlist1">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq-content-1"
-                >
-                  Non consectetur a erat nam at lectus urna duis?
-                </button>
-              </h2>
-              <div
-                id="faq-content-1"
-                class="accordion-collapse collapse"
-                data-bs-parent="#faqlist1"
-              >
-                <div class="accordion-body">
-                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id
-                  volutpat lacus laoreet non curabitur gravida. Venenatis lectus
-                  magna fringilla urna porttitor rhoncus dolor purus non.
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+            <div class="row gx-0">
+                <div
+                    id="about"
+                    class="col-lg-6 d-flex flex-column justify-content-center"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
+                    >
+                    <div class="content">
+                        <h3>Who We Are</h3>
+                        <h2>
+                            We are Programmers, driven with the passion to provide newbies with the basic knowledge of programming
+                        </h2>
+                        <p>
+                            Back in time when we found it hard to start our programming journey . Hope this does not happen with you . So we decided to provide you with our knowledge gained in the past few years.
+                        </p>
+                        <div class="text-center text-lg-start">
+                            <a
+                                href="#"
+                                class="
+                                btn-read-more
+                                d-inline-flex
+                                align-items-center
+                                justify-content-center
+                                align-self-center
+                                "
+                                >
+                            <span>Read More</span>
+                            <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq-content-2"
-                >
-                  Feugiat scelerisque varius morbi enim nunc faucibus a
-                  pellentesque?
-                </button>
-              </h2>
-              <div
-                id="faq-content-2"
-                class="accordion-collapse collapse"
-                data-bs-parent="#faqlist1"
-              >
-                <div class="accordion-body">
-                  Dolor sit amet consectetur adipiscing elit pellentesque
-                  habitant morbi. Id interdum velit laoreet id donec ultrices.
-                  Fringilla phasellus faucibus scelerisque eleifend donec
-                  pretium. Est pellentesque elit ullamcorper dignissim. Mauris
-                  ultrices eros in cursus turpis massa tincidunt dui.
+                <div
+                    class="col-lg-6 d-flex align-items-center"
+                    data-aos="zoom-out"
+                    data-aos-delay="200"
+                    >
+                    <img
+                        src="{% static 'IndexHome/assets/img/about.svg' %}"
+                        class="img-fluid"
+                        alt=""
+                        />
                 </div>
-              </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq-content-3"
-                >
-                  Dolor sit amet consectetur adipiscing elit pellentesque
-                  habitant morbi?
-                </button>
-              </h2>
-              <div
-                id="faq-content-3"
-                class="accordion-collapse collapse"
-                data-bs-parent="#faqlist1"
-              >
-                <div class="accordion-body">
-                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices
-                  sagittis orci. Faucibus pulvinar elementum integer enim. Sem
-                  nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
-                  pellentesque eu tincidunt. Lectus urna duis convallis
-                  convallis tellus. Urna molestie at elementum eu facilisis sed
-                  odio morbi quis
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="col-lg-6">
-          <!-- F.A.Q List 2-->
-          <div class="accordion accordion-flush" id="faqlist2">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq2-content-1"
-                >
-                  Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
-                </button>
-              </h2>
-              <div
-                id="faq2-content-1"
-                class="accordion-collapse collapse"
-                data-bs-parent="#faqlist2"
-              >
-                <div class="accordion-body">
-                  Dolor sit amet consectetur adipiscing elit pellentesque
-                  habitant morbi. Id interdum velit laoreet id donec ultrices.
-                  Fringilla phasellus faucibus scelerisque eleifend donec
-                  pretium. Est pellentesque elit ullamcorper dignissim. Mauris
-                  ultrices eros in cursus turpis massa tincidunt dui.
+    </section>
+    <!-- End About Section -->
+    <!-- ======= Values Section ======= -->
+    <section id="values" class="values">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>OUR SERVICES</h2>
+                <p>We served you with ☕ and</p>
+            </header>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="box" data-aos="fade-up" data-aos-delay="200">
+                        <img
+                            src="{% static 'IndexHome/assets/img/values-1.png' %}"
+                            class="img-fluid"
+                            alt=""
+                            />
+                        <h3><a href="{% url 'blog:index' %}">Blogs</a></h3>
+                        <p>
+                            All range of blogs from beginner to advanced concept blogs
+                        </p>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq2-content-2"
-                >
-                  Tempus quam pellentesque nec nam aliquam sem et tortor
-                  consequat?
-                </button>
-              </h2>
-              <div
-                id="faq2-content-2"
-                class="accordion-collapse collapse"
-                data-bs-parent="#faqlist2"
-              >
-                <div class="accordion-body">
-                  Molestie a iaculis at erat pellentesque adipiscing commodo.
-                  Dignissim suspendisse in est ante in. Nunc vel risus commodo
-                  viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
-                  bibendum est. Purus gravida quis blandit turpis cursus in
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box" data-aos="fade-up" data-aos-delay="400">
+                        <img
+                            src="{% static 'IndexHome/assets/img/values-2.png' %}"
+                            class="img-fluid"
+                            alt=""
+                            />
+                        <h3>Projects and Source codes</h3>
+                        <p>
+                            Well documented and optimize codes Which only cost you a free account on this website
+                        </p>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq2-content-3"
-                >
-                  Varius vel pharetra vel turpis nunc eget lorem dolor?
-                </button>
-              </h2>
-              <div
-                id="faq2-content-3"
-                class="accordion-collapse collapse"
-                data-bs-parent="#faqlist2"
-              >
-                <div class="accordion-body">
-                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris
-                  vitae ultricies leo integer malesuada nunc vel. Tincidunt eget
-                  nullam non nisi est sit amet. Turpis nunc eget lorem dolor
-                  sed. Ut venenatis tellus in metus vulputate eu scelerisque.
-                  Pellentesque diam volutpat commodo sed egestas egestas
-                  fringilla phasellus faucibus. Nibh tellus molestie nunc non
-                  blandit massa enim nec.
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box" data-aos="fade-up" data-aos-delay="600">
+                        <img
+                            src="{% static 'IndexHome/assets/img/values-3.png' %}"
+                            class="img-fluid"
+                            alt=""
+                            />
+                        <h3><a href="{% url 'IndexHome:playground' %}">Playground</a></h3>
+                        <p>
+                            Organized Weekly competition and huge database of problems sets with solution
+                        </p>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
- 
-  <section id="team" class="team">
-    <div class="container" data-aos="fade-up">
-      <header class="section-header">
-        <h2>Team</h2>
-        <p>Developers of CaffeineCode</p>
-      </header>
-      <div class="container">
-        <!-- / End Header Section -->
-        <div class="row justify-content-around">
-          <!-- Start Single Person -->
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <div class="single-person">
-              <div class="person-image">
-                <img src="{% static 'IndexHome/assets/img/developer.jpg' %}" alt="founder">
-                <span class="icon">
-                  <i class="bi bi-award"></i>
-                </span>
-              </div>
-              <div class="person-info">
-                <h3 class="full-name">Rushi Patel</h3>
-                <span class="speciality">Founder @ CaffeineCode</span>
-              </div>
-            </div>
-          </div>
-          <div id="about" class="col-lg-8 d-flex flex-column justify-content-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" >
-            <div class="single-person" style="background:none;">
-              <div class="content" >
-                <span style="font-size: 55px;color:#4154f1;margin-left:-40px;">“</span>
-                <h3 style="color:#4154f1;font-weight:bold">About Me</h3>
-                <p style="margin-top:20px;line-height:1.6;">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-                <div class="text-center text-lg-start" >
-                  <a href="#" class="
-                      btn-read-more
-                      d-inline-flex
-                      align-items-center
-                      justify-content-center
-                      align-self-center
-                    " >
-                  </a>
+    </section>
+    <!-- End Values Section -->
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+        <div class="container" data-aos="fade-up">
+            <div class="row gy-4">
+                <div class="col-lg-3 col-md-6" style="border-radius: 5px">
+                    <div class="count-box">
+                        <i class="bi bi-emoji-smile"></i>
+                        <div>
+                            <span
+                                data-purecounter-start="0"
+                                data-purecounter-end="{{user_count}}"
+                                data-purecounter-duration="1"
+                                class="purecounter"
+                                ></span>
+                            <p>Our Coummunity</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="https://github.com/Developer-R-7" target="_blank" class="facebook"><i class="bi bi-github"></i></a>
-              <a href="https://www.instagram.com/developer._.r/" target="_blank" class="instagram"
-                ><i class="bi bi-instagram bx bxl-instagram"></i
-              ></a>
-              <a href="www.linkedin.com/in/rushi-patel-5a5b951ba" target="_blank" class="linkedin"
-                ><i class="bi bi-linkedin bx bxl-linkedin"></i
-              ></a>
-            </div>
-          </div>
-          </div>
-          <!-- / End Single Person -->
-        </div>
-      </div>
-      <div class="row gy-4"></div>
-    </div>
-  </section>
-  <!-- End Team Section -->
-  <section id="testimonials" class="testimonials">
-    <div class="container" data-aos="fade-up">
-      <header class="section-header">
-        <h2>CATEGORY</h2>
-        <p>Explore our blogs by category</p>
-      </header>
-      <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
-        <div class="swiper-wrapper">
-            {% for cat_name in category %}
-            <div class="swiper-slide">
-                <div class="testimonial-item">
-                <a href="{% url 'blog:category' category_slug=cat_name.name %}"><center><img src="{{cat_name.cat_img}}" style="width:80%;" class="img-fluid" alt=""></center></a>
-                <h3 class="cat_explore">{{cat_name.name}}</h3>
+                <div class="col-lg-3 col-md-6" style="border-radius: 5px">
+                    <div class="count-box">
+                        <i class="bi bi-code-slash" style="color: #ee6c20"></i>
+                        <div>
+                            <span
+                                data-purecounter-start="0"
+                                data-purecounter-end="521"
+                                data-purecounter-duration="1"
+                                class="purecounter"
+                                ></span>
+                            <p>Source Codes</p>
+                        </div>
+                    </div>
                 </div>
-            </div><!-- End testimonial item -->
-            {% endfor %}
+                <div class="col-lg-3 col-md-6" style="border-radius: 5px">
+                    <div class="count-box">
+                        <i class="bi bi-vector-pen" style="color: #15be56"></i>
+                        <div>
+                            <span
+                                data-purecounter-start="0"
+                                data-purecounter-end="{{total_blogs}}"
+                                data-purecounter-duration="1"
+                                class="purecounter"
+                                ></span>
+                            <p>Blogs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" style="border-radius: 5px">
+                    <div class="count-box">
+                        <i class="bi bi-people" style="color: #bb0852"></i>
+                        <div>
+                            <span
+                                data-purecounter-start="0"
+                                data-purecounter-end="15"
+                                data-purecounter-duration="1"
+                                class="purecounter"
+                                ></span>
+                            <p>Supporters</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="swiper-pagination"></div>
-      </div>
-
-    </div>
-
-</section>
-  <!-- ======= Recent Blog Posts Section ======= -->
-  <section id="recent-blog-posts" class="recent-blog-posts">
-    <div class="container" data-aos="fade-up">
-      <header class="section-header">
-        <h2>Blog</h2>
-        <p>Recent posts from our Blog</p>
-      </header>
-      <div class="row">
-        {% for blog in post %}
-          <div class="col-lg-4">
-            <div class="post-box">
-              <div class="post-img">
+    </section>
+    <!-- End Counts Section -->
+    <!-- ======= Pricing Section ======= -->
+    <!--<section id="pricing" class="pricing">
+        <div class="container" data-aos="fade-up">
+          <header class="section-header">
+            <p>It's free</p>
+          </header>
+          <div class="row gy-4 justify-content-md-center" data-aos="fade-left">
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+              <div class="box">
+                <h3 style="color: #07d5c0">Free Plan</h3>
+                <div class="price"><sup>$</sup>0<span> / mo</span></div>
                 <img
-                  src="{{blog.entry_img}}"
+                  src="{% static 'IndexHome/assets/img/pricing-free.png' %}"
                   class="img-fluid"
                   alt=""
                 />
+                <a href="#" class="btn-buy">Create Account</a>
               </div>
-              <span class="post-date">{{blog.date_published|date:"F d"}}</span>
-              <h3 class="post-title">
-                {{blog.title}}
-              </h3>
-              <a href="{% url 'blog:blog_details' blog.pk %}" class="readmore stretched-link mt-auto"
-                ><span>Read More</span><i class="bi bi-arrow-right"></i
-              ></a>
             </div>
           </div>
-        {% empty %}
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-  <!-- End Recent Blog Posts Section -->
-  <!-- ======= Contact Section ======= -->
-  <section id="contact" class="contact">
-    <div class="container" data-aos="fade-up">
-      <header class="section-header">
-        <h2>Contact</h2>
-        <p>Contact Us</p>
-      </header>
-      <div class="row gy-4 justify-content-around">
-        <div class="col-lg-6">
-          <form action="forms/contact.php" method="post" class="php-email-form">
-            <div class="row gy-4">
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  name="name"
-                  class="form-control"
-                  placeholder="Your Name"
-                  required
-                />
-              </div>
-              <div class="col-md-6">
-                <input
-                  type="email"
-                  class="form-control"
-                  name="email"
-                  placeholder="Your Email"
-                  required
-                />
-              </div>
-              <div class="col-md-12">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="subject"
-                  placeholder="Subject"
-                  required
-                />
-              </div>
-              <div class="col-md-12">
-                <textarea
-                  class="form-control"
-                  name="message"
-                  rows="6"
-                  placeholder="Message"
-                  required
-                ></textarea>
-              </div>
-              <div class="col-md-12 text-center">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">
-                  Your message has been sent. Thank you!
+        </div>
+        </section>
+        End Pricing Section --><!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>F.A.Q</h2>
+                <p>Frequently Asked Questions</p>
+            </header>
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- F.A.Q List 1-->
+                    <div class="accordion accordion-flush" id="faqlist1">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-1"
+                                    >
+                                Non consectetur a erat nam at lectus urna duis?
+                                </button>
+                            </h2>
+                            <div
+                                id="faq-content-1"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#faqlist1"
+                                >
+                                <div class="accordion-body">
+                                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id
+                                    volutpat lacus laoreet non curabitur gravida. Venenatis lectus
+                                    magna fringilla urna porttitor rhoncus dolor purus non.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-2"
+                                    >
+                                Feugiat scelerisque varius morbi enim nunc faucibus a
+                                pellentesque?
+                                </button>
+                            </h2>
+                            <div
+                                id="faq-content-2"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#faqlist1"
+                                >
+                                <div class="accordion-body">
+                                    Dolor sit amet consectetur adipiscing elit pellentesque
+                                    habitant morbi. Id interdum velit laoreet id donec ultrices.
+                                    Fringilla phasellus faucibus scelerisque eleifend donec
+                                    pretium. Est pellentesque elit ullamcorper dignissim. Mauris
+                                    ultrices eros in cursus turpis massa tincidunt dui.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-3"
+                                    >
+                                Dolor sit amet consectetur adipiscing elit pellentesque
+                                habitant morbi?
+                                </button>
+                            </h2>
+                            <div
+                                id="faq-content-3"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#faqlist1"
+                                >
+                                <div class="accordion-body">
+                                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices
+                                    sagittis orci. Faucibus pulvinar elementum integer enim. Sem
+                                    nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
+                                    pellentesque eu tincidunt. Lectus urna duis convallis
+                                    convallis tellus. Urna molestie at elementum eu facilisis sed
+                                    odio morbi quis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit">Send Message</button>
-              </div>
+                <div class="col-lg-6">
+                    <!-- F.A.Q List 2-->
+                    <div class="accordion accordion-flush" id="faqlist2">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faq2-content-1"
+                                    >
+                                Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                                </button>
+                            </h2>
+                            <div
+                                id="faq2-content-1"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#faqlist2"
+                                >
+                                <div class="accordion-body">
+                                    Dolor sit amet consectetur adipiscing elit pellentesque
+                                    habitant morbi. Id interdum velit laoreet id donec ultrices.
+                                    Fringilla phasellus faucibus scelerisque eleifend donec
+                                    pretium. Est pellentesque elit ullamcorper dignissim. Mauris
+                                    ultrices eros in cursus turpis massa tincidunt dui.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faq2-content-2"
+                                    >
+                                Tempus quam pellentesque nec nam aliquam sem et tortor
+                                consequat?
+                                </button>
+                            </h2>
+                            <div
+                                id="faq2-content-2"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#faqlist2"
+                                >
+                                <div class="accordion-body">
+                                    Molestie a iaculis at erat pellentesque adipiscing commodo.
+                                    Dignissim suspendisse in est ante in. Nunc vel risus commodo
+                                    viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
+                                    bibendum est. Purus gravida quis blandit turpis cursus in
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faq2-content-3"
+                                    >
+                                Varius vel pharetra vel turpis nunc eget lorem dolor?
+                                </button>
+                            </h2>
+                            <div
+                                id="faq2-content-3"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#faqlist2"
+                                >
+                                <div class="accordion-body">
+                                    Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris
+                                    vitae ultricies leo integer malesuada nunc vel. Tincidunt eget
+                                    nullam non nisi est sit amet. Turpis nunc eget lorem dolor
+                                    sed. Ut venenatis tellus in metus vulputate eu scelerisque.
+                                    Pellentesque diam volutpat commodo sed egestas egestas
+                                    fringilla phasellus faucibus. Nibh tellus molestie nunc non
+                                    blandit massa enim nec.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </form>
         </div>
-        <div class="col-lg-6">
-          <img src="{% static 'IndexHome/assets/img/contact.svg' %}" style="width:95%;margin-top:12%">
+    </section>
+    <section id="team" class="team">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>Team</h2>
+                <p>Developers of CaffeineCode</p>
+            </header>
+            <div class="container">
+                <!-- / End Header Section -->
+                <div class="row justify-content-around">
+                    <!-- Start Single Person -->
+                    <div class="col-sm-6 col-lg-4 col-xl-3">
+                        <div class="single-person">
+                            <div class="person-image">
+                                <img src="{% static 'IndexHome/assets/img/developer.jpg' %}" alt="founder">
+                                <span class="icon">
+                                <i class="bi bi-award"></i>
+                                </span>
+                            </div>
+                            <div class="person-info">
+                                <h3 class="full-name">Rushi Patel</h3>
+                                <span class="speciality">Founder @ CaffeineCode</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="about" class="col-lg-8 d-flex flex-column justify-content-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" >
+                        <div class="single-person" style="background:none;">
+                            <div class="content" >
+                                <span style="font-size: 55px;color:#4154f1;margin-left:-40px;">“</span>
+                                <h3 style="color:#4154f1;font-weight:bold">About Me</h3>
+                                <p style="margin-top:20px;line-height:1.6;">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </p>
+                                <div class="text-center text-lg-start" >
+                                    <a href="#" class="
+                                        btn-read-more
+                                        d-inline-flex
+                                        align-items-center
+                                        justify-content-center
+                                        align-self-center
+                                        " >
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="https://github.com/Developer-R-7" target="_blank" class="facebook"><i class="bi bi-github"></i></a>
+                                <a href="https://www.instagram.com/developer._.r/" target="_blank" class="instagram"
+                                    ><i class="bi bi-instagram bx bxl-instagram"></i
+                                    ></a>
+                                <a href="www.linkedin.com/in/rushi-patel-5a5b951ba" target="_blank" class="linkedin"
+                                    ><i class="bi bi-linkedin bx bxl-linkedin"></i
+                                    ></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / End Single Person -->
+                </div>
+            </div>
+            <div class="row gy-4"></div>
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Contact Section -->
+    </section>
+    <!-- End Team Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>CATEGORY</h2>
+                <p>Explore our blogs by category</p>
+            </header>
+            <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="swiper-wrapper">
+                    {% for cat_name in category %}
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <a href="{% url 'blog:category' category_slug=cat_name.name %}">
+                                <center><img src="{{cat_name.cat_img}}" style="width:80%;" class="img-fluid" alt=""></center>
+                            </a>
+                            <h3 class="cat_explore">{{cat_name.name}}</h3>
+                        </div>
+                    </div>
+                    <!-- End testimonial item -->
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+    <!-- ======= Recent Blog Posts Section ======= -->
+    <section id="recent-blog-posts" class="recent-blog-posts">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>Blog</h2>
+                <p>Recent posts from our Blog</p>
+            </header>
+            <div class="row">
+                {% for blog in post %}
+                <div class="col-lg-4">
+                    <div class="post-box">
+                        <div class="post-img">
+                            <img
+                                src="{{blog.entry_img}}"
+                                class="img-fluid"
+                                alt=""
+                                />
+                        </div>
+                        <span class="post-date">{{blog.date_published|date:"F d"}}</span>
+                        <h3 class="post-title">
+                            {{blog.title}}
+                        </h3>
+                        <a href="{% url 'blog:blog_details' blog.pk %}" class="readmore stretched-link mt-auto"
+                            ><span>Read More</span><i class="bi bi-arrow-right"></i
+                            ></a>
+                    </div>
+                </div>
+                {% empty %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- End Recent Blog Posts Section -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>Contact</h2>
+                <p>Contact Us</p>
+            </header>
+            <div class="row gy-4 justify-content-around">
+                <div class="col-lg-6">
+                    <form action="forms/contact.php" method="post" class="php-email-form">
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    class="form-control"
+                                    placeholder="Your Name"
+                                    required
+                                    />
+                            </div>
+                            <div class="col-md-6">
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    name="email"
+                                    placeholder="Your Email"
+                                    required
+                                    />
+                            </div>
+                            <div class="col-md-12">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="subject"
+                                    placeholder="Subject"
+                                    required
+                                    />
+                            </div>
+                            <div class="col-md-12">
+                                <textarea
+                                    class="form-control"
+                                    name="message"
+                                    rows="6"
+                                    placeholder="Message"
+                                    required
+                                    ></textarea>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">
+                                    Your message has been sent. Thank you!
+                                </div>
+                                <button type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'IndexHome/assets/img/contact.svg' %}" style="width:95%;margin-top:12%">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Contact Section -->
 </main>
 <!-- End #main -->
 <!-- ======= Footer ======= -->
 <footer id="footer" class="footer">
-  <div class="footer-newsletter">
+    <div class="footer-newsletter">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <h4>Our Newsletter</h4>
+                    <p>
+                        Receive regular updates and announcement by subscibing to our Newsletter
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <script>
+                        function delay(callback, ms) {
+                          var timer = 0;
+                          return function () {
+                            var context = this,
+                              args = arguments;
+                            clearTimeout(timer);
+                            timer = setTimeout(function () {
+                              callback.apply(context, args);
+                            }, ms || 0);
+                          };
+                        }
+                        $(document).ready(function () {
+                        // catch the form's submit event
+                        $("#letter").keyup(
+                          delay(function (e) {
+                            // create an AJAX call
+                            $.ajax({
+                              data: $(this).serialize(), // get the form data
+                              url: "{% url 'IndexHome:newsletter' %}",
+                              // on success
+                              success: function (response) {
+                                if (response.is_subscribe == true) {
+                                  $("#error").html("Email already subscribed!");
+                                  $(".enableOnInput").prop("disabled", true);
+                                }else if(response.is_subscribe == "None") {
+                                  $("#error").html("Failed Request");
+                                }
+                                else {
+                                  $(".enableOnInput").prop("disabled", false);
+                                  $("#error").html("");
+                                }
+                              },
+                              // on error
+                              error: function (response) {
+                                // alert the error if any error occured
+                                console.log(response.responseJSON.errors);
+                              },
+                            });
+                            return false;
+                          }, 500)
+                        );
+                        });
+                    </script>
+                    <form action="{% url 'IndexHome:newsletter' %}" method="post">
+                        {% csrf_token %}
+                        <input type="email" required title="enter your mail" id="letter" name="newsletter" /><input
+                            type="submit"
+                            class="enableOnInput"
+                            value="Subscribe"
+                            />
+                    </form>
+                    <div
+                        id="error"
+                        style="color: red; font-size: 15px; margin-top: 12px;"
+                        ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-top">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-5 col-md-12 footer-info">
+                    <a href="index.html" class="logo d-flex align-items-center">
+                    <span>CaffeineCode</span>
+                    </a>
+                    <p>
+                        Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada
+                        terra videa magna derita valies darta donna mare fermentum iaculis
+                        eu non diam phasellus.
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"
+                            ><i class="bi bi-instagram bx bxl-instagram"></i
+                            ></a>
+                        <a href="#" class="linkedin"
+                            ><i class="bi bi-linkedin bx bxl-linkedin"></i
+                            ></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i> <a href="#">About us</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i> <a href="#">Services</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i>
+                            <a href="#">Terms of service</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6 footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li>
+                            <i class="bi bi-chevron-right"></i> <a href="#">Web Design</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i>
+                            <a href="#">Web Development</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i>
+                            <a href="#">Product Management</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i> <a href="#">Marketing</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a>
+                        </li>
+                    </ul>
+                </div>
+                <div
+                    class="col-lg-3 col-md-12 footer-contact text-center text-md-start"
+                    >
+                    <h4>Developer Contact</h4>
+                    <p>
+                        A108 Adam Street <br />
+                        New York, NY 535022<br />
+                        United States <br /><br />
+                        <strong>Phone:</strong> +1 5589 55488 55<br />
+                        <strong>Email:</strong>rushinasa06@gmail.com<br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-12 text-center">
-          <h4>Our Newsletter</h4>
-          <p>
-            Receive regular updates and announcement by subscibing to our Newsletter
-          </p>
+        <div class="credits">
+            Possibly used Front-end part of <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
-
-        <div class="col-lg-6">
-          <script>
-            function delay(callback, ms) {
-              var timer = 0;
-              return function () {
-                var context = this,
-                  args = arguments;
-                clearTimeout(timer);
-                timer = setTimeout(function () {
-                  callback.apply(context, args);
-                }, ms || 0);
-              };
-            }
-            $(document).ready(function () {
-            // catch the form's submit event
-            $("#letter").keyup(
-              delay(function (e) {
-                // create an AJAX call
-                $.ajax({
-                  data: $(this).serialize(), // get the form data
-                  url: "{% url 'IndexHome:newsletter' %}",
-                  // on success
-                  success: function (response) {
-                    if (response.is_subscribe == true) {
-                      $("#error").html("Email already subscribed!");
-                      $(".enableOnInput").prop("disabled", true);
-                    }else if(response.is_subscribe == "None") {
-                      $("#error").html("Failed Request");
-                    }
-                    else {
-                      $(".enableOnInput").prop("disabled", false);
-                      $("#error").html("");
-                    }
-                  },
-                  // on error
-                  error: function (response) {
-                    // alert the error if any error occured
-                    console.log(response.responseJSON.errors);
-                  },
-                });
-                return false;
-              }, 500)
-            );
-          });
-          </script>
-          <form action="{% url 'IndexHome:newsletter' %}" method="post">
-            {% csrf_token %}
-            <input type="email" required title="enter your mail" id="letter" name="newsletter" /><input
-              type="submit"
-              class="enableOnInput"
-              value="Subscribe"
-            />
-          </form>
-          <div
-            id="error"
-            style="color: red; font-size: 15px; margin-top: 12px;"
-          ></div>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="footer-top">
-    <div class="container">
-      <div class="row gy-4">
-        <div class="col-lg-5 col-md-12 footer-info">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span>CaffeineCode</span>
-          </a>
-          <p>
-            Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada
-            terra videa magna derita valies darta donna mare fermentum iaculis
-            eu non diam phasellus.
-          </p>
-          <div class="social-links mt-3">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"
-              ><i class="bi bi-instagram bx bxl-instagram"></i
-            ></a>
-            <a href="#" class="linkedin"
-              ><i class="bi bi-linkedin bx bxl-linkedin"></i
-            ></a>
-          </div>
-        </div>
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-            <li>
-              <i class="bi bi-chevron-right"></i> <a href="#">About us</a>
-            </li>
-            <li>
-              <i class="bi bi-chevron-right"></i> <a href="#">Services</a>
-            </li>
-            <li>
-              <i class="bi bi-chevron-right"></i>
-              <a href="#">Terms of service</a>
-            </li>
-            <li>
-              <i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li>
-              <i class="bi bi-chevron-right"></i> <a href="#">Web Design</a>
-            </li>
-            <li>
-              <i class="bi bi-chevron-right"></i>
-              <a href="#">Web Development</a>
-            </li>
-            <li>
-              <i class="bi bi-chevron-right"></i>
-              <a href="#">Product Management</a>
-            </li>
-            <li>
-              <i class="bi bi-chevron-right"></i> <a href="#">Marketing</a>
-            </li>
-            <li>
-              <i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a>
-            </li>
-          </ul>
-        </div>
-        <div
-          class="col-lg-3 col-md-12 footer-contact text-center text-md-start"
-        >
-          <h4>Developer Contact</h4>
-          <p>
-            A108 Adam Street <br />
-            New York, NY 535022<br />
-            United States <br /><br />
-            <strong>Phone:</strong> +1 5589 55488 55<br />
-            <strong>Email:</strong>rushinasa06@gmail.com<br />
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="credits">
-      Possibly used Front-end part of <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </div>
 </footer>
 {% endblock body %}
 {% block explore %}
-
 {% endblock explore %}
