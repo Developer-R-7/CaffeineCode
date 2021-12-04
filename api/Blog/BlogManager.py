@@ -83,3 +83,18 @@ class PostAPI():
             return self.blog_post.filter(Q(title__icontains=query) | Q(body__icontains=query) | Q(blog_snipet__icontains=query)).order_by('-modified')
         except:
             raise Exception("Error in search_sys")
+    
+    def like(self,pk,request):
+        post = get_object_or_404(self.post_instance, id=pk)
+        result = ''
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+            post.likes_count -= 1
+            result = post.likes_count
+            post.save()
+        else:
+            post.likes.add(request.user)
+            post.likes_count += 1
+            result = post.likes_count
+            post.save()
+        return result

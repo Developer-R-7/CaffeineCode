@@ -1,6 +1,4 @@
-from typing import List
-from .models import Post
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect
 from django.views.generic import ListView
 from taggit.models import Tag
 from hitcount.views import HitCountDetailView
@@ -112,19 +110,10 @@ class SearchView(ListView):
 def like_sys(request):
     if request.user.is_authenticated and request.user.is_active:
         if request.method == "POST":
+            blog_connector = PostAPI()
             result = ''
             pk_value = int(request.POST.get("postid"))
-            post = get_object_or_404(Post, id=pk_value)
-            if post.likes.filter(id=request.user.id).exists():
-                post.likes.remove(request.user)
-                post.likes_count -= 1
-                result = post.likes_count
-                post.save()
-            else:
-                post.likes.add(request.user)
-                post.likes_count += 1
-                result = post.likes_count
-                post.save()
-            return JsonResponse({"result": result, })
+            post = blog_connector.like(pk_value,request)
+            return JsonResponse({"result": post})
     else:
         return redirect("/blog/")
