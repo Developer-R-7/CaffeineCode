@@ -7,6 +7,7 @@ class PostAPI():
 
     def __init__(self):
         self.blog_post =  Post.objects.all()
+        self.post_instance = Post
 
     def get_category(self):
         category = Category.objects.all()[:6]

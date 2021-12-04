@@ -1,3 +1,4 @@
+from django.contrib.auth import models
 from .models import Post
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
@@ -9,25 +10,30 @@ from api.Blog.BlogManager import PostAPI
 
 
 class HomeView(ListView):
-    model = Post
+
+    blog_connector = PostAPI()
+    
+    model = blog_connector.post_instance
     template_name = "blog/index.html"
     ordering = ['-date_published', '-hit_count_generic__hits']
     paginate_by = 5
+
     def get_context_data(self, **kwargs):
-        blog_connector = PostAPI()
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['editor'] = blog_connector.get_editor_post()
-        context['most_used_tag'] = blog_connector.get_most_tags_used()
-        context['trending_post'] = blog_connector.get_most_viewed()
-        context['this_month'] = blog_connector.get_this_month()
-        context['most_like'] = blog_connector.get_most_liked_post()
-        context['category'] = blog_connector.get_category()
+        context['editor'] = self.blog_connector.get_editor_post()
+        context['most_used_tag'] = self.blog_connector.get_most_tags_used()
+        context['trending_post'] = self.blog_connector.get_most_viewed()
+        context['this_month'] = self.blog_connector.get_this_month()
+        context['most_like'] = self.blog_connector.get_most_liked_post()
+        context['category'] = self.blog_connector.get_category()
         return context
 
 class PostByTags(ListView):
+
+    blog_connector = PostAPI()
+
     def get_queryset(self):
-        self.blog_connector = PostAPI()
-        self.model = Post
+        self.model = self.blog_connector.post_instance
         self.template_name = 'blog/blogtag.html'
         self.tag_slug = self.kwargs['tag_slug']
         self.paginate_by = 5
@@ -45,25 +51,28 @@ class PostByTags(ListView):
         return context
 
 class ArticleDetailView(HitCountDetailView):
-    model = Post
+
+    blog_connector = PostAPI()
+
+    model = blog_connector.post_instance
     template_name = 'blog/blogsingle.html'
     count_hit = True
 
     def get_context_data(self, **kwargs):
-        blog_connector = PostAPI()
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
         get_all_tags = context['post'].tags.all()
-        context['similar_post'] = blog_connector.get_similar_post(get_all_tags,self.kwargs.get('pk'))
-        context['is_liked'] = blog_connector.is_post_like(Post,self.kwargs['pk'],self.request.user.id)
-        context['category'] = blog_connector.get_category()
-        context['category_post'] = blog_connector.get_PostByCategory(context['post'].category).exclude(pk=context['post'].pk)[:3]
+        context['similar_post'] = self.blog_connector.get_similar_post(get_all_tags,self.kwargs.get('pk'))
+        context['is_liked'] = self.blog_connector.is_post_like(self.blog_connector.post_instance,self.kwargs['pk'],self.request.user.id)
+        context['category'] = self.blog_connector.get_category()
+        context['category_post'] = self.blog_connector.get_PostByCategory(context['post'].category).exclude(pk=context['post'].pk)[:3]
         return context
 
 class PostByCategory(ListView):
 
+    blog_connector = PostAPI()
+
     def get_queryset(self):
-        self.blog_connector = PostAPI()
-        self.model = Post
+        self.model = self.blog_connector.post_instance
         self.template_name = 'blog/category.html'
         self.category_slug = self.kwargs['category_slug']
         self.paginate_by = 5 
