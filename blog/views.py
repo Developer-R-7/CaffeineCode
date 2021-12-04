@@ -108,16 +108,6 @@ class SearchView(ListView):
         context['query'] = self.query
         return context
     
-def search_sys(request):
-    if request.method == "GET":
-        blog_connector = PostAPI()
-        query = request.GET.get('search_query')
-        posts = blog_connector.search(query)
-        most_like_post = blog_connector.get_most_liked_post()
-        category = blog_connector.get_category() 
-        return render(request, 'blog/search.html', {'query': query, 'result': posts, 'most_liked': most_like_post, 'category': category})
-
-
 
 def like_sys(request):
     if request.user.is_authenticated and request.user.is_active:
