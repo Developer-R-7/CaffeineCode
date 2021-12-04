@@ -1,11 +1,10 @@
-from __future__ import absolute_import, unicode_literals
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
-from celery import shared_task
+from caffeinecode.celery import app
 
-@shared_task
+@app.task
 def SendOTP(email,otp):
     html_content = render_to_string("IndexHome/email.html",{'otp':otp,'email':email})
     text_content = strip_tags(html_content)
