@@ -1,7 +1,5 @@
-from typing import List
 from django.urls import path
 from .views import HomeView, ArticleDetailView, like_sys, PostByTags, PostByCategory,SearchView
-from . import views
 app_name = "blog"
 urlpatterns = [
     path('', HomeView.as_view(), name="index"),
