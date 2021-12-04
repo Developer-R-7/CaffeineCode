@@ -1,4 +1,4 @@
-from django.contrib.auth import models
+from typing import List
 from .models import Post
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
@@ -12,7 +12,7 @@ from api.Blog.BlogManager import PostAPI
 class HomeView(ListView):
 
     blog_connector = PostAPI()
-    
+
     model = blog_connector.post_instance
     template_name = "blog/index.html"
     ordering = ['-date_published', '-hit_count_generic__hits']
@@ -88,7 +88,25 @@ class PostByCategory(ListView):
         context['result'] = True
         return context
         
+class SearchView(ListView):
+    
+    blog_connector = PostAPI()
 
+    def get_queryset(self):
+        self.model = self.blog_connector.post_instance
+        self.template_name = 'blog/search.html'
+        self.paginate_by = 5 
+        self.query = self.request.GET.get('search_query')
+        queryset = self.blog_connector.search(self.query)
+        return queryset
+
+    def get_context_data(self,**kwargs):
+        context = super(SearchView, self).get_context_data(**kwargs)
+        context['most_like'] = self.blog_connector.get_most_liked_post()
+        context['most_tags'] = self.blog_connector.get_most_tags_used()
+        context['category'] = self.blog_connector.get_category()
+        context['query'] = self.query
+        return context
     
 def search_sys(request):
     if request.method == "GET":

@@ -16,7 +16,7 @@
 {% load static %}
 <div class="container" data-aos="fade-up">
     <h2>
-        {% with result.count as total_result %} Found {{total_result}} result with
+        {% with object_list.count as total_result %} Found {{total_result}} result with
         "{{query}}" {% endwith %}
     </h2>
 </div>
@@ -27,8 +27,8 @@
     <center>ADS TO BE SHOWN HERE</center>
 </article>
 {% endif %} 
-{% if result %} 
-{% for post in result %}
+{% if object_list %} 
+{% for post in object_list %}
 <article class="entry">
     <div class="entry-img">
         <img src="{{post.entry_img}}" alt="" class="img-fluid" />
@@ -60,7 +60,8 @@
         </div>
     </div>
 </article>
-{% endfor %} {% else %}
+{% endfor %} 
+{% else %}
 <article class="entry">
     <div class="entry-img">
         <img
@@ -73,12 +74,14 @@
         No results Found!
     </div>
 </article>
-{% endif %} {% endblock article %} {% block pagination %} {% endblock pagination %} 
+{% endif %} 
+{% endblock article %} 
+{% block pagination %} {% endblock pagination %} 
 {% block sidebar %}
 <div class="sidebar">
     <h3 class="sidebar-title mb-4">Most Liked Posts</h3>
     <div class="sidebar-item recent-posts">
-        {% for mostlike in most_liked %}
+        {% for mostlike in most_like %}
         <div class="post-item clearfix">
             <img src="{{mostlike.entry_img}}" alt="" />
             <h4>
@@ -94,11 +97,22 @@
 <div class="sidebar">
     <h3 class="sidebar-title mb-4">Search By Tags</h3>
     <div class="sidebar-item tags">
-        <ul></ul>
+        <ul>
+            {% for used_tag in most_tags %}
+            <li>
+                <a href="{% url 'blog:post_list_by_tags' used_tag.slug %}"
+                    >{{used_tag}}</a
+                    >
+            </li>
+            {%endfor%}
+        </ul>
     </div>
 </div>
-{% endblock sidebar %} {% block category %} {% for name in category %}
+{% endblock sidebar %} 
+{% block category %} 
+{% for name in category %}
 <li>
     <a href="{% url 'blog:category' category_slug=name.name %}">{{name.name}}</a>
 </li>
-{% endfor %} {% endblock category %}
+{% endfor %} 
+{% endblock category %}
