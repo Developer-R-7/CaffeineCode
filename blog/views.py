@@ -1,10 +1,8 @@
-from .models import Post, Category
+from .models import Post
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
 from taggit.models import Tag
-from django.db.models import Q
 from hitcount.views import HitCountDetailView
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from api.Blog.BlogManager import PostAPI
 # Create your views here.
@@ -33,9 +31,8 @@ class PostByTags(ListView):
         self.template_name = 'blog/blogtag.html'
         self.tag_slug = self.kwargs['tag_slug']
         self.paginate_by = 5
-        self.ordering = ['-hit_count_generic__hits','-likes_count','-date_published']
-        self.tag = get_object_or_404(Tag, slug=self.tag_slug)   
-        queryset = self.blog_connector.get_PostByTags_model(self.tag)
+        self.ordering = ['-hit_count_generic__hits','-likes_count','-date_published'] 
+        queryset = self.blog_connector.get_PostByTags_model(Tag,tag_slug=self.tag_slug)
         return queryset
 
     def get_context_data(self,**kwargs):
@@ -86,15 +83,15 @@ class PostByCategory(ListView):
     
 def search_sys(request):
     if request.method == "GET":
+        blog_connector = PostAPI()
         query = request.GET.get('search_query')
-        posts = Post.objects.filter(Q(title__icontains=query) | Q(
-            body__icontains=query) | Q(blog_snipet__icontains=query)).order_by('-modified')
-        most_like_post = Post.objects.all().order_by('-likes_count')[:5]
-        cat = Category.objects.all()[:6]
-        return render(request, 'blog/search.html', {'query': query, 'result': posts, 'most_liked': most_like_post, 'category': cat})
+        posts = blog_connector.search(query)
+        most_like_post = blog_connector.get_most_liked_post()
+        category = blog_connector.get_category() 
+        return render(request, 'blog/search.html', {'query': query, 'result': posts, 'most_liked': most_like_post, 'category': category})
 
 
-@login_required(login_url='IndexHome:index')
+
 def like_sys(request):
     if request.user.is_authenticated and request.user.is_active:
         if request.method == "POST":

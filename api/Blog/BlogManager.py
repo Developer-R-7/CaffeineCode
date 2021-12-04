@@ -1,6 +1,6 @@
 import datetime
 from blog.models import Category,Post
-from django.db.models import Count
+from django.db.models import Count,Q
 from django.shortcuts import get_object_or_404
 
 class PostAPI():
@@ -65,13 +65,20 @@ class PostAPI():
         except:
             return None
 
-    def get_PostByTags_model(self,tag):
-        #try:
-        return self.blog_post.filter(tags__in=[tag]).order_by('-hit_count_generic__hits')
-        #except:
-            #raise Exception(" PostBy TAGS ERROR")
+    def get_PostByTags_model(self,Tag,tag_slug):
+        try:
+            tag = get_object_or_404(Tag, slug=tag_slug) 
+            return self.blog_post.filter(tags__in=[tag]).order_by('-hit_count_generic__hits')
+        except:
+            raise Exception(" PostBy TAGS ERROR")
     def get_PostByCategory(self,category_slug):
         try:
             return self.blog_post.filter(category__name=category_slug).order_by('-hit_count_generic__hits','-likes_count','-date_published')
         except:
             raise Exception("Error in postby catgroy")
+    
+    def search(self,query):
+        try:
+            return self.blog_post.filter(Q(title__icontains=query) | Q(body__icontains=query) | Q(blog_snipet__icontains=query)).order_by('-modified')
+        except:
+            raise Exception("Error in search_sys")
