@@ -1789,8 +1789,8 @@ section {
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  font-weight: 300;
-  font-family: 'Montserrat';
+  font-weight: 400;
+  font-family: 'Nunito' sans-serif;
 }
 
 .blog .entry .entry-content .read-more {
