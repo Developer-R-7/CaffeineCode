@@ -128,16 +128,42 @@ class profile_manager():
 
     def delete_field(self, id):
         try:
-            query = Profile.objects.filter(account_id=id).update(
-                otp=None, fail_attepmt=None)
+            query = Profile.objects.filter(account_id=id).update(otp=None, fail_attepmt=None)
             query.save()
         except:
             raise Exception("'delete_field' failed!")
 
     def createProfile(self, user_obj, id, mail):
-        try:
-            profile_obj = Profile.objects.create(
-                user=user_obj, account_id=id, user_email=mail)
-            profile_obj.save()
-        except:
-            raise Exception("Create profile failed")
+        # try:
+        profile_obj = Profile.objects.create(user=user_obj, account_id=id, user_email=mail)
+        profile_obj.save()
+        # except:
+        #     raise Exception("Create profile failed")
+    
+    def check_account_id(self,id):
+        # try:
+        return Profile.objects.filter(account_id=id).exists()
+        # except:
+            # raise Exception("CHECK_ACCOUNT_ID failed")
+    
+    def get_key(self,id):
+        query = self.search_user_with_id(id)
+        return query.key.encode('utf-8')
+
+    def get_encrypted_string(self,mail,key):
+        return self.encrypt(mail.encode('utf-8'),key)
+        
+    def get_decrypted_string(self,mail_hash,id):
+        return self.decrypt(mail_hash,self.get_key(id))
+
+    def encrypt(self,message: bytes, key: bytes):
+        return Fernet(key).encrypt(message)
+    
+    def decrypt(self,token: bytes, key: bytes):
+        return Fernet(key).decrypt(token)
+    
+    def check_account_id(self,id):
+        # try:
+        return Profile.objects.filter(account_id=id).exists()
+        # except:
+            # raise Exception("CHECK_ACCOUNT_ID failed")

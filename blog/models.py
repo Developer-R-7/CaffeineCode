@@ -25,14 +25,11 @@ class Post(models.Model):
     entry_img = models.URLField()
     tags = TaggableManager()
     modified = models.DateTimeField(auto_now=True)
-    hit_count_generic = GenericRelation(
-        HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
-    author_conculsion = models.CharField(
-        max_length=300, default="No Author Review")
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
+    author_conculsion = models.CharField(max_length=300, default="No Author Review")
     readtime_min = models.IntegerField(default=0)
     editor_choice = models.BooleanField(default=False)
-    likes = models.ManyToManyField(
-        User, default=None, blank=True, related_name='post_likes')
+    likes = models.ManyToManyField(User, default=None, blank=True, related_name='post_likes')
     likes_count = models.BigIntegerField(default='0')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
 

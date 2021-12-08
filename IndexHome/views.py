@@ -1,13 +1,12 @@
 # ALL IMPORTS
 from django.http.response import HttpResponse
-from . models import Profile , Newsletter , Notify
+from . models import Newsletter , Notify
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
+from api.User.UserManager import UserAPI
 from django.contrib import auth
-from django.utils.crypto import get_random_string
 from django.http import JsonResponse
 from api.Profiles.ProfileManager import profile_manager
-from cryptography.fernet import Fernet
 from django.views.decorators.cache import never_cache
 from blog.models import Post,Category
 from .task import SendOTP
@@ -25,8 +24,7 @@ def verify(request, mail_hash, id):
     try:
         verify_manager = profile_manager()
         get_user = verify_manager.search_user_with_id(id)
-        decrypt_email = DeCrypt(mail_hash.encode(
-            'utf-8'), get_user.key.encode('utf-8'))  # this is a bytes
+        decrypt_email = verify_manager.get_decrypted_string(mail_hash.encode('utf-8'),id)  # this is a bytes
         is_user_verify = verify_manager.is_user_verify(decrypt_email)
     except:
         return render(request, "IndexHome/error.html", {'error': "Unauthorized Access ", "status": "high"})
@@ -69,8 +67,7 @@ def resend_otp(request, mail_hash, acc_id, request_otp):
         try:
             verify_manager = profile_manager()
             get_user = verify_manager.search_user_with_id(acc_id)
-            email = DeCrypt(mail_hash.encode('utf-8'),
-                            get_user.key.encode('utf-8'))
+            email = verify_manager.get_decrypted_string(mail_hash.encode('utf-8'),acc_id)
         except:
             return render(request, "IndexHome/error.html", {'error': "Unauthorized request send", "status": "high"})
         if get_user.resend_request <= 3:
@@ -83,12 +80,6 @@ def resend_otp(request, mail_hash, acc_id, request_otp):
         raise Exception("false request")
 
 
-def EnCrypt(message: bytes, key: bytes):
-    return Fernet(key).encrypt(message)
-
-
-def DeCrypt(token: bytes, key: bytes):
-    return Fernet(key).decrypt(token)
 
 
 # UTILS FUNCTIONS
@@ -97,17 +88,10 @@ def test(request):
     return HttpResponse('MAIL SENT SUCCEFULLY')
 
 
-def check_acc_id(id):
-    query = list(Profile.objects.filter(account_id=id).values_list('account_id', flat=True))
-    if len(query) == 0:
-        return True
-    else:
-        return False
 
 
-def generate_id():
-    account_id_generate = get_random_string(8, allowed_chars='0123456789')
-    return account_id_generate
+
+
 
 
 # USER FORM ACTION
@@ -120,33 +104,31 @@ def signin(request):
             try:
                 sign_in_email = request.POST.get('email', 'default')
                 sign_in_password = request.POST.get('password', 'default')
+                user_connector = UserAPI()
             except:
                 return render('IndexHome/error.html', {"error": 'Bypass blocked', "status": "high"})
-            data_get = User.objects.filter(email=sign_in_email)
-            if data_get.first() is None:
+    
+            if user_connector.is_user_has_account(sign_in_email) is False:
                 return render(request, 'IndexHome/login.html', {"error": "You don't have account linked with this mail","create_account":True})
             else:
-                # try:
-                username = [data for data in data_get]
-                user = auth.authenticate(
-                    username=username[0], password=sign_in_password)
-                verify_manager = profile_manager()
-                if user is not None and user.is_active:
-                    if verify_manager.is_user_verify(sign_in_email) is True:
-                        auth.login(request, user)
-                        if request.session["is_redirect"] == True:
-                            return redirect("/blog/article/{}".format(request.session["pk_to_redirect"]))
+                try:
+                    user = auth.authenticate(username=user_connector.get_username(sign_in_email), password=sign_in_password)
+                    if user is not None and user.is_active:
+                        if user_connector.is_user_verify(sign_in_email):
+                            auth.login(request, user)
+                            if request.session["is_redirect"] == True:
+                                return redirect("/blog/article/{}".format(request.session["pk_to_redirect"]))
+                            else:
+                                return redirect('/dashboard/home')
                         else:
-                            return redirect('/dashboard/home')
+                            get_user = user_connector.search_user_with_account_mail(sign_in_email)
+                            ver_req = user_connector.get_encrypted_string(sign_in_email,user_connector.get_key(get_user.account_id))
+                            request.session['main_verify'] = True
+                            return render(request, 'IndexHome/login.html', {"error": "Account not verified", "verify_request": True, "mail_en": ver_req.decode('utf-8'), "id": get_user.account_id})
                     else:
-                        get_user = verify_manager.search_user_with_account_mail(sign_in_email)
-                        ver_req = EnCrypt(sign_in_email.encode(), get_user.key.encode('utf-8'))
-                        request.session['main_verify'] = True
-                        return render(request, 'IndexHome/login.html', {"error": "Account not verified", "verify_request": True, "mail_en": ver_req.decode('utf-8'), "id": get_user.account_id})
-                else:
-                    return render(request, 'IndexHome/login.html', {"error": "Incorrect email or password"})
-                # except:
-                    # return render(request, 'IndexHome/error.html', {'error': "Error Signin ,Please contact support.", "status": "medium"})
+                        return render(request, 'IndexHome/login.html', {"error": "Incorrect email or password"})
+                except:
+                    return render(request, 'IndexHome/error.html', {'error': "Error Signin ,Please contact support.", "status": "high"})
         else:
             try:
                 pk_value = request.GET.get("blog-redirect-id")
@@ -160,45 +142,27 @@ def signin(request):
 @never_cache
 def signup(request):
     if request.user.is_authenticated:
-        return render(request, "IndexHome/error.html", {"error": "User Already Login", "status": "low"})
+        return render(request, "IndexHome/index.html")
     else:
         if request.method == "POST":
             try:
                 data_email = request.POST.get("email")
                 data_name = request.POST.get("username")
                 data_pass = request.POST.get("password")
+                user_connector = UserAPI()
             except:
                 return render(request, "IndexHome/error.html", {"error": "By Pass blocked!", "status": "high"})
-            # try:
-            if User.objects.filter(email=data_email).first():
-                return render(request, 'IndexHome/signup.html', {"error": "You Already Have account linked with this mail"})
-            else:
-                if User.objects.filter(username=data_name).first():
-                    return render(request, 'IndexHome/error.html', {"error": "Unauthorized access", "status": "high"})
+            try:
+                if user_connector.is_user_has_account(data_email):
+                    return render(request, 'IndexHome/signup.html', {"error": "You Already Have account linked with this mail"})
                 else:
-                    # try:
-                    user_obj = User.objects.create(
-                        username=data_name, email=data_email)
-                    user_obj.set_password(data_pass)
-                    user_obj.save()
-                    id_generated = generate_id()
-                    if check_acc_id(id_generated):
-                        verify_handler = profile_manager()
-                        verify_handler.createProfile(
-                            user_obj, id_generated, data_email)
-                        verify_handler.add_otp(id_generated) # sending mail here of signup
-                        get_user = verify_handler.search_user_with_id(
-                            id_generated)
-                        encrypted = EnCrypt(
-                            data_email.encode(), get_user.key.encode('utf-8'))
-                        return redirect('/verify/{}/{}/'.format(encrypted.decode('utf-8'), id_generated))
+                    if user_connector.check_same_username():
+                        return render(request, 'IndexHome/error.html', {"error": "Unauthorized access", "status": "high"})
                     else:
-                        # check for same account id
-                        return render(request, 'IndexHome/error.html', {"error": "Server Error Please Try again", "status": "medium"})
-                    # except:
-                        # return render(request,'IndexHome/error.html',{'error':"Failed To create Account ,Please contact support","status":"high"})
-            # except:
-                # return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support.","status":"high"})
+                        get_params = user_connector.create_account(data_name,data_email,data_pass)
+                        return redirect('/verify/{}/{}/'.format(get_params[0].decode('utf-8'),get_params[1]))
+            except:
+                return render(request,'IndexHome/error.html',{'error':"Oops! Somethings went wrong ,Please contact support.","status":"high"})
         else:
             return render(request, 'IndexHome/signup.html')
 
@@ -213,21 +177,13 @@ def logout(request):
 
 def forgot(request):
     if request.method == "POST":
-        user_found = False
         try:
-            verify_manager = profile_manager()
+            user_connector = UserAPI()
             mail_to_request = request.POST.get("email")
-            get_user = verify_manager.search_user_with_account_mail(
-                mail_to_request)
-            try:
-                check = User.objects.get(email=mail_to_request)
-                user_found = True
-            except User.DoesNotExist:
-                return render(request, 'IndexHome/forgot.html', {"warning": True})
-            if user_found:
-                if verify_manager.is_user_verify(mail_to_request):
-                    verify_manager.generate_only_otp(get_user.account_id)
-                    #SendOTP(mail_to_request, OTP_GEN_VER)
+            get_user_id = (user_connector.search_user_with_account_mail(mail_to_request)).account_id
+            if user_connector.is_user_has_account(mail_to_request):
+                if user_connector.is_user_verify(mail_to_request):
+                    user_connector.generate_only_otp(get_user_id)
                     request.session['email'] = mail_to_request
                     return render(request, "IndexHome/forgot-final.html")
                 else:
@@ -249,12 +205,10 @@ def forgot_final(request):
         try:
             get_code = request.POST.get("code")
             get_new_pass = request.POST.get("password")
-            verify_manager = profile_manager()
-            get_user = verify_manager.search_user_with_account_mail(mail)
-            if verify_manager.verify_otp(get_user.account_id,get_code):
-                change_user = User.objects.get(email=mail)
-                change_user.set_password(get_new_pass)
-                change_user.save()
+            user_connector = UserAPI()
+            get_user = user_connector.search_user_with_account_mail(mail)
+            if user_connector.verify_otp(get_user.account_id,get_code):
+                user_connector.set_user_password(mail,get_new_pass)
                 return render(request, 'IndexHome/error.html', {"error": "Your Password Changed successful", "status": "low"})
             else:
                 return render(request, 'IndexHome/forgot-final.html', {"error": "Incorrect Verifcation code"})
