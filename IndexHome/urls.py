@@ -4,7 +4,6 @@ from . import views
 app_name = 'IndexHome'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('test/', views.test, name='test'),
     path('checksessiondata/', views.check_user, name="check_user"),
     path('verify/<str:mail_hash>/<int:id>/', views.verify,name="verify"),  # merging request_otp url
     path('verify/<str:mail_hash>/<int:acc_id>/?request_otp=<str:request_otp>',views.resend_otp, name="verify_resend"),

@@ -1,15 +1,13 @@
 # ALL IMPORTS
-from django.http.response import HttpResponse
 from . models import Newsletter , Notify
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from api.User.UserManager import UserAPI
 from django.contrib import auth
 from django.http import JsonResponse
-from api.Profiles.ProfileManager import profile_manager
 from django.views.decorators.cache import never_cache
 from blog.models import Post,Category
-from .task import SendOTP
+from api.User.UserManager import UserAPI
+from api.Profiles.ProfileManager import profile_manager
 # CLIENT-SIDE FUNCTIONS
 def check_user(request):
     username = request.GET.get('username', None)
@@ -22,29 +20,29 @@ def check_user(request):
 # VERIFY FUNCTIONS
 def verify(request, mail_hash, id):
     try:
-        verify_manager = profile_manager()
-        get_user = verify_manager.search_user_with_id(id)
-        decrypt_email = verify_manager.get_decrypted_string(mail_hash.encode('utf-8'),id)  # this is a bytes
-        is_user_verify = verify_manager.is_user_verify(decrypt_email)
+        profile_connector = profile_manager()
+        get_user = profile_connector.search_user_with_id(id)
+        decrypt_email = profile_connector.get_decrypted_string(mail_hash.encode('utf-8'),id)  # this is a bytes
+        is_user_verify = profile_connector.is_user_verify(decrypt_email)
     except:
         return render(request, "IndexHome/error.html", {'error': "Unauthorized Access ", "status": "high"})
     if request.method == "POST":
         USER_OTP_IN = request.POST.get('Passcode')
-        if verify_manager.verify_otp(id, USER_OTP_IN):
+        if profile_connector.verify_otp(id, USER_OTP_IN):
             # CORRECT OTP
             try:
-                verify_manager.update_verify(id)
-                # verify_manager.delete_field(id)
+                profile_connector.update_verify(id)
+                # None delete_field(id)
                 # login user here
                 return redirect("/dashboard/home")
             except:
                 return render(request, "IndexHome/error.html", {'error': "Verification failed user not verified Contact Support!", "status": "medium"})
         else:
-            if verify_manager.get_fail(id) <= 3:
-                verify_manager.add_fail_request(id)
+            if profile_connector.get_fail(id) <= 3:
+                profile_connector.add_fail_request(id)
                 return render(request, "IndexHome/verify.html", {'otp_FAILED': True, 'mail': mail_hash, 'email': decrypt_email.decode(), "id": id})
             else:
-                verify_manager.reset_fail(id)
+                profile_connector.reset_fail(id)
                 return render(request, 'IndexHome/error.html', {'error': "Max OTP requested. Verification failed ", "status": "high"})
     else:
         if is_user_verify:
@@ -53,7 +51,7 @@ def verify(request, mail_hash, id):
             try:
                 get_request_from_main = request.session['main_verify']
                 if get_request_from_main:
-                    verify_manager.generate_only_otp(id)
+                    profile_connector.generate_only_otp(id)
                     return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
                 else:
                     return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
@@ -65,16 +63,16 @@ def verify(request, mail_hash, id):
 def resend_otp(request, mail_hash, acc_id, request_otp):
     if request_otp:
         try:
-            verify_manager = profile_manager()
-            get_user = verify_manager.search_user_with_id(acc_id)
-            email = verify_manager.get_decrypted_string(mail_hash.encode('utf-8'),acc_id)
+            profile_connector = profile_manager()
+            get_user = profile_connector.search_user_with_id(acc_id)
+            email = profile_connector.get_decrypted_string(mail_hash.encode('utf-8'),acc_id)
         except:
             return render(request, "IndexHome/error.html", {'error': "Unauthorized request send", "status": "high"})
         if get_user.resend_request <= 3:
-            verify_manager.generate_only_otp(acc_id)
+            profile_connector.generate_only_otp(acc_id)
             return render(request, "IndexHome/verify.html", {'mail': mail_hash, 'email': email, 'resend_request': True, 'id': acc_id})
         else:
-            verify_manager.reset_resend(acc_id)
+            profile_connector.reset_resend(acc_id)
             return render(request, 'IndexHome/error.html', {'error': "Max OTP requested. Verification failed ", "status": "medium"})
     else:
         raise Exception("false request")
@@ -82,10 +80,6 @@ def resend_otp(request, mail_hash, acc_id, request_otp):
 
 
 
-# UTILS FUNCTIONS
-def test(request):
-    SendOTP.delay('rushinasa06@gmail.com',456733)
-    return HttpResponse('MAIL SENT SUCCEFULLY')
 
 
 
