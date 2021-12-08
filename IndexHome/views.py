@@ -59,7 +59,6 @@ def verify(request, mail_hash, id):
             except:
                 return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
 
-
 def resend_otp(request, mail_hash, acc_id, request_otp):
     if request_otp:
         try:
@@ -76,16 +75,6 @@ def resend_otp(request, mail_hash, acc_id, request_otp):
             return render(request, 'IndexHome/error.html', {'error': "Max OTP requested. Verification failed ", "status": "medium"})
     else:
         raise Exception("false request")
-
-
-
-
-
-
-
-
-
-
 
 
 # USER FORM ACTION
@@ -160,14 +149,12 @@ def signup(request):
         else:
             return render(request, 'IndexHome/signup.html')
 
-
 def logout(request):
     if request.user.is_authenticated and request.user.is_active:
         auth.logout(request)
         return render(request,'IndexHome/index.html',{"toast":True,"toast_mssg":"Logout Successfully!!"})
     else:
         return redirect("/")
-
 
 def forgot(request):
     if request.method == "POST":
@@ -188,7 +175,6 @@ def forgot(request):
             return render(request, "IndexHome/error.html", {"error": "Failed to make forgot password request", "status": "high"})
     else:
         return render(request, "IndexHome/forgot.html")
-
 
 def forgot_final(request):
     try:
@@ -224,7 +210,6 @@ def playground_timer(request):
             return render(request,'IndexHome/error.html',{"error":"Notify Failed!!","status":"high"})
     else:
         return render(request, "IndexHome/playground.html")
-
 
 def index(request):
     recent_blog = Post.objects.all()
