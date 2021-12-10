@@ -6,7 +6,7 @@ from django.contrib import auth
 from django.http import JsonResponse
 from django.views.decorators.cache import never_cache
 from blog.models import Post,Category
-from api.User.UserManager import UserAPI
+from api.Users.UserManager import UserAPI
 from api.Profiles.ProfileManager import profile_manager
 # CLIENT-SIDE FUNCTIONS
 def check_user(request):

@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from taggit.models import Tag
 from hitcount.views import HitCountDetailView
 from django.http import JsonResponse
-from api.Blog.BlogManager import PostAPI
+from api.Blogs.BlogManager import PostAPI
 
 
 
