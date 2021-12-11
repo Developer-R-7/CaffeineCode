@@ -85,6 +85,9 @@ class PostAPI():
             return self.blog_post.filter(category=query_set['category_text']).order_by('-modified').filter(Q(body__icontains=query_set['query']))
         elif query_set['search_title']:
             return self.blog_post.filter(category__name=query_set['category_text']).order_by('-modified').filter(Q(title__icontains=query_set['query']))
+        else:
+            return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
+
     
     def like(self,pk,request):
         post = get_object_or_404(self.post_instance, id=pk)
