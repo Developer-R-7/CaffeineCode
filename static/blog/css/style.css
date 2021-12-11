@@ -568,3 +568,11 @@
 .single-content {
   font-size: 0.9rem;
 }
+
+
+.filters h5{
+  margin-top: 20px;
+  font-size: 19px;
+  color: #012970;
+  font-weight: bold;
+}

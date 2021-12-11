@@ -78,9 +78,10 @@ class PostAPI():
         except:
             raise Exception("Error in postby catgroy")
     
-    def search(self,query):
+    def search(self,query_set):
         try:
-            return self.blog_post.filter(Q(title__icontains=query) | Q(body__icontains=query) | Q(blog_snipet__icontains=query)).order_by('-modified')
+            return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
+            print(query_set)
         except:
             raise Exception("Error in search_sys")
     

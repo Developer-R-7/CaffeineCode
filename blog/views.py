@@ -94,8 +94,38 @@ class SearchView(ListView):
         self.model = self.blog_connector.post_instance
         self.template_name = 'blog/search.html'
         self.paginate_by = 5 
-        self.query = self.request.GET.get('search_query')
-        queryset = self.blog_connector.search(self.query)
+        self.query = self.request.GET.get('query')
+        try:
+            self.search_title = self.request.GET.get('search_title')
+        except:
+            pass
+        try:
+            self.search_body =self.request.GET.get('search_body')
+        except:
+            pass
+        try:
+            self.category_search = self.request.GET.get('category_selected')
+        except:
+            pass
+        
+        def query_none_checker(query_params):
+            if query_params is None:
+                return False
+            else:
+                return True
+        def category_parser(number):
+            category_list = ["uncategorized","education","creative","data-structures","projects","algorithms"]
+            if number != "None":
+                return category_list[int(number)]
+
+        self.search_query_set = {
+            'query':self.query,
+            'search_body':query_none_checker(self.search_body),
+            'search_title':query_none_checker(self.search_title),
+            'category_text':category_parser(self.category_search)
+        }
+        print(self.search_query_set)
+        queryset = self.blog_connector.search(self.search_query_set)
         return queryset
 
     def get_context_data(self,**kwargs):
