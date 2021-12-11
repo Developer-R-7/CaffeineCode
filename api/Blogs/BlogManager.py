@@ -79,11 +79,12 @@ class PostAPI():
             raise Exception("Error in postby catgroy")
     
     def search(self,query_set):
-        try:
+        if query_set['search_body'] and query_set['search_title']:
             return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
-            print(query_set)
-        except:
-            raise Exception("Error in search_sys")
+        elif query_set['search_body']:
+            return self.blog_post.filter(category=query_set['category_text']).order_by('-modified').filter(Q(body__icontains=query_set['query']))
+        elif query_set['search_title']:
+            return self.blog_post.filter(category__name=query_set['category_text']).order_by('-modified').filter(Q(title__icontains=query_set['query']))
     
     def like(self,pk,request):
         post = get_object_or_404(self.post_instance, id=pk)

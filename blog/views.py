@@ -95,6 +95,8 @@ class SearchView(ListView):
         self.template_name = 'blog/search.html'
         self.paginate_by = 5 
         self.query = self.request.GET.get('query')
+
+        # Getting Query Data
         try:
             self.search_title = self.request.GET.get('search_title')
         except:
@@ -108,6 +110,7 @@ class SearchView(ListView):
         except:
             pass
         
+        # Data Cleaning Functions
         def query_none_checker(query_params):
             if query_params is None:
                 return False
@@ -117,14 +120,17 @@ class SearchView(ListView):
             category_list = ["uncategorized","education","creative","data-structures","projects","algorithms"]
             if number != "None":
                 return category_list[int(number)]
+            else:
+                return None
 
+        # Final Query Set
         self.search_query_set = {
             'query':self.query,
             'search_body':query_none_checker(self.search_body),
             'search_title':query_none_checker(self.search_title),
             'category_text':category_parser(self.category_search)
         }
-        print(self.search_query_set)
+
         queryset = self.blog_connector.search(self.search_query_set)
         return queryset
 
