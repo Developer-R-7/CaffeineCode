@@ -15,9 +15,13 @@
 <div class="container" data-aos="fade-up">
     <h2>
         {% with object_list.count as total_result %} Found {{total_result}} result with "{{query_set.query}}" 
-        {% if query_set.search_body %} in body{% endif %}
-        {% if query_set.search_title %} in title{% endif %}
-        {% if query_set.search_body and query_set.search_title %} in title and body{% endif %}
+        {% if query_set.search_body and query_set.search_title  %} 
+            in title and body
+        {% elif query_set.search_body %}
+            in body
+        {% elif query_set.search_title %}
+            in title
+        {% endif %}
         {% endwith %}
     </h2>
 </div>

@@ -152,7 +152,7 @@
                                 <h3 class="sidebar-title mb-4">Search</h3>
                                 <form method="get" action="{% url 'blog:search_qu' %}">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="query" placeholder="Query" spellcheck="false">
+                                        <input type="text" class="form-control" name="query" {% if query_set.query %} placeholder="{{query_set.query}}" {% else %} placeholder="Query" {% endif %}  spellcheck="false" required>
                                         <small class="form-text text-muted" style="margin-left: 5px;">Use filters to get optimized search results</small>
                                     </div>
                                     <div class="filters">
@@ -167,13 +167,13 @@
                                         </div>
                                         <div class="form-group mt-3" style="margin-left: 5px;">
                                             <div class="form-check">
-                                                <input class="form-check-input" name="search_title" type="checkbox" value="True" id="flexCheckDefault">
+                                                <input class="form-check-input" name="search_title" type="checkbox" value="True" id="flexCheckDefault" {% if query_set.search_title %} checked {% endif %}>
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                   search in title
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" name ="search_body" type="checkbox" value="True" id="flexCheckDefault">
+                                                <input class="form-check-input" name ="search_body" type="checkbox" value="True" id="flexCheckDefault" {% if query_set.search_body %} checked {% endif %}>
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                   search in body
                                                 </label>
