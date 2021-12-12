@@ -50,16 +50,12 @@ class PostAPI():
         except:
             raise Exception("Failed 'get_most_view'")
 
-    def search_blog(self):
-        pass
-
     def is_post_like(self,post,id,user_id):
         try:
             return get_object_or_404(post, id=id).likes.filter(id=user_id).exists()
         except:
             return None
 
-    
     def get_post_tags(self,tag,tag_slug):
         try:
             return get_object_or_404(tag,slug=tag_slug)
@@ -72,6 +68,7 @@ class PostAPI():
             return self.blog_post.filter(tags__in=[tag]).order_by('-hit_count_generic__hits')
         except:
             raise Exception(" PostBy TAGS ERROR")
+    
     def get_PostByCategory(self,category_slug):
         try:
             return self.blog_post.filter(category__name=category_slug).order_by('-hit_count_generic__hits','-likes_count','-date_published')
@@ -79,16 +76,25 @@ class PostAPI():
             raise Exception("Error in postby catgroy")
     
     def search(self,query_set):
-        if query_set['search_body'] and query_set['search_title']:
-            return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
-        elif query_set['search_body']:
-            return self.blog_post.filter(category=query_set['category_text']).order_by('-modified').filter(Q(body__icontains=query_set['query']))
-        elif query_set['search_title']:
-            return self.blog_post.filter(category__name=query_set['category_text']).order_by('-modified').filter(Q(title__icontains=query_set['query']))
+        if query_set['category_text'] is not None:
+            if query_set['search_body'] and query_set['search_title']:
+                return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
+            elif query_set['search_body']:
+                return self.blog_post.filter(category=query_set['category_text']).order_by('-modified').filter(Q(body__icontains=query_set['query']))
+            elif query_set['search_title']:
+                return self.blog_post.filter(category__name=query_set['category_text']).order_by('-modified').filter(Q(title__icontains=query_set['query']))
+            else:
+                return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
         else:
-            return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
+            if query_set['search_body'] and query_set['search_title']:
+                return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
+            elif query_set['search_body']:
+                return self.blog_post.filter(Q(body__icontains=query_set['query'])).order_by('-modified')
+            elif query_set['search_title']:
+                return self.blog_post.filter(Q(title__icontains=query_set['query'])).order_by('-modified')
+            else:
+                return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
 
-    
     def like(self,pk,request):
         post = get_object_or_404(self.post_instance, id=pk)
         result = ''

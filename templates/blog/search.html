@@ -7,17 +7,18 @@
     data-aos="=fade-in"
     style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)"
     >
-    <center
-        style="text-align: center; vertical-align: middle; line-height: 120px"
-        >
+    <center style="text-align: center; vertical-align: middle; line-height: 120px">
         ADS TO BE SHOWN HERE
     </center>
 </div>
 {% load static %}
 <div class="container" data-aos="fade-up">
     <h2>
-        {% with object_list.count as total_result %} Found {{total_result}} result with
-        "{{query}}" {% endwith %}
+        {% with object_list.count as total_result %} Found {{total_result}} result with "{{query_set.query}}" 
+        {% if query_set.search_body %} in body{% endif %}
+        {% if query_set.search_title %} in title{% endif %}
+        {% if query_set.search_body and query_set.search_title %} in title and body{% endif %}
+        {% endwith %}
     </h2>
 </div>
 <br />
@@ -85,9 +86,7 @@
         <div class="post-item clearfix">
             <img src="{{mostlike.entry_img}}" alt="" />
             <h4>
-                <a href="{% url 'blog:blog_details' mostlike.pk %}"
-                    >{{mostlike.title}}</a
-                    >
+                <a href="{% url 'blog:blog_details' mostlike.pk %}">{{mostlike.title}}</a>
             </h4>
             <time>{{mostlike.date_published|date:"F d"}}</time>
         </div>

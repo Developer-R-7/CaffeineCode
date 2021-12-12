@@ -12,7 +12,7 @@
             <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
         <!-- Google Fonts -->
         <style>
-            textarea:focus, 
+            textarea:focus,
             textarea.form-control:focus, 
             input.form-control:focus, 
             input[type=text]:focus, 
@@ -34,13 +34,10 @@
         <link rel="manifest" href="{% static 'IndexHome/assets/img/site.webmanifest' %}">
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap" rel="stylesheet">
-        <link
-            href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
             rel="stylesheet"
-            />
+        />
         <!-- Vendor CSS Files -->
         {% block styling %} {% endblock styling %}
         <link
@@ -176,9 +173,9 @@
                                         <h5>Filters</h5>
                                         <div class="form-group" style="margin-left: 5px;">
                                             <select style="border-radius:0px!important;" name="category_selected" class="form-select mt-3" aria-label="select category">
-                                                <option value="None" selected>Select Category</option>
+                                                <option style="outline: none;" value="None" selected>Select Category</option>
                                                 {% for name in category %}
-                                                    <option value="{{forloop.counter}}">{{name.name}}</option>
+                                                    <option style="outline: none;" value="{{forloop.counter}}">{{name.name}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -197,7 +194,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    <div class="form-group mt-4">
+                                        <center><button style="width:60%;" class="btn btn-primary" type="submit">submit</button></center>
+                                    </div>
                                 </form>
                             </div>
                             {% block sidebar %} {% endblock sidebar %}

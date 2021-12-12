@@ -130,7 +130,6 @@ class SearchView(ListView):
             'search_title':query_none_checker(self.search_title),
             'category_text':category_parser(self.category_search)
         }
-
         queryset = self.blog_connector.search(self.search_query_set)
         return queryset
 
@@ -139,10 +138,9 @@ class SearchView(ListView):
         context['most_like'] = self.blog_connector.get_most_liked_post()
         context['most_tags'] = self.blog_connector.get_most_tags_used()
         context['category'] = self.blog_connector.get_category()
-        context['query'] = self.query
+        context['query_set'] = self.search_query_set
         return context
     
-
 def like_sys(request):
     if request.user.is_authenticated and request.user.is_active:
         if request.method == "POST":
