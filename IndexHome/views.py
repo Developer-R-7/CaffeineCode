@@ -81,7 +81,7 @@ def resend_otp(request, mail_hash, acc_id, request_otp):
 @never_cache
 def signin(request):
     if request.user.is_authenticated:
-        return render(request, "IndexHome/index.html")
+        return redirect('/')
     else:
         if request.method == "POST":
             try:
@@ -125,7 +125,7 @@ def signin(request):
 @never_cache
 def signup(request):
     if request.user.is_authenticated:
-        return render(request, "IndexHome/index.html")
+        return redirect('/')
     else:
         if request.method == "POST":
             try:
