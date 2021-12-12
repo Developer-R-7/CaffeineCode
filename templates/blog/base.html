@@ -11,23 +11,6 @@
             <link href="assets/img/favicon.png" rel="icon">
             <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
         <!-- Google Fonts -->
-        <style>
-            textarea:focus,
-            textarea.form-control:focus, 
-            input.form-control:focus, 
-            input[type=text]:focus, 
-            input[type=password]:focus, 
-            input[type=email]:focus, 
-            input[type=number]:focus, 
-            input[type=checkbox]:focus,
-            [type=text].form-control:focus, 
-            [type=password].form-control:focus, 
-            [type=email].form-control:focus, 
-            [type=tel].form-control:focus, 
-            [contenteditable].form-control:focus {
-            box-shadow: inset 0 -1px 0 #ddd;
-        }
-        </style>
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}">
         <link rel="icon" type="image/png" sizes="32x32" href="{% static 'IndexHome/assets/img/favicon-32x32.png' %}">
         <link rel="icon" type="image/png" sizes="16x16" href="{% static 'IndexHome/assets/img/favicon-16x16.png' %}">
@@ -146,8 +129,11 @@
         {% block hero %} {% endblock hero %}
         <main id="main" style="margin-top: 80px">
             <section id="blog" class="blog">
-                {% block search_block %} {% endblock search_block %} {% block explore %}
-                {% endblock explore %} {% block owl %} {% endblock owl %} 
+                {% block search_block %} {% endblock search_block %} 
+                {% block explore %}
+                {% endblock explore %} 
+                {% block owl %} 
+                {% endblock owl %} 
                 {% block social-btn %} {% endblock social-btn %}
                 <div class="container" data-aos="fade-up">
                     {% block title_post %} {% endblock title_post %}
@@ -166,16 +152,16 @@
                                 <h3 class="sidebar-title mb-4">Search</h3>
                                 <form method="get" action="{% url 'blog:search_qu' %}">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="query" placeholder="Query">
+                                        <input type="text" class="form-control" name="query" placeholder="Query" spellcheck="false">
                                         <small class="form-text text-muted" style="margin-left: 5px;">Use filters to get optimized search results</small>
                                     </div>
                                     <div class="filters">
                                         <h5>Filters</h5>
                                         <div class="form-group" style="margin-left: 5px;">
-                                            <select style="border-radius:0px!important;" name="category_selected" class="form-select mt-3" aria-label="select category">
-                                                <option style="outline: none;" value="None" selected>Select Category</option>
+                                            <select style="border-radius:0px!important;outline:none !important;box-shadow:none;" name="category_selected" class="form-select mt-3" aria-label="select category">
+                                                <option value="None" selected>Select Category</option>
                                                 {% for name in category %}
-                                                    <option style="outline: none;" value="{{forloop.counter}}">{{name.name}}</option>
+                                                    <option value="{{forloop.counter}}">{{name.name}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
