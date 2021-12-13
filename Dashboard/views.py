@@ -4,4 +4,4 @@ from django.shortcuts import render, HttpResponse
 
 
 def home(request):
-    return render(request, 'dashboard/index.html')
+    return HttpResponse("<h1>This Is dashbaord</h1>")
