@@ -114,7 +114,6 @@ class profile_manager():
         try:
             query = self.search_user_with_id(id)
             query.resend_request += 1
-            self.resend_code_request += 1
             query.save()
         except:
             raise Exception("Failed! 'resend_request'")

@@ -11,7 +11,6 @@ class Profile(models.Model):
     account_id = models.BigIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     user_email = models.EmailField()
-    subscribe_newsletter = models.BooleanField(default=False)
     key = models.TextField(default="empty", max_length=200)
     otp = models.TextField(max_length=6, default="xxxxxx")
     fail_attepmt = models.SmallIntegerField(default=0)

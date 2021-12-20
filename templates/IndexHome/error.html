@@ -50,55 +50,17 @@
                                 width="160px"
                                 />
                         </center>
-                        <br />
-                        {% if status == "high" %}
+                        <br/>
                         <span
                             style="text-align: center; color: rgb(255, 0, 0); font-size: 19px"
                             class="padding-bottom--15"
-                            >{{error}}</span
-                            >
+                            >{{error}}</span>
                         <span class="padding-bottom--15" style="text-align: center"
                             ><a
                             href="{% url 'IndexHome:index' %}"
                             style="color: rgb(82, 82, 250)"
                             >Return To Home</a
-                            ></span
-                            >
-                        {% elif status == "medium" %}
-                        <span
-                            style="
-                            text-align: center;
-                            color: rgb(27, 27, 39);
-                            font-size: 19px;
-                            "
-                            class="padding-bottom--15"
-                            >{{error}}</span
-                            >
-                        <span class="padding-bottom--15" style="text-align: center"
-                            ><a
-                            href="{% url 'IndexHome:index' %}"
-                            style="color: rgb(82, 82, 250)"
-                            >Return To Home</a
-                            ></span
-                            >
-                        {% elif status == "low" %}
-                        <span
-                            style="
-                            text-align: center;
-                            color: rgb(0, 255, 64);
-                            font-size: 19px;
-                            "
-                            class="padding-bottom--15"
-                            >{{error}}</span
-                            >
-                        <span class="padding-bottom--15" style="text-align: center"
-                            ><a
-                            href="{% url 'IndexHome:index' %}"
-                            style="color: rgb(82, 82, 250)"
-                            >Return To Home</a
-                            ></span
-                            >
-                        {% endif %}
+                            ></span>
                     </div>
                 </div>
             </div>

@@ -250,7 +250,7 @@
                             </script>
                             <form action="{% url 'IndexHome:newsletter' %}" method="post">
                                 {% csrf_token %}
-                                <input type="email" id="letter" name="newsletter" /><input
+                                <input type="email" required title="enter your mail" id="letter" name="newsletter" /><input
                                     type="submit"
                                     class="enableOnInput"
                                     value="Subscribe"
