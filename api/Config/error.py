@@ -3,11 +3,11 @@ error_message = [
     "Unauthorized request",#0
     "Maximum verification-code requested , try signin again to regenerate verify request",#1
     "Bypass blocked",#2
-    "You don't have account linked with this email",#3
+    "No account linked with this email",#3
     "Account not verified",#4
     "Incorrect email or password",#5
     "Oops! we encoutered a error in signin , please contact support",#6
-    "You already have account linked with this email",#7
+    "Account already linked with this email",#7
     "Oops! we encoutered a error in signup , please contact support",#8
     "Account must be verified to request forgot-password",#9
     "Password Changed successful",#10
