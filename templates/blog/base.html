@@ -54,7 +54,7 @@
         <header id="header" class="header fixed-top">
             <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
                 <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
-                <span>CaffeineCode</span>
+                <span id="LogoText">CaffeineCode</span>
                 </a>
                 <nav id="navbar" class="navbar">
                     <ul>
@@ -151,6 +151,20 @@
             </style>
             <div class="footer-top">
                 <script>
+                    function changeTextColor(className,SwitchCase) {
+                        var elems = document.querySelectorAll(className);
+                        var index = 0, length = elems.length;
+                        if(SwitchCase === 0) {
+                            for ( ; index < length-1; index++) {
+                                elems[index].style.color = "#fff";
+                                elems[index].style.fontWeight = "700";
+                            };
+                        }else{
+                            for ( ; index < length-1; index++) {
+                                elems[index].style.color = "#013289";
+                            };
+                        }
+                    }
                     window.onscroll = function(ev) {
                         if (window.pageYOffset < 1) {
                             document.getElementById("header").style.background = "none";
@@ -158,9 +172,13 @@
                         else if (window.pageYOffset != 0){
                             if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
                                 document.getElementById("header").style.background = "#010E21";
+                                document.getElementById("LogoText").style.color = "#fff"
+                                changeTextColor(".navbar a",0);
                             }
                             else{
                                 document.getElementById("header").style.background = "#fff";
+                                document.getElementById("LogoText").style.color = "#012970"
+                                changeTextColor(".navbar a",1);
                             }
                         }
                     };
@@ -169,7 +187,7 @@
                     <div class="row justify-content-between">
                         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 footer-info">
                             <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
-                            <span>CaffeineCode</span>
+                        
                             </a>
                             <div class="social-links mt-3" style="text-align: left;">
                                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
