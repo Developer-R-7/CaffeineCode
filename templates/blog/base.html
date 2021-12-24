@@ -170,7 +170,7 @@
                             document.getElementById("header").style.background = "none";
                         }
                         else if (window.pageYOffset != 0){
-                            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+                            if (Math.round((window.innerHeight + window.pageYOffset)) >= document.body.offsetHeight) {
                                 document.getElementById("header").style.background = "#010E21";
                                 document.getElementById("LogoText").style.color = "#fff"
                                 changeTextColor(".navbar a",0);
@@ -247,14 +247,19 @@
                             </p>
                         </div>
                     </div>
-                    <div class="container">
-                        <div class="copyright">
-                            &copy; Copyright <strong><span>CaffeineCode</span></strong
-                                >. All Rights Reserved
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="copyright">
+                                &copy; Copyright 2022 All Rights Reserved | This website is crafted with ❤️ by Rushi
+                            </div>
                         </div>
-                        <div class="credits">
-                            Possibly used Front-end part of <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                        <div class="col">
+                            <div class="credits">
+                                Possibly used Front-end part of <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                            </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

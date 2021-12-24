@@ -2422,15 +2422,16 @@ section {
 
 .footer .copyright {
   text-align: center;
-  padding-top: 30px;
-  color: #012970;
+  padding-top: 40px;
+  font-size: 13px;
+  color:#8ba4b1 ;
 }
 
 .footer .credits {
-  padding-top: 10px;
+  padding-top: 40px;
   text-align: center;
   font-size: 13px;
-  color: #012970;
+  color: #8ba4b1;
 }
 .sticky-container {
   background-color: tomato;
