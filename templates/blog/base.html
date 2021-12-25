@@ -240,39 +240,6 @@
             
             <div class="footer-top">
                 <center><hr style="width:80%;color:#8ba4b1;margin-bottom:45px;"></center>
-                <script>
-                    function changeTextColor(className,SwitchCase) {
-                        var elems = document.querySelectorAll(className);
-                        var index = 0, length = elems.length;
-                        if(SwitchCase === 0) {
-                            for ( ; index < length-1; index++) {
-                                elems[index].style.color = "#fff";
-                                elems[index].style.fontWeight = "700";
-                            };
-                        }else{
-                            for ( ; index < length-1; index++) {
-                                elems[index].style.color = "#013289";
-                            };
-                        }
-                    }
-                    window.onscroll = function(ev) {
-                        if (window.pageYOffset < 1) {
-                            document.getElementById("header").style.background = "none";
-                        }
-                        else if (window.pageYOffset != 0){
-                            if (Math.round((window.innerHeight + window.pageYOffset)) >= document.body.offsetHeight) {
-                                document.getElementById("header").style.background = "#010E21";
-                                document.getElementById("LogoText").style.color = "#fff"
-                                changeTextColor(".navbar a",0);
-                            }
-                            else{
-                                document.getElementById("header").style.background = "#fff";
-                                document.getElementById("LogoText").style.color = "#012970"
-                                changeTextColor(".navbar a",1);
-                            }
-                        }
-                    };
-                </script>
                 <div class="container">
                     <div class="row justify-content-between">
                         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mt-4">
@@ -371,6 +338,7 @@
         <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
         <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
         <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/utils.js' %}"></script>
         {% block script %} {% endblock script %}
     </body>
 </html>
