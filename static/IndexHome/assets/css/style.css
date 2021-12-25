@@ -2252,15 +2252,13 @@ section {
 # Footer
 --------------------------------------------------------------*/
 .footer {
-  background: #f6f9ff;
   padding: 0 0 0px 0;
   font-size: 14px;
 }
 
 .footer .footer-newsletter {
-  padding: 50px 0;
-  background: #f6f9ff;
-  border-top: 1px solid #e1ecff;
+  padding: 30px 0px 10px;
+  background: rgb(1, 14, 33);
 }
 
 .footer .footer-newsletter h4 {
@@ -2269,7 +2267,10 @@ section {
   padding: 0;
   line-height: 1;
   font-weight: 700;
-  color: #012970;
+  color: #fff;
+}
+.footer .footer-newsletter p {
+  color: #8ba4b1;
 }
 
 .footer .footer-newsletter form {
@@ -2308,11 +2309,8 @@ section {
 }
 
 .footer .footer-top {
-  background: ghostwhite;
   background-size: contain;
-  border-top: 1px solid #e1ecff;
-  border-bottom: 1px solid #e1ecff;
-  padding: 60px 0 30px 0;
+  padding: 10px 0 30px 0;
 }
 
 @media (max-width: 992px) {
@@ -2422,13 +2420,13 @@ section {
 
 .footer .copyright {
   text-align: center;
-  padding-top: 40px;
+  padding-top: 45px;
   font-size: 13px;
   color:#8ba4b1 ;
 }
 
 .footer .credits {
-  padding-top: 40px;
+  padding-top: 45px;
   text-align: center;
   font-size: 13px;
   color: #8ba4b1;

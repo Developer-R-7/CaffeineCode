@@ -141,7 +141,95 @@
             </section>
             {% block recent %} {% endblock recent %}
         </main>
-        <footer id="footer" class="footer">
+        <footer id="footer" class="footer" > 
+            <section class="hero d-flex flex-column" style="background:none;">
+                <div class="footer-newsletter">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 text-center">
+                            <h4>Our Newsletter</h4>
+                            <p>
+                                Receive regular updates and announcement by subscibing to our
+                                Newsletter
+                            </p>
+                        </div>
+                        <div class="col-lg-6">
+                            <script>
+                                function delay(callback, ms) {
+                                  var timer = 0;
+                                  return function () {
+                                    var context = this,
+                                      args = arguments;
+                                    clearTimeout(timer);
+                                    timer = setTimeout(function () {
+                                      callback.apply(context, args);
+                                    }, ms || 0);
+                                  };
+                                }
+                                $(document).ready(function () {
+                                // catch the form's submit event
+                                $("#letter").keyup(
+                                  delay(function (e) {
+                                    // create an AJAX call
+                                    $.ajax({
+                                      data: $(this).serialize(), // get the form data
+                                      url: "{% url 'IndexHome:newsletter' %}",
+                                      // on success
+                                      success: function (response) {
+                                        if (response.is_subscribe == true) {
+                                          $("#error").html("Email already subscribed!");
+                                          $(".enableOnInput").prop("disabled", true);
+                                        }else if(response.is_subscribe == "None") {
+                                          $("#error").html("Failed Request");
+                                        }
+                                        else {
+                                          $(".enableOnInput").prop("disabled", false);
+                                          $("#error").html("");
+                                        }
+                                      },
+                                      // on error
+                                      error: function (response) {
+                                        // alert the error if any error occured
+                                        console.log(response.responseJSON.errors);
+                                      },
+                                    });
+                                    return false;
+                                  }, 500)
+                                );
+                                });
+                            </script>
+                            <form action="{% url 'IndexHome:newsletter' %}" method="post">
+                                {% csrf_token %}
+                                <input type="email" id="letter" name="newsletter" /><input
+                                    type="submit"
+                                    class="enableOnInput"
+                                    value="Subscribe"
+                                    />
+                            </form>
+                            {% if newsletter %}
+                            <script>
+                                function launch_toast() {
+                                  var x = document.getElementById("toast")
+                                  x.className = "show";
+                                  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+                                }
+                                $( document ).ready(function() {
+                                  launch_toast();
+                                });
+                            </script>
+                            <div id="toast">
+                                <i class="bi bi-check"></i>
+                                <div id="desc">Newsletter Subscribed!!</div>
+                            </div>
+                            {% endif %}
+                            <div
+                                id="error"
+                                ></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
             <style>
                 .footer .footer-top{
                     background-image: url("{% static 'IndexHome/assets/img/footerbg.webp' %}");
@@ -149,7 +237,9 @@
                     background-repeat: no-repeat;
                 }
             </style>
+            
             <div class="footer-top">
+                <center><hr style="width:80%;color:#8ba4b1;margin-bottom:45px;"></center>
                 <script>
                     function changeTextColor(className,SwitchCase) {
                         var elems = document.querySelectorAll(className);
@@ -247,7 +337,6 @@
                             </p>
                         </div>
                     </div>
-                    <hr>
                     <div class="row">
                         <div class="col">
                             <div class="copyright">
@@ -263,6 +352,7 @@
                     </div>
                 </div>
             </div>
+            </section>
         </footer>
         <!--<script>
             $(window).on('load',function(){
