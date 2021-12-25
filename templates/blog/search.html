@@ -1,12 +1,7 @@
 {% extends 'blog/base.html' %} {% block title %}CaffeineCode - Blogs{% endblock title %} 
 {% load hitcount_tags %} 
 {% block search_block %}
-<div
-    class="container mb-5"
-    data-aos-duration="600"
-    data-aos="=fade-in"
-    style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)"
-    >
+<div class="container mb-5" data-aos-duration="600" data-aos="=fade-in" style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)">
     <center style="text-align: center; vertical-align: middle; line-height: 120px">
         ADS TO BE SHOWN HERE
     </center>
@@ -69,11 +64,7 @@
 {% else %}
 <article class="entry">
     <div class="entry-img">
-        <img
-            src="{% static 'IndexHome/assets/img/empty.png' %}"
-            height="300px"
-            class="img-fluid"
-            />
+        <img src="{% static 'IndexHome/assets/img/empty.png' %}" height="300px" class="img-fluid"/>
     </div>
     <div class="entry-title" style="text-align: center; color: rgb(240, 75, 75)">
         No results Found!
@@ -81,7 +72,10 @@
 </article>
 {% endif %} 
 {% endblock article %} 
-{% block pagination %} {% endblock pagination %} 
+
+{% block pagination %} 
+{% endblock pagination %} 
+
 {% block sidebar %}
 <div class="sidebar">
     <h3 class="sidebar-title mb-4">Most Liked Posts</h3>
@@ -103,15 +97,14 @@
         <ul>
             {% for used_tag in most_tags %}
             <li>
-                <a href="{% url 'blog:post_list_by_tags' used_tag.slug %}"
-                    >{{used_tag}}</a
-                    >
+                <a href="{% url 'blog:post_list_by_tags' used_tag.slug %}">{{used_tag}}</a>
             </li>
             {%endfor%}
         </ul>
     </div>
 </div>
 {% endblock sidebar %} 
+
 {% block category %} 
 {% for name in category %}
 <li>

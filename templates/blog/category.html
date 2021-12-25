@@ -1,14 +1,7 @@
 {% extends 'blog/base.html' %} {% block title %}CaffeineCode - Blogs{% endblock title %} 
 {% load hitcount_tags %} {% load static %} {% block search_block %}
-<div
-    class="container mb-5"
-    data-aos-duration="600"
-    data-aos="fade-in"
-    style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)"
-    >
-    <center
-        style="text-align: center; vertical-align: middle; line-height: 120px"
-        >
+<div class="container mb-5" data-aos-duration="600" data-aos="fade-in" style="height: 120px; width: 100vh; box-shadow: 0 4px 16px rgb(0 0 0 / 10%)">
+    <center style="text-align: center; vertical-align: middle; line-height: 120px">
         ADS TO BE SHOWN HERE
     </center>
 </div>
@@ -16,19 +9,13 @@
 <div class="container mb-4" data-aos="fade-up">
     <h2 style="margin-top: 2em">
         Search in
-        <span
-            style="
-            background: #0257ee;
-            color: white;
-            padding: 8px;
-            border-radius: 5px;
-            "
-            >{{cat}}</span
-            >
+        <span style="background: #0257ee;color: white;padding: 8px;border-radius: 5px;">{{cat}}</span>
     </h2>
 </div>
 <br />
-{% endif %} {% endblock search_block %} 
+{% endif %} 
+{% endblock search_block %} 
+
 {% block article %} 
 {% if forloop.counter == 4 %}
 <article class="entry" style="height: 120px; width: 100%">
@@ -70,17 +57,15 @@
 {% empty %}
 <article class="entry">
     <div class="entry-img">
-        <img
-            src="{% static 'IndexHome/assets/img/empty.png' %}"
-            height="300px"
-            class="img-fluid"
-            />
+        <img src="{% static 'IndexHome/assets/img/empty.png' %}" height="300px" class="img-fluid"/>
     </div>
     <div class="entry-title" style="text-align: center; color: rgb(240, 75, 75)">
         No post in {{cat}}
     </div>
 </article>
-{% endfor %} {% endblock article %} 
+{% endfor %} 
+{% endblock article %}
+
 {% block pagination %} 
 {% if result %}
 <nav aria-label="Page navigation">
@@ -118,6 +103,7 @@
 </nav>
 {% endif %} 
 {% endblock pagination %} 
+
 {% block sidebar %} 
 {% if most_view %}
 <div class="sidebar">
@@ -133,7 +119,6 @@
         </div>
         {% endfor %}
     </div>
-    <!-- End sidebar recent posts-->
 </div>
 {% endif %}
 <div class="sidebar">
@@ -142,9 +127,7 @@
         <ul>
             {% for used_tag in most_tags %}
             <li>
-                <a href="{% url 'blog:post_list_by_tags' used_tag.slug %}"
-                    >{{used_tag}}</a
-                    >
+                <a href="{% url 'blog:post_list_by_tags' used_tag.slug %}">{{used_tag}}</a>
             </li>
             {%endfor%}
         </ul>

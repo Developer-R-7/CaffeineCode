@@ -34,6 +34,7 @@
 </section>
 {% endif %}
 {% endblock hero %}
+
 {% block owl %}
 {% if page_obj.number == 1 %}
 <div class="container" id="explore" data-aos="fade-in">
@@ -68,6 +69,7 @@
 </div>
 {% endif %}
 {% endblock owl %}
+
 {% block article %}
 {% for post in object_list %}
 {% if forloop.counter == 4 %}
@@ -101,6 +103,7 @@
 </article>
 {% endfor %}
 {% endblock article %}
+
 {% block pagination %}
 <nav aria-label="Page navigation">
     <ul class="pagination mb-5">
@@ -130,6 +133,7 @@
     </ul>
 </nav>
 {% endblock pagination %}
+
 {% block sidebar %}
 <div class="sidebar">
     <h3 class="sidebar-title mb-5">Most Viewed</h3>
@@ -165,43 +169,27 @@
         </ul>
     </div>
 </div>
-<!--<div class="sidebar" style="box-shadow: none;">
-    <div class="sidebar-title mb-5" style="font-size: 23px;">
-        <h3 class="entry-title" style="font-weight: bold;font-size:24px;font-family:Nunito,san-serif;">Trending this month</h3>
-    </div>
-    {% for month_trend in this_month %}
-    <div class="trend-entry d-flex">
-        <div class="number align-self-start">{{ forloop.counter }}</div>
-        <div class="trend-contents">
-            <h2><a href="{% url 'blog:blog_details' month_trend.pk %}">{{month_trend.title}}</a></h2>
-            <div class="post-meta">
-                <span class="d-block"><a href="#">{{month_trend.author}}</a></span>
-                <span class="date-read">{{month_trend.date_published|date:"F d"}} <span class="mx-1">&bullet;</span> {{month_trend.readtime_min}} min read</span>
-            </div>
-        </div>
-    </div>
-    {% empty %}
-        <h2>No trending post this month</h2>
-    {% endfor %}
-    </div>-->
 <div class="sidebar">
     <div class="sticky-ads">
         <h4>ads to be shown here</h4>
     </div>
 </div>
 {% endblock sidebar %}
+
 {% block styling %}
 <link rel="stylesheet" href="{% static 'blog/css/owl.carousel.min.css' %}">
 <link rel="stylesheet" href="{% static 'blog/css/owl.theme.default.min.css' %}">
 <link rel="stylesheet" href="{% static 'blog/css/owl.theme.default.min.css' %}">
 <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
 {% endblock styling %}
+
 {% block script %}
 <script src="{% static 'blog/js/jquery-migrate-3.0.1.min.js' %}"></script>
 <script src="{% static 'blog/js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'blog/js/jquery.stellar.min.js' %}"></script>
 <script src="{% static 'blog/js/main.js' %}"></script>
 {% endblock script %}
+
 {% block title_post %}
 <h4 class="section-title">Latest Posts</h4>
 {% endblock title_post %}
