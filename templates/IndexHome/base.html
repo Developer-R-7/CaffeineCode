@@ -48,20 +48,10 @@
             type="text/javascript"
             ></script>
     </head>
-    <body>
+    <body id="bodyscroll">
         <header id="header" class="header fixed-top">
-            <div
-                class="
-                container-fluid container-xl
-                d-flex
-                align-items-center
-                justify-content-between
-                "
-                >
-                <a
-                    href="{% url 'IndexHome:index' %}"
-                    class="logo d-flex align-items-center"
-                    >
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
                 <span id="LogoText">CaffeineCode</span>
                 </a>
                 <nav id="navbar" class="navbar">
@@ -70,11 +60,7 @@
                         <li><a class="nav-link scrollto" href="#about">About Us</a></li>
                         <li><a class="nav-link scrollto" href="#services">Projects</a></li>
                         <li>
-                            <a
-                                class="nav-link scrollto"
-                                href="{% url 'IndexHome:playground' %}"
-                                >Playground</a
-                                >
+                            <a class="nav-link scrollto" href="{% url 'IndexHome:playground' %}">Playground</a>
                         </li>
                         <li>
                             <a class="nav-link scrollto" href="{% url 'blog:index' %}"

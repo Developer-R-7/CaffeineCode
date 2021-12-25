@@ -21,13 +21,13 @@ window.onscroll = function(ev) {
         if (Math.round((window.innerHeight + window.pageYOffset)) >= document.body.offsetHeight) {
             document.getElementById("header").style.background = "#010E21";
             document.getElementById("LogoText").style.color = "#fff"
-            //var ss = document.styleSheets[0];
-            //ss.insertRule('::-webkit-scrollbar-track {box-shadow: inset 0 0 6px #012970;}', 0);
+            document.getElementById("bodyscroll").classList.add('hidden-scrollbar');
             changeTextColor(".navbar a",0);
         }
         else{
             document.getElementById("header").style.background = "#fff";
             document.getElementById("LogoText").style.color = "#012970"
+            document.getElementById("bodyscroll").classList.remove('hidden-scrollbar');
             changeTextColor(".navbar a",1);
         }
     }
@@ -55,7 +55,7 @@ $(document).ready(function () {
         delay(function (e) {
         $.ajax({
             data: $(this).serialize(),
-            url: "{% url 'IndexHome:newsletter' %}",
+            url: "/subscribe-newsletter",
             // on success
             success: function (response) {
             if (response.is_subscribe == true) {
