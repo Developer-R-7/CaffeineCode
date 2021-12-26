@@ -19,6 +19,7 @@ def check_user(request):
 
 
 # VERIFY FUNCTIONS
+@never_cache
 def verify(request, mail_hash, id):
     try:
         profile_connector = profile_manager()
@@ -59,7 +60,7 @@ def verify(request, mail_hash, id):
 
             except:
                 return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
-
+@never_cache
 def resend_otp(request, mail_hash, acc_id, request_otp):
     if request_otp:
         try:
@@ -157,7 +158,7 @@ def logout(request):
         return render(request,'IndexHome/index.html',{"toast":True,"toast_mssg":"Logout Successfully!!"})
     else:
         return redirect("/")
-
+@never_cache
 def forgot(request):
     if request.method == "POST":
         try:
@@ -177,7 +178,7 @@ def forgot(request):
             return render(request, "config/error.html", {"error": error_message[16]})
     else:
         return render(request, "IndexHome/forgot.html")
-
+@never_cache
 def forgot_final(request):
     try:
         mail = request.session['email']
@@ -218,6 +219,9 @@ def index(request):
     user_count = User.objects.count()
     category = Category.objects.all()[:6]
     return render(request, 'IndexHome/index.html',{'post':recent_blog.order_by('-likes_count','-date_published')[:3],'user_count':user_count,'total_blogs':recent_blog.count(),'category':category})
+
+def privacyPolicy(request):
+    return render(request,"config/privacyPolicy.html")
 
 def newsletter(request):
     if request.method == "POST":

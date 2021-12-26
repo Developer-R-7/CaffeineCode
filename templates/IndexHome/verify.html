@@ -1,193 +1,73 @@
 {% extends 'IndexHome/base_ver.html' %} {% block title %}CaffeineCode - Verify{% endblock title %} 
-{% block body %}
-<div class="login-root">
-    <div
-        class="box-root flex-flex flex-direction--column"
-        style="min-height: 100vh; flex-grow: 1"
-        >
-        <div class="loginbackground box-background--white padding-top--64">
-            <div class="loginbackground-gridContainer">
-                <div
-                    class="box-root flex-flex"
-                    style="grid-area: top / start / 8 / end"
-                    >
-                    <div
-                        class="box-root"
-                        style="
-                        background-image: linear-gradient(
-                        white 0%,
-                        rgb(247, 250, 252) 33%
-                        );
-                        flex-grow: 1;
-                        "
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5">
-                    <div
-                        class="box-root box-divider--light-all-2 animationLeftRight tans3s"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2">
-                    <div
-                        class="box-root box-background--blue800"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4">
-                    <div
-                        class="box-root box-background--blue animationLeftRight"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6">
-                    <div
-                        class="box-root box-background--gray100 animationLeftRight tans3s"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end">
-                    <div
-                        class="box-root box-background--cyan200 animationRightLeft tans4s"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end">
-                    <div
-                        class="box-root box-background--blue animationRightLeft"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20">
-                    <div
-                        class="box-root box-background--gray100 animationRightLeft tans4s"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-                <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17">
-                    <div
-                        class="box-root box-divider--light-all-2 animationRightLeft tans3s"
-                        style="flex-grow: 1"
-                        ></div>
-                </div>
-            </div>
-        </div>
-        <div
-            class="box-root padding-top--24 flex-flex flex-direction--column"
-            style="flex-grow: 1; z-index: 9"
+{% block form %}
+<div class="formbg">
+    <div class="formbg-inner padding-horizontal--48">
+        <span class="padding-bottom--15"
             >
-            <div
-                class="
-                box-root
-                padding-top--48
-                padding-bottom--24
-                flex-flex
-                flex-justifyContent--center
-                "
-                >
-                <h1><a rel="dofollow">CaffeineCode</a></h1>
+            You will recieve a verification code on
+            <div class="email" style="color: rgb(112, 112, 233)">
+                {{email}}
             </div>
-            <div class="formbg-outer">
-                <div class="formbg">
-                    <div class="formbg-inner padding-horizontal--48">
-                        <span class="padding-bottom--15"
+            Enter that code below.
+        </span
+            >
+        <br />
+        <form
+            id="stripe-login"
+            method="POST"
+            action="{% url 'IndexHome:verify' mail_hash=mail id=id %}"
+            >
+            {% csrf_token %}
+            <div class="field padding-bottom--24">
+                <div class="grid--50-50">
+                    <label for="password">Code</label>
+                    <div class="reset-pass">
+                        {% if resend_request is not True%}
+                        <a
+                            href="{% url 'IndexHome:verify_resend' mail_hash=mail  request_otp=True acc_id=id %}"
+                            >Resend Verfication Code?</a
                             >
-                            You will recieve a verification code on
-                            <div class="email" style="color: rgb(112, 112, 233)">
-                                {{email}}
-                            </div>
-                            Enter that code below.
-                        </span
-                            >
-                        <br />
-                        <form
-                            id="stripe-login"
-                            method="POST"
-                            action="{% url 'IndexHome:verify' mail_hash=mail id=id %}"
-                            >
-                            {% csrf_token %}
-                            <div class="field padding-bottom--24">
-                                <div class="grid--50-50">
-                                    <label for="password">Code</label>
-                                    <div class="reset-pass">
-                                        {% if resend_request is not True%}
-                                        <a
-                                            href="{% url 'IndexHome:verify_resend' mail_hash=mail  request_otp=True acc_id=id %}"
-                                            >Resend Verfication Code?</a
-                                            >
-                                        {% else %}
-                                        <div
-                                            class="resend_func"
-                                            style="text-align: right; color: rgb(112, 112, 233)"
-                                            ></div>
-                                        <script>
-                                            var timeleft = 180;
-                                            const url =
-                                              '<a href="{% url "IndexHome:verify_resend" mail_hash=mail  request_otp=True acc_id=id %}">Resend Verfication Code?</a>';
-                                            var downloadTimer = setInterval(function () {
-                                              if (timeleft <= 0) {
-                                                clearInterval(downloadTimer);
-                                                $(".resend_func").html(url);
-                                              } else {
-                                                $(".resend_func").html(timeleft + " sec");
-                                              }
-                                              timeleft -= 1;
-                                            }, 1000);
-                                        </script>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <input
-                                    name="Passcode"
-                                    required
-                                    spellcheck="false"
-                                    maxlength="6"
-                                    autocomplete="off"
-                                    autofocus
-                                    />
-                                {% if otp_FAILED is True %}
-                                <div style="color: red; font-size: 15px; margin-top: 4px">
-                                    Verification code incorrect!
-                                </div>
-                                {% endif %}
-                                <span style="font-size: 13px; margin-bottom: 12px; user-select: auto;"><b style="user-select: auto;">Note : Please dont close or refresh this page</b></span>
-                            </div>
-                            <div class="field padding-bottom--24">
-                                <input type="submit" name="submit" value="Verify Passcode" />
-                            </div>
-                        </form>
+                        {% else %}
+                        <div
+                            class="resend_func"
+                            style="text-align: right; color: rgb(112, 112, 233)"
+                            ></div>
+                        <script>
+                            var timeleft = 180;
+                            const url =
+                              '<a href="{% url "IndexHome:verify_resend" mail_hash=mail  request_otp=True acc_id=id %}">Resend Verfication Code?</a>';
+                            var downloadTimer = setInterval(function () {
+                              if (timeleft <= 0) {
+                                clearInterval(downloadTimer);
+                                $(".resend_func").html(url);
+                              } else {
+                                $(".resend_func").html(timeleft + " sec");
+                              }
+                              timeleft -= 1;
+                            }, 1000);
+                        </script>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="footer-link padding-top--24">
-                    <div
-                        style="
-                        text-align: center;
-                        color: #c9c9c9;
-                        font-family: Arial;
-                        font-size: 11px;
-                        line-height: 150%;
-                        "
-                        >
-                        <p
-                            style="
-                            text-align: left;
-                            margin: 0;
-                            margin-top: 2px;
-                            text-align: center;
-                            "
-                            >
-                            CaffeineCode | Surat, Gujarat, 395009 | Copyright © 2021 | All
-                            rights reserved
-                        </p>
-                    </div>
-                    <div class="listing flex-flex center-center" style="margin-top: 10px">
-                        <span><a href="#">© CaffeineCode</a></span>
-                        <span><a href="#">Contact</a></span>
-                        <span><a href="#">Privacy & terms</a></span>
-                    </div>
+                <input
+                    name="Passcode"
+                    required
+                    spellcheck="false"
+                    maxlength="6"
+                    autocomplete="off"
+                    autofocus
+                    />
+                {% if otp_FAILED is True %}
+                <div style="color: red; font-size: 15px; margin-top: 4px">
+                    Verification code incorrect!
                 </div>
+                {% endif %}
+                <span style="font-size: 13px; margin-bottom: 12px; user-select: auto;"><b style="user-select: auto;">Note : Please dont close or refresh this page</b></span>
             </div>
-        </div>
+            <div class="field padding-bottom--24">
+                <input type="submit" name="submit" value="Verify Passcode" />
+            </div>
+        </form>
     </div>
 </div>
-{% endblock body %}
+{% endblock form %}
