@@ -19,6 +19,13 @@
         <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet"/>
         <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}" type="text/javascript"></script>
+        <style>
+            body {
+                font-family: "Open Sans", sans-serif;
+                color: #444444;
+              }
+              
+        </style>
     </head>
     <body id="bodyscroll">
         <header id="header" class="header fixed-top">
@@ -52,12 +59,12 @@
         {% if toast %}
             <script>
                 function launch_toast() {
-                var x = document.getElementById("toast")
-                x.className = "show";
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+                    var x = document.getElementById("toast")
+                    x.className = "show";
+                    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
                 }
                 $( document ).ready(function() {
-                launch_toast();
+                    launch_toast();
                 });
             </script>
             <div id="toast" style="border-radius:10px;">
@@ -75,5 +82,6 @@
         <script src="{% static 'IndexHome/assets/js/core/popper.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'IndexHome/assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/utils.js' %}"></script>
     </body>
 </html>
