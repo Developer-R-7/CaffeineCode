@@ -151,7 +151,7 @@ def signup(request):
                 return render(request,'config/error.html',{'error':error_message[8]})
         else:
             return render(request, 'IndexHome/signup.html')
-
+@never_cache
 def logout(request):
     if request.user.is_authenticated and request.user.is_active:
         auth.logout(request)

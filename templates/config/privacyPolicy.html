@@ -587,7 +587,7 @@
                     <div class="col-lg-6">
                         <form action="{% url 'IndexHome:newsletter' %}" method="post">
                             {% csrf_token %}
-                            <input type="email" id="letter" name="newsletter" /><input type="submit" class="enableOnInput" value="Subscribe"/>
+                            <input type="email" id="letter" name="newsletter" required /><input type="submit" class="enableOnInput" value="Subscribe"/>
                         </form>
                         {% if newsletter %}
                             <script>

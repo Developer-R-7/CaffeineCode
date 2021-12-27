@@ -95,6 +95,13 @@ class PostAPI():
             else:
                 return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
 
+    def get_recent_post(self):
+        try:
+            return self.blog_post.order_by('-likes_count','-date_published')[:3]
+        except:
+            raise Exception("Failed 'get_recent_post'")
+
+
     def like(self,pk,request):
         post = get_object_or_404(self.post_instance, id=pk)
         result = ''

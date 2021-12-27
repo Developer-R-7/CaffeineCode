@@ -139,6 +139,7 @@ class SearchView(ListView):
         context['most_tags'] = self.blog_connector.get_most_tags_used()
         context['category'] = self.blog_connector.get_category()
         context['query_set'] = self.search_query_set
+        context['post'] = self.blog_connector.get_recent_post()
         return context
     
 def like_sys(request):

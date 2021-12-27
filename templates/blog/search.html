@@ -70,6 +70,32 @@
         No results Found!
     </div>
 </article>
+<div  class="recent-blog-posts">
+    <h3 style="
+    font-size: 24px;
+    font-weight: 700;
+    padding: 0 0 0 0;
+    margin: 0 0 15px 0;
+    color: #012970;
+    position: relative;margin-bottom:25px;">Recent Blogs</h3>
+    <div class="row">
+        {% for blog in post %}
+            <div class="col-lg-4">
+                <div class="post-box">
+                    <div class="post-img">
+                        <img src="{{blog.entry_img}}" class="img-fluid" alt=""/>
+                    </div>
+                    <span class="post-date">{{blog.date_published|date:"F d"}}</span>
+                    <h3 class="post-title" style="font-size: 16px;">
+                        {{blog.title}}
+                    </h3>
+                    <a href="{% url 'blog:blog_details' blog.pk %}" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        {% empty %}
+        {% endfor %}
+    </div>
+</div>
 {% endif %} 
 {% endblock article %} 
 
