@@ -25,6 +25,7 @@ urlpatterns = [
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
     path('api-auth/', include('rest_framework.urls')),
     path('dashboard/',include('Dashboard.urls')),
+    path('projects/',include("projects.urls")),
 
 ]
 

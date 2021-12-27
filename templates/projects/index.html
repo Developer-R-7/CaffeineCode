@@ -1,0 +1,75 @@
+{% extends 'projects/base.html' %} 
+
+{% block title %}CaffeineCode - Projects{% endblock title %}
+{% block hero %}
+{% load static %}
+<section id="hero" class="hero d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Your's Coffee Our Blogs</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center text-lg-start">
+                        {% if request.user.is_authenticated %}
+                        <a href="#explore"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                        <span>Explore!</span>
+                        <i class="bi bi-arrow-right"></i>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'IndexHome:signup' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                        <span>Join our coummunity</span>
+                        <i class="bi bi-arrow-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img src="{% static 'IndexHome/assets/img/project.svg' %}" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock hero %}
+
+{% block owl %}
+<div class="row2-container">
+    <div class="box cyan">
+        <h2>Supervisor</h2>
+        <p>Monitors activity to identify project roadblocks</p>
+        <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+    </div>
+    <div class="box cyan">
+        <h2>Supervisor</h2>
+        <p>Monitors activity to identify project roadblocks</p>
+        <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+    </div>
+    <div class="box red">
+        <h2>Team Builder</h2>
+        <p>Scans our talent network to create the</p>
+        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+    </div>
+    <div class="box red">
+        <h2>Team Builder</h2>
+        <p>Scans our talent network to create the</p>
+        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+    </div>
+</div>
+<div class="row2-container">
+<div class="box orange">
+    <h2>Karma</h2>
+    <p>Regularly evaluates our talent to ensure quality</p>
+    <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
+</div>
+<div class="box cyan">
+    <h2>Supervisor</h2>
+    <p>Monitors activity to identify project roadblocks</p>
+    <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+  </div>
+</div>
+{% endblock owl %}
+
+{% block styling %}
+<link href="{% static 'projects/style.css' %}" rel="stylesheet"/>
+{% endblock styling %}

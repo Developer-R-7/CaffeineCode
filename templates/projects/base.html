@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>{% block title %}{% endblock title %}</title>
+        <meta content="" name="description" />
+        <meta content="" name="keywords" />
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'IndexHome/assets/img/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'IndexHome/assets/img/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'IndexHome/assets/img/site.webmanifest' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+        {% block styling %}
+        {% endblock styling %}
+        <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet"/>
+        <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet"/>
+        <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet"/>
+        <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
+        <style>
+            body {
+                font-family: "Nunito", sans-serif;
+                color: #444444;
+            }
+        </style>
+    </head>
+    <body id="bodyscroll">
+        <!--<div class="loader">
+            <div></div>
+            </div>-->
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
+                <span id="LogoText">CaffeineCode</span>
+                </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
+                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}#about">About Us</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Projects</a></li>
+                        <li><a class="nav-link scrollto" href="{% url 'IndexHome:playground' %}">Playground</a></li>
+                        <li><a class="nav-link scrollto active" href="{% url 'blog:index' %}">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
+                        {% if user.is_authenticated and user.is_active %}
+                            <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77)">Logout</a></li>
+                            <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
+                        {% else %}
+                            <li><a class="getstarted scrollto" role="button" href="{% url 'IndexHome:signin' %}">Sign In</a></li>
+                        {% endif %}
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+            </div>
+        </header>
+        {% block hero %}
+        {% endblock hero %}
+        <main id="main" style="margin-top: 80px">
+            <section id="blog" class="blog">
+                {% block search_block %} 
+                {% endblock search_block %} 
+                {% block explore %}
+                {% endblock explore %} 
+                {% block owl %} 
+                {% endblock owl %} 
+                {% block social-btn %}
+                {% endblock social-btn %}
+                <div class="container" data-aos="fade-up">
+                    {% block title_post %}
+                    {% endblock title_post %}
+                    <div class="row">
+                        <div class="col-lg-8 entries">
+                            {% block article %}
+                            {% endblock article %}
+                            <div class="blog-pagination mb-5">
+                                <ul class="justify-content-center">
+                                    {% block pagination %}
+                                    {% endblock pagination %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" class="sidebar-col">
+                            {% block sidebar %}
+                            {% endblock sidebar %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% block recent %} 
+            {% endblock recent %}
+        </main>
+        <footer id="footer" class="footer" >
+            <section class="hero d-flex flex-column" style="background:none;">
+                <div class="footer-newsletter">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12 text-center">
+                                <h4>Our Newsletter</h4>
+                                <p>
+                                    Receive regular updates and announcement by subscibing to our Newsletter
+                                </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <form action="{% url 'IndexHome:newsletter' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="email" id="letter" name="newsletter" required /><input type="submit" class="enableOnInput" value="Subscribe"/>
+                                </form>
+                                {% if newsletter %}
+                                    <script>
+                                        function launch_toast() {
+                                            var x = document.getElementById("toast")
+                                            x.className = "show";
+                                            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+                                        }
+                                        $( document ).ready(function() {
+                                            launch_toast();
+                                        });
+                                    </script>
+                                    <div id="toast">
+                                        <i class="bi bi-check"></i>
+                                        <div id="desc">Newsletter Subscribed!!</div>
+                                    </div>
+                                {% endif %}
+                                <div id="error"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .footer .footer-top{
+                    background-image: url("{% static 'IndexHome/assets/img/footerbg.webp' %}");
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    }
+                </style>
+                <div class="footer-top">
+                    <center>
+                        <hr style="width:80%;color:#8ba4b1;margin-bottom:45px;">
+                    </center>
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mt-4">
+                                <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
+                                <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" style="height:120px;width:120px;">
+                                </a>
+                                <div class="social-links mt-5" style="text-align: left;">
+                                    <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                    <a href="#" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
+                                    <a href="#" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 footer-links">
+                                <h4>Useful Links</h4>
+                                <ul>
+                                    <li><a href="{% url 'IndexHome:index' %}">Home</a></li>
+                                    <li><a href="{% url 'IndexHome:index' %}#about">About us</a></li>
+                                    <li><a href="#">Services</a></li>
+                                    <li><a href="#">Terms of service</a></li>
+                                    <li><a href="{% url 'IndexHome:privacy' %}">Privacy policy</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2 col-6 footer-links">
+                                <h4>Our Services</h4>
+                                <ul>
+                                    <li><a href="{% url 'blog:index' %}">Blogs</a></li>
+                                    <li><a href="#">Projects</a></li>
+                                    <li><a href="{% url 'IndexHome:playground' %}">Playground</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xl-3 col-lg-2 col-md-4 col-sm-6 footer-contact text-center text-md-start">
+                                <h4>Contact Us</h4>
+                                <p>
+                                    A108 Adam Street <br />
+                                    New York, NY 535022<br />
+                                    United States <br /><br />
+                                    <strong>Phone:</strong> +1 5589 55488 55<br />
+                                    <strong>Email:</strong> helpdeveloper.r@gmail.com<br />
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="copyright">
+                                    &copy; Copyright 2022 All Rights Reserved | This website is crafted with ❤️ by Rushi
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="credits">
+                                    Possibly used Front-end part of <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </footer>
+        <!--<script>
+            $(window).on('load',function(){
+                $(".loader").fadeOut(1100);
+                $(".content").fadeIn(1100);
+            });
+            </script>-->
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+        <script src="{% static 'IndexHome/assets/js/utils.js' %}"></script>
+        {% block script %} 
+        {% endblock script %}
+    </body>
+</html>
