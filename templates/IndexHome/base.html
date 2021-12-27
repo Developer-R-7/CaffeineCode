@@ -37,7 +37,7 @@
                     <ul>
                         <li><a class="nav-link scrollto " href="{% url 'IndexHome:index' %}">Home</a></li>
                         <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                        <li><a class="nav-link scrollto" href="#services">Projects</a></li>
+                        <li><a class="nav-link scrollto" href="{% url 'projects:index' %}">Projects</a></li>
                         <li><a class="nav-link scrollto" href="{% url 'IndexHome:playground' %}">Playground</a></li>
                         <li><a class="nav-link scrollto" href="{% url 'blog:index' %}">Blog</a></li>
                         <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
