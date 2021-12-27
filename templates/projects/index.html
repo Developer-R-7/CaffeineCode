@@ -18,7 +18,7 @@
                         </a>
                         {% else %}
                         <a href="{% url 'IndexHome:signup' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                        <span>Join our coummunity</span>
+                        <span>Join our coummunity to upload your projects</span>
                         <i class="bi bi-arrow-right"></i>
                         </a>
                         {% endif %}
@@ -34,39 +34,26 @@
 {% endblock hero %}
 
 {% block owl %}
+<header class="section-header">
+    <h2>OUR PRODUCT</h2>
+    <p>What are you looking for</p>
+</header>
 <div class="row2-container">
-    <div class="box cyan">
-        <h2>Supervisor</h2>
-        <p>Monitors activity to identify project roadblocks</p>
+    <div class="box red">
+        <h2>Github Showcase</h2>
+        <p>We host your Github profile, it only cost you a free account on this platform</p>
         <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
     </div>
-    <div class="box cyan">
-        <h2>Supervisor</h2>
-        <p>Monitors activity to identify project roadblocks</p>
-        <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+    <div class="box blue">
+        <h2>Blogs writer</h2>
+        <p>we provide you the power to follow your passion to write blog by just having a account</p>
+        <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
     </div>
-    <div class="box red">
+    <div class="box orange">
         <h2>Team Builder</h2>
-        <p>Scans our talent network to create the</p>
-        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+        <p>Scans our talent network to create the optimal team for your project, this product inlclude pricing</p>
+        <img src="https://assets.codepen.io/2301174/icon-calculator.svg" alt="">
     </div>
-    <div class="box red">
-        <h2>Team Builder</h2>
-        <p>Scans our talent network to create the</p>
-        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
-    </div>
-</div>
-<div class="row2-container">
-<div class="box orange">
-    <h2>Karma</h2>
-    <p>Regularly evaluates our talent to ensure quality</p>
-    <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
-</div>
-<div class="box cyan">
-    <h2>Supervisor</h2>
-    <p>Monitors activity to identify project roadblocks</p>
-    <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
-  </div>
 </div>
 {% endblock owl %}
 

@@ -43,9 +43,9 @@
                     <ul>
                         <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}">Home</a></li>
                         <li><a class="nav-link scrollto" href="{% url 'IndexHome:index' %}#about">About Us</a></li>
-                        <li><a class="nav-link scrollto" href="{% url 'projects:index' %}">Projects</a></li>
+                        <li><a class="nav-link scrollto active" href="{% url 'projects:index' %}">Projects</a></li>
                         <li><a class="nav-link scrollto" href="{% url 'IndexHome:playground' %}">Playground</a></li>
-                        <li><a class="nav-link scrollto active" href="{% url 'blog:index' %}">Blog</a></li>
+                        <li><a class="nav-link scrollto" href="{% url 'blog:index' %}">Blog</a></li>
                         <li><a class="nav-link scrollto" href="#contact">Contact {{is_login}}</a></li>
                         {% if user.is_authenticated and user.is_active %}
                             <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77)">Logout</a></li>
