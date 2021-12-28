@@ -102,7 +102,3 @@ h2 {
      
     }
 }
-
-.red :hover{
-    border-top: 8px solid var(--red);
-}

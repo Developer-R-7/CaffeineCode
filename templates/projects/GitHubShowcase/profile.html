@@ -1,0 +1,10 @@
+{% extends 'projects/GitHubShowcase/base.html' %}
+
+{% block avatar_url %}{{profile.avatar_url}}{% endblock avatar_url %}
+{% block follower %}{{profile.followers}}{% endblock follower %}
+{% block following %}{{profile.following}}{% endblock following %}
+{% block total_repo %}{{profile.public_repos}}{% endblock total_repo %}
+{% block name %}{{profile.name}}{% endblock name %}
+{% block location %}{{profile.location}}{% endblock location %}
+{% block company %}{{profile.company}}{% endblock company %}
+{% block bio %}{{profile.bio}}{% endblock bio %}
