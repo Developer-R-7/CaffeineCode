@@ -1,30 +1,35 @@
-from django.shortcuts import render
 import requests
+from . import Constants as CONST
 
 def get_data(username):
 
     data_combined_profile = {}
     repos_name = []
     def prepare_data_profile(data):
-        CONST_KEYS = ["html_url","avatar_url","name","company","location","bio","public_repos","followers","following","created_at","login"]
-        for i in range(len(CONST_KEYS)):
-            data_combined_profile[CONST_KEYS[i]] = data[CONST_KEYS[i]]
+
+        for i in range(len(CONST.CONST_KEYS)):
+            data_combined_profile[CONST.CONST_KEYS[i]] = data[CONST.CONST_KEYS[i]]
         
-        for j in range(len(repos_data.json())):
+        for j in range(len(r_repos.json())):
             if j == 50:
                 break;
-            repos_name.append(repos_data.json()[j]['name'])
+            repos_name.append(r_repos.json()[j]['name'])
 
         data_combined_profile['repos_name'] = repos_name
+        data_combined_profile['current_year_contr'] = CONST.get_current_year_contribution(username)
+
+        return data_combined_profile
 
     # try:
-    repos_data = requests.get("https://api.github.com/users/{}/repos".format(username))
-    profile_data = requests.get("https://api.github.com/users/{}".format(username))
-    if repos_data.status_code or profile_data.status_code == 403:
-        return {"RateLimits":True}
+    API_URL = "https://api.github.com"
+    GITHUB_TOKEN = "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"
+    headers = {'Authorization': 'token %s' % GITHUB_TOKEN}
+    r_profile = requests.get(API_URL + "/users/{}".format(username),headers=headers)
+    r_repos = requests.get(API_URL+"/users/{}/repos".format(username),headers=headers)
+
+    if r_profile.status_code and r_repos.status_code == 200:
+        return prepare_data_profile(r_profile.json())
     else:
-        prepare_data_profile(profile_data.json())
+        return {"RateLimits":True}
     # except:
     #     return None
-
-    return data_combined_profile
