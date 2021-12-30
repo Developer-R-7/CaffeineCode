@@ -6,5 +6,5 @@ urlpatterns = [
     path('',views.index, name="index"),
     path('github-showcase/',views.githubShowcase,name="githubShowcase"),
     path('github-showcase/profile/<str:username>',views.profile,name="profile"),
-    path('github-showcase/profile/add',views.profile_add,name="add"),
+    path('github-showcase/profile-add/',views.profile_add,name="add"),
 ]

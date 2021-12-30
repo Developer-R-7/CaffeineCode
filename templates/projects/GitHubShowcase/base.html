@@ -7,9 +7,9 @@
     <link href="{% static 'projects/GitHubShowcase/style.css' %}" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body id="bodyscroll">
   <div class="main-content">
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 400px; background-size: cover; background-position: center top;">
       <span class="mask bg-gradient-default opacity-8"></span>
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
@@ -68,7 +68,7 @@
                   <i class="bi bi-geo-alt-fill"></i> {% block location %}{% endblock location %}
                 </div>
                 <div class="h5 mt-4">
-                  Company<i class="ni business_briefcase-24 mr-2"></i>{% block company %} {% endblock company %}
+                  Company<i class="ni business_briefcase-24 mr-2"></i>{% block company %}{% endblock company %}
                 </div>
                 <!-- <div>
                   <i class="ni education_hat mr-2"></i>University of Computer Science

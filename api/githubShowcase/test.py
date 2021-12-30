@@ -1,20 +1,10 @@
-from github_contributions import GithubUser
-user = GithubUser("torvalds")
-from datetime import date
+import requests
+username = "xyzda"
 
-def get_current_year():
-    return (date.today()).year
+API_URL = "https://api.github.com"
+GITHUB_TOKEN = "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"
+headers = {'Authorization': 'token %s' % GITHUB_TOKEN}
+r_profile = requests.get(API_URL + "/users/{}".format(username),headers=headers)
+r_repos = requests.get(API_URL+"/users/{}/repos".format(username),headers=headers)
 
-total_year = 5
-year = get_current_year()
-data_contr_years = []
-while total_year != 0:
-    if int(2011) <= year:
-        get_current_year_contr = last_year = user.contributions(start_date='{}-01-01'.format(year), end_date='{}-12-31'.format(year))
-        data_contr_years.append(sum([day.count for day in get_current_year_contr.days]))
-        total_year-=1
-        year-=1
-    else:
-        break
-print(data_contr_years)
-
+print(r_profile.status_code)
