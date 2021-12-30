@@ -1,24 +1,7 @@
 import requests
-from . import Constants as CONST
+from . import helpers 
 
 def get_data(username):
-
-    data_combined_profile = {}
-    repos_name = []
-    def prepare_data_profile(data):
-
-        for i in range(len(CONST.CONST_KEYS)):
-            data_combined_profile[CONST.CONST_KEYS[i]] = data[CONST.CONST_KEYS[i]]
-        
-        for j in range(len(r_repos.json())):
-            if j == 50:
-                break;
-            repos_name.append(r_repos.json()[j]['name'])
-
-        data_combined_profile['repos_name'] = repos_name
-        data_combined_profile['current_year_contr'] = CONST.get_current_year_contribution(username)
-
-        return data_combined_profile
 
     # try:
     API_URL = "https://api.github.com"
@@ -28,8 +11,9 @@ def get_data(username):
     r_repos = requests.get(API_URL+"/users/{}/repos".format(username),headers=headers)
 
     if r_profile.status_code and r_repos.status_code == 200:
-        return prepare_data_profile(r_profile.json())
+        return helpers.prepare_data(username,r_profile.json(),r_repos.json())
     else:
         return {"RateLimits":True}
     # except:
     #     return None
+

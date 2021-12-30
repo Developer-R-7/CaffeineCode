@@ -1051,11 +1051,14 @@ textarea.form-control {
   border-radius: calc(0.375rem - 1px) calc(0.375rem - 1px) 0 0;
 }
 .card-title {
-  font-size: 17px;
-  color:#233dd2;
+  padding: 0;
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
 }
 .h2 {
   font-size: 21px;
+  color:#233dd2
 }
 .stats-icon i {
   font-size: 42px;
