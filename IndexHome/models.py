@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields import EmailField
-from taggit.managers import TaggableManager
 # Create your models here.
 
 

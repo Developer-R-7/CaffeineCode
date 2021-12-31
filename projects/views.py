@@ -1,9 +1,8 @@
 from django.shortcuts import redirect, render
-from github_contributions import user
 from blog.models import Post
 from api.githubShowcase.GitHubAPI import get_data,check_github_username
-from api.Users.UserManager import UserAPI
 from .models import profile_register
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -14,20 +13,25 @@ def index(request):
 def profile_add(request):
 
     if request.method == "POST":
-        get_username = request.POST.get("username")
-
-        if check_github_username(get_username):
-            if is_profile_already(get_username):
-                return render(request,"projects/GitHubShowcase/add_profile.html",{"error":"Profile already exits","url":True,"user":get_username})
+        if request.user.is_authenticated and request.user.is_active:
+            get_username = request.POST.get("username")
+            if check_github_username(get_username):
+                if is_profile_already(get_username):
+                    return render(request,"projects/GitHubShowcase/add_profile.html",{"error":"Profile already exits","url":True,"user":get_username})
+                else:
+                    add_profile = profile_register.objects.create(github_username=get_username,user=request.user.username)
+                    add_profile.save()
+                    return redirect("/projects/github-showcase/profile/{}".format(get_username))
             else:
-                add_profile = profile_register.objects.create(username=get_username)
-                add_profile.save()
-                return redirect("/projects/github-showcase/profile/{}".format(get_username))
+                return render(request,"projects/GitHubShowcase/add_profile.html",{"error":"No such GitHub username"})
         else:
-            return render(request,"projects/GitHubShowcase/add_profile.html",{"error":"No such GitHub username"})
+            return render(request,"config/error.html",{"error":"By pass blocked"})
     else:
         if request.user.is_authenticated and request.user.is_active:
-            return render(request,"projects/GitHubShowcase/add_profile.html")
+            if is_user_created_profile(request.user.username):
+                return render(request,"config/error.html",{"error":"You can only create one profile with one account"})
+            else:
+                return render(request,"projects/GitHubShowcase/add_profile.html")
         else:
             return render(request,"IndexHome/login.html")
 
@@ -47,8 +51,12 @@ def profile(request,username):
         return render(request,"config/error.html",{"error":"No such profile found , create-account to create one"})
 
 def githubShowcase(request):
-    pass
+    return render(request,'projects/GitHubShowcase/index.html')
 
-def is_profile_already(username):
-    query = profile_register.objects.filter(username=username).exists()
+def is_profile_already(github_username):
+    query = profile_register.objects.filter(github_username=github_username).exists()
+    return query
+
+def is_user_created_profile(username):
+    query = profile_register.objects.filter(user=username).exists()
     return query

@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# loadtest -n 500 -k  http://localhost:8000/
 #EMAIL CONFIRGRATION
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST_USER = "helpdeveloper.r@gmail.com"
