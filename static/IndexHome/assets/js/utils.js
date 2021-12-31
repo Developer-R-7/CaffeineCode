@@ -1,5 +1,6 @@
 function changeTextColor(className,SwitchCase) {
     var elems = document.querySelectorAll(className);
+    elems  = Array.from(elems).slice(0,7)
     var index = 0, length = elems.length;
     if(SwitchCase === 0) {
         for ( ; index < length-1; index++) {
