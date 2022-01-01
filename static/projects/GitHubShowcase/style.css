@@ -1037,6 +1037,7 @@ textarea.form-control {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  margin-bottom: 30px;
   word-wrap: break-word;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 0.375rem;
@@ -2059,4 +2060,25 @@ p {
 
 #navbar .navbar {
   margin-bottom: 20px;
+}
+#preloader {
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color:#FFF; /* change if the mask should have another color then white */
+  z-index:99999; /* makes sure it stays on top */
+}
+#status {
+  width:100px;
+  height:100px;
+  position:absolute;
+  left:50%; 
+  top:50%; 
+  z-index:9999; 
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size: cover;
+  margin:-50px 0 0 -50px;
 }

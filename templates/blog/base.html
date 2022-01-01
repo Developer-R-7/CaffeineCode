@@ -31,9 +31,6 @@
         </style>
     </head>
     <body id="bodyscroll">
-        <!--<div class="loader">
-            <div></div>
-            </div>-->
         <header id="header" class="header fixed-top">
             <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
                 <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
@@ -233,12 +230,14 @@
                 </div>
             </section>
         </footer>
-        <!--<script>
-            $(window).on('load',function(){
-                $(".loader").fadeOut(1100);
-                $(".content").fadeIn(1100);
-            });
-            </script>-->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script    type="text/javascript">
+            $(window).load(function() { // makes sure the whole site is loaded
+            $('#status').fadeOut(); // will first fade out the loading animation
+            $('#preloader').delay(50).fadeOut(100); // will fade out the white DIV that covers the website.
+            $('body').delay(50).css({'overflow':'visible'});
+            })
+        </script>
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
         <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>

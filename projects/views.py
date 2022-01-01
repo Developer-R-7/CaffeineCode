@@ -33,7 +33,7 @@ def profile_add(request):
             else:
                 return render(request,"projects/GitHubShowcase/add_profile.html")
         else:
-            return render(request,"IndexHome/login.html")
+            return redirect("/account/login/")
 
 
 def profile(request,username):

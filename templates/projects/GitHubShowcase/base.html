@@ -6,8 +6,25 @@
     <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet"/>
     <link href="{% static 'projects/GitHubShowcase/style.css' %}" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(window).load(function() { 
+        $('#status').fadeOut(); 
+        $('#preloader').delay(50).fadeOut(100); 
+        $('body').delay(50).css({'overflow':'visible'});
+      })
+  </script>
+  <style>
+    #status{
+      background-image:url("{% static 'IndexHome/assets/img/preloader.gif' %}");
+    }
+  </style>
 </head>
 <body id="bodyscroll">
+  <div id="preloader"> 
+    <div id="status">
+    </div> 
+  </div>
   <div class="main-content">
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 400px; background-size: cover; background-position: center top;">
       <span class="mask bg-gradient-default opacity-8"></span>
@@ -80,6 +97,22 @@
           </div>
         </div>
         <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Profile Card</h3>
+                </div>
+                <div class="col-4 text-right">
+                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <center><img src="https://github-readme-stats.vercel.app/api?username={{profile.login}}&show_icons=true&theme=radical"></center>
+            </div>
+
+          </div>
           <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
@@ -164,9 +197,9 @@
               </div>
             </div>
           </div>
-  
         </div>
       </div>
+
       <!-- <div class="card bg-secondary shadow mt-4 mb-4" style="padding: 30px;">
         <div class="row justify-content-around">
           {% for repo in repos_list %}
