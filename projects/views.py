@@ -3,6 +3,7 @@ from blog.models import Post
 from api.githubShowcase.GitHubAPI import get_data,check_github_username
 from .models import profile_register
 from django.contrib.auth.models import User
+import json
 # Create your views here.
 
 
@@ -38,13 +39,21 @@ def profile_add(request):
 
 def profile(request,username):
     if is_profile_already(username):
-        profile_data = get_data(username)
+        try:
+            if request.COOKIES['profile_data']:
+                profile_data = json.loads(request.COOKIES['profile_data'])
+                response = render(request,"projects/GitHubShowcase/profile.html",{"profile":profile_data,"repos_list":profile_data['repos_name']})
+        except:
+            profile_data = get_data(username)
+            response = render(request,"projects/GitHubShowcase/profile.html",{"profile":profile_data,"repos_list":profile_data['repos_name']})
+            response.set_cookie(key='profile_data', value=json.dumps(profile_data))
+
         if profile_data is not None:
             try:
                 if profile_data['RateLimits']:
                     return render(request,"config/error.html",{"error":"GitHub API Rate Limits Exceeded , try after some time"})
             except:
-                return render(request,"projects/GitHubShowcase/profile.html",{"profile":profile_data,"repos_list":profile_data['repos_name']})
+                return response
         else:
             return render(request,"config/error.html",{"error":"Oops somethings went wrong, please contact support"})
     else:
