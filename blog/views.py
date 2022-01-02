@@ -63,6 +63,7 @@ class ArticleDetailView(HitCountDetailView):
         context['is_liked'] = self.blog_connector.is_post_like(self.blog_connector.post_instance,self.kwargs['pk'],self.request.user.id)
         context['category'] = self.blog_connector.get_category()
         context['category_post'] = self.blog_connector.get_PostByCategory(context['post'].category).exclude(pk=context['post'].pk)[:3]
+        context['redirect_url'] = self.request.get_full_path()
         return context
 
 class PostByCategory(ListView):

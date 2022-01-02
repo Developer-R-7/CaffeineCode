@@ -102,9 +102,10 @@ def signin(request):
                     if user is not None and user.is_active:
                         if user_connector.is_user_verify(sign_in_email):
                             auth.login(request, user)
-                            if request.session["is_redirect"] == True:
-                                return redirect("/blog/article/{}".format(request.session["pk_to_redirect"]))
-                            else:
+                            try:
+                                if request.session["is_redirect"] == True:
+                                    return redirect(request.session["to_redirect_url"])
+                            except:
                                 return redirect('/dashboard/home')
                         else:
                             get_user = user_connector.search_user_with_account_mail(sign_in_email)
@@ -117,8 +118,8 @@ def signin(request):
                     return render(request, 'config/error.html', {'error': error_message[6]})
         else:
             try:
-                pk_value = request.GET.get("blog-redirect-id")
-                request.session['pk_to_redirect'] = int(pk_value)
+                get_redirect_url = request.GET.get("redirect-url")
+                request.session['to_redirect_url'] = get_redirect_url
                 request.session['is_redirect'] = True
             except:
                 request.session['is_redirect'] = False
