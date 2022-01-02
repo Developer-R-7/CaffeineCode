@@ -46,7 +46,7 @@ def profile(request,username):
         except:
             profile_data = get_data(username)
             response = render(request,"projects/GitHubShowcase/profile.html",{"profile":profile_data,"repos_list":profile_data['repos_name']})
-            response.set_cookie(key='profile_data', value=json.dumps(profile_data))
+            response.set_cookie(key='profile_data', value=json.dumps(profile_data),max_age=1800)
 
         if profile_data is not None:
             try:
