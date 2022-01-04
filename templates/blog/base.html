@@ -48,7 +48,7 @@
                             <li><a href="{% url 'IndexHome:logout' %}" role="button" class="getstarted scrollto" style="background: rgb(212, 77, 77)">Logout</a></li>
                             <li><a class="getstarted scrollto" role="button">{{ user.username }}</a></li>
                         {% else %}
-                            <li><a class="getstarted scrollto" role="button" href="{% url 'IndexHome:signin' %}">Sign In</a></li>
+                            <li><a class="getstarted scrollto" role="button" href="{% url 'IndexHome:signin' %}?redirect-url={{redirect_url}}">Sign In</a></li>
                         {% endif %}
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>

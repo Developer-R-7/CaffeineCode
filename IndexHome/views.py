@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import JsonResponse
-from django.views.decorators.cache import never_cache
+from django.views.decorators.cache import cache_page, never_cache
 from blog.models import Post,Category
 from api.Users.UserManager import UserAPI
 from api.Profiles.ProfileManager import profile_manager
@@ -215,6 +215,7 @@ def playground_timer(request):
     else:
         return render(request, "IndexHome/playground.html")
 
+@cache_page(1800)
 def index(request):
     recent_blog = Post.objects.all()
     user_count = User.objects.count()

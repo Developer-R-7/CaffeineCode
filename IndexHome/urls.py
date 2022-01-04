@@ -7,7 +7,7 @@ app_name = 'IndexHome'
 urlpatterns = [
     path('', views.index, name='index'),
     path('check-user/', views.check_user, name="check_user"),
-    path('verify/<str:mail_hash>/<int:id>/', views.verify,name="verify"),  # merging request_otp url
+    path('verify/<str:mail_hash>/<int:id>/', views.verify,name="verify"),
     path('verify/<str:mail_hash>/<int:acc_id>/?request_otp=<str:request_otp>',views.resend_otp, name="verify_resend"),
     path('account/login/', views.signin, name="signin"),
     path('account/create/', views.signup, name="signup"),

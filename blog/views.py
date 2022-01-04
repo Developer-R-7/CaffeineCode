@@ -24,6 +24,7 @@ class HomeView(ListView):
         context['this_month'] = self.blog_connector.get_this_month()
         context['most_like'] = self.blog_connector.get_most_liked_post()
         context['category'] = self.blog_connector.get_category()
+        context['redirect_url'] = self.request.get_full_path()
         return context
 
 class PostByTags(ListView):

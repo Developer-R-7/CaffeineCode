@@ -9,7 +9,7 @@ import json
 
 def index(request):
     blog = Post.objects.all()[:3]
-    return render(request,"projects/index.html",{"post":blog})
+    return render(request,"projects/index.html",{"post":blog,'redirect_url':request.get_full_path()})
 
 def profile_add(request):
 

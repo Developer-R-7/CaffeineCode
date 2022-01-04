@@ -152,8 +152,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = "rushipatel20"
 
 
-#INTERNAL_IPS = [
-    # ...
-    #"127.0.0.1",
-    # ...
-#]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
