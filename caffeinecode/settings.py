@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os,sys
 sys.dont_write_bytecode = True
+from dotenv import load_dotenv   #for python-dotenv method
+load_dotenv()  
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,13 +147,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # loadtest -n 500 -k  http://localhost:8000/
 #EMAIL CONFIRGRATION
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST_USER = "helpdeveloper.r@gmail.com"
+EMAIL_HOST_USER = os.environ.get("SENDER_MAIL")
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = "rushipatel20"
+EMAIL_HOST_PASSWORD = os.environ.get("SENDER_MAIL_PASSWORD")
 
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+# INTERNAL_IPS = [
+#     "127.0.0.1",
+# ]
