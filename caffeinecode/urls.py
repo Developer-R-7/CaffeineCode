@@ -22,10 +22,10 @@ urlpatterns = [
     path(r'',include('IndexHome.urls')),
     path(r'admin/', admin.site.urls),
     path(r'blog/',include('blog.urls')),
-    path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('dashboard/',include('Dashboard.urls')),
-    path('projects/',include("projects.urls")),
+    path(r'hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
+    path(r'api-auth/', include('rest_framework.urls')),
+    path(r'dashboard/',include('Dashboard.urls')),
+    path(r'projects/',include("projects.urls")),
 
 ]
 
