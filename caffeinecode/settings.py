@@ -23,8 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@lww%xolvok)iwvjbw0!e-f@l0(op(p7d59r8#6q-4&zps##et'
-
+SECRET_KEY = os.environ['SECRET_KEY']
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'hitcount',
     'rest_framework',
-    'Dashboard',
     "debug_toolbar",
     "projects",
 ]
@@ -154,6 +154,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = os.environ.get("SENDER_MAIL_PASSWORD")
 
 
-# INTERNAL_IPS = [
-#     "127.0.0.1",
-# ]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

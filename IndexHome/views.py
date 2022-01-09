@@ -1,5 +1,5 @@
 # ALL IMPORTS
-from . models import Newsletter , Notify
+from . models import Newsletter , Notify,Contact
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -34,9 +34,8 @@ def verify(request, mail_hash, id):
             # CORRECT OTP
             try:
                 profile_connector.update_verify(id)
-                # None delete_field(id)
-                # login user here
-                return redirect("/dashboard/home")
+                profile_connector.delete_field(id)
+                return redirect("/account/login")
             except:
                 return render(request, "config/error.html", {'error': error_message[15]})
         else:
@@ -242,3 +241,20 @@ def newsletter(request):
             'is_subscribe': query 
         }
         return JsonResponse(response)
+    
+def contact(request):
+    if request.method == "POST":
+        try:
+            get_name = request.POST.get("name")
+            get_email = request.POST.get("email")
+            get_subject = request.POST.get("subject")
+            get_body = request.POST.get("body")
+        except:
+            return render(request,"config/error.html", {'error': error_message[2]})
+        create_contact_obj = Contact.objects.create(name=get_name,email=get_email,subject=get_subject,body=get_body)
+        create_contact_obj.save()
+        request.session['sent'] = True
+        return redirect("/#contact")
+
+    else:
+        return redirect("/#contact")

@@ -127,7 +127,10 @@ class profile_manager():
 
     def delete_field(self, id):
         try:
-            query = Profile.objects.filter(account_id=id).update(otp=None, fail_attepmt=None)
+            query = Profile.objects.filter(account_id=id)
+            query.fail_attepmt = 0
+            query.resend_request = 0
+            query.otp = "" 
             query.save()
         except:
             raise Exception("'delete_field' failed!")

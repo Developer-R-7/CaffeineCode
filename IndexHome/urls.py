@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 
 from . import views
@@ -16,5 +17,6 @@ urlpatterns = [
     path(r'account/forgot/verify', views.forgot_final, name="forgot_final"),
     path(r'playground/', views.playground_timer, name="playground"),
     path(r'subscribe-newsletter/',views.newsletter,name="newsletter"),
-    path(r'privacy-policy/',views.privacyPolicy,name="privacy")
+    path(r'privacy-policy/',views.privacyPolicy,name="privacy"),
+    path(r'contact-us/',views.contact,name="contact"),
 ]

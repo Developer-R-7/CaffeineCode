@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.fields import EmailField
+
 # Create your models here.
 
 
@@ -25,7 +25,16 @@ class Newsletter(models.Model):
         return self.subscribe_mail
 
 class Notify(models.Model):
-    notify_mail = EmailField()
+    notify_mail = models.EmailField()
 
     def __str__(self):
         return self.notify_mail
+
+class Contact(models.Model):
+    name = models.TextField(max_length=100)
+    subject = models.TextField(max_length=100)
+    body = models.TextField(max_length=600)
+    email = models.EmailField()
+
+    def __str__(self):
+        return "Query |" + str(self.pk)
