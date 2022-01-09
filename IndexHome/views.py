@@ -105,7 +105,7 @@ def signin(request):
                                 if request.session["is_redirect"] == True:
                                     return redirect(request.session["to_redirect_url"])
                             except:
-                                return redirect('/dashboard/home')
+                                return redirect('/blog')
                         else:
                             get_user = user_connector.search_user_with_account_mail(sign_in_email)
                             ver_req = user_connector.get_encrypted_string(sign_in_email,user_connector.get_key(get_user.account_id))
