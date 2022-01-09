@@ -330,7 +330,6 @@
                     <div id="about" class="col-lg-8 d-flex flex-column justify-content-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" >
                         <div class="single-person" style="background:none;">
                             <div class="content" >
-                                <span style="font-size: 55px;color:#4154f1;margin-left:-40px;">“</span>
                                 <h3 style="color:#4154f1;font-weight:bold">About Me</h3>
                                 <p style="margin-top:20px;line-height:1.6;">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -414,16 +413,16 @@
                         {% csrf_token %}
                         <div class="row gy-4">
                             <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Your Name" required/>
+                                <input type="text" name="name" class="form-control" placeholder="Your Name" maxlength="100" required/>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" placeholder="Your Email" required/>
+                                <input type="email" class="form-control" name="email" placeholder="Your Email"  required/>
                             </div>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="subject" placeholder="Subject" required/>
+                                <input type="text" class="form-control" name="subject" placeholder="Subject" maxlength="100" required/>
                             </div>
                             <div class="col-md-12">
-                                <textarea class="form-control" name="body" rows="6" placeholder="Message" required></textarea>
+                                <textarea class="form-control" name="body" rows="6" placeholder="Message" maxlength="600" required></textarea>
                             </div>
                             
                                 <div class="col-md-12 text-center">

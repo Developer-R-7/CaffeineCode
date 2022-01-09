@@ -2,7 +2,10 @@
 {% block title %}{{post.title_tag}}{% endblock title%} 
 {% load hitcount_tags %} 
 {% load static %} 
+{% load cache %}
 
+
+{% cache 1800 base %}
 {% block search_block %}
 <script>
     $(window).scroll(function () {
@@ -19,13 +22,16 @@
     <center style="text-align: center; vertical-align: middle; line-height: 120px">ADS TO BE SHOWN HERE</center>
 </div>
 {% endblock search_block %}
+{% endcache %}
 
 {% block article %}
 <article class="entry entry-single">
+    {% cache 1800 details %}
     <div class="entry-img">
         <img src="{{post.entry_img}}" alt="blog_img" class="img-fluid" />
     </div>
     <a style="font-family: 'Nunito' sans-serif" href="{% url 'blog:blog_details' post.pk %}" class="entry-title">{{post.title}}</a>
+    {% endcache %}
     <ul class="entry-meta" style="color: #c2c2c2;list-style-type: none;font-size: 14px;padding-left: 0px;">
         <li>
             <i class="bi bi-eye"></i> {% get_hit_count for post %} |
@@ -33,7 +39,7 @@
             <i class="bi bi-heart-fill"><span class="like_count">&nbsp;{{post.likes_count}}</span></i>
         </li>
     </ul>
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated and request.user.is_active %}
         <script>
             $(document).on("click", ".like-button", function (e) {
             e.preventDefault();
@@ -62,6 +68,8 @@
             });
         </script>
     {% endif %}
+
+    {% cache 1800 blogbody %}
     <div class="entry-content">{{post.body|safe}}</div>
     <div class="entry-footer">
         <i class="bi bi-folder"></i>
@@ -69,13 +77,19 @@
             <li><a href="{% url 'blog:category' category_slug=post.category %}">{{post.category}}</a></li>
         </ul>
         <i class="bi bi-tags"></i>
+        
         <ul class="tags">
             {% for tag in post.tags.all %}
+                {% cache 1800 tags %}
                 <li><a href="{% url 'blog:post_list_by_tags' tag.slug %}">{{tag}}</a></li>
+                {% endcache %}
             {% endfor %}
         </ul>
     </div>
+    {% endcache %}
 </article>
+
+{% cache 1800 conculsion %}
 <div class="blog-author d-flex align-items-center">
     <img src="{% static 'IndexHome/assets/img/blog/blog-author.jpg' %}" class="rounded-circle float-left" alt=""/>
     <div>
@@ -88,8 +102,10 @@
         <p>{{post.author_conculsion}}</p>
     </div>
 </div>
+{% endcache %}
 {% endblock article %} 
 
+{% cache 300 sidebar %}
 {% block sidebar %}
     {% if similar_post%}
         <div class="sidebar">
@@ -117,6 +133,7 @@
 </div>
 <div class="sidebar">Ads To Be shown here</div>
 {% endblock sidebar %} 
+{% endcache %}
 
 {% block social-btn %}
 <div class="social-box" style="height: fit-content">
@@ -148,6 +165,7 @@
 {% block pagination %}
 {% endblock pagination %} 
 
+{% cache 1800 recent %}
 {% block recent %}
     {% if category_post %}
         <section id="recent-blog-posts" class="recent-blog-posts">
@@ -181,3 +199,4 @@
         </li>
     {% endfor %} 
 {% endblock category %}
+{% endcache %}

@@ -17,6 +17,17 @@ def check_user(request):
     }
     return JsonResponse(response)
 
+def check_login(request):
+    if request.user.is_authenticated and request.user.is_active:
+        response = {
+            "is_login":True
+        }
+        return JsonResponse(response)
+    else:
+        response = {
+            "is_login":False
+        }
+        return JsonResponse(response)
 
 # VERIFY FUNCTIONS
 @never_cache
@@ -105,7 +116,7 @@ def signin(request):
                                 if request.session["is_redirect"] == True:
                                     return redirect(request.session["to_redirect_url"])
                             except:
-                                return redirect('/blog')
+                                return redirect('/blog/')
                         else:
                             get_user = user_connector.search_user_with_account_mail(sign_in_email)
                             ver_req = user_connector.get_encrypted_string(sign_in_email,user_connector.get_key(get_user.account_id))
@@ -253,8 +264,7 @@ def contact(request):
             return render(request,"config/error.html", {'error': error_message[2]})
         create_contact_obj = Contact.objects.create(name=get_name,email=get_email,subject=get_subject,body=get_body)
         create_contact_obj.save()
-        request.session['sent'] = True
-        return redirect("/#contact")
+        return render(request,"IndexHome/index.html",{"sent":True})
 
     else:
         return redirect("/#contact")
