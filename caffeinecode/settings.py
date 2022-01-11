@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     "debug_toolbar",
     "projects",
+    'Config',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Config.middleware.MaintenanceModeMiddleware'
 ]
 
 CKEDITOR_CONFIGS = {
@@ -145,6 +147,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+MAINTENANCE_MODE = int(os.environ.get("MAINTENANCE_MODE", 0))
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST_USER = os.environ.get("SENDER_MAIL")
