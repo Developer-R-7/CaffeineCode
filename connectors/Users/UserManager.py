@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from api.Profiles.ProfileManager import profile_manager
+from connectors.Profiles.ProfileManager import profile_manager
 from django.utils.crypto import get_random_string
 
 class UserAPI(profile_manager):
@@ -8,10 +8,7 @@ class UserAPI(profile_manager):
         self.user_connect = User.objects.all()
     
     def is_user_has_account(self,mail):
-        try:
-            return self.user_connect.filter(email=mail).exists()
-        except:
-            raise Exception("is_user_has_account failed")
+        return self.user_connect.filter(email=mail).exists()
     
     def create_account(self,username,mail,password):
         user_obj = self.user_connect.create(username=username, email=mail)

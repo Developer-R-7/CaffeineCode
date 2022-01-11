@@ -17,63 +17,57 @@ class PostAPI():
         try :
             return self.blog_post.filter(tags__in=tags).exclude(id=id).annotate(same_tags=Count('tags')).order_by('-tags')[:5]
         except:
-            raise Exception("Failed 'get_similar_post'")
+            raise Exception("Failed (get_similar_post)")
     
     def get_editor_post(self):
         try:
             return self.blog_post.filter(editor_choice=True).order_by('-hit_count_generic__hits')[:5]
         except:
-            raise Exception("Failed 'get_editor_post'")
+            raise Exception("Failed (get_editor_post)")
 
     def get_most_tags_used(self):
         try:
             return Post.tags.most_common()[:10]
         except:
-            raise Exception("Failed 'get_most_tags_used'")
+            raise Exception("Failed (get_most_tags_used)")
     
     def get_most_liked_post(self):
         try:
             return self.blog_post.order_by('-likes_count','-hit_count_generic__hits')[:5]
         except:
-            raise Exception("Failed 'get_most_liked_post'")
+            raise Exception("Failed (get_most_liked_post)")
 
     def get_this_month(self):
         try:
             get_date = datetime.date.today()
             return self.blog_post.filter(date_published__year=get_date.year, date_published__month=get_date.month).order_by('-hit_count_generic__hits')[:10]
         except:
-            raise Exception("Failed 'get_this_month'")
+            raise Exception("Failed (get_this_month)")
 
     def get_most_viewed(self):
         try:
             return self.blog_post.order_by('-hit_count_generic__hits')[:5]
         except:
-            raise Exception("Failed 'get_most_view'")
+            raise Exception("Failed (get_most_viewed)'")
 
-    def is_post_like(self,post,id,user_id):
-        try:
-            return get_object_or_404(post, id=id).likes.filter(id=user_id).exists()
-        except:
-            return None
+    def is_post_like(self,post,id,user_id):    
+        return get_object_or_404(post, id=id).likes.filter(id=user_id).exists()
 
     def get_post_tags(self,tag,tag_slug):
-        try:
-            return get_object_or_404(tag,slug=tag_slug)
-        except:
-            return None
+        return get_object_or_404(tag,slug=tag_slug)
 
     def get_PostByTags_model(self,Tag,tag_slug):
         try:
             tag = get_object_or_404(Tag, slug=tag_slug) 
             return self.blog_post.filter(tags__in=[tag]).order_by('-hit_count_generic__hits')
         except:
-            raise Exception(" PostBy TAGS ERROR")
+            raise Exception("Failed (get_PostByTags_model)")
     
     def get_PostByCategory(self,category_slug):
         try:
             return self.blog_post.filter(category__name=category_slug).order_by('-hit_count_generic__hits','-likes_count','-date_published')
         except:
-            raise Exception("Error in postby catgroy")
+            raise Exception("Failed (get_PostByCategory)")
     
     def search(self,query_set):
         if query_set['category_text'] is not None:
@@ -99,8 +93,7 @@ class PostAPI():
         try:
             return self.blog_post.order_by('-likes_count','-date_published')[:3]
         except:
-            raise Exception("Failed 'get_recent_post'")
-
+            raise Exception("Failed (get_recent_post)")
 
     def like(self,pk,request):
         post = get_object_or_404(self.post_instance, id=pk)

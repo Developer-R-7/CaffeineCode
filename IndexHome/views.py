@@ -6,10 +6,11 @@ from django.contrib import auth
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page, never_cache
 from blog.models import Post,Category
-from api.Users.UserManager import UserAPI
-from api.Profiles.ProfileManager import profile_manager
-from api.Config.error import error_message
-# CLIENT-SIDE FUNCTIONS
+from connectors.Users.UserManager import UserAPI
+from connectors.Profiles.ProfileManager import profile_manager
+from connectors.Config.error import error_message
+
+
 def check_user(request):
     username = request.GET.get('username', None)
     response = {
@@ -17,19 +18,6 @@ def check_user(request):
     }
     return JsonResponse(response)
 
-def check_login(request):
-    if request.user.is_authenticated and request.user.is_active:
-        response = {
-            "is_login":True
-        }
-        return JsonResponse(response)
-    else:
-        response = {
-            "is_login":False
-        }
-        return JsonResponse(response)
-
-# VERIFY FUNCTIONS
 @never_cache
 def verify(request, mail_hash, id):
     try:
@@ -70,6 +58,7 @@ def verify(request, mail_hash, id):
 
             except:
                 return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
+
 @never_cache
 def resend_otp(request, mail_hash, acc_id, request_otp):
     if request_otp:
@@ -89,8 +78,6 @@ def resend_otp(request, mail_hash, acc_id, request_otp):
     else:
         raise Exception("false request")
 
-
-# USER FORM ACTION
 @never_cache
 def signin(request):
     if request.user.is_authenticated:
@@ -162,6 +149,7 @@ def signup(request):
                 return render(request,'config/error.html',{'error':error_message[8]})
         else:
             return render(request, 'IndexHome/signup.html')
+
 @never_cache
 def logout(request):
     if request.user.is_authenticated and request.user.is_active:
@@ -169,6 +157,7 @@ def logout(request):
         return render(request,'IndexHome/index.html',{"toast":True,"toast_mssg":"Logout Successfully!!"})
     else:
         return redirect("/")
+
 @never_cache
 def forgot(request):
     if request.method == "POST":
@@ -189,6 +178,7 @@ def forgot(request):
             return render(request, "config/error.html", {"error": error_message[16]})
     else:
         return render(request, "IndexHome/forgot.html")
+
 @never_cache
 def forgot_final(request):
     try:
@@ -211,8 +201,6 @@ def forgot_final(request):
     else:
         return render(request, 'IndexHome/forgot-final.html')
 
-
-# MAIN FUNCTION
 def playground_timer(request):
     if request.method == "POST":
         try:

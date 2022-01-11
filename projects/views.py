@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from blog.models import Post
-from api.githubShowcase.GitHubAPI import get_data,check_github_username
+from connectors.githubShowcase.GitHubAPI import get_data,check_github_username
 from .models import profile_register
 from django.contrib.auth.models import User
 import json
