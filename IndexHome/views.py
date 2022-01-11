@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page, never_cache
 from blog.models import Post,Category
 from connectors.Users.UserManager import UserAPI
 from connectors.Profiles.ProfileManager import profile_manager
-from connectors.Config.error import error_message
+from Config.error import error_message
 
 
 def check_user(request):
