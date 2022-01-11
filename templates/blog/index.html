@@ -80,14 +80,13 @@
 </article>
 {% endif %}
 <article class="entry">
-    {% cache 300 indexpage %}
     <div class="entry-img">
         <img src="{{post.entry_img}}" alt="post_img" class="img-fluid">
     </div>
     <h2 class="entry-title">
         <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
     </h2>
-    {% endcache %}
+    
     <div class="entry-meta">
         <ul>
             <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">{{post.author}}</a></li>
@@ -96,7 +95,6 @@
             <li class="d-flex align-items-center"><i class="bi bi-heart-fill"></i>{{post.likes_count}}</li>
         </ul>
     </div>
-    {% cache 300 snippets %}
     <div class="entry-content">
         <p>
             {{post.blog_snipet|slice:":200" |stringformat:"s ...."}}
@@ -105,7 +103,7 @@
             <a href="{% url 'blog:blog_details' post.pk %}">Read More</a>
         </div>
     </div>
-    {% endcache %}
+
 </article>
 {% endfor %}
 {% endblock article %}
@@ -141,7 +139,7 @@
 {% endblock pagination %}
 
 
-{% cache 100 sidebar %}
+
 {% block sidebar %}
 <div class="sidebar">
     <h3 class="sidebar-title mb-5">Most Viewed</h3>
@@ -183,7 +181,6 @@
     </div>
 </div>
 {% endblock sidebar %}
-{% endcache %}
 
 {% block styling %}
 <link rel="stylesheet" href="{% static 'blog/css/owl.carousel.min.css' %}">

@@ -213,7 +213,6 @@ def playground_timer(request):
     else:
         return render(request, "IndexHome/playground.html")
 
-@cache_page(1800)
 def index(request):
     recent_blog = Post.objects.all()
     user_count = User.objects.count()
