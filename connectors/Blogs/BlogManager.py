@@ -3,7 +3,7 @@ from blog.models import Category,Post
 from django.db.models import Count,Q
 from django.shortcuts import get_object_or_404
 
-class PostAPI():
+class PostConnector():
 
     def __init__(self):
         self.blog_post =  Post.objects.all()

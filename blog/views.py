@@ -3,13 +3,13 @@ from django.views.generic import ListView
 from taggit.models import Tag
 from hitcount.views import HitCountDetailView
 from django.http import JsonResponse
-from connectors.Blogs.BlogManager import PostAPI
+from connectors.Blogs.BlogManager import PostConnector
 
 
 
 class HomeView(ListView):
 
-    blog_connector = PostAPI()
+    blog_connector = PostConnector()
 
     model = blog_connector.post_instance
     template_name = "blog/index.html"
@@ -29,7 +29,7 @@ class HomeView(ListView):
 
 class PostByTags(ListView):
 
-    blog_connector = PostAPI()
+    blog_connector = PostConnector()
 
     def get_queryset(self):
         self.model = self.blog_connector.post_instance
@@ -51,7 +51,7 @@ class PostByTags(ListView):
 
 class ArticleDetailView(HitCountDetailView):
 
-    blog_connector = PostAPI()
+    blog_connector = PostConnector()
 
     model = blog_connector.post_instance
     template_name = 'blog/blogsingle.html'
@@ -69,7 +69,7 @@ class ArticleDetailView(HitCountDetailView):
 
 class PostByCategory(ListView):
 
-    blog_connector = PostAPI()
+    blog_connector = PostConnector()
 
     def get_queryset(self):
         self.model = self.blog_connector.post_instance
@@ -90,7 +90,7 @@ class PostByCategory(ListView):
         
 class SearchView(ListView):
     
-    blog_connector = PostAPI()
+    blog_connector = PostConnector()
 
     def get_queryset(self):
         self.model = self.blog_connector.post_instance
@@ -147,7 +147,7 @@ class SearchView(ListView):
 def like_sys(request):
     if request.user.is_authenticated and request.user.is_active:
         if request.method == "POST":
-            blog_connector = PostAPI()
+            blog_connector = PostConnector()
             result = ''
             pk_value = int(request.POST.get("postid"))
             post = blog_connector.like(pk_value,request)
