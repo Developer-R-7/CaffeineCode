@@ -28,6 +28,16 @@
                 }
                 
             </style>
+            <script>
+                function checkDevice(p1, p2) {
+                    if(window.innerWidth < 600){
+                        alert("Please view this website on computer or laptop for better user experience")
+                    }
+                }
+                $(document).ready(function () {
+                    checkDevice();
+                });
+            </script>
         {% endcache IndexHomeStaticFileCss %}
     </head>
     <body id="bodyscroll">
