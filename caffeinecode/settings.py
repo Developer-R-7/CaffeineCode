@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'hitcount',
     'rest_framework',
-    "debug_toolbar",
-    "projects",
+    'debug_toolbar',
+    'projects',
     'Config',
 ]
 
@@ -126,13 +126,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -157,6 +157,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = os.environ.get("SENDER_MAIL_PASSWORD")
 
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+
+# INTERNAL_IPS = [
+#     "127.0.0.1",
+# ]
