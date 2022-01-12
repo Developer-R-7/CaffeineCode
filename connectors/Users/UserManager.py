@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from Config.logger import serverLogger
 from connectors.Profiles.ProfileManager import profile_manager
 from django.utils.crypto import get_random_string
 
@@ -20,6 +21,7 @@ class UserAPI(profile_manager):
         self.createProfile(user_obj,id,mail)
         self.add_otp(id)
         encrypted_string = self.get_encrypted_string(mail,self.get_key(id))
+        serverLogger("success","User-Account Created {}".format(username))
         return [encrypted_string,id]
 
     def generate_account_id(self):
@@ -35,3 +37,4 @@ class UserAPI(profile_manager):
         query = self.user_connect.get(email=mail)
         query.set_password(new_password)
         query.save()
+        serverLogger("success","Password change request successful")

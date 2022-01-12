@@ -1,4 +1,5 @@
 import requests
+from Config.logger import serverLogger
 from . import helpers 
 import os
 from dotenv import load_dotenv
@@ -17,8 +18,9 @@ def get_data(username):
         else:
             return {"RateLimits":True}
 
-    except:
-        return None
+    except Exception as e:
+        serverLogger("Failed",e)
+        raise Exception("Failed (get_data in GitHubShowcase)")
 
 def check_github_username(username):
     API_URL = "https://api.github.com"

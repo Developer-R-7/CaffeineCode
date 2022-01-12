@@ -3,6 +3,7 @@ from cryptography.fernet import Fernet
 import math as m
 import random as r
 from IndexHome.task import SendOTP
+from Config.logger import serverLogger
 
 
 class profile_manager():
@@ -11,14 +12,16 @@ class profile_manager():
         try:
             query = Profile.objects.get(user_email=mail)
             return query
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             return None
 
     def search_user_with_id(self, id):
         try:
             query = Profile.objects.get(account_id=id)
             return query
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             return None
 
     def is_user_verify(self, mail):
@@ -28,7 +31,8 @@ class profile_manager():
                 return True
             else:
                 return False
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             return None
 
     def update_verify(self, id):
@@ -36,7 +40,8 @@ class profile_manager():
             query = self.search_user_with_id(id)
             query.is_verfied = True
             query.save()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (update_verify)")
 
     def generate_otp(self):
@@ -53,7 +58,8 @@ class profile_manager():
             query.otp = self.generate_otp()
             query.save()
             SendOTP.delay(query.user_email,query.otp)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (generate_only_otp)")
 
     def add_otp(self, id):
@@ -64,7 +70,8 @@ class profile_manager():
             query.otp = self.generate_otp()
             query.save()
             SendOTP.delay(query.user_email,query.otp)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (add_otp)")
 
     def verify_otp(self, id, user_input):
@@ -74,7 +81,8 @@ class profile_manager():
                 return True
             else:
                 return False
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (verify_otp)")
 
     def add_fail_request(self, id):
@@ -83,14 +91,16 @@ class profile_manager():
             query.fail_attepmt += 1
             query.save()
             return query.fail_attepmt
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (add_fail_request)")
 
     def get_fail(self, id):
         try:
             query = self.search_user_with_id(id)
             return query.fail_attepmt
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_fail)")
 
     def reset_fail(self, id):
@@ -98,7 +108,8 @@ class profile_manager():
             query = self.search_user_with_id(id)
             query.fail_attepmt = 0
             query.save()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (reset_fail)")
 
     def reset_resend(self, id):
@@ -107,7 +118,8 @@ class profile_manager():
             query.resend_request = 0
             self.resend_code_request = 0
             query.save()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (reset_resend)")
 
     def resend_request(self, id):
@@ -115,14 +127,16 @@ class profile_manager():
             query = self.search_user_with_id(id)
             query.resend_request += 1
             query.save()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed! (resend_request)")
 
     def get_otp(self, mail):
         try:
             query = self.search_user_with_account_mail(mail)
             return query.otp
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             return None
 
     def delete_field(self, id):
@@ -132,26 +146,30 @@ class profile_manager():
             query.resend_request = 0
             query.otp = "" 
             query.save()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (delete_field)")
 
     def createProfile(self, user_obj, id, mail):
         try:
             profile_obj = Profile.objects.create(user=user_obj, account_id=id, user_email=mail)
             profile_obj.save()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (createProfile)")
     
     def check_account_id(self,id):
         try:
             return Profile.objects.filter(account_id=id).exists()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (check_account_id)")
     
     def check_account_id(self,id):
         try:
             return Profile.objects.filter(account_id=id).exists()
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (check_account_id)")
 
     def get_key(self,id):
