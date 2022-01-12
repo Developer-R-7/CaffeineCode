@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
     {% load static %}
+    {% load cache %}
     <head>
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <title>{% block title %}{% endblock title %}</title>
         <meta content="" name="description" />
         <meta content="" name="keywords" />
-        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'IndexHome/assets/img/favicon-32x32.png' %}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'IndexHome/assets/img/favicon-16x16.png' %}">
-        <link rel="manifest" href="{% static 'IndexHome/assets/img/site.webmanifest' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
-        {% block styling %}
-        {% endblock styling %}
-        <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
-        <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet"/>
-        <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet"/>
-        <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet"/>
-        <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet"/>
-        <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet"/>
-        <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
-        <style>
-            body {
-                font-family: "Nunito", sans-serif;
-                color: #444444;
-            }
-        </style>
-    </head>
+        {% cache 400 StaticFileCss %}
+            <link rel="apple-touch-icon" sizes="180x180" href="{% static 'IndexHome/assets/img/apple-touch-icon.png' %}">
+            <link rel="icon" type="image/png" sizes="32x32" href="{% static 'IndexHome/assets/img/favicon-32x32.png' %}">
+            <link rel="icon" type="image/png" sizes="16x16" href="{% static 'IndexHome/assets/img/favicon-16x16.png' %}">
+            <link rel="manifest" href="{% static 'IndexHome/assets/img/site.webmanifest' %}">
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+            {% block styling %}
+            {% endblock styling %}
+            <link href="{% static 'IndexHome/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+            <link href="{% static 'IndexHome/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet"/>
+            <link href="{% static 'IndexHome/assets/vendor/aos/aos.css' %}" rel="stylesheet"/>
+            <link href="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet"/>
+            <link href="{% static 'IndexHome/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet"/>
+            <link href="{% static 'IndexHome/assets/css/style.css' %}" rel="stylesheet"/>
+            <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
+            <style>
+                body {
+                    font-family: "Nunito", sans-serif;
+                    color: #444444;
+                }
+            </style>
+        {% endcache StaticFileCss %}
+    </head> 
     <body id="bodyscroll">
         <header id="header" class="header fixed-top">
             <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -239,14 +242,16 @@
             })
         </script>
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-        <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
-        <script src="{% static 'IndexHome/assets/js/utils.js' %}"></script>
-        {% block script %} 
-        {% endblock script %}
+        {% cache 400 StaticFileJs %}
+            <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+            <script src="{% static 'IndexHome/assets/vendor/aos/aos.js' %}"></script>
+            <script src="{% static 'IndexHome/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+            <script src="{% static 'IndexHome/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+            <script src="{% static 'IndexHome/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+            <script src="{% static 'IndexHome/assets/js/main.js' %}"></script>
+            <script src="{% static 'IndexHome/assets/js/utils.js' %}"></script>
+            {% block script %} 
+            {% endblock script %}
+        {% endcache StaticFileJs %}
     </body>
 </html>
