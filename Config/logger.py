@@ -4,6 +4,7 @@ import datetime
 
 def serverLogger(status,message):
     if settings.SERVER_LOGGER:
+        print()
         if status =="success":
             print(f'✅ {datetime.datetime.now()}          {status}          {message}')
         else:

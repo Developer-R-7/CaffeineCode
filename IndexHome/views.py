@@ -4,11 +4,12 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import JsonResponse
-from django.views.decorators.cache import cache_page, never_cache
+from django.views.decorators.cache import never_cache
 from blog.models import Post,Category
 from connectors.Users.UserManager import UserAPI
 from connectors.Profiles.ProfileManager import profile_manager
 from Config.error import error_message
+from django.core.cache import cache
 
 
 def check_user(request):
@@ -215,9 +216,9 @@ def playground_timer(request):
 
 def index(request):
     recent_blog = Post.objects.all()
-    user_count = User.objects.count()
-    category = Category.objects.all()[:6]
-    return render(request, 'IndexHome/index.html',{'post':recent_blog.order_by('-likes_count','-date_published')[:3],'user_count':user_count,'total_blogs':recent_blog.count(),'category':category})
+    user_count = cache.get_or_set('user_count',User.objects.count(),300)
+    category = cache.get_or_set('index_category',Category.objects.all()[:6],300)
+    return render(request, 'IndexHome/index.html',{'post':recent_blog.order_by('-likes_count','-date_published')[:3],'user_count':user_count,'total_blogs':cache.get_or_set('blog_count',recent_blog.count(),300),'category':category})
 
 def privacyPolicy(request):
     return render(request,"config/privacyPolicy.html")

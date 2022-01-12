@@ -3,6 +3,7 @@ from blog.models import Category,Post
 from django.db.models import Count,Q
 from django.shortcuts import get_object_or_404
 from ..Cache.CacheManager import cache_manager
+from Config.logger import serverLogger
 TIME = 300
 class PostConnector():
 
@@ -17,38 +18,44 @@ class PostConnector():
     def get_similar_post(self,tags,id):
         try :
             return cache_manager('similar_post',self.blog_post.filter(tags__in=tags).exclude(id=id).annotate(same_tags=Count('tags')).order_by('-tags')[:5],TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_similar_post)")
     
     def get_editor_post(self):
         try:
             return cache_manager('editor_post',self.blog_post.filter(editor_choice=True).order_by('-hit_count_generic__hits')[:5],TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_editor_post)")
 
     def get_most_tags_used(self):
         try:
             return cache_manager('most_tags_used',Post.tags.most_common()[:10],TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_most_tags_used)")
     
     def get_most_liked_post(self):
         try:
             return cache_manager('mst_liked_post',self.blog_post.order_by('-likes_count','-hit_count_generic__hits')[:5],TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_most_liked_post)")
 
     def get_this_month(self):
         try:
             get_date = datetime.date.today()
             return cache_manager('this_month_post',self.blog_post.filter(date_published__year=get_date.year, date_published__month=get_date.month).order_by('-hit_count_generic__hits')[:10],TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_this_month)")
 
     def get_most_viewed(self):
         try:
             return cache_manager('most_viewed',self.blog_post.order_by('-hit_count_generic__hits')[:5],TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_most_viewed)'")
 
     def is_post_like(self,post,id,user_id):    
@@ -61,13 +68,15 @@ class PostConnector():
         try:
             tag = get_object_or_404(Tag, slug=tag_slug) 
             return cache_manager('post_by_tags',self.blog_post.filter(tags__in=[tag]).order_by('-hit_count_generic__hits'),TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_PostByTags_model)")
     
     def get_PostByCategory(self,category_slug):
         try:
             return cache_manager('post_by_category',self.blog_post.filter(category__name=category_slug).order_by('-hit_count_generic__hits','-likes_count','-date_published'),TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_PostByCategory)")
     
     def search(self,query_set):
@@ -93,7 +102,8 @@ class PostConnector():
     def get_recent_post(self):
         try:
             return cache_manager('recent_post',self.blog_post.order_by('-likes_count','-date_published')[:3],TIME)
-        except:
+        except Exception as e:
+            serverLogger("Failed",e)
             raise Exception("Failed (get_recent_post)")
 
     def like(self,pk,request):

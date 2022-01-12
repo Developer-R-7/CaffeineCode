@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path ,include
+from django.conf.urls import handler500
 
 urlpatterns = [
     path(r'',include('IndexHome.urls')),
@@ -27,6 +28,7 @@ urlpatterns = [
     path(r'config/',include("Config.urls")),
 
 ]
+handler500 = "Config.views.handler500"
 
 if settings.DEBUG:
     import debug_toolbar
