@@ -1,4 +1,3 @@
-# ALL IMPORTS
 from . models import Newsletter , Notify,Contact
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
@@ -23,7 +22,6 @@ def check_user(request):
 def verify(request, mail_hash, id):
     try:
         profile_connector = profile_manager()
-        get_user = profile_connector.search_user_with_id(id)
         decrypt_email = profile_connector.get_decrypted_string(mail_hash.encode('utf-8'),id)
         is_user_verify = profile_connector.is_user_verify(decrypt_email.decode())
     except:
@@ -31,7 +29,6 @@ def verify(request, mail_hash, id):
     if request.method == "POST":
         USER_OTP_IN = request.POST.get('Passcode')
         if profile_connector.verify_otp(id, USER_OTP_IN):
-            # CORRECT OTP
             try:
                 profile_connector.update_verify(id)
                 profile_connector.delete_field(id)

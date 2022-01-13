@@ -98,7 +98,6 @@ class SearchView(ListView):
         self.paginate_by = 5 
         self.query = self.request.GET.get('query')
 
-        # Getting Query Data
         try:
             self.search_title = self.request.GET.get('search_title')
         except:
@@ -112,7 +111,6 @@ class SearchView(ListView):
         except:
             pass
         
-        # Data Cleaning Functions
         def query_none_checker(query_params):
             if query_params is None:
                 return False
@@ -125,7 +123,6 @@ class SearchView(ListView):
             else:
                 return None
 
-        # Final Query Set
         self.search_query_set = {
             'query':self.query,
             'search_body':query_none_checker(self.search_body),
