@@ -41,7 +41,7 @@ class profile_manager():
             query.is_verfied = True
             query.save()
         except Exception as e:
-            serverLogger("Failed",e)
+            serverLogger("Failed (update_verify)",e)
             raise Exception("Failed (update_verify)")
 
     def generate_otp(self):
@@ -141,7 +141,7 @@ class profile_manager():
 
     def delete_field(self, id):
         try:
-            query = Profile.objects.filter(account_id=id)
+            query = Profile.objects.get(account_id=id)
             query.fail_attepmt = 0
             query.resend_request = 0
             query.otp = "" 

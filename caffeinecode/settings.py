@@ -157,7 +157,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = os.environ.get("SENDER_MAIL_PASSWORD")
 
 
-
 # INTERNAL_IPS = [
 #     "127.0.0.1",
 # ]

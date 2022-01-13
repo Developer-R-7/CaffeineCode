@@ -25,7 +25,7 @@ def verify(request, mail_hash, id):
         profile_connector = profile_manager()
         get_user = profile_connector.search_user_with_id(id)
         decrypt_email = profile_connector.get_decrypted_string(mail_hash.encode('utf-8'),id)
-        is_user_verify = profile_connector.is_user_verify(decrypt_email)
+        is_user_verify = profile_connector.is_user_verify(decrypt_email.decode())
     except:
         return render(request, "config/error.html", {'error': error_message[0]})
     if request.method == "POST":
