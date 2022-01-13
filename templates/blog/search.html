@@ -31,7 +31,7 @@
 {% for post in object_list %}
 <article class="entry">
     <div class="entry-img">
-        <img src="{{post.entry_img}}" alt="" class="img-fluid" />
+        <img src="{{post.entry_img}}" alt="entry_img" class="img-fluid" />
     </div>
     <h2 class="entry-title">
         <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
@@ -83,7 +83,7 @@
             <div class="col-lg-4">
                 <div class="post-box">
                     <div class="post-img">
-                        <img src="{{blog.entry_img}}" class="img-fluid" alt=""/>
+                        <img src="{{blog.entry_img}}" class="img-fluid" alt="entry_img"/>
                     </div>
                     <span class="post-date">{{blog.date_published|date:"F d"}}</span>
                     <h3 class="post-title" style="font-size: 16px;">
@@ -108,7 +108,7 @@
     <div class="sidebar-item recent-posts">
         {% for mostlike in most_like %}
         <div class="post-item clearfix">
-            <img src="{{mostlike.entry_img}}" alt="" />
+            <img src="{{mostlike.entry_img}}" alt="most_like_img" />
             <h4>
                 <a href="{% url 'blog:blog_details' mostlike.pk %}">{{mostlike.title}}</a>
             </h4>

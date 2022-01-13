@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <img src="{% static 'IndexHome/assets/img/Team.svg' %}" class="img-fluid" alt=""/>
+                <img src="{% static 'IndexHome/assets/img/Team.svg' %}" class="img-fluid" alt="team_img"/>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                    <img src="{% static 'IndexHome/assets/img/about.svg' %}" class="img-fluid" alt=""/>
+                    <img src="{% static 'IndexHome/assets/img/about.svg' %}" class="img-fluid" alt="about_img"/>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="box" data-aos="fade-up" data-aos-delay="200">
-                        <img src="{% static 'IndexHome/assets/img/values-1.png' %}" class="img-fluid" alt=""/>
+                        <img src="{% static 'IndexHome/assets/img/values-1.png' %}" class="img-fluid" alt="value_img"/>
                         <h3><a href="{% url 'blog:index' %}">Blogs</a></h3>
                         <p>
                             All range of blogs from beginner to advanced concept blogs
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-lg-4 mt-4 mt-lg-0">
                     <div class="box" data-aos="fade-up" data-aos-delay="400">
-                        <img src="{% static 'IndexHome/assets/img/values-2.png' %}" class="img-fluid" alt=""/>
+                        <img src="{% static 'IndexHome/assets/img/values-2.png' %}" class="img-fluid" alt="value_2_img"/>
                         <h3><a href="{% url 'projects:index' %}">Projects</a></h3>
                         <p>
                             Well documented and optimize codes Which only cost you a free account on this website
@@ -87,7 +87,7 @@
                 </div>
                 <div class="col-lg-4 mt-4 mt-lg-0">
                     <div class="box" data-aos="fade-up" data-aos-delay="600">
-                        <img src="{% static 'IndexHome/assets/img/values-3.png' %}" class="img-fluid" alt=""/>
+                        <img src="{% static 'IndexHome/assets/img/values-3.png' %}" class="img-fluid" alt="value_3_img"/>
                         <h3><a href="{% url 'IndexHome:playground' %}">Playground</a></h3>
                         <p>
                             Organized Weekly competition and huge database of problems sets with solution
@@ -339,9 +339,9 @@
                                 </div>
                             </div>
                             <div class="social-links mt-3">
-                                <a href="https://github.com/Developer-R-7" target="_blank" class="facebook"><i class="bi bi-github"></i></a>
-                                <a href="https://www.instagram.com/developer._.r/" target="_blank" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
-                                <a href="www.linkedin.com/in/developer-r" target="_blank" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
+                                <a href="https://github.com/Developer-R-7" target="_blank" rel="noopener noreferrer" class="facebook"><i class="bi bi-github"></i></a>
+                                <a href="https://www.instagram.com/developer._.r/" target="_blank" rel="noopener noreferrer" class="instagram"><i class="bi bi-instagram bx bxl-instagram"></i></a>
+                                <a href="www.linkedin.com/in/developer-r" target="_blank" rel="noopener noreferrer" class="linkedin"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -363,7 +363,7 @@
                     <div class="swiper-slide">
                         <div class="testimonial-item">
                             <a href="{% url 'blog:category' category_slug=cat_name.name %}">
-                                <center><img src="" style="width:80%;" class="img-fluid" alt=""></center>
+                                <center><img src="" style="width:80%;" class="img-fluid" alt="{{cat_name.name}}"></center>
                             </a>
                             <h3 class="cat_explore">{{cat_name.name}}</h3>
                         </div>
@@ -386,7 +386,7 @@
                     <div class="col-lg-4">
                         <div class="post-box">
                             <div class="post-img">
-                                <img src="{{blog.entry_img}}" class="img-fluid" alt=""/>
+                                <img src="{{blog.entry_img}}" class="img-fluid" alt="entry_img"/>
                             </div>
                             <span class="post-date">{{blog.date_published|date:"F d"}}</span>
                             <h3 class="post-title">
@@ -437,7 +437,7 @@
                     </form>
                 </div>
                 <div class="col-lg-6">
-                    <img src="{% static 'IndexHome/assets/img/contact.svg' %}" style="width:95%;margin-top:12%">
+                    <img src="{% static 'IndexHome/assets/img/contact.svg' %}" alt="contact_img" style="width:95%;margin-top:12%">
                 </div>
             </div>
         </div>
@@ -495,7 +495,7 @@
                 <div class="row justify-content-between">
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mt-4">
                         <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
-                        <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" style="height:120px;width:120px;">
+                        <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" alt="logo_img" style="height:120px;width:120px;">
                         </a>
                         <div class="social-links mt-5" style="text-align: left;">
                             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>

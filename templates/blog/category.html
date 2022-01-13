@@ -25,7 +25,7 @@
 {% for post in object_list %}
 <article class="entry">
     <div class="entry-img">
-        <img src="{{post.entry_img}}" alt="" class="img-fluid" />
+        <img src="{{post.entry_img}}" alt="entry_img" class="img-fluid" />
     </div>
     <h2 class="entry-title">
         <a href="{% url 'blog:blog_details' post.pk %}">{{post.title}}</a>
@@ -111,7 +111,7 @@
     <div class="sidebar-item recent-posts">
         {% for item in most_view %}
         <div class="post-item clearfix">
-            <img src="{{item.entry_img}}" alt="" />
+            <img src="{{item.entry_img}}" alt="most_view_entry_img" />
             <h4>
                 <a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a>
             </h4>

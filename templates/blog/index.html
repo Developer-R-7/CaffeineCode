@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <img src="{% static 'IndexHome/assets/img/blogging.svg' %}" class="img-fluid" alt="">
+                <img src="{% static 'IndexHome/assets/img/blogging.svg' %}" class="img-fluid" alt="blog_banner_img">
             </div>
         </div>
     </div>
@@ -146,7 +146,7 @@
     <div class="sidebar-item recent-posts">
         {% for most_view in trending_post %}
         <div class="post-item clearfix mb-4 mt-4">
-            <img src="{{most_view.entry_img}}" alt="">
+            <img src="{{most_view.entry_img}}" alt="entry_img">
             <h4><a href="{% url 'blog:blog_details' most_view.pk %}">{{most_view.title}}</a></h4>
             <time>{{most_view.date_published|date:"F d"}} &bullet; {{most_view.readtime_min}} min</time>
         </div>
@@ -158,7 +158,7 @@
     <div class="sidebar-item recent-posts">
         {% for most_like_post in most_like %}
         <div class="post-item clearfix mb-4 mt-4">
-            <img src="{{most_like_post.entry_img}}" alt="">
+            <img src="{{most_like_post.entry_img}}" alt="most_like_img">
             <h4><a href="{% url 'blog:blog_details' most_like_post.pk %}">{{most_like_post.title}}</a></h4>
             <time>{{most_like_post.date_published|date:"F d"}} &bullet; {{most_like_post.readtime_min}} min</time>
         </div>

@@ -81,7 +81,7 @@
 </article>
 
 <div class="blog-author d-flex align-items-center">
-    <img src="{% static 'IndexHome/assets/img/blog/blog-author.jpg' %}" class="rounded-circle float-left" alt=""/>
+    <img src="{% static 'IndexHome/assets/img/blog/blog-author.jpg' %}" class="rounded-circle float-left" alt="blog_author"/>
     <div>
         <h4>{{post.author}}</h4>
         <div class="social-links">
@@ -103,7 +103,7 @@
             <div class="sidebar-item recent-posts">
                 {% for item in similar_post %}
                     <div class="post-item clearfix">
-                        <img src="{{item.entry_img}}" alt="" />
+                        <img src="{{item.entry_img}}" alt="entry_img" />
                         <strong><h4><a href="{% url 'blog:blog_details' item.pk %}">{{item.title}}</a></h4></strong>
                         <time>{{item.date_published|date:"F d"}} &bullet; {{item.readtime_min}} min</time>
                     </div>
@@ -168,7 +168,7 @@
                         <div class="col-lg-4">
                             <div class="post-box">
                                 <div class="post-img">
-                                    <img src="{{cat_post.entry_img}}" class="img-fluid" alt=""/>
+                                    <img src="{{cat_post.entry_img}}" class="img-fluid" alt="category_img"/>
                                 </div>
                                 <span class="post-date">{{cat_post.date_published}}</span>
                                 <h3 class="post-title">{{cat_post.title}}</h3>
