@@ -18,8 +18,6 @@ from django.contrib import admin
 from django.urls import path ,include
 from django.conf.urls import handler500,handler404
 
-from caffeinecode.Config.views import handler400
-
 urlpatterns = [
     path(r'',include('IndexHome.urls')),
     path(r'admin/', admin.site.urls),
