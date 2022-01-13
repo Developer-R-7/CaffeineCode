@@ -5,10 +5,14 @@
     <div class="formbg-inner padding-horizontal--48">
         {% load static %}
         <center>
-            <img src="{% static 'IndexHome/assets/img/error.svg' %}" height="160px" width="160px" alt="error"/>
+            {% if error_code %}
+                <img src="{% static 'IndexHome/assets/img/404_error.svg' %}" height="160px" width="160px" alt="error"/>
+            {% else %}
+                <img src="{% static 'IndexHome/assets/img/error.svg' %}" height="160px" width="160px" alt="error"/>
+            {% endif %}
         </center>
         <br/>
-        <span style="text-align: center; color: rgb(255, 0, 0); font-size: 19px" class="padding-bottom--15">{{error}}</span>
+        <span style="text-align: center; color: rgb(255, 0, 0); font-size: 17px" class="padding-bottom--15">{{error}}</span>
         <span class="padding-bottom--15" style="text-align: center"><a href="{% url 'IndexHome:index' %}" style="color: rgb(82, 82, 250)">Return To Home</a></span>
     </div>
 </div>

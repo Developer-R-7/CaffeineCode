@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path ,include
-from django.conf.urls import handler500
+from django.conf.urls import handler500,handler404
+
+from caffeinecode.Config.views import handler400
 
 urlpatterns = [
     path(r'',include('IndexHome.urls')),
@@ -29,6 +31,7 @@ urlpatterns = [
 
 ]
 handler500 = "Config.views.handler500"
+handler404 = "Config.views.handler404"
 
 if settings.DEBUG:
     import debug_toolbar
