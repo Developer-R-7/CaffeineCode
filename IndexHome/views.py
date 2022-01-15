@@ -32,13 +32,13 @@ def verify(request, mail_hash, id):
             try:
                 profile_connector.update_verify(id)
                 profile_connector.delete_field(id)
-                return redirect("/account/login")
+                return render(request,"IndexHome/login.html",{"toast":True,"toast_mssg":"Account Created , please login again","simpleMssg":True})
             except:
                 return render(request, "config/error.html", {'error': error_message[15]})
         else:
             if profile_connector.get_fail(id) < 3:
                 profile_connector.add_fail_request(id)
-                return render(request, "IndexHome/verify.html", {'otp_FAILED': True, 'mail': mail_hash, 'email': decrypt_email.decode(), "id": id})
+                return render(request, "IndexHome/verify.html", {'otp_fail': True, 'mail': mail_hash, 'email': decrypt_email.decode(), "id": id})
             else:
                 profile_connector.reset_fail(id)
                 return render(request, 'config/error.html', {'error': error_message[13]})
@@ -53,7 +53,6 @@ def verify(request, mail_hash, id):
                     return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
                 else:
                     return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
-
             except:
                 return render(request, "IndexHome/verify.html", {'email': decrypt_email.decode(), 'mail': mail_hash, 'id': id})
 
