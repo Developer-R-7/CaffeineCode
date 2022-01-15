@@ -32,7 +32,7 @@ def verify(request, mail_hash, id):
             try:
                 profile_connector.update_verify(id)
                 profile_connector.delete_field(id)
-                return render(request,"IndexHome/login.html",{"toast":True,"toast_mssg":"Account Created , please login again","simpleMssg":True})
+                return redirect("/account/login")
             except:
                 return render(request, "config/error.html", {'error': error_message[15]})
         else:
