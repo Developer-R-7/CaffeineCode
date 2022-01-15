@@ -589,17 +589,6 @@
                             {% csrf_token %}
                             <input type="email" id="letter" name="newsletter" required /><input type="submit" class="enableOnInput" value="Subscribe"/>
                         </form>
-                        {% if newsletter %}
-                            <script>
-                                $( document ).ready(function() {
-                                launch_toast();
-                                });
-                            </script>
-                            <div id="toast">
-                                <i class="bi bi-check"></i>
-                                <div id="desc">Newsletter Subscribed!!</div>
-                            </div>
-                        {% endif %}
                         <div id="error"></div>
                     </div>
                 </div>

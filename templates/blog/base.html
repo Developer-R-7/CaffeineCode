@@ -143,22 +143,6 @@
                                     {% csrf_token %}
                                     <input type="email" id="letter" name="newsletter" required /><input type="submit" class="enableOnInput" value="Subscribe"/>
                                 </form>
-                                {% if newsletter %}
-                                    <script>
-                                        function launch_toast() {
-                                            var x = document.getElementById("toast")
-                                            x.className = "show";
-                                            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
-                                        }
-                                        $( document ).ready(function() {
-                                            launch_toast();
-                                        });
-                                    </script>
-                                    <div id="toast">
-                                        <i class="bi bi-check"></i>
-                                        <div id="desc">Newsletter Subscribed!!</div>
-                                    </div>
-                                {% endif %}
                                 <div id="error"></div>
                             </div>
                         </div>
@@ -241,6 +225,25 @@
             $('body').delay(50).css({'overflow':'visible'});
             })
         </script>
+        <div id="toast">
+            <i class="bi bi-check"></i>
+            <div id="desc">{{toast_mssg}}</div>
+        </div>
+        {% if toast %}
+            {% if simpleMssg %}
+                <script>
+                    $(document).ready(()=>{
+                        launch_toast(true);
+                    });
+                </script>
+            {% else %}
+                <script>
+                    $(document).ready(()=>{
+                        launch_toast(false);
+                    });
+                </script>
+            {% endif %}
+        {% endif %}
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
         {% cache 400 StaticFileJs %}
             <script src="{% static 'IndexHome/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>

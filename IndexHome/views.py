@@ -228,8 +228,7 @@ def newsletter(request):
         else:
             query = Newsletter.objects.create(subscribe_mail=mail_to_add)
             query.save()
-            dict = {"success":True}
-            return render(request,'IndexHome/index.html',{"toast":True,"toast_mssg":"Newsletter Subscribed!!"})
+            return render(request,'IndexHome/index.html',{"toast":True,"toast_mssg":"Newsletter Subscribed!!","simpleMssg":False})
     else:
         mail = request.GET.get('newsletter', None)
         query = Newsletter.objects.filter(subscribe_mail__exact=mail).exists()

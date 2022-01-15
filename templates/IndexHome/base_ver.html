@@ -11,11 +11,7 @@
         <title>{% block title %}{% endblock title %}</title>
         {% load static %}
         <script src="{% static 'IndexHome/assets/js/core/jquery.min.js' %}"></script>
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="{% static 'IndexHome/assets/css/verify_css.css' %}"
-            />
+        <link rel="stylesheet" type="text/css" href="{% static 'IndexHome/assets/css/verify_css.css' %}"/>
         <style>
             @media (max-width: 420px) {
             .formbg {
@@ -94,5 +90,25 @@
                 </div>
             </div>
         </div>
+        <div id="toast">
+            <i class="bi bi-check"></i>
+            <div id="desc">{{toast_mssg}}</div>
+        </div>
+        {% if toast %}
+            {% if simpleMssg %}
+                <script>
+                    $(document).ready(()=>{
+                        launch_toast(true);
+                    });
+                </script>
+            {% else %}
+                <script>
+                    $(document).ready(()=>{
+                        launch_toast(false);
+                    });
+                </script>
+            {% endif %}
+        {% endif %}
+        <script src="{% static 'IndexHome/assets/js/utils.js' %}"></script>
     </body>
 </html>

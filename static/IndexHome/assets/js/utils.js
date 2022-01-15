@@ -34,10 +34,19 @@ window.onscroll = function(ev) {
     }
 };
 
-function launch_toast() {
+function launch_toast(simpleMssg) {
     var x = document.getElementById("toast")
     x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+    if (simpleMssg) {
+        setTimeout(function(){ 
+            x.className = x.className.replace("show", "");
+    }, 5000);
+    }else{
+        setTimeout(function(){ 
+            x.className = x.className.replace("show", "");
+            window.top.location.replace("/");
+        }, 5000);
+    }
 }
 
 function delay(callback, ms) {
