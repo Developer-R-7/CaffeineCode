@@ -81,16 +81,33 @@
 </article>
 
 <div class="blog-author d-flex align-items-center">
-    <img src="{% static 'IndexHome/assets/img/blog/blog-author.jpg' %}" class="rounded-circle float-left" alt="blog_author"/>
-    <div>
-        <h4>{{post.author}}</h4>
-        <div class="social-links">
-            <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
-            <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
-            <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+    <div class="row">
+        <div class="col">
+            <div class="sidebar" style="box-shadow: none;padding:10px;margin:0px;">
+                <div class="sidebar-item recent-posts">
+                    <h3 class="sidebar-title mb-4">Previous Blog</h3>
+                    <div class="post-item clearfix mb-4 mt-4">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt="entry_img">
+                        <h4><a href="/blog/article/1">Build a Blog Using Django, Vue, and GraphQL</a></h4>
+                        <time>January 09 • 5 min</time>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p>{{post.author_conculsion}}</p>
+        <div class="col">
+            <div class="sidebar" style="box-shadow: none;padding:10px;margin:0px;">
+                <h3 class="sidebar-title mb-4">Next Blog</h3>
+                <div class="sidebar-item recent-posts">
+                    <div class="post-item clearfix mb-4 mt-4">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt="entry_img">
+                        <h4><a href="/blog/article/1">Build a Blog Using Django, Vue, and GraphQL</a></h4>
+                        <time>January 09 • 5 min</time>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
 </div>
 
 {% endblock article %} 
