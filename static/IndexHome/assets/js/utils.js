@@ -21,14 +21,18 @@ window.onscroll = function(ev) {
     else if (window.pageYOffset != 0){
         if (Math.round((window.innerHeight + window.pageYOffset)) >= document.body.offsetHeight) {
             document.getElementById("header").style.background = "#010E21";
-            document.getElementById("LogoText").style.color = "#fff"
+            document.getElementById("LogoText").style.color = "#fff";
+            document.getElementsByClassName("navbar").navbar.children[0].style.backgroundColor = "#010E21";
+            document.getElementsByClassName("navbar").navbar.children[1].style.color = "#fff"
             document.getElementById("bodyscroll").classList.add('hidden-scrollbar');
             changeTextColor(".navbar a",0);
         }
         else{
             document.getElementById("header").style.background = "#fff";
-            document.getElementById("LogoText").style.color = "#012970"
+            document.getElementById("LogoText").style.color = "#012970";
             document.getElementById("bodyscroll").classList.remove('hidden-scrollbar');
+            document.getElementsByClassName("navbar").navbar.children[1].style.color = "#012970";
+            document.getElementsByClassName("navbar").navbar.children[0].style.backgroundColor = "#fff";
             changeTextColor(".navbar a",1);
         }
     }
