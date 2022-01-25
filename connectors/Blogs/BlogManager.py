@@ -37,8 +37,10 @@ class PostConnector():
             serverLogger("Failed",e)
             raise Exception("Failed (get_most_tags_used)")
     
-    def get_most_liked_post(self):
+    def get_most_liked_post(self,queryToExclude=None):
         try:
+            if queryToExclude != None:
+                return cache_manager('mst_liked_post',self.blog_post.order_by('-likes_count','-hit_count_generic__hits').exclude(pk__in=queryToExclude)[:5],TIME)
             return cache_manager('mst_liked_post',self.blog_post.order_by('-likes_count','-hit_count_generic__hits')[:5],TIME)
         except Exception as e:
             serverLogger("Failed",e)
@@ -52,8 +54,10 @@ class PostConnector():
             serverLogger("Failed",e)
             raise Exception("Failed (get_this_month)")
 
-    def get_most_viewed(self):
+    def get_most_viewed(self,queryToExclude=None):
         try:
+            if queryToExclude != None:
+                return cache_manager('most_viewed',self.blog_post.order_by('-hit_count_generic__hits').exclude(pk__in=queryToExclude)[:5],TIME)
             return cache_manager('most_viewed',self.blog_post.order_by('-hit_count_generic__hits')[:5],TIME)
         except Exception as e:
             serverLogger("Failed",e)
@@ -100,9 +104,11 @@ class PostConnector():
             else:
                 return self.blog_post.filter(Q(title__icontains=query_set['query']) | Q(body__icontains=query_set['query']) | Q(blog_snipet__icontains=query_set['query'])).order_by('-modified')
 
-    def get_recent_post(self):
+    def get_recent_post(self,queryToExclude=None):
         try:
-            return cache_manager('recent_post',self.blog_post.order_by('-likes_count','-date_published')[:3],TIME)
+            if queryToExclude != None:
+                return cache_manager('recent_post',self.blog_post.order_by('-likes_count','-date_published').exclude(pk__in=queryToExclude)[:3],TIME)
+            return cache_manager('recent_post',self.blog_post.order_by('-likes_count','-date_published')[:3].ex,TIME)
         except Exception as e:
             serverLogger("Failed",e)
             raise Exception("Failed (get_recent_post)")

@@ -19,10 +19,10 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['editor'] = self.blog_connector.get_editor_post()
-        context['most_used_tag'] = self.blog_connector.get_most_tags_used()
-        context['trending_post'] = self.blog_connector.get_most_viewed()
-        context['this_month'] = self.blog_connector.get_this_month()
         context['most_like'] = self.blog_connector.get_most_liked_post()
+        context['most_used_tag'] = self.blog_connector.get_most_tags_used()
+        context['trending_post'] = self.blog_connector.get_most_viewed(context['most_like'])
+        context['this_month'] = self.blog_connector.get_this_month()
         context['category'] = self.blog_connector.get_category()
         context['redirect_url'] = self.request.get_full_path()
         return context
@@ -37,12 +37,12 @@ class PostByTags(ListView):
         self.tag_slug = self.kwargs['tag_slug']
         self.paginate_by = 5
         self.ordering = ['-hit_count_generic__hits','-likes_count','-date_published'] 
-        queryset = self.blog_connector.get_PostByTags_model(Tag,tag_slug=self.tag_slug)
-        return queryset
+        self.queryset = self.blog_connector.get_PostByTags_model(Tag,tag_slug=self.tag_slug)
+        return self.queryset
 
     def get_context_data(self,**kwargs):
         context = super(PostByTags, self).get_context_data(**kwargs)
-        context['most_view'] = self.blog_connector.get_most_viewed()
+        context['most_view'] = self.blog_connector.get_most_viewed(self.queryset)
         context['most_tags'] = self.blog_connector.get_most_tags_used()
         context['category'] = self.blog_connector.get_category()
         context['result'] = True
@@ -118,7 +118,7 @@ class SearchView(ListView):
             else:
                 return True
         def category_parser(number):
-            category_list = ["uncategorized","education","creative","data-structures","projects","algorithms"]
+            category_list = ["Coding","photography","Crypto","Front-End Developer","Django"]
             if number != "None":
                 return category_list[int(number)]
             else:
@@ -130,8 +130,8 @@ class SearchView(ListView):
             'search_title':query_none_checker(self.search_title),
             'category_text':category_parser(self.category_search)
         }
-        queryset = self.blog_connector.search(self.search_query_set)
-        return queryset
+        self.queryset = self.blog_connector.search(self.search_query_set)
+        return self.queryset
 
     def get_context_data(self,**kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
@@ -139,7 +139,7 @@ class SearchView(ListView):
         context['most_tags'] = self.blog_connector.get_most_tags_used()
         context['category'] = self.blog_connector.get_category()
         context['query_set'] = self.search_query_set
-        context['post'] = self.blog_connector.get_recent_post()
+        context['post'] = self.blog_connector.get_recent_post(context['most_like'])
         return context
     
 def like_sys(request):
