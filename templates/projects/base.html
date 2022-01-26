@@ -95,7 +95,7 @@
             {% endblock recent %}
         </main>
         <footer id="footer" class="footer" >
-            <section class="hero d-flex flex-column" style="background:none;">
+            <section class="hero d-flex flex-column" style="background:none;padding-bottom:0px;">
                 <div class="footer-newsletter">
                     <div class="container">
                         <div class="row justify-content-center">
@@ -109,7 +109,7 @@
                                 <form action="{% url 'IndexHome:newsletter' %}" method="post">
                                     {% csrf_token %}
                                     <input type="email" id="letter" name="newsletter" required /><input type="submit" class="enableOnInput" value="Subscribe"/>
-                                </form>                 
+                                </form>
                                 <div id="error"></div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                     </center>
                     <div class="container">
                         <div class="row justify-content-between">
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mt-4">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mt-4 mb-4">
                                 <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
                                 <img src="{% static 'IndexHome/assets/img/logo_org.png' %}" style="height:120px;width:120px;">
                                 </a>
