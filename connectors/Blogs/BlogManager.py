@@ -127,3 +127,11 @@ class PostConnector():
             result = post.likes_count
             post.save()
         return result
+    
+    def get_previous_post(self,pk:int):
+        prev_post = self.post_instance.objects.get(id=pk-1)
+        return prev_post
+
+    def get_next_post(self,pk:int):
+        next_post = self.post_instance.objects.get(id=pk+1)
+        return next_post

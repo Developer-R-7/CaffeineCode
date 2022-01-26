@@ -81,30 +81,36 @@
 </article>
 
 <div class="blog-author d-flex align-items-center">
-    <div class="row">
-        <div class="col">
-            <div class="sidebar" style="box-shadow: none;padding:10px;margin:0px;">
-                <div class="sidebar-item recent-posts">
-                    <h3 class="sidebar-title mb-4">Previous Blog</h3>
-                    <div class="post-item clearfix mb-4 mt-4">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt="entry_img">
-                        <h4><a href="/blog/article/1">Build a Blog Using Django, Vue, and GraphQL</a></h4>
-                        <time>January 09 • 5 min</time>
+    <div class="container">
+        <div class="row">
+                {% if previous_post %}
+                    <div class="col">
+                        <div class="sidebar" style="box-shadow: none;padding:10px;margin:0px;">
+                            <h3 class="sidebar-title mb-4">Previous Blog</h3>
+                            <div class="sidebar-item recent-posts">
+                                <div class="post-item clearfix mb-4 mt-4">
+                                    <img src="{{previous_post.entry_img}}" alt="entry_img">
+                                    <h4><a href="{% url 'blog:blog_details' previous_post.pk %}">{{previous_post.title}}</a></h4>
+                                    <time>{{previous_post.date_published|date:"F d"}} &bullet; {{previous_post.readtime_min}} min</time>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="sidebar" style="box-shadow: none;padding:10px;margin:0px;">
-                <h3 class="sidebar-title mb-4">Next Blog</h3>
-                <div class="sidebar-item recent-posts">
-                    <div class="post-item clearfix mb-4 mt-4">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt="entry_img">
-                        <h4><a href="/blog/article/1">Build a Blog Using Django, Vue, and GraphQL</a></h4>
-                        <time>January 09 • 5 min</time>
+                {% endif %}
+                {% if next_post %}
+                    <div class="col">
+                        <div class="sidebar" style="box-shadow: none;padding:10px;margin:0px;">
+                            <h3 class="sidebar-title mb-4">Next Blog</h3>
+                            <div class="sidebar-item recent-posts">
+                                <div class="post-item clearfix mb-4 mt-4">
+                                    <img src="{{ next_post.entry_img}}" alt="entry_img">
+                                    <h4><a href="{% url 'blog:blog_details' next_post.pk %}">{{next_post.title}}</a></h4>
+                                    <time>{{next_post.date_published|date:"F d"}} &bullet; {{next_post.readtime_min}} min</time>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                {% endif %}
         </div>
     </div>
     

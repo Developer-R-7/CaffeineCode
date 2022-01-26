@@ -65,7 +65,8 @@ class ArticleDetailView(HitCountDetailView):
         context['category'] = self.blog_connector.get_category()
         context['category_post'] = self.blog_connector.get_PostByCategory(context['post'].category).exclude(pk=context['post'].pk)[:3]
         context['redirect_url'] = self.request.get_full_path()
-        #context['previous_post']  
+        context['previous_post']  = self.blog_connector.get_previous_post(int(self.kwargs.get('pk')))
+        context['next_post'] = self.blog_connector.get_next_post(int(self.kwargs.get('pk')))
         return context
 
 class PostByCategory(ListView):
