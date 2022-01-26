@@ -129,9 +129,15 @@ class PostConnector():
         return result
     
     def get_previous_post(self,pk:int):
-        prev_post = self.post_instance.objects.get(id=pk-1)
-        return prev_post
+        try:
+            prev_post = self.post_instance.objects.get(id=pk-1)
+            return prev_post
+        except:
+            return None
 
     def get_next_post(self,pk:int):
-        next_post = self.post_instance.objects.get(id=pk+1)
-        return next_post
+        try:
+            next_post = self.post_instance.objects.get(id=pk+1)
+            return next_post
+        except:
+            return None
