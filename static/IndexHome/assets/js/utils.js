@@ -19,7 +19,8 @@ window.onscroll = function(ev) {
         document.getElementById("header").style.background = "none";
     }
     else if (window.pageYOffset != 0){
-        if (Math.round((window.innerHeight + window.pageYOffset)) >= document.body.offsetHeight) {
+        var var_y = $(".footer-newsletter").position().top
+        if (Math.round((window.pageYOffset)) >= var_y || Math.round((window.innerHeight + window.pageYOffset)) >= document.body.offsetHeight) {
             document.getElementById("header").style.background = "#010E21";
             document.getElementById("LogoText").style.color = "#fff";
             if (window.innerWidth < 600){
