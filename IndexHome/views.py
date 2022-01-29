@@ -89,7 +89,7 @@ def signin(request):
                 return render('config/error.html', {"error": error_message[2]})
     
             if user_connector.is_user_has_account(sign_in_email) is False:
-                return render(request, 'IndexHome/login.html', {"error": error_message[3],"create_account":True})
+                return render(request, 'IndexHome/login.html',{"toast":True,"toast_mssg":error_message[3],"simpleMssg":True,"create_account":True})
             else:
                 try:
                     user = auth.authenticate(username=user_connector.get_username(sign_in_email), password=sign_in_password)
@@ -107,7 +107,7 @@ def signin(request):
                             request.session['main_verify'] = True
                             return render(request, 'IndexHome/login.html', {"error": error_message[4], "verify_request": True, "mail_en": ver_req.decode('utf-8'), "id": get_user.account_id})
                     else:
-                        return render(request, 'IndexHome/login.html', {"error": error_message[5]})
+                        return render(request, 'IndexHome/login.html',{"toast":True,"toast_mssg":error_message[5],"simpleMssg":True})
                 except:
                     return render(request, 'config/error.html', {'error': error_message[6]})
         else:
@@ -135,7 +135,7 @@ def signup(request):
                 return render(request, "config/error.html", {"error": error_message[2]})
             try:
                 if user_connector.is_user_has_account(data_email):
-                    return render(request, 'IndexHome/signup.html', {"error": error_message[7]})
+                    return render(request, 'IndexHome/signup.html', {"toast":True,"toast_mssg":error_message[7],"simpleMssg":True})
                 else:
                     if user_connector.check_same_username(data_name):
                         return render(request, 'config/error.html', {"error": error_message[0]})

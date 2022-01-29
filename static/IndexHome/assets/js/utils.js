@@ -19,7 +19,11 @@ window.onscroll = function(ev) {
         document.getElementById("header").style.background = "none";
     }
     else if (window.pageYOffset != 0){
-        var var_y = $(".footer-newsletter").position().top
+        try {
+            var var_y = $(".footer-newsletter").position().top
+        }catch{
+            console.log("")
+        }
         if (Math.round((window.pageYOffset)) >= var_y || Math.round((window.innerHeight + window.pageYOffset)) >= document.body.offsetHeight) {
             document.getElementById("header").style.background = "#010E21";
             document.getElementById("LogoText").style.color = "#fff";
@@ -45,7 +49,7 @@ window.onscroll = function(ev) {
 
 function launch_toast(simpleMssg) {
     var x = document.getElementById("toast")
-    x.className = "show";
+    x.classList.add("show")
     if (simpleMssg) {
         setTimeout(function(){ 
             x.className = x.className.replace("show", "");
