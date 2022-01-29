@@ -237,12 +237,11 @@ a.ssolink {
   border-radius: 10px;
   /*margin-left: -125px;*/
   margin: auto;
-  background-color: #5cb85c;
+  background-color:#a94442;
   color: #fff;
   text-align: center;
-
   position: fixed;
-  z-index: 1;
+  z-index: 99;
   left: 0;
   right:0;
   bottom: 30px;
@@ -256,7 +255,7 @@ float: left;
 font-size: 35px;
 border-radius: 10px;
 box-sizing: border-box;
-background-color: #5cb85c;
+background-color: #a94442;
 color: #fff;
 }
 #toast #desc{
