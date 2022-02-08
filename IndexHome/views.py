@@ -32,7 +32,7 @@ def verify(request, mail_hash, id):
             try:
                 profile_connector.update_verify(id)
                 profile_connector.delete_field(id)
-                return redirect("/account/login")
+                return redirect("/account/login?redirect-from-verify=True")
             except:
                 return render(request, "config/error.html", {'error': error_message[15]})
         else:
@@ -113,11 +113,13 @@ def signin(request):
         else:
             try:
                 get_redirect_url = request.GET.get("redirect-url")
+                get_redirect_verify = request.GET.get("redirect-from-verify")
                 request.session['to_redirect_url'] = get_redirect_url
                 request.session['is_redirect'] = True
             except:
                 request.session['is_redirect'] = False
-                pass
+            if get_redirect_verify == "True":
+                return render(request, 'IndexHome/login.html',{"toast":True,"toast_mssg":error_message[18],"simpleMssg":True})
             return render(request, 'IndexHome/login.html')
 
 @never_cache

@@ -17,6 +17,7 @@ error_message = [
     "User already verify!",#14
     "Oops! we encoutered a error in verification , please contact support",#15
     "Oops! we encoutered a error in generating forgot password request, please contact support",#16
-    "Notify Failed!!"#17
+    "Notify Failed!!",#17
+    "Account verify successfully! 🎉"#18
 
 ]
