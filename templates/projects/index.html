@@ -1,62 +1,76 @@
-{% extends 'projects/base.html' %} 
-
-{% block title %}CaffeineCode - Projects{% endblock title %}
-{% block hero %}
-{% load static %}
+{% extends 'projects/base.html' %} {% block title %}CaffeineCode - Projects
+{%endblock title %} {% block hero %} {% load static %}
 <section id="hero" class="hero d-flex align-items-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 d-flex flex-column justify-content-center">
-                <h1 data-aos="fade-up">Projects</h1>
-                <h2 data-aos="fade-up" data-aos-delay="400">Dive in our small crafted projects</h2>
-                <div data-aos="fade-up" data-aos-delay="600">
-                    <div class="text-center text-lg-start">
-                        {% if request.user.is_authenticated %}
-                        <a href="#explore"  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                        <span>Explore!</span>
-                        <i class="bi bi-arrow-right"></i>
-                        </a>
-                        {% else %}
-                        <a href="{% url 'IndexHome:signup' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                        <span>Join our coummunity to upload your projects</span>
-                        <i class="bi bi-arrow-right"></i>
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <img src="{% static 'IndexHome/assets/img/project.svg' %}" class="img-fluid" alt="">
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">Projects</h1>
+        <h2 data-aos="fade-up" data-aos-delay="400">
+          Dive in our small crafted projects
+        </h2>
+        <div data-aos="fade-up" data-aos-delay="600">
+          <div class="text-center text-lg-start">
+            {% if request.user.is_authenticated %}
+            <a
+              href="#explore"
+              class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center"
+            >
+              <span>Explore!</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            {% else %}
+            <a
+              href="{% url 'IndexHome:signup' %}"
+              class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center"
+            >
+              <span>Join our coummunity to upload your projects</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            {% endif %}
+          </div>
         </div>
+      </div>
+      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img
+          src="{% static 'IndexHome/assets/img/project.svg' %}"
+          class="img-fluid"
+          alt=""
+        />
+      </div>
     </div>
+  </div>
 </section>
-{% endblock hero %}
-
-{% block owl %}
+{% endblock hero %} {% block owl %}
 <header class="section-header">
-    <h2>OUR PRODUCT</h2>
-    <p>What are you looking for</p>
+  <h2>OUR PRODUCT</h2>
+  <p>What are you looking for</p>
 </header>
 <div class="row2-container">
-    <div class="box red">
-        <h2><a href="{% url 'projects:githubShowcase' %}">Github Showcase</a></h2>
-        <p>We host your Github profile, it only cost you a free account on this platform</p>
-        <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
-    </div>
-    <div class="box blue">
-        <h2>Blogs writer</h2>
-        <p>we provide you the power to follow your passion to write blog by just having a account</p>
-        <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
-    </div>
-    <div class="box orange">
-        <h2>Team Builder</h2>
-        <p>Scans our talent network to create the optimal team for your project, this product inlclude pricing</p>
-        <img src="https://assets.codepen.io/2301174/icon-calculator.svg" alt="">
-    </div>
+  <div class="box red">
+    <h2><a href="">Github Showcase</a></h2>
+    <p>
+      We host your Github profile, it only cost you a free account on this
+      platform
+    </p>
+    <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="" />
+  </div>
+  <div class="box blue">
+    <h2>Blogs writer</h2>
+    <p>
+      we provide you the power to follow your passion to write blog by just
+      having a account
+    </p>
+    <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="" />
+  </div>
+  <div class="box orange">
+    <h2>Team Builder</h2>
+    <p>
+      Scans our talent network to create the optimal team for your project, this
+      product inlclude pricing
+    </p>
+    <img src="https://assets.codepen.io/2301174/icon-calculator.svg" alt="" />
+  </div>
 </div>
-{% endblock owl %}
-
-{% block styling %}
-<link href="{% static 'projects/style.css' %}" rel="stylesheet"/>
+{% endblock owl %} {% block styling %}
+<link href="{% static 'projects/style.css' %}" rel="stylesheet" />
 {% endblock styling %}
