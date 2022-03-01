@@ -81,21 +81,21 @@
       <div class="row">
         <div class="col-lg-4">
           <div class="box" data-aos="fade-up" data-aos-delay="200">
-            <img src="{% static 'IndexHome/assets/img/value-1.png' %}" class="img-fluid" alt="value_img" />
+            <img src="{% static 'IndexHome/assets/img/blog.svg' %}" class="img-fluid" alt="value_img" />
             <h3><a href="{% url 'blog:index' %}" style="color: orange">Blogs</a></h3>
             <p>All range of blogs from beginner to advanced concept blogs</p>
           </div>
         </div>
         <div class="col-lg-4 mt-4 mt-lg-0">
           <div class="box" data-aos="fade-up" data-aos-delay="400">
-            <img src="{% static 'IndexHome/assets/img/value-2.png' %}" class="img-fluid" alt="value_2_img" />
+            <img src="{% static 'IndexHome/assets/img/projects.svg' %}" class="img-fluid" alt="value_2_img" />
             <h3><a href="{% url 'projects:index' %}" style="color: orange">Projects</a></h3>
             <p>Well documented and optimize codes Which only cost you a free account on this website</p>
           </div>
         </div>
         <div class="col-lg-4 mt-4 mt-lg-0">
           <div class="box" data-aos="fade-up" data-aos-delay="600">
-            <img src="{% static 'IndexHome/assets/img/value-3.png' %}" class="img-fluid" alt="value_3_img" />
+            <img src="{% static 'IndexHome/assets/img/playground.svg' %}" class="img-fluid" alt="value_3_img" />
             <h3><a href="{% url 'IndexHome:playground' %}" style="color: orange">Playground</a></h3>
             <p>Organized Weekly competition and huge database of problems sets with solution</p>
           </div>
@@ -175,7 +175,9 @@
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
           <div class="service-box red">
-            <i class="ri-discuss-line icon"></i>
+            <div class="mb-5">
+              <img src="{% static 'IndexHome/assets/img/Growth.svg' %}" style="height: 100px; width: 100px" />
+            </div>
             <h3>Growth</h3>
             <p>We want you to spread this community to the world 🌏 and be a part of it by contributing to it</p>
           </div>
@@ -183,7 +185,9 @@
 
         <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="600">
           <div class="service-box purple">
-            <i class="ri-discuss-line icon"></i>
+            <div class="mb-5">
+              <img src="{% static 'IndexHome/assets/img/OpenSource.svg' %}" style="height: 100px; width: 100px" />
+            </div>
             <h3>Open Source</h3>
             <p>Our coummunity is open-source for everyone 🧑‍💻 , even the projects are open-source</p>
           </div>
@@ -191,7 +195,9 @@
 
         <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="700">
           <div class="service-box pink">
-            <i class="ri-discuss-line icon"></i>
+            <div class="mb-5">
+              <img src="{% static 'IndexHome/assets/img/Contributor.svg' %}" style="height: 100px; width: 100px" />
+            </div>
             <h3>Contributor</h3>
             <p>Our coummunity focues 💡 on helping people launching open-source project,get help and write blogs 📝</p>
           </div>
@@ -481,7 +487,7 @@
           <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mt-4 mb-4">
             <a href="{% url 'IndexHome:index' %}" class="logo d-flex align-items-center">
               <img
-                src="{% static 'IndexHome/assets/img/logo_org.png' %}"
+                src="{% static 'IndexHome/assets/img/logo.svg' %}"
                 alt="logo_img"
                 style="height: 120px; width: 120px"
               />
