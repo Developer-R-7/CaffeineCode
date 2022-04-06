@@ -359,11 +359,34 @@
             <div class="testimonial-item">
               <a href="{% url 'blog:category' category_slug=cat_name.name %}">
                 <center>
-                  <img src="" style="width: 80%" class="img-fluid" alt="{{cat_name.name}}" />
+                  <img src="{% static 'IndexHome/assets/img/{{cat_name.slug}}' %}" style="width: 80%" class="img-fluid" alt="{{cat_name.name}}" />
                 </center>
               </a>
               <h3 class="cat_explore">{{cat_name.name}}</h3>
             </div>
+            
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <a href="{% url 'blog:category' category_slug=cat_name.name %}">
+                <center>
+                  <img src="{% static 'IndexHome/assets/img/{{cat_name.slug}}' %}" style="width: 80%" class="img-fluid" alt="{{cat_name.name}}" />
+                </center>
+              </a>
+              <h3 class="cat_explore">{{cat_name.name}}</h3>
+            </div>
+            
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <a href="{% url 'blog:category' category_slug=cat_name.name %}">
+                <center>
+                  <img src="{% static 'IndexHome/assets/img/{{cat_name.slug}}' %}" style="width: 80%" class="img-fluid" alt="{{cat_name.name}}" />
+                </center>
+              </a>
+              <h3 class="cat_explore">{{cat_name.name}}</h3>
+            </div>
+            
           </div>
           {% endfor %}
         </div>
