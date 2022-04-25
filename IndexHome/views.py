@@ -1,3 +1,4 @@
+from requests import request
 from . models import Newsletter , Notify,Contact
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
@@ -253,3 +254,6 @@ def contact(request):
 
     else:
         return redirect("/#contact")
+
+def termsofService(request):
+    return render(request,"config/termsofService.html")

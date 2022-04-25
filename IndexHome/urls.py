@@ -18,4 +18,5 @@ urlpatterns = [
     path(r'subscribe-newsletter/',views.newsletter,name="newsletter"),
     path(r'privacy-policy/',views.privacyPolicy,name="privacy"),
     path(r'contact-us/',views.contact,name="contact"),
+    path(r'terms-of-service/',views.termsofService,name="termsofService")
 ]
